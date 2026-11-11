@@ -1,0 +1,16 @@
+{
+  "author": "codex-root",
+  "summary": "支出の集計と再抽選・音符購入をまとめ、研究効果を分離。説明文・ゼロ支出・成功時の保存表示を減らし、目標未設定では差額の位置に状態を表示。狭い3列で回数欄に5桁を確保し、研究条件と価格単位を読みやすくした。",
+  "changed_paths": [
+    "dist/index.html",
+    "dist/styles.css",
+    "dist/app.js",
+    "docs/index.html",
+    "docs/styles.css",
+    "docs/app.js",
+    "development/ui/summary-browser.mjs"
+  ],
+  "limitations": [
+    "Windows版Edgeで検証。スマートフォン実機とソフトキーボードは未検証。"
+  ]
+}

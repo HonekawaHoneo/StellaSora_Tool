@@ -121,17 +121,28 @@ function observe() {
     const tones = [luminance(a), luminance(b)].sort((x, y) => y - x);
     return (tones[0] + 0.05) / (tones[1] + 0.05);
   }
-  const surface = style('.summary').backgroundColor;
+  const surface = style('.spending').backgroundColor;
   const border = style('#target').borderBottomColor;
   const fill = style('#target').backgroundColor;
-  const progressRatio = box('#progress-fill').width / box('#progress').width;
+  const trackWidth = box('#progress').width;
+  const progressRatio = trackWidth ? box('#progress-fill').width / trackWidth : 0;
+  const spending = find('.spending');
+  const spendingBox = box('.spending');
+  const membership = ['.summary', '.reroll-group', '.notes-group'].every(selector => {
+    const area = box(selector);
+    return spending.contains(find(selector)) && area.left >= spendingBox.left && area.right <= spendingBox.right &&
+      area.top >= spendingBox.top && area.bottom <= spendingBox.bottom;
+  }) && spending.nextElementSibling === find('.record-group') && box('.record-group').top >= spendingBox.bottom;
   const indicatorContrast = Math.min(
     contrast(border, surface),
     contrast(style('.edit-icon').stroke, surface),
     contrast(border, fill === 'rgba(0, 0, 0, 0)' ? surface : fill),
   );
   return {
-    texts, labels, indicatorContrast, progressRatio,
+    texts, labels, indicatorContrast, progressRatio, spendingBox, membership,
+    appColor: style('.app-shell').color,
+    storageVisible: find('#storage-status').checkVisibility(),
+    progressVisible: find('#progress').checkVisibility(),
     summaryRows: new Set(rows).size,
     summaryBox: box('.summary'),
     progressConsistent: find('#total').textContent === '170' && find('#remaining').textContent === '330' &&
@@ -143,8 +154,10 @@ function observe() {
     rowHeight: box('.metric-target').height,
     targetWidth: box('#target').width,
     targetHeight: box('#target').height,
-    summaryInset: parseFloat(style('.summary').paddingLeft),
-    noOverflow: document.documentElement.scrollWidth === innerWidth,
+    summaryInset: parseFloat(style('.spending').paddingLeft),
+    noOverflow: document.documentElement.scrollWidth <= document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+    clientWidth: document.documentElement.clientWidth,
     viewport: innerWidth,
     targetLabel: target.labels[0]?.textContent.trim(),
     total: find('#total').textContent,
@@ -213,15 +226,96 @@ async function testTarget(send, snapshot) {
   await evaluateOnPage("document.querySelector('#target').select()");
   await send('Input.insertText', { text: '0' });
   await press('Enter', 'Enter', 13);
-  await waitForProgress(send, 0);
   const unset = await evaluateOnPage('(' + observe.toString() + ')()');
-  const unsetState = unset.remaining === '-170' && unset.percent === '—' && unset.progress === '0' &&
-    unset.progressBar === '0%' && unset.progressRatio === 0 && unset.texts.includes('目標コイン未設定');
+  const unsetState = unset.remaining === '目標未設定' && unset.percent === '' && unset.progress === '0' &&
+    !unset.progressVisible && unset.progressRatio === 0;
   await snapshot('unset');
+  await evaluateOnPage("Storage.prototype.setItem = () => { throw new DOMException('Test storage quota', 'QuotaExceededError'); };");
+  await evaluateOnPage("document.querySelector('#target').focus()");
+  await send('Input.insertText', { text: '100' });
+  await press('Enter', 'Enter', 13);
+  await waitForProgress(send, 1);
+  const blocked = await evaluateOnPage('(' + observe.toString() + ')()');
+  const storageFailure = !unset.storageVisible && blocked.storageVisible && blocked.remaining === '-70' &&
+    blocked.percent === '100%' && blocked.texts.includes('目標超過') && blocked.texts.includes('自動保存できません');
+  await snapshot('storage');
   return {
     keyboard, hitActivates, reached, invalid: invalid && recovered, persisted, longValueFits, unsetState,
-    textsUnset: unset.texts, textsError,
+    textsUnset: unset.texts, textsError, storageFailure, textsStorage: blocked.texts,
   };
+}
+
+async function clickCounter(send, id, direction) {
+  const selector = '[data-id="' + id + '"] .' + direction;
+  const position = await evaluate(send, '(() => { const button = document.querySelector(' + JSON.stringify(selector) + '); ' +
+    'button.scrollIntoView({block:"center"}); const r = button.getBoundingClientRect(); ' +
+    'const x = r.left + r.width / 2, y = r.top + r.height / 2; ' +
+    'return button.contains(document.elementFromPoint(x, y)) ? {x, y} : null; })()');
+  if (!position) throw new Error('Counter is not clickable: ' + selector);
+  for (const type of ['mousePressed', 'mouseReleased']) {
+    await send('Input.dispatchMouseEvent', { type, ...position, button: 'left', clickCount: 1 });
+  }
+}
+
+async function testCounters(send) {
+  const entries = [
+    ['reroll', 40, 2], ['note90', 90, 1], ['note72', 72, 0], ['note45', 45, 0],
+    ['note400', 400, 0], ['note320', 320, 0], ['note200', 200, 0],
+    ['trait3', 0, 0], ['enhancement2', 0, 0],
+  ];
+  for (const [id, price, initial] of entries) {
+    const read = () => evaluate(send, '(() => { const card = document.querySelector(' +
+      JSON.stringify('[data-id="' + id + '"]') + '); return {count: Number(card.querySelector("input").value), ' +
+      'total: document.querySelector("#total").textContent, subtotal: card.querySelector(".card-subtotal").textContent}; })()');
+    await clickCounter(send, id, 'increment');
+    const added = await read();
+    if (added.count !== initial + 1 || added.total !== String(170 + price) ||
+        (price > 0 && added.subtotal !== '支出 ' + (initial + 1) * price + 'コイン')) return false;
+    await clickCounter(send, id, 'decrement');
+    const restored = await read();
+    if (restored.count !== initial || restored.total !== '170' ||
+        (price > 0 && restored.subtotal !== (initial ? '支出 ' + initial * price + 'コイン' : ''))) return false;
+  }
+  return true;
+}
+
+async function fillCounter(send, selector, value) {
+  await evaluate(send, '(() => { const field = document.querySelector(' + JSON.stringify(selector) +
+    '); field.value = ' + JSON.stringify(value) + '; field.dispatchEvent(new Event("input", { bubbles: true })); })()');
+}
+
+async function testResearchLimit(send) {
+  await fillCounter(send, '#count-trait3', '11');
+  const result = await evaluate(send, '(() => { const card = document.querySelector("[data-id=trait3]"); ' +
+    'const state = card.querySelector(".research-remaining"); return card.querySelector("input").value === "11" ' +
+    '&& state.textContent === "残り0回 / 上限10回（1回超過）" && state.scrollWidth <= state.clientWidth ' +
+    '&& document.querySelector("#total").textContent === "170"; })()');
+  await fillCounter(send, '#count-trait3', '0');
+  return result;
+}
+
+function measureFiveDigits() {
+  const field = document.querySelector('#count-note90');
+  const style = getComputedStyle(field);
+  const text = document.createElement('canvas').getContext('2d');
+  text.font = [style.fontWeight, style.fontSize, style.fontFamily].join(' ');
+  const glyphWidth = text.measureText(field.value).width + (parseFloat(style.letterSpacing) || 0) * (field.value.length - 1);
+  const contentWidth = field.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+  return { contentWidth, glyphWidth, fiveDigitsFit: field.value === '12345' && glyphWidth <= contentWidth };
+}
+
+async function testBoundaryWidths(send) {
+  await fillCounter(send, '#count-note90', '12345');
+  const widths = [];
+  for (const width of [479, 480, 599, 600, 959, 960]) {
+    await send('Emulation.setDeviceMetricsOverride', { width, height: 800, deviceScaleFactor: 1, mobile: false });
+    await evaluate(send, 'new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))');
+    const { viewport, scrollWidth, clientWidth, noOverflow, membership } = await evaluate(send, '(' + observe.toString() + ')()');
+    const digits = await evaluate(send, '(' + measureFiveDigits.toString() + ')()');
+    widths.push({ width, viewport, scrollWidth, clientWidth, noOverflow, membership, ...digits });
+  }
+  await fillCounter(send, '#count-note90', '1');
+  return widths;
 }
 
 async function capture(send, scenario, browserVersion, cases) {
@@ -245,17 +339,33 @@ async function capture(send, scenario, browserVersion, cases) {
   const metrics = id + '.json';
   const files = [];
   async function snapshot(state) {
+    if (state && !mobile) return;
     const png = id + (state ? '-' + state : '') + '.png';
-    const { data } = await send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
+    const { cssContentSize } = await send('Page.getLayoutMetrics');
+    const captureHeight = state ? height : Math.max(height, Math.ceil(cssContentSize.height));
+    const { data } = await send('Page.captureScreenshot', {
+      format: 'png',
+      captureBeyondViewport: true,
+      clip: { x: 0, y: 0, width, height: captureHeight, scale: 1 },
+    });
     writeFileSync(join(output, png), Buffer.from(data, 'base64'));
     files.push({ path: png, kind: 'screenshot' });
   }
   await snapshot();
-  if (!baseline) Object.assign(values, await testTarget(send, snapshot));
+  if (!baseline) {
+    Object.assign(values, await testTarget(send, snapshot));
+    values.counterConnections = await testCounters(send);
+    values.researchLimit = await testResearchLimit(send);
+    if (!mobile) {
+      values.boundaryMeasurements = await testBoundaryWidths(send);
+      values.boundaryWidths = values.boundaryMeasurements.every(state =>
+        state.noOverflow && state.membership && state.fiveDigitsFit && state.viewport === state.width);
+    }
+  }
   writeFileSync(join(output, metrics), JSON.stringify(values, null, 2) + '\n');
   files.push({ path: metrics, kind: 'metrics' });
   return {
-    id, status: 'passed', observations: 'Edgeで集計欄の寸法、表示文、目標入力、保存を観測',
+    id, status: 'passed', observations: 'Edgeで支出グループ、表示文、目標と全カウンターの操作、保存を観測',
     environment,
     files,
     case_results: cases.filter(item => item.scenario === id).map(item => ({

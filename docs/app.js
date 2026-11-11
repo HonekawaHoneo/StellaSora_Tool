@@ -5,7 +5,6 @@
   const storageKey = 'stella-sora-star-tower-v1';
   const number = new Intl.NumberFormat('ja-JP');
   let state = model.createState();
-  let storageAvailable = true;
   let toastTimer;
 
   try {
@@ -19,6 +18,7 @@
   const totalOutput = document.getElementById('total');
   const remainingOutput = document.getElementById('remaining');
   const progress = document.getElementById('progress');
+  const progressArea = progress.parentElement;
   const progressFill = document.getElementById('progress-fill');
   const progressLabel = document.getElementById('progress-label');
   const progressPercent = document.getElementById('progress-percent');
@@ -68,7 +68,7 @@
         <input id="count-${id}" class="count-input" type="number" min="0" max="9007199254740991" step="1" inputmode="numeric" autocomplete="off" aria-label="${countLabel}"${record ? ' aria-describedby="research-condition"' : ''} value="0">
         <button class="count-button increment" type="button" aria-label="${countLabel}を1増やす"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12M10 4v12"/></svg></button>
       </div>
-      <p class="card-subtotal${record ? ' research-remaining' : ''}">${record ? '' : '支出 0コイン'}</p>`;
+      <p class="card-subtotal${record ? ' research-remaining' : ''}"></p>`;
     const input = card.querySelector('input');
     const decrease = card.querySelector('.decrement');
     const increase = card.querySelector('.increment');
@@ -132,10 +132,8 @@
   function save() {
     try {
       localStorage.setItem(storageKey, JSON.stringify(state));
-      storageAvailable = true;
-    } catch (_) { storageAvailable = false; }
-    if (storageAvailable) storageStatus.innerHTML = '<span class="status-dot"></span>このブラウザーに自動保存';
-    else storageStatus.textContent = 'この環境では自動保存できません';
+      storageStatus.hidden = true;
+    } catch (_) { storageStatus.hidden = false; }
   }
 
   function commit(next) {
@@ -157,20 +155,24 @@
   function render() {
     const sum = model.total(state);
     const rest = model.remaining(state);
-    const percent = state.target > 0 ? Math.min(100, sum / state.target * 100) : 0;
+    const hasTarget = state.target > 0;
+    const percent = hasTarget ? Math.min(100, sum / state.target * 100) : 0;
+    const difference = hasTarget ? number.format(rest) : '目標未設定';
     totalOutput.textContent = number.format(sum);
-    remainingOutput.textContent = number.format(rest);
+    remainingOutput.textContent = difference;
     if (document.activeElement !== target) target.value = state.target;
     totalOutput.classList.toggle('long', number.format(sum).length > 8);
-    remainingOutput.classList.toggle('long', number.format(rest).length > 8);
+    remainingOutput.classList.toggle('long', hasTarget && difference.length > 8);
+    remainingOutput.classList.toggle('unset', !hasTarget);
     target.classList.toggle('long', String(state.target).length > 7);
-    remainingOutput.parentElement.classList.toggle('over', state.target > 0 && rest <= 0);
+    remainingOutput.parentElement.classList.toggle('over', hasTarget && rest <= 0);
+    progressArea.hidden = !hasTarget;
     progressFill.style.width = percent + '%';
     progress.setAttribute('aria-valuenow', Math.round(percent));
-    progress.setAttribute('aria-valuetext', state.target > 0 ? Math.floor(percent) + '%' : '目標未設定');
-    progressPercent.textContent = state.target > 0 ? Math.floor(percent) + '%' : '—';
-    progressLabel.textContent = state.target === 0 ? '目標コイン未設定' : rest > 0 ? '目標まで あと ' + number.format(rest) + 'コイン' : rest === 0 ? '目標コインに到達しました' : '目標を ' + number.format(-rest) + 'コイン超えています';
-    progress.parentElement.classList.toggle('complete', state.target > 0 && rest <= 0);
+    progress.setAttribute('aria-valuetext', hasTarget ? Math.floor(percent) + '%' : '目標未設定');
+    progressPercent.textContent = hasTarget ? Math.floor(percent) + '%' : '';
+    progressLabel.textContent = !hasTarget || rest > 0 ? '' : rest < 0 ? '目標超過' : '目標達成';
+    progressArea.classList.toggle('complete', hasTarget && rest <= 0);
 
     for (const { id, cost } of model.COUNTERS) {
       const { input, decrease, subtotal } = cards.get(id);
@@ -181,7 +183,7 @@
       fitNumber(input, input.value || '0');
       decrease.disabled = count === 0;
       if (cost > 0) {
-        subtotal.textContent = '支出 ' + number.format(count * cost) + 'コイン';
+        subtotal.textContent = count > 0 ? '支出 ' + number.format(count * cost) + 'コイン' : '';
         subtotal.classList.toggle('has-value', count > 0);
       } else {
         const usage = model.researchUsage(state, id);
