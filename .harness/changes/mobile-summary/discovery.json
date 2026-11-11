@@ -1,0 +1,16 @@
+{
+  "request": "1. [**StellaSora_Tool**](https://github.com/HonekawaHoneo/StellaSora_Tool)\n\nこのリポジトリのアプリのUIを改善して",
+  "goal": "カウンターを使う途中で消費合計、目標、差額を狭い画面でも読み取り、目標を迷わず編集できるようにする。",
+  "current_behavior": "Edgeの320×720 CSS pxで、集計は3列に固定され、目標ラベルは9px、目標入力欄は幅75×高さ30.6px。説明が3列で折り返す。1280×800では3列を一望できる。",
+  "constraints": [
+    "既存の9カウンター・計算式・保存キー・リセットと目標の扱いを維持する",
+    "PCの3列の配置を維持する",
+    "依存追加なし。distが正本で、同じ公開用ファイルをdocsに同期する"
+  ],
+  "evidence": [
+    "README.mdの機能とPagesの説明",
+    "dist/index.htmlのsummaryとdist/styles.cssのmobile media query",
+    "Edgeの変更前画像と実測値（evidence/before）"
+  ],
+  "open_questions": []
+}

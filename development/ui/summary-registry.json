@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "components": [
+    {
+      "id": "coin-summary",
+      "source_ref": {
+        "path": "README.md",
+        "anchor": "目標コインの自由入力"
+      },
+      "implementation_ref": {
+        "path": "dist/index.html",
+        "anchor": "class=\"summary\""
+      },
+      "meaning": "計算済みの支出・目標入力・差額の対比",
+      "use_when": [
+        "カウンターの集計を確認し目標を編集する"
+      ],
+      "relations": [],
+      "token_ids": [
+        "coin-difference-foreground"
+      ],
+      "required_cues": [
+        "目標の編集欄",
+        "金額のラベル"
+      ],
+      "optional_cues": [
+        "達成率バー"
+      ],
+      "avoid": [
+        "色だけでの意味区別"
+      ],
+      "a11y": [
+        "目標ラベルと入力欄を関連付け、キーボード操作順を保つ"
+      ]
+    }
+  ],
+  "tokens": [
+    {
+      "id": "coin-difference-foreground",
+      "source_ref": {
+        "path": "development/ui/summary-tokens.json",
+        "pointer": "/coinDifferenceForeground"
+      },
+      "meaning": "未達の差額表示に使う既存のアクセント色"
+    }
+  ]
+}

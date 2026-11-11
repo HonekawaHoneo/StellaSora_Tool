@@ -1,0 +1,148 @@
+{
+  "schema_version": 1,
+  "registry_path": "development/ui/summary-registry.json",
+  "registry": {
+    "schema_version": 1,
+    "components": [
+      {
+        "id": "coin-summary",
+        "source_ref": {
+          "path": "README.md",
+          "anchor": "目標コインの自由入力"
+        },
+        "implementation_ref": {
+          "path": "dist/index.html",
+          "anchor": "class=\"summary\""
+        },
+        "meaning": "計算済みの支出・目標入力・差額の対比",
+        "use_when": [
+          "カウンターの集計を確認し目標を編集する"
+        ],
+        "relations": [],
+        "token_ids": [
+          "coin-difference-foreground"
+        ],
+        "required_cues": [
+          "目標の編集欄",
+          "金額のラベル"
+        ],
+        "optional_cues": [
+          "達成率バー"
+        ],
+        "avoid": [
+          "色だけでの意味区別"
+        ],
+        "a11y": [
+          "目標ラベルと入力欄を関連付け、キーボード操作順を保つ"
+        ]
+      }
+    ],
+    "tokens": [
+      {
+        "id": "coin-difference-foreground",
+        "source_ref": {
+          "path": "development/ui/summary-tokens.json",
+          "pointer": "/coinDifferenceForeground"
+        },
+        "meaning": "未達の差額表示に使う既存のアクセント色"
+      }
+    ]
+  },
+  "baseline_registry": {
+    "schema_version": 1,
+    "components": [
+      {
+        "id": "coin-summary",
+        "source_ref": {
+          "path": "README.md",
+          "anchor": "目標コインの自由入力"
+        },
+        "implementation_ref": {
+          "path": "dist/index.html",
+          "anchor": "class=\"summary\""
+        },
+        "meaning": "計算済みの支出・目標入力・差額の対比",
+        "use_when": [
+          "カウンターの集計を確認し目標を編集する"
+        ],
+        "relations": [],
+        "token_ids": [
+          "coin-difference-foreground"
+        ],
+        "required_cues": [
+          "目標の編集欄",
+          "金額のラベル"
+        ],
+        "optional_cues": [
+          "達成率バー"
+        ],
+        "avoid": [
+          "色だけでの意味区別"
+        ],
+        "a11y": [
+          "目標ラベルと入力欄を関連付け、キーボード操作順を保つ"
+        ]
+      }
+    ],
+    "tokens": [
+      {
+        "id": "coin-difference-foreground",
+        "source_ref": {
+          "path": "development/ui/summary-tokens.json",
+          "pointer": "/coinDifferenceForeground"
+        },
+        "meaning": "未達の差額表示に使う既存のアクセント色"
+      }
+    ]
+  },
+  "source_digests": {
+    "README.md": "da9e2aa7d253c27e8246f72f0b7c0b46057f7f7358b527a7b5f710dc61cb6e43",
+    "development/ui/summary-registry.json": "cd5262031c6c8c6bd5ff146a420b2bb0cbd918b6448fe2bd75dea2ce2fbda1e1",
+    "development/ui/summary-tokens.json": "23ea5428aca46d4350888b5a2e5b3c5d3ee08cb85fd55accfacda91a57a14328"
+  },
+  "approved_sources": [],
+  "approval_ref": null,
+  "before": [
+    {
+      "scenario": "mobile-320",
+      "path": ".harness/changes/mobile-summary/evidence/before/mobile-320.png",
+      "sha256": "d7c28317ee3c8ff897292ba0e9039dac0669cb598ee5f85055fdc64855cf7b8b",
+      "environment": {
+        "viewport": {
+          "width": 320,
+          "height": 720
+        },
+        "browser": "Edg/157.0.4341.42 / Edg/157.0.0.0",
+        "theme": "light",
+        "fixture": "目標500・素質の再抽選2回・音符5個の通常購入1回"
+      }
+    },
+    {
+      "scenario": "desktop-1280",
+      "path": ".harness/changes/mobile-summary/evidence/before/desktop-1280.png",
+      "sha256": "82295a0f8b1afc2ec1314ca91eac4b25490e8e0a8ac4fa7de75397e253907840",
+      "environment": {
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "browser": "Edg/157.0.4341.42 / Edg/157.0.0.0",
+        "theme": "light",
+        "fixture": "目標500・素質の再抽選2回・音符5個の通常購入1回"
+      }
+    }
+  ],
+  "bootstrap": false,
+  "input_digests": {
+    ".harness/changes/mobile-summary/inputs/wireframe.md": "243ae4bca4926078471d17140547dbf84b7d5b948373302a1ee2d09442deef09"
+  },
+  "implementation_paths": [
+    "dist/app.js",
+    "dist/counter.js",
+    "dist/index.html",
+    "dist/styles.css"
+  ],
+  "requirements_digests": {
+    ".harness/changes/mobile-summary/requirements.json": "184d43a8ebdef768b427ceff6d38896eeed0a11605bef3340769e7e694a2fffe"
+  }
+}

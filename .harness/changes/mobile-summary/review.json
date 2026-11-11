@@ -1,0 +1,2325 @@
+{
+  "reviewer": "codex-ui-review",
+  "context": "01a1cb29-a5a5-7151-a4ee-bcdb4c7995f9/root/ui_review",
+  "decision": "passed",
+  "summary": "320pxで支出・目標・差額を読み分けられ、目標だけを編集できる。1280pxの3列と既存の計算・保存を維持する。通常、未設定、負値エラーの両幅6画像と実操作の結果を照合した。",
+  "checked_requirements": [
+    "summary-read",
+    "summary-edit"
+  ],
+  "findings": [
+    {
+      "severity": "major",
+      "status": "resolved",
+      "description": "目標未設定の静的文と実行時の文が一致せず、入力値・未設定・エラーが表示文証跡から漏れていた。",
+      "resolution": "初期HTMLを実行時と同じ状態名にし、両幅で入力値を含む全表示文と3状態を記録した。"
+    },
+    {
+      "severity": "major",
+      "status": "resolved",
+      "description": "新しい目標欄の枠のコントラストが3:1を下回り、PCでも説明を除いた後の鉛筆が薄かった。",
+      "resolution": "枠と鉛筆に既存の --muted を使用し、最小コントラストを320pxで3.74:1、1280pxで3.92:1と実測した。"
+    },
+    {
+      "severity": "major",
+      "status": "resolved",
+      "description": "進捗の遷移中に撮影し、割合の文字とバーが一致しない未設定画像を保存していた。",
+      "resolution": "実幅が目標割合に達するのを待ち、34%・100%・未設定0幅の最終画像を確認した。"
+    },
+    {
+      "severity": "minor",
+      "status": "resolved",
+      "description": "入力値をlocalStorageで確認した段階では、再読込後の表示復元まで検証できていなかった。",
+      "resolution": "初期fixtureの再注入を外した後の実再読込で、170・差額0・100%の復元を確認した。"
+    }
+  ],
+  "limitations": [
+    "Windows版Edgeの320×720と1280×800、ライトテーマで検証した。320 CSS pxは1280pxの400%拡大時に相当する表示幅。実機タップ、モバイルのソフトキーボード、ブラウザーのズーム操作、他ブラウザーは未検証。",
+    "320×720では集計欄の高さが約100px増え、音符セットの最初の増減ボタンへ縦スクロールが必要になった。"
+  ],
+  "project_digest": "6868033377877008cc4bf052d4871d1fcbd4ccabd75421690a95d6a487f14465",
+  "artifacts_digest": "af6fa0742a18d27001177f3da6d51c7eebd179538afc2403c187d8c5cea76cb6",
+  "intent_review": {
+    "purpose": {
+      "status": "passed",
+      "evidence": "320pxで9pxだった目標ラベルを12px、約75×31pxだった入力を134×44pxとした。3行でラベルと金額が対になり、長い差額が収まる。実クリック・Tab・入力・エラー復元をEdgeで確認した。"
+    },
+    "sources": [
+      {
+        "source": "improve-ui",
+        "status": "passed",
+        "evidence": "依頼文の「このリポジトリのアプリのUIを改善して」を、実測で読みづらさを確認した星ノ塔の集計欄へ具体化した。既存の1280px三列・カウンター・目標入力を保持し、正本と公開コピーを同期した。"
+      }
+    ],
+    "minimality": {
+      "status": "passed",
+      "evidence": "既存のDOM、入力イベント、数値の調整、保存形式を再利用し、集計のレスポンシブCSSと短い未設定文で改善した。固定バーや新規アプリ依存を加えていない。追加のGit属性と開発用プロバイダーはハーネスと検証証跡の保存に限定する。"
+    }
+  },
+  "ui": {
+    "receipt_ref": {
+      "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba.json",
+      "sha256": "11921b042154b01a742ff5dbfc66a6a023d2626b59c4689cf2cb3000b79ef9b2"
+    },
+    "checked_scenarios": [
+      "mobile-320",
+      "desktop-1280"
+    ],
+    "observations": [
+      {
+        "scenario": "mobile-320",
+        "understood": [
+          "coin-amounts",
+          "coin-edit"
+        ],
+        "excess": [],
+        "missing": [],
+        "assessment": "支出170・目標500・差額330を3行で読み、鉛筆と入力枠が第二行だけにあることから操作対象を把握できた。左のラベルと右の値の間隔は狭すぎず、下の進捗と区別できる。行配置に伴う高さ増はスクロール可能で、主要な金額と目標入力の可読性を優先した。"
+      },
+      {
+        "scenario": "desktop-1280",
+        "understood": [
+          "coin-amounts",
+          "coin-edit"
+        ],
+        "excess": [],
+        "missing": [],
+        "assessment": "支出170・目標500・差額330を既存の横3列で読み、目標だけにある鉛筆と濃い下線を操作の手掛かりとした。入力説明を省いた後も列の所属と順序は維持され、未設定・負値エラーの文と進捗バーが一致する。"
+      }
+    ],
+    "status": "passed",
+    "principles": [
+      {
+        "id": "meaning",
+        "case_ids": [
+          "mobile-320-summaryBox",
+          "mobile-320-progressConsistent",
+          "desktop-1280-summaryBox",
+          "desktop-1280-progressConsistent",
+          "mobile-320-unsetState",
+          "desktop-1280-unsetState"
+        ],
+        "observations": [
+          "320pxと1280pxの通常画像で支出170、入力500、差額330を識別した。入力枠または下線と鉛筆は目標だけに付くため、支出と差額を入力と取り違えにくい。",
+          "未設定画像は目標0、文言「目標コイン未設定」、割合のダッシュで、設定済みの34%と区別できる。エラー後は目標170、差額0、到達文と100%が同時に見える。"
+        ],
+        "status": "passed",
+        "excess": [],
+        "missing": []
+      },
+      {
+        "id": "structure",
+        "case_ids": [
+          "mobile-320-summaryBox",
+          "mobile-320-summaryRows",
+          "desktop-1280-summaryBox",
+          "desktop-1280-summaryRows"
+        ],
+        "observations": [
+          "320pxは合計・目標・差額の順に独立した3行で、各行の金額が右に揃う。1280pxは同じ順の横3列で、三項目を一望できる。",
+          "いずれも進捗は3項目の下に置き、対象全体の状態として読む。DOMのラベル順とワイヤーフレームの順を突き合わせた。"
+        ],
+        "status": "passed",
+        "excess": [],
+        "missing": []
+      },
+      {
+        "id": "reuse",
+        "case_ids": [
+          "mobile-320-summaryBox",
+          "desktop-1280-summaryBox"
+        ],
+        "observations": [
+          "変更前画像と同じ集計パネル、数字、ネイティブ目標入力、進捗バーを両幅で使用する。新しい操作パネルや重複する編集入口を追加していない。",
+          "CSSのグリッドと入力枠を変更し、入力処理とカウンターの構造を既存のまま使っている。"
+        ],
+        "status": "passed",
+        "excess": [],
+        "missing": []
+      },
+      {
+        "id": "visual_hierarchy",
+        "case_ids": [
+          "mobile-320-summaryBox",
+          "mobile-320-summaryRows",
+          "desktop-1280-summaryBox",
+          "desktop-1280-summaryRows"
+        ],
+        "observations": [
+          "数字のサイズと右揃えで金額を拾いやすくし、12pxの項目名と短い補足が数値の意味を示す。鉛筆11pxを拡大せず、目標の枠で編集面を示す。",
+          "320pxの集計が約100px縦に伸び、最初の音符操作までスクロールが要る。320pxの数値・入力を優先して行を分ける費用であり、枠と補足を見ても他の用途と競合する大見出しや固定領域はない。"
+        ],
+        "status": "passed",
+        "excess": [],
+        "missing": []
+      },
+      {
+        "id": "tokens",
+        "case_ids": [
+          "mobile-320-valueColor",
+          "desktop-1280-valueColor"
+        ],
+        "observations": [
+          "未達の差額は両幅で rgb(113, 97, 201)。既存CSSの --accent と検証用JSONの参照値に一致し、到達画像では既存の緑へ変化する。",
+          "目標欄の枠・鉛筆は既存 --muted、キーボードフォーカスは --accent を使用する。色に加えて項目名と枠・進捗文で意味を読み取れる。"
+        ],
+        "status": "passed",
+        "excess": [],
+        "missing": []
+      },
+      {
+        "id": "density_typography",
+        "case_ids": [
+          "mobile-320-labelSize",
+          "mobile-320-labelLine",
+          "mobile-320-rowHeight",
+          "mobile-320-summaryInset",
+          "mobile-320-targetWidth",
+          "mobile-320-targetHeight",
+          "desktop-1280-labelSize",
+          "desktop-1280-labelLine",
+          "desktop-1280-rowHeight",
+          "desktop-1280-summaryInset",
+          "desktop-1280-targetWidth",
+          "desktop-1280-targetHeight"
+        ],
+        "observations": [
+          "320pxの項目ラベル12px／行高18px、目標行61px、入力面134.11×44px、パネル左右12px。1280pxの対応値は11px／18px、77.8px、309×41.39px、20px。",
+          "鉛筆は従来の11px、見える枠は数値入力の実操作面に限る。控えめな鉛筆だけでは入力範囲が判別しづらいため、枠は44pxの入口をそのまま表す。"
+        ],
+        "status": "passed",
+        "excess": [],
+        "missing": []
+      },
+      {
+        "id": "copy",
+        "case_ids": [
+          "mobile-320-texts",
+          "desktop-1280-texts",
+          "mobile-320-textsUnset",
+          "mobile-320-textsError",
+          "desktop-1280-textsUnset",
+          "desktop-1280-textsError"
+        ],
+        "observations": [
+          "通常・未設定・負値エラー時の表示文と表示中の入力値をそれぞれDOM順に照合した。通常75件、未設定75件、負値エラー76件の各幅で一致する。",
+          "「コイン単位・クリックして変更」は目標ラベルと入力面へ役割を移した。設定がないときは「目標コイン未設定」とし、操作の条件が必要な負値エラーでは0以上の整数と明示する。"
+        ],
+        "status": "passed",
+        "excess": [],
+        "missing": []
+      },
+      {
+        "id": "states_actions",
+        "case_ids": [
+          "mobile-320-progressConsistent",
+          "mobile-320-keyboard",
+          "mobile-320-hitActivates",
+          "mobile-320-reached",
+          "mobile-320-invalid",
+          "desktop-1280-progressConsistent",
+          "desktop-1280-keyboard",
+          "desktop-1280-hitActivates",
+          "desktop-1280-reached",
+          "desktop-1280-invalid",
+          "mobile-320-unsetState",
+          "desktop-1280-unsetState"
+        ],
+        "observations": [
+          "通常の170/500で34%、170へ変更して差額0・到達100%、0へ変更して未設定・割合ダッシュを観測。負値はaria-invalidになり、Enterで170に戻して入力条件のトーストを表示した。",
+          "Tabで目標に到達し、入力面左端から5px内側のクリックでフォーカスする。同期入力には送信の取消・二重送信・遅延応答がないため、それらの結果は適用外。",
+          "初期の実測バーは320pxで33.999%、1280pxで34.000%。到達時は全幅になるまで待ち、未設定時は実幅が0であることを確認して画像を取得した。"
+        ],
+        "status": "passed",
+        "excess": [],
+        "missing": []
+      },
+      {
+        "id": "accessibility",
+        "case_ids": [
+          "mobile-320-labels",
+          "mobile-320-targetHeight",
+          "mobile-320-targetLabel",
+          "mobile-320-viewport",
+          "mobile-320-noOverflow",
+          "mobile-320-longValueFits",
+          "mobile-320-keyboard",
+          "desktop-1280-labels",
+          "desktop-1280-targetHeight",
+          "desktop-1280-targetLabel",
+          "desktop-1280-viewport",
+          "desktop-1280-noOverflow",
+          "desktop-1280-longValueFits",
+          "desktop-1280-keyboard",
+          "mobile-320-indicatorContrast",
+          "desktop-1280-indicatorContrast"
+        ],
+        "observations": [
+          "目標入力は for と id で日本語ラベルに結び付き、DOMの順序は合計・目標・差額。両幅でTabフォーカスと入力面のヒットを観測した。",
+          "320 CSS px（1280pxの400%拡大相当の幅）で横スクロールはなく、最大安全整数に対応する差額の文字範囲が表示欄内。入力を識別する最低コントラストは320pxで3.74:1、1280pxで3.92:1。"
+        ],
+        "status": "passed",
+        "excess": [],
+        "missing": []
+      },
+      {
+        "id": "scope_connections",
+        "case_ids": [
+          "mobile-320-persisted",
+          "desktop-1280-persisted"
+        ],
+        "observations": [
+          "`#target`の既存input/blurイベントからモデル・localStorageを通り、fixtureの再注入を外したブラウザー再読込で目標170・差額0・100%が復元された。",
+          "既存カウンターのモデル・保存キーは差分なし。正本distと公開用docsの一致をpages-syncが確認した。Windowsで固定ハーネスとレビュー証跡の生バイトを保つ設定を追加した。"
+        ],
+        "status": "passed",
+        "excess": [],
+        "missing": []
+      }
+    ],
+    "expectation_assessments": {
+      "measurements": [
+        {
+          "id": "labelSize",
+          "case_ids": [
+            "mobile-320-labelSize",
+            "desktop-1280-labelSize"
+          ],
+          "expectations": {
+            "mobile-320-labelSize": {
+              "operator": "range",
+              "min": 12,
+              "max": 13
+            },
+            "desktop-1280-labelSize": {
+              "operator": "range",
+              "min": 11,
+              "max": 12
+            }
+          },
+          "bounds_appropriate": true,
+          "evidence": "mobile-320-labelSize = 12、desktop-1280-labelSize = 11 CSS px。",
+          "rationale": "12〜13pxは320pxの9pxから読みやすさを上げながら一行の項目名に収まる範囲。11〜12pxのPC側は既存の表示密度を保ち、金額の視覚優先を保つ。"
+        },
+        {
+          "id": "labelLine",
+          "case_ids": [
+            "mobile-320-labelLine",
+            "desktop-1280-labelLine"
+          ],
+          "expectations": {
+            "mobile-320-labelLine": {
+              "operator": "range",
+              "min": 18,
+              "max": 20
+            },
+            "desktop-1280-labelLine": {
+              "operator": "range",
+              "min": 18,
+              "max": 20
+            }
+          },
+          "bounds_appropriate": true,
+          "evidence": "mobile-320-labelLine = 18、desktop-1280-labelLine = 18 CSS px。",
+          "rationale": "18〜20pxは日本語一行と小さい鉛筆を上下に詰めず置ける。二行分の高さを一律に確保する必要はない。"
+        },
+        {
+          "id": "rowHeight",
+          "case_ids": [
+            "mobile-320-rowHeight",
+            "desktop-1280-rowHeight"
+          ],
+          "expectations": {
+            "mobile-320-rowHeight": {
+              "operator": "range",
+              "min": 60,
+              "max": 68
+            },
+            "desktop-1280-rowHeight": {
+              "operator": "range",
+              "min": 72,
+              "max": 84
+            }
+          },
+          "bounds_appropriate": true,
+          "evidence": "mobile-320-rowHeight = 61、desktop-1280-rowHeight = 77.796875 CSS px。",
+          "rationale": "モバイルで44pxの入力枠に上下8pxと区切り線1pxを加えた61pxが収まる。60〜68pxを一行の余白込みとする上限は大きな空白を防ぐ。PCは既存三列の値と補足の高さに合わせる。"
+        },
+        {
+          "id": "targetWidth",
+          "case_ids": [
+            "mobile-320-targetWidth",
+            "desktop-1280-targetWidth"
+          ],
+          "expectations": {
+            "mobile-320-targetWidth": {
+              "operator": "range",
+              "min": 116,
+              "max": 160
+            },
+            "desktop-1280-targetWidth": {
+              "operator": "range",
+              "min": 285,
+              "max": 330
+            }
+          },
+          "bounds_appropriate": true,
+          "evidence": "mobile-320-targetWidth = 134.109375、desktop-1280-targetWidth = 309 CSS px。",
+          "rationale": "116〜160pxなら320pxで数字を読んで選択でき、隣のラベルも独立する。PCの285〜330pxは既存の中列に収まり、編集のために他列を圧迫しない。"
+        },
+        {
+          "id": "summaryInset",
+          "case_ids": [
+            "mobile-320-summaryInset",
+            "desktop-1280-summaryInset"
+          ],
+          "expectations": {
+            "mobile-320-summaryInset": {
+              "operator": "range",
+              "min": 12,
+              "max": 14
+            },
+            "desktop-1280-summaryInset": {
+              "operator": "range",
+              "min": 19,
+              "max": 21
+            }
+          },
+          "bounds_appropriate": true,
+          "evidence": "mobile-320-summaryInset = 12、desktop-1280-summaryInset = 20 CSS px。",
+          "rationale": "320pxの左右12〜14pxはラベルとパネル端を離しつつ、値に使える横幅を保つ。PCの19〜21pxは既存パネルの内側を揃える。"
+        }
+      ],
+      "controls": [
+        {
+          "id": "edit-target-control",
+          "case_ids": [
+            "mobile-320-targetWidth",
+            "desktop-1280-targetWidth",
+            "mobile-320-targetHeight",
+            "desktop-1280-targetHeight",
+            "mobile-320-hitActivates",
+            "desktop-1280-hitActivates"
+          ],
+          "expectations": {
+            "mobile-320-targetWidth": {
+              "operator": "range",
+              "min": 116,
+              "max": 160
+            },
+            "desktop-1280-targetWidth": {
+              "operator": "range",
+              "min": 285,
+              "max": 330
+            },
+            "mobile-320-targetHeight": {
+              "operator": "range",
+              "min": 44,
+              "max": 48
+            },
+            "desktop-1280-targetHeight": {
+              "operator": "range",
+              "min": 40,
+              "max": 44
+            },
+            "mobile-320-hitActivates": {
+              "operator": "equals",
+              "value": true
+            },
+            "desktop-1280-hitActivates": {
+              "operator": "equals",
+              "value": true
+            }
+          },
+          "visual_appropriate": true,
+          "hit_appropriate": true,
+          "activation_associated": true,
+          "evidence": "320pxで134.11×44px、1280pxで309×41.39px。両幅の実入力テストで、枠の左端から5px内側をクリックしてネイティブ入力がフォーカスした。",
+          "rationale": "数字や11pxの鉛筆をタッチ面と同寸に拡大する必要はない。見える枠を実入力と一致させることで編集面を明示する。320pxでは隣の見出しを残せる幅とタップ用の高さを取り、PCは既存列の幅とマウス用の高さを使う。"
+        }
+      ],
+      "copy": [
+        {
+          "id": "copy-1",
+          "text": "STELLA SORA",
+          "purpose": "identity",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "STELLA SORA"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの1番目、desktop-1280-textsの1番目、mobile-320-textsUnsetの1番目、desktop-1280-textsUnsetの1番目、mobile-320-textsErrorの1番目、desktop-1280-textsErrorの1番目。出典 dist/index.html。",
+          "rationale": "画面冒頭でゲーム名を確定する。下段の同名はスクロール先のフッターでの識別で、同じ場所には並べない。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-2",
+          "text": "星ノ塔",
+          "purpose": "identity",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "星ノ塔"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの2番目、desktop-1280-textsの2番目、mobile-320-textsUnsetの2番目、desktop-1280-textsUnsetの2番目、mobile-320-textsErrorの2番目、desktop-1280-textsErrorの2番目。出典 dist/index.html。",
+          "rationale": "ゲーム名だけでは特定できない星ノ塔モードを冒頭で特定する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-3",
+          "text": "カウンター",
+          "purpose": "identity",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "カウンター"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの3番目、desktop-1280-textsの3番目、mobile-320-textsUnsetの3番目、desktop-1280-textsUnsetの3番目、mobile-320-textsErrorの3番目、desktop-1280-textsErrorの3番目。出典 dist/index.html。",
+          "rationale": "同じゲームモードの攻略記事と区別し、回数を扱う道具だと伝える。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-4",
+          "text": "すべてリセット",
+          "purpose": "action_label",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "すべてリセット"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの4番目、desktop-1280-textsの4番目、mobile-320-textsUnsetの4番目、desktop-1280-textsUnsetの4番目、mobile-320-textsErrorの4番目、desktop-1280-textsErrorの4番目。出典 dist/index.html。",
+          "rationale": "全カウンターに及ぶ操作であることを文字にする。矢印の形だけでは範囲が分からない。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-5",
+          "text": "消費コイン合計",
+          "purpose": "identity",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "消費コイン合計"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの5番目、desktop-1280-textsの5番目、mobile-320-textsUnsetの5番目、desktop-1280-textsUnsetの5番目、mobile-320-textsErrorの5番目、desktop-1280-textsErrorの5番目。出典 dist/index.html。",
+          "rationale": "結果の数字を支出の合計と識別する。目標・差額から独立する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-6",
+          "text": "170",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "totalOutput.textContent ="
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの6番目、desktop-1280-textsの6番目、mobile-320-textsUnsetの6番目、desktop-1280-textsUnsetの6番目、mobile-320-textsErrorの6番目、desktop-1280-textsErrorの6番目。出典 dist/app.js。",
+          "rationale": "再抽選2回と音符通常1回の合算結果をその場で確かめられる。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-7",
+          "text": "素質再抽選 ＋ 音符セット購入",
+          "purpose": "explanation",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "素質再抽選 ＋ 音符セット購入"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの7番目、desktop-1280-textsの7番目、mobile-320-textsUnsetの7番目、desktop-1280-textsUnsetの7番目、mobile-320-textsErrorの7番目、desktop-1280-textsErrorの7番目。出典 dist/index.html。",
+          "rationale": "全支出や所持残高との混同を防ぐ。末尾の完全な算式へ移動せず対象を読める。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-8",
+          "text": "目標コイン",
+          "purpose": "action_label",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "目標コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの8番目、desktop-1280-textsの8番目、mobile-320-textsUnsetの8番目、desktop-1280-textsUnsetの8番目、mobile-320-textsErrorの8番目、desktop-1280-textsErrorの8番目。出典 dist/index.html。",
+          "rationale": "同じコイン単位の値のうち編集対象を指定し、ネイティブラベルで入力と結ぶ。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-9",
+          "text": "500",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "const target ="
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts"
+          ],
+          "evidence": "mobile-320-textsの9番目、desktop-1280-textsの9番目。出典 dist/app.js。",
+          "rationale": "編集中の目標500は、両出力と異なる状態所有者である入力値を示し、操作する金額を確認させる。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-10",
+          "text": "0",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "const target ="
+          },
+          "case_ids": [
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset"
+          ],
+          "evidence": "mobile-320-textsUnsetの9番目、desktop-1280-textsUnsetの9番目。出典 dist/app.js。",
+          "rationale": "入力値0を表示し、未設定文と合わせて、編集から設定へ戻せる現在値を示す。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-11",
+          "text": "170",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "const target ="
+          },
+          "case_ids": [
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsErrorの9番目、desktop-1280-textsErrorの9番目。出典 dist/app.js。",
+          "rationale": "負値を拒否して到達時の170が復元されたことを、入力値から直接確認できる。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-12",
+          "text": "目標との差額",
+          "purpose": "identity",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "目標との差額"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの10番目、desktop-1280-textsの10番目、mobile-320-textsUnsetの10番目、desktop-1280-textsUnsetの10番目、mobile-320-textsErrorの10番目、desktop-1280-textsErrorの10番目。出典 dist/index.html。",
+          "rationale": "第三の金額が収支ではなく、目標との差であると示す。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-13",
+          "text": "330",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "remainingOutput.textContent ="
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts"
+          ],
+          "evidence": "mobile-320-textsの11番目、desktop-1280-textsの11番目。出典 dist/app.js。",
+          "rationale": "目標と消費を暗算せず、残りコインを確認できる。下段では方向と達成率の文脈で使う。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-14",
+          "text": "-170",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "remainingOutput.textContent ="
+          },
+          "case_ids": [
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset"
+          ],
+          "evidence": "mobile-320-textsUnsetの11番目、desktop-1280-textsUnsetの11番目。出典 dist/app.js。",
+          "rationale": "支出170と目標0の符号付き差額を示す。直下の未設定・割合なしが、目標超過の意味との違いを伝える。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-15",
+          "text": "0",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "remainingOutput.textContent ="
+          },
+          "case_ids": [
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsErrorの11番目、desktop-1280-textsErrorの11番目。出典 dist/app.js。",
+          "rationale": "目標値と支出が同額になった結果。エラー復元後も結果が維持される。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-16",
+          "text": "目標コイン − 消費コイン",
+          "purpose": "explanation",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "目標コイン − 消費コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの12番目、desktop-1280-textsの12番目、mobile-320-textsUnsetの12番目、desktop-1280-textsUnsetの12番目、mobile-320-textsErrorの12番目、desktop-1280-textsErrorの12番目。出典 dist/index.html。",
+          "rationale": "どちらから引くかを明記し、超過時の負符号を解釈できる。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-17",
+          "text": "目標まで あと 330コイン",
+          "purpose": "state_guidance",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "'目標まで あと '"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts"
+          ],
+          "evidence": "mobile-320-textsの13番目、desktop-1280-textsの13番目。出典 dist/app.js。",
+          "rationale": "単独の差額と異なり、まだ未達で必要なコイン量であることを文で伝える。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-18",
+          "text": "目標コイン未設定",
+          "purpose": "state_guidance",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "'目標コイン未設定'"
+          },
+          "case_ids": [
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset"
+          ],
+          "evidence": "mobile-320-textsUnsetの13番目、desktop-1280-textsUnsetの13番目。出典 dist/app.js。",
+          "rationale": "0の入力と割合なしの理由を短い状態名で伝える。次の入口は同じパネルの入力枠にある。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-19",
+          "text": "目標コインに到達しました",
+          "purpose": "state_guidance",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "'目標コインに到達しました'"
+          },
+          "case_ids": [
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsErrorの13番目、desktop-1280-textsErrorの13番目。出典 dist/app.js。",
+          "rationale": "0差額と100%だけから状態を推測する必要がなく、到達と超過の区別に使える既存文。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-20",
+          "text": "34%",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "progressPercent.textContent ="
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts"
+          ],
+          "evidence": "mobile-320-textsの14番目、desktop-1280-textsの14番目。出典 dist/app.js。",
+          "rationale": "差額とは別に達成割合を精密に表し、バーの長さだけを読み取る必要をなくす。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-21",
+          "text": "—",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "progressPercent.textContent ="
+          },
+          "case_ids": [
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset"
+          ],
+          "evidence": "mobile-320-textsUnsetの14番目、desktop-1280-textsUnsetの14番目。出典 dist/app.js。",
+          "rationale": "進捗の割合を計算できないことを、割合欄の位置を変えずに示す。未設定の文と役割を分ける。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-22",
+          "text": "100%",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "progressPercent.textContent ="
+          },
+          "case_ids": [
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsErrorの14番目、desktop-1280-textsErrorの14番目。出典 dist/app.js。",
+          "rationale": "170に到達した数値を視覚バーの終端と照合できる。色覚だけに頼らない。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-23",
+          "text": "研究効果の使用回数",
+          "purpose": "identity",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "研究効果の使用回数"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの15番目、desktop-1280-textsの15番目、mobile-320-textsUnsetの15番目、desktop-1280-textsUnsetの15番目、mobile-320-textsErrorの15番目、desktop-1280-textsErrorの15番目。出典 dist/index.html。",
+          "rationale": "二つの別カウンターが研究の記録に属することを見出しで示す。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-24",
+          "text": "コイン集計対象外",
+          "purpose": "explanation",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "コイン集計対象外"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの16番目、desktop-1280-textsの16番目、mobile-320-textsUnsetの16番目、desktop-1280-textsUnsetの16番目、mobile-320-textsErrorの16番目、desktop-1280-textsErrorの16番目。出典 dist/index.html。",
+          "rationale": "集計欄に加算されないことを操作直前に伝える。配色や0だけでは対象外を示せない。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-25",
+          "text": "Lv3素質",
+          "purpose": "identity",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "Lv3素質の取得回数、＋2強化の使用回数"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの17番目、desktop-1280-textsの17番目、mobile-320-textsUnsetの17番目、desktop-1280-textsUnsetの17番目、mobile-320-textsErrorの17番目、desktop-1280-textsErrorの17番目。出典 README.md。",
+          "rationale": "残り10回の表示と操作がLv3素質に属することを確定する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-26",
+          "text": "0",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "id=\"count-${id}\""
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの18番目、desktop-1280-textsの18番目、mobile-320-textsUnsetの18番目、desktop-1280-textsUnsetの18番目、mobile-320-textsErrorの18番目、desktop-1280-textsErrorの18番目。出典 dist/app.js。",
+          "rationale": "Lv3素質を現在0回記録している。残り回数と役割の異なる、直接変更できる値。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-27",
+          "text": "残り10回 / 上限10回",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "'残り' + number.format(usage.remaining)"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの19番目、desktop-1280-textsの19番目、mobile-320-textsUnsetの19番目、desktop-1280-textsUnsetの19番目、mobile-320-textsErrorの19番目、desktop-1280-textsErrorの19番目。出典 dist/app.js。",
+          "rationale": "現在の残りと前提となる上限の双方を示し、数値0の使用回数と区別する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-28",
+          "text": "＋2強化",
+          "purpose": "identity",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "Lv3素質の取得回数、＋2強化の使用回数"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの20番目、desktop-1280-textsの20番目、mobile-320-textsUnsetの20番目、desktop-1280-textsUnsetの20番目、mobile-320-textsErrorの20番目、desktop-1280-textsErrorの20番目。出典 README.md。",
+          "rationale": "残り5回の表示と操作が＋2強化に属することを確定する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-29",
+          "text": "0",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "id=\"count-${id}\""
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの21番目、desktop-1280-textsの21番目、mobile-320-textsUnsetの21番目、desktop-1280-textsUnsetの21番目、mobile-320-textsErrorの21番目、desktop-1280-textsErrorの21番目。出典 dist/app.js。",
+          "rationale": "＋2強化を現在0回記録している。上段のLv3素質と独立の操作値。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-30",
+          "text": "残り5回 / 上限5回",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "'残り' + number.format(usage.remaining)"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの22番目、desktop-1280-textsの22番目、mobile-320-textsUnsetの22番目、desktop-1280-textsUnsetの22番目、mobile-320-textsErrorの22番目、desktop-1280-textsErrorの22番目。出典 dist/app.js。",
+          "rationale": "＋2強化の余力と上限を並べる。Lv3素質の残り回数で代替できない。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-31",
+          "text": "難易度8以上・対応研究解放時の上限を表示",
+          "purpose": "explanation",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "難易度8以上・対応研究解放時の上限を表示"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの23番目、desktop-1280-textsの23番目、mobile-320-textsUnsetの23番目、desktop-1280-textsUnsetの23番目、mobile-320-textsErrorの23番目、desktop-1280-textsErrorの23番目。出典 dist/index.html。",
+          "rationale": "上限が難易度と研究解放を前提とすることを説明し、普遍的な上限に見せない。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-32",
+          "text": "素質の再抽選",
+          "purpose": "identity",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "素質の再抽選"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの24番目、desktop-1280-textsの24番目、mobile-320-textsUnsetの24番目、desktop-1280-textsUnsetの24番目、mobile-320-textsErrorの24番目、desktop-1280-textsErrorの24番目。出典 dist/index.html。",
+          "rationale": "橙色の操作が素質の再抽選に属することを言葉で確定する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-33",
+          "text": "再抽選回数",
+          "purpose": "explanation",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "再抽選回数"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの25番目、desktop-1280-textsの25番目、mobile-320-textsUnsetの25番目、desktop-1280-textsUnsetの25番目、mobile-320-textsErrorの25番目、desktop-1280-textsErrorの25番目。出典 dist/index.html。",
+          "rationale": "同じ枠の単価40と、増減する回数の役割を区別する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-34",
+          "text": "40",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "1回40コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの26番目、desktop-1280-textsの26番目、mobile-320-textsUnsetの26番目、desktop-1280-textsUnsetの26番目、mobile-320-textsErrorの26番目、desktop-1280-textsErrorの26番目。出典 README.md。",
+          "rationale": "現在の回数や小計と別に、再抽選1回の費用を提示する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-35",
+          "text": "コイン / 回",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "1回40コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの27番目、desktop-1280-textsの27番目、mobile-320-textsUnsetの27番目、desktop-1280-textsUnsetの27番目、mobile-320-textsErrorの27番目、desktop-1280-textsErrorの27番目。出典 README.md。",
+          "rationale": "40が合計でなく1回あたりのコイン費用であることを確定する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-36",
+          "text": "2",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "id=\"count-${id}\""
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの28番目、desktop-1280-textsの28番目、mobile-320-textsUnsetの28番目、desktop-1280-textsUnsetの28番目、mobile-320-textsErrorの28番目、desktop-1280-textsErrorの28番目。出典 dist/app.js。",
+          "rationale": "再抽選した回数を入力の中心に表示する。隣の40は単価、直下の80は支出。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-37",
+          "text": "支出 80コイン",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "subtotal.textContent = '支出 '"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの29番目、desktop-1280-textsの29番目、mobile-320-textsUnsetの29番目、desktop-1280-textsUnsetの29番目、mobile-320-textsErrorの29番目、desktop-1280-textsErrorの29番目。出典 dist/app.js。",
+          "rationale": "単価40と現在回数2の積をその場で確認でき、全支出から再抽選分を区別する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-38",
+          "text": "音符セットの購入回数",
+          "purpose": "identity",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "音符セットの購入回数"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの30番目、desktop-1280-textsの30番目、mobile-320-textsUnsetの30番目、desktop-1280-textsUnsetの30番目、mobile-320-textsErrorの30番目、desktop-1280-textsErrorの30番目。出典 dist/index.html。",
+          "rationale": "六つのカウンターが音符セットの購入に属することを、研究や再抽選の操作と区別する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-39",
+          "text": "通常 → 20%引き → 半額",
+          "purpose": "explanation",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "通常 → 20%引き → 半額"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの31番目、desktop-1280-textsの31番目、mobile-320-textsUnsetの31番目、desktop-1280-textsUnsetの31番目、mobile-320-textsErrorの31番目、desktop-1280-textsErrorの31番目。出典 dist/index.html。",
+          "rationale": "各価格帯の順をグループ入口で予告し、特に縦の狭い画面で次に出る価格カードを予測できる。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-40",
+          "text": "音符",
+          "purpose": "identity",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "音符"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの32番目、desktop-1280-textsの32番目、mobile-320-textsUnsetの32番目、desktop-1280-textsUnsetの32番目、mobile-320-textsErrorの32番目、desktop-1280-textsErrorの32番目。出典 dist/index.html。",
+          "rationale": "5個という数値が音符の数量だと示す。後方の15個ファミリーにも同じ単位が必要。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-41",
+          "text": "5個",
+          "purpose": "identity",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "family-90-heading"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの33番目、desktop-1280-textsの33番目、mobile-320-textsUnsetの33番目、desktop-1280-textsUnsetの33番目、mobile-320-textsErrorの33番目、desktop-1280-textsErrorの33番目。出典 dist/index.html。",
+          "rationale": "先頭グループの1セットあたりの個数を示し、15個との選択を可能にする。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-42",
+          "text": "セット",
+          "purpose": "identity",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "セット"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの34番目、desktop-1280-textsの34番目、mobile-320-textsUnsetの34番目、desktop-1280-textsUnsetの34番目、mobile-320-textsErrorの34番目、desktop-1280-textsErrorの34番目。出典 dist/index.html。",
+          "rationale": "5個の数値は単品購入回数でなく1セットの数量だと示す。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-43",
+          "text": "通常90コイン",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常90／20%引き72／半額45コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの35番目、desktop-1280-textsの35番目、mobile-320-textsUnsetの35番目、desktop-1280-textsUnsetの35番目、mobile-320-textsErrorの35番目、desktop-1280-textsErrorの35番目。出典 README.md。",
+          "rationale": "グループの比較基準となる通常単価。個別カードの90はその操作の価格、見出し側は割引カードにも共通する参照価格。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-44",
+          "text": "90",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常90／20%引き72／半額45コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの36番目、desktop-1280-textsの36番目、mobile-320-textsUnsetの36番目、desktop-1280-textsUnsetの36番目、mobile-320-textsErrorの36番目、desktop-1280-textsErrorの36番目。出典 README.md。",
+          "rationale": "5個セットの通常購入1回の単価を直接操作と結ぶ。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-45",
+          "text": "コイン",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常90／20%引き72／半額45コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの37番目、desktop-1280-textsの37番目、mobile-320-textsUnsetの37番目、desktop-1280-textsUnsetの37番目、mobile-320-textsErrorの37番目、desktop-1280-textsErrorの37番目。出典 README.md。",
+          "rationale": "5個の通常カードの90をコイン単価と明示し、カウンターの値と区別する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-46",
+          "text": "通常",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常90／20%引き72／半額45コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの38番目、desktop-1280-textsの38番目、mobile-320-textsUnsetの38番目、desktop-1280-textsUnsetの38番目、mobile-320-textsErrorの38番目、desktop-1280-textsErrorの38番目。出典 README.md。",
+          "rationale": "90を5個セットの通常価格と区別してラベル付けする。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-47",
+          "text": "1",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "id=\"count-${id}\""
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの39番目、desktop-1280-textsの39番目、mobile-320-textsUnsetの39番目、desktop-1280-textsUnsetの39番目、mobile-320-textsErrorの39番目、desktop-1280-textsErrorの39番目。出典 dist/app.js。",
+          "rationale": "音符5個の通常購入を1回として記録している。価格の90と別の入力値。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-48",
+          "text": "支出 90コイン",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "subtotal.textContent = '支出 '"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの40番目、desktop-1280-textsの40番目、mobile-320-textsUnsetの40番目、desktop-1280-textsUnsetの40番目、mobile-320-textsErrorの40番目、desktop-1280-textsErrorの40番目。出典 dist/app.js。",
+          "rationale": "5個の通常購入1回による支出を表示し、単価と小計の役割を分ける。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-49",
+          "text": "72",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常90／20%引き72／半額45コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの41番目、desktop-1280-textsの41番目、mobile-320-textsUnsetの41番目、desktop-1280-textsUnsetの41番目、mobile-320-textsErrorの41番目、desktop-1280-textsErrorの41番目。出典 README.md。",
+          "rationale": "5個の20%引き操作が1回72コインであることをそのカードで示す。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-50",
+          "text": "コイン",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常90／20%引き72／半額45コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの42番目、desktop-1280-textsの42番目、mobile-320-textsUnsetの42番目、desktop-1280-textsUnsetの42番目、mobile-320-textsErrorの42番目、desktop-1280-textsErrorの42番目。出典 README.md。",
+          "rationale": "5個の20%引きカードで、72と購入回数0の単位を区別する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-51",
+          "text": "20%引き",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常90／20%引き72／半額45コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの43番目、desktop-1280-textsの43番目、mobile-320-textsUnsetの43番目、desktop-1280-textsUnsetの43番目、mobile-320-textsErrorの43番目、desktop-1280-textsErrorの43番目。出典 README.md。",
+          "rationale": "価格72に20%引きの条件を対応させる。色や先頭の順序だけでは条件を読めない。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-52",
+          "text": "0",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "id=\"count-${id}\""
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの44番目、desktop-1280-textsの44番目、mobile-320-textsUnsetの44番目、desktop-1280-textsUnsetの44番目、mobile-320-textsErrorの44番目、desktop-1280-textsErrorの44番目。出典 dist/app.js。",
+          "rationale": "音符5個の20%引きを0回と示す。このカードだけを増減するときの基準値。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-53",
+          "text": "支出 0コイン",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "subtotal.textContent = '支出 '"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの45番目、desktop-1280-textsの45番目、mobile-320-textsUnsetの45番目、desktop-1280-textsUnsetの45番目、mobile-320-textsErrorの45番目、desktop-1280-textsErrorの45番目。出典 dist/app.js。",
+          "rationale": "5個20%引きで支出が無いことを明示し、他の価格帯と独立した集計を示す。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-54",
+          "text": "45",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常90／20%引き72／半額45コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの46番目、desktop-1280-textsの46番目、mobile-320-textsUnsetの46番目、desktop-1280-textsUnsetの46番目、mobile-320-textsErrorの46番目、desktop-1280-textsErrorの46番目。出典 README.md。",
+          "rationale": "5個の半額購入1回の単価を、通常90の参照価格と区別する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-55",
+          "text": "コイン",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常90／20%引き72／半額45コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの47番目、desktop-1280-textsの47番目、mobile-320-textsUnsetの47番目、desktop-1280-textsUnsetの47番目、mobile-320-textsErrorの47番目、desktop-1280-textsErrorの47番目。出典 README.md。",
+          "rationale": "半額カードの45がコイン単価であることを、隣の回数の値と区別する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-56",
+          "text": "半額",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常90／20%引き72／半額45コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの48番目、desktop-1280-textsの48番目、mobile-320-textsUnsetの48番目、desktop-1280-textsUnsetの48番目、mobile-320-textsErrorの48番目、desktop-1280-textsErrorの48番目。出典 README.md。",
+          "rationale": "45を5個セットの半額時の価格と示し、割引の色以外の識別を担う。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-57",
+          "text": "0",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "id=\"count-${id}\""
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの49番目、desktop-1280-textsの49番目、mobile-320-textsUnsetの49番目、desktop-1280-textsUnsetの49番目、mobile-320-textsErrorの49番目、desktop-1280-textsErrorの49番目。出典 dist/app.js。",
+          "rationale": "音符5個の半額購入を0回と示す。通常や20%引きの回数とは別の値。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-58",
+          "text": "支出 0コイン",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "subtotal.textContent = '支出 '"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの50番目、desktop-1280-textsの50番目、mobile-320-textsUnsetの50番目、desktop-1280-textsUnsetの50番目、mobile-320-textsErrorの50番目、desktop-1280-textsErrorの50番目。出典 dist/app.js。",
+          "rationale": "半額での5個セット購入による支出が現時点で無いことを表示する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-59",
+          "text": "音符",
+          "purpose": "identity",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "音符"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの51番目、desktop-1280-textsの51番目、mobile-320-textsUnsetの51番目、desktop-1280-textsUnsetの51番目、mobile-320-textsErrorの51番目、desktop-1280-textsErrorの51番目。出典 dist/index.html。",
+          "rationale": "15個が音符の個数であることを、独立したファミリーの見出しで示す。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-60",
+          "text": "15個",
+          "purpose": "identity",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "family-400-heading"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの52番目、desktop-1280-textsの52番目、mobile-320-textsUnsetの52番目、desktop-1280-textsUnsetの52番目、mobile-320-textsErrorの52番目、desktop-1280-textsErrorの52番目。出典 dist/index.html。",
+          "rationale": "第2ファミリーが15個入りであることを5個入りと区別する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-61",
+          "text": "セット",
+          "purpose": "identity",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "セット"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの53番目、desktop-1280-textsの53番目、mobile-320-textsUnsetの53番目、desktop-1280-textsUnsetの53番目、mobile-320-textsErrorの53番目、desktop-1280-textsErrorの53番目。出典 dist/index.html。",
+          "rationale": "15個が購入回数や価格でなく、セットを構成する個数であることを示す。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-62",
+          "text": "通常400コイン",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常400／20%引き320／半額200コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの54番目、desktop-1280-textsの54番目、mobile-320-textsUnsetの54番目、desktop-1280-textsUnsetの54番目、mobile-320-textsErrorの54番目、desktop-1280-textsErrorの54番目。出典 README.md。",
+          "rationale": "15個ファミリーの割引の比較基準となる通常価格。各価格カードの上に共通の基準を置く。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-63",
+          "text": "400",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常400／20%引き320／半額200コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの55番目、desktop-1280-textsの55番目、mobile-320-textsUnsetの55番目、desktop-1280-textsUnsetの55番目、mobile-320-textsErrorの55番目、desktop-1280-textsErrorの55番目。出典 README.md。",
+          "rationale": "15個通常購入の操作と、1回400コインの価格を同じカードで結ぶ。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-64",
+          "text": "コイン",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常90／20%引き72／半額45コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの56番目、desktop-1280-textsの56番目、mobile-320-textsUnsetの56番目、desktop-1280-textsUnsetの56番目、mobile-320-textsErrorの56番目、desktop-1280-textsErrorの56番目。出典 README.md。",
+          "rationale": "15個通常カードの400と購入回数の値を、単位によって区別する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-65",
+          "text": "通常",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常90／20%引き72／半額45コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの57番目、desktop-1280-textsの57番目、mobile-320-textsUnsetの57番目、desktop-1280-textsUnsetの57番目、mobile-320-textsErrorの57番目、desktop-1280-textsErrorの57番目。出典 README.md。",
+          "rationale": "価格400が15個セットの通常条件であることをその操作位置で示す。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-66",
+          "text": "0",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "id=\"count-${id}\""
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの58番目、desktop-1280-textsの58番目、mobile-320-textsUnsetの58番目、desktop-1280-textsUnsetの58番目、mobile-320-textsErrorの58番目、desktop-1280-textsErrorの58番目。出典 dist/app.js。",
+          "rationale": "音符15個の通常購入を0回と示す。通常価格400と、同じグループの他の回数を区別できる。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-67",
+          "text": "支出 0コイン",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "subtotal.textContent = '支出 '"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの59番目、desktop-1280-textsの59番目、mobile-320-textsUnsetの59番目、desktop-1280-textsUnsetの59番目、mobile-320-textsErrorの59番目、desktop-1280-textsErrorの59番目。出典 dist/app.js。",
+          "rationale": "15個通常価格での購入支出が現時点で無いことを、その操作の直下で示す。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-68",
+          "text": "320",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常400／20%引き320／半額200コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの60番目、desktop-1280-textsの60番目、mobile-320-textsUnsetの60番目、desktop-1280-textsUnsetの60番目、mobile-320-textsErrorの60番目、desktop-1280-textsErrorの60番目。出典 README.md。",
+          "rationale": "15個20%引き購入の価格320を通常400と区別する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-69",
+          "text": "コイン",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常90／20%引き72／半額45コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの61番目、desktop-1280-textsの61番目、mobile-320-textsUnsetの61番目、desktop-1280-textsUnsetの61番目、mobile-320-textsErrorの61番目、desktop-1280-textsErrorの61番目。出典 README.md。",
+          "rationale": "320を価格の単位に結び、購入回数とは異なるデータと示す。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-70",
+          "text": "20%引き",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常90／20%引き72／半額45コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの62番目、desktop-1280-textsの62番目、mobile-320-textsUnsetの62番目、desktop-1280-textsUnsetの62番目、mobile-320-textsErrorの62番目、desktop-1280-textsErrorの62番目。出典 README.md。",
+          "rationale": "320が15個セットの20%引きの価格であると表示し、グループの並びを覚えず操作できる。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-71",
+          "text": "0",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "id=\"count-${id}\""
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの63番目、desktop-1280-textsの63番目、mobile-320-textsUnsetの63番目、desktop-1280-textsUnsetの63番目、mobile-320-textsErrorの63番目、desktop-1280-textsErrorの63番目。出典 dist/app.js。",
+          "rationale": "音符15個の20%引きを0回記録していることを、この価格帯の操作の中で示す。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-72",
+          "text": "支出 0コイン",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "subtotal.textContent = '支出 '"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの64番目、desktop-1280-textsの64番目、mobile-320-textsUnsetの64番目、desktop-1280-textsUnsetの64番目、mobile-320-textsErrorの64番目、desktop-1280-textsErrorの64番目。出典 dist/app.js。",
+          "rationale": "15個20%引きの支出が0であることを、この条件の入力と一緒に表示する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-73",
+          "text": "200",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常400／20%引き320／半額200コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの65番目、desktop-1280-textsの65番目、mobile-320-textsUnsetの65番目、desktop-1280-textsUnsetの65番目、mobile-320-textsErrorの65番目、desktop-1280-textsErrorの65番目。出典 README.md。",
+          "rationale": "15個半額購入の操作に1回200コインの価格を結ぶ。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-74",
+          "text": "コイン",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常90／20%引き72／半額45コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの66番目、desktop-1280-textsの66番目、mobile-320-textsUnsetの66番目、desktop-1280-textsUnsetの66番目、mobile-320-textsErrorの66番目、desktop-1280-textsErrorの66番目。出典 README.md。",
+          "rationale": "200がコイン単価であることを明示する。回数にはこの単位を付けない。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-75",
+          "text": "半額",
+          "purpose": "data",
+          "source_ref": {
+            "path": "README.md",
+            "anchor": "通常90／20%引き72／半額45コイン"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの67番目、desktop-1280-textsの67番目、mobile-320-textsUnsetの67番目、desktop-1280-textsUnsetの67番目、mobile-320-textsErrorの67番目、desktop-1280-textsErrorの67番目。出典 README.md。",
+          "rationale": "200が15個セットの半額条件に属することを文字で表示する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-76",
+          "text": "0",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "id=\"count-${id}\""
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの68番目、desktop-1280-textsの68番目、mobile-320-textsUnsetの68番目、desktop-1280-textsUnsetの68番目、mobile-320-textsErrorの68番目、desktop-1280-textsErrorの68番目。出典 dist/app.js。",
+          "rationale": "音符15個の半額購入を0回として表示する。15個セットの別価格の入力とは独立する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-77",
+          "text": "支出 0コイン",
+          "purpose": "data",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "subtotal.textContent = '支出 '"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの69番目、desktop-1280-textsの69番目、mobile-320-textsUnsetの69番目、desktop-1280-textsUnsetの69番目、mobile-320-textsErrorの69番目、desktop-1280-textsErrorの69番目。出典 dist/app.js。",
+          "rationale": "15個半額で現在計上している支出を示し、他の購入条件から区別する。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-78",
+          "text": "消費コイン ＝ 再抽選回数 × 40 ＋ 各セットの購入回数 × 価格",
+          "purpose": "explanation",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "消費コイン ＝ 再抽選回数 × 40 ＋ 各セットの購入回数 × 価格"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの70番目、desktop-1280-textsの70番目、mobile-320-textsUnsetの70番目、desktop-1280-textsUnsetの70番目、mobile-320-textsErrorの70番目、desktop-1280-textsErrorの70番目。出典 dist/index.html。",
+          "rationale": "合計に含む操作と、再抽選40・各セット単価による計算方法を正確に示す。上部の対象一覧だけでは式を復元できない。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-79",
+          "text": "素質購入・強化マシン・イベントの支出は集計対象外",
+          "purpose": "explanation",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "素質購入・強化マシン・イベントの支出は集計対象外"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの71番目、desktop-1280-textsの71番目、mobile-320-textsUnsetの71番目、desktop-1280-textsUnsetの71番目、mobile-320-textsErrorの71番目、desktop-1280-textsErrorの71番目。出典 dist/index.html。",
+          "rationale": "収支の網羅的な集計と誤認しやすい他の支出を具体的に挙げ、計算式の範囲を補う。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-80",
+          "text": "STELLA SORA",
+          "purpose": "identity",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "STELLA SORA"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの72番目、desktop-1280-textsの72番目、mobile-320-textsUnsetの72番目、desktop-1280-textsUnsetの72番目、mobile-320-textsErrorの72番目、desktop-1280-textsErrorの72番目。出典 dist/index.html。",
+          "rationale": "最下部でも保存表示と同じ行にアプリの対象ゲームを示す既存フッター。冒頭タイトルとは位置が離れている。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-81",
+          "text": "／",
+          "purpose": "identity",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "class=\"page-footer\""
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの73番目、desktop-1280-textsの73番目、mobile-320-textsUnsetの73番目、desktop-1280-textsUnsetの73番目、mobile-320-textsErrorの73番目、desktop-1280-textsErrorの73番目。出典 dist/index.html。",
+          "rationale": "ゲームとモードを一組の識別表示として読むための区切り。新しい装飾文言の追加ではない。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-82",
+          "text": "星ノ塔",
+          "purpose": "identity",
+          "source_ref": {
+            "path": "dist/index.html",
+            "anchor": "星ノ塔"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの74番目、desktop-1280-textsの74番目、mobile-320-textsUnsetの74番目、desktop-1280-textsUnsetの74番目、mobile-320-textsErrorの74番目、desktop-1280-textsErrorの74番目。出典 dist/index.html。",
+          "rationale": "最下部での保存先の表示を星ノ塔モードのカウンターへ結び付ける。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-83",
+          "text": "このブラウザーに自動保存",
+          "purpose": "state_guidance",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "このブラウザーに自動保存"
+          },
+          "case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsの75番目、desktop-1280-textsの75番目、mobile-320-textsUnsetの75番目、desktop-1280-textsUnsetの75番目、mobile-320-textsErrorの75番目、desktop-1280-textsErrorの75番目。出典 dist/app.js。",
+          "rationale": "自動保存とその範囲を伝える。成功・失敗の状態にも使う領域で、ユーザーに余分な保存操作を求めない。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        },
+        {
+          "id": "copy-84",
+          "text": "目標コインは0以上の整数で入力してください",
+          "purpose": "error_guidance",
+          "source_ref": {
+            "path": "dist/app.js",
+            "anchor": "'目標コインは0以上の整数で入力してください'"
+          },
+          "case_ids": [
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ],
+          "evidence": "mobile-320-textsErrorの76番目、desktop-1280-textsErrorの76番目。出典 dist/app.js。",
+          "rationale": "拒否した入力の条件を伝える。復元された値だけでは負値が無効な理由を読み取れない。",
+          "purpose_appropriate": true,
+          "source_supported": true,
+          "necessary": true,
+          "redundancy_justified": true
+        }
+      ]
+    }
+  }
+}

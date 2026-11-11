@@ -169,7 +169,7 @@
     progress.setAttribute('aria-valuenow', Math.round(percent));
     progress.setAttribute('aria-valuetext', state.target > 0 ? Math.floor(percent) + '%' : '目標未設定');
     progressPercent.textContent = state.target > 0 ? Math.floor(percent) + '%' : '—';
-    progressLabel.textContent = state.target === 0 ? '目標コインを設定してはじめましょう' : rest > 0 ? '目標まで あと ' + number.format(rest) + 'コイン' : rest === 0 ? '目標コインに到達しました' : '目標を ' + number.format(-rest) + 'コイン超えています';
+    progressLabel.textContent = state.target === 0 ? '目標コイン未設定' : rest > 0 ? '目標まで あと ' + number.format(rest) + 'コイン' : rest === 0 ? '目標コインに到達しました' : '目標を ' + number.format(-rest) + 'コイン超えています';
     progress.parentElement.classList.toggle('complete', state.target > 0 && rest <= 0);
 
     for (const { id, cost } of model.COUNTERS) {

@@ -1,0 +1,6 @@
+# Keep CodexEnvSet's locked source and recorded evidence byte-for-byte.
+/.agents/** -text
+/.harness/** -text
+/AGENTS.md -text
+/development/ui/** -text
+/.gitattributes text eol=lf
