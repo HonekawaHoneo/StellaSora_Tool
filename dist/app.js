@@ -24,6 +24,11 @@
   const progressPercent = document.getElementById('progress-percent');
   const storageStatus = document.getElementById('storage-status');
   const cards = new Map();
+  const groups = {
+    record: document.getElementById('record-counters'),
+    reroll: document.getElementById('reroll-counters'),
+    note: document.getElementById('note-counters'),
+  };
   const measureContext = document.createElement('canvas').getContext('2d');
 
   const iconFor = id => id === 'trait3' ? 'trait' : id === 'enhancement2' ? 'enhance' : id === 'reroll' ? 'reroll' : 'note';
@@ -73,7 +78,7 @@
     });
     input.addEventListener('focus', () => input.select());
     input.addEventListener('keydown', event => { if (event.key === 'Enter') input.blur(); });
-    document.getElementById('counters').appendChild(card);
+    groups[record ? 'record' : id === 'reroll' ? 'reroll' : 'note'].appendChild(card);
   }
 
   target.addEventListener('input', () => {

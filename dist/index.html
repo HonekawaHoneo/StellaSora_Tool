@@ -56,9 +56,19 @@
         </div>
       </section>
 
-      <section class="counters-section" aria-labelledby="counters-heading">
-        <div class="section-header"><h2 id="counters-heading">カウンター<span class="counter-badge">9</span></h2><span class="section-hint">＋／− で回数を記録</span></div>
-        <div class="counter-grid" id="counters"></div>
+      <div class="utility-groups">
+        <section class="counter-group record-group" aria-labelledby="record-heading">
+          <div class="section-header"><h2 id="record-heading">記録用</h2><span class="section-hint">合計に含めない</span></div>
+          <div class="counter-grid record-grid" id="record-counters"></div>
+        </section>
+        <section class="counter-group reroll-group" aria-labelledby="reroll-heading">
+          <div class="section-header"><h2 id="reroll-heading">リロール</h2><span class="section-hint">合計に含める</span></div>
+          <div class="counter-grid reroll-grid" id="reroll-counters"></div>
+        </section>
+      </div>
+      <section class="counter-group notes-group" aria-labelledby="notes-heading">
+        <div class="section-header"><h2 id="notes-heading">音符</h2><span class="section-hint">＋／− または回数を直接入力</span></div>
+        <div class="counter-grid note-grid" id="note-counters"></div>
       </section>
       <p class="formula">合計 ＝ リロール × 40 ＋ 各音符の回数 × 単価<span>素質3・強化2は合計に含みません</span></p>
       <noscript><p class="noscript">このツールを使用するにはJavaScriptを有効にしてください。</p></noscript>
