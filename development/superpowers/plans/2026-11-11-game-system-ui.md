@@ -8,7 +8,7 @@
 
 **Tech Stack:** HTML、CSS、JavaScript、Node.js標準テスト。依存関係の追加なし。
 
-**Spec:** `docs/superpowers/specs/2026-11-11-star-tower-design.md` と直前の調査・ユーザー指示。
+**Spec:** `development/superpowers/specs/2026-11-11-star-tower-design.md` と直前の調査・ユーザー指示。
 
 ## Global Constraints
 

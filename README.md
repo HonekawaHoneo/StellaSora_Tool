@@ -56,14 +56,18 @@ npm test
 
 ## GitHub Pagesへの公開
 
-管理者設定と検出結果の確認方法は [SECURITY.md](SECURITY.md) を参照してください。まず既定ブランチを `main`、PagesのSourceを **GitHub Actions** に設定します。mainへのpushでテスト・公開物検査・秘密情報検査を実行し、成功した場合に公開します。再実行は **Actions → Validate and publish → Run workflow → main** から行えます。
+管理者設定と検出結果の確認方法は [SECURITY.md](SECURITY.md) を参照してください。**Settings → Pages** でSourceを **Deploy from a branch**、ブランチを **main**、フォルダーを **/docs** に設定して保存します。mainへ変更を反映するとGitHub Pagesが公開します。検査は **Actions → Validate site** と **CodeQL** で確認できます。
 
-公開するのは明示的に検証した `dist` の4ファイルだけです。リポジトリ全体・`.git`・`.openai`・テスト・文書・認証情報はPagesの成果物に含めません。PRからのデプロイは実行しません。
+`dist` をアプリの正本とし、公開用の `docs` には同じ4ファイルと空の `.nojekyll` だけを置きます。開発記録は `development` に保存します。リポジトリ全体・`.git`・`.openai`・テスト・開発記録をPagesの配信対象に含めません。
+
+アプリを変更したら `npm run sync:pages` で公開用コピーを更新します。CIは余分なファイル・リンク・コピーの不一致を検出します。main直接公開はCIの完了を待たないため、公開前の検査を必須にするにはmainの保護で成功チェックとPR経由のマージを必須にしてください。
 
 公開物検査とビルドはPython 3.9以降で実行できます。出力先 `_site` が既にある場合は、安全のためビルドは停止します。中身を確認して削除するか別の出力先を指定してください。
 
 ```sh
 npm run test:site
+npm run sync:pages
+npm run check:pages
 npm run build
 # Linux x86_64での秘密情報検査（公式バイナリーをSHA256確認後に実行）
 bash scripts/scan-secrets.sh

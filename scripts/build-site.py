@@ -83,15 +83,22 @@ class PagePolicy(HTMLParser):
             raise ValueError("Inline scripts are not allowed")
 
 
-def validate_site(source: Path) -> None:
+def validate_files(source: Path, *, pages: bool = False) -> None:
     if source.is_symlink() or not source.is_dir():
         raise ValueError("Site source must be a real directory")
-    if {item.name for item in source.iterdir()} != ASSETS:
-        raise ValueError("dist must contain exactly the four approved public assets")
-    for name in ASSETS:
+    expected = ASSETS | ({".nojekyll"} if pages else set())
+    if {item.name for item in source.iterdir()} != expected:
+        raise ValueError("Site directory contains missing or unapproved files")
+    for name in expected:
         path = source / name
         if path.is_symlink() or not path.is_file():
             raise ValueError(f"Public asset must be a regular file: {name}")
+    if pages and (source / ".nojekyll").read_bytes() != b"":
+        raise ValueError("The .nojekyll marker must be empty")
+
+
+def validate_site(source: Path, *, pages: bool = False) -> None:
+    validate_files(source, pages=pages)
     html = (source / "index.html").read_text(encoding="utf-8")
     # HTMLParser is not an HTML5 parser. Require an exact approved prelude
     # (allowing only whitespace between elements) so inert/invalid placement
@@ -118,10 +125,43 @@ def build_site(source: Path, destination: Path) -> None:
         shutil.copyfile(source / name, destination / name)
 
 
+def check_pages(source: Path, destination: Path) -> None:
+    validate_site(source)
+    validate_site(destination, pages=True)
+    for name in ASSETS:
+        if (source / name).read_bytes() != (destination / name).read_bytes():
+            raise ValueError(f"Pages copy differs from dist: {name}. Run npm run sync:pages")
+
+
+def sync_pages(source: Path, destination: Path) -> None:
+    validate_site(source)
+    if destination.is_symlink() or (destination.exists() and not destination.is_dir()):
+        raise ValueError("Pages destination must be a real directory")
+    if destination.exists() and any(destination.iterdir()):
+        # Refuse to overwrite unexpected data or follow pre-existing symlinks.
+        validate_files(destination, pages=True)
+    destination.mkdir(parents=True, exist_ok=True)
+    for name in sorted(ASSETS):
+        shutil.copyfile(source / name, destination / name)
+    (destination / ".nojekyll").write_bytes(b"")
+    check_pages(source, destination)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, default=Path("dist"))
     parser.add_argument("--output", type=Path, default=Path("_site"))
+    parser.add_argument("--pages-dir", type=Path, default=Path("docs"))
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--check-pages", action="store_true")
+    mode.add_argument("--sync-pages", action="store_true")
     args = parser.parse_args()
-    build_site(args.source, args.output)
-    print("Validated and staged exactly four public assets.")
+    if args.check_pages:
+        check_pages(args.source, args.pages_dir)
+        print("Pages directory matches the four approved public assets and empty marker.")
+    elif args.sync_pages:
+        sync_pages(args.source, args.pages_dir)
+        print("Synced the four approved public assets and empty marker to Pages directory.")
+    else:
+        build_site(args.source, args.output)
+        print("Validated and staged exactly four public assets.")

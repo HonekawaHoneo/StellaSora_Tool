@@ -4,7 +4,7 @@
 
 ## 自動チェック
 
-- **Validate and publish**: push・PR・週次に計算テスト、公開物検査、Gitleaksを実行します。秘密情報はgit全履歴（取得した全ref）と作業ツリーを検査し、ログの検出値を秘匿化します。検査の失敗時はPagesへの新規デプロイを停止します。既に公開中の版は残ります。
+- **Validate site**: push・PR・週次に計算テスト、公開物検査、Gitleaksを実行します。公開用docsとdistの不一致、想定外のファイル・リンクも失敗にします。秘密情報はgit全履歴（取得した全ref）と作業ツリーを検査し、ログの検出値を秘匿化します。mainからのPages公開はこの検査を待ちません。公開前の検査を必須にするには、mainの保護で成功チェックとPR経由のマージを必須にし、直接pushを禁止してください。
 - **CodeQL**: JavaScriptとGitHub Actionsをpush・PR・週次に解析します。検出結果はリポジトリの **Security → Code scanning** に出ます。アラートの存在自体はActionsを失敗にしないため、結果を確認して対処してください。
 - **Dependabot**: SHAで固定したGitHub Actionsの更新PRを週次で提案します。GitleaksのバージョンとSHA256は `scripts/scan-secrets.sh` に固定しています。更新時は[公式リリース](https://github.com/gitleaks/gitleaks/releases)の対応するチェックサムを確認して両方を更新してください。
 
@@ -13,7 +13,7 @@ Actionsの失敗はリポジトリの **Actions** から確認できます。Git
 ## 管理者が設定する項目
 
 1. **Settings → General → Default branch** を `main` にします。週次検査は既定ブランチ上のワークフローで実行されます。
-2. **Settings → Pages → Source** を **GitHub Actions** にし、公開後は **Enforce HTTPS** を有効にします。デプロイ用 `github-pages` environment の許可ブランチを `main` に制限します。ドメインや追加のシークレットは不要です。
+2. **Settings → Pages → Source** を **Deploy from a branch**、ブランチを **main**、フォルダーを **/docs** にして保存し、公開後は **Enforce HTTPS** を有効にします。独自のデプロイjobや追加のシークレットは不要です。
 3. **Settings → Rules → Rulesets** でmainへの直接pushを制限し、PRレビューと `Tests and public assets`、`Secret scan`、2種類のCodeQLの成功を必須にします。既存ルールは削除・緩和しないでください。CodeQLの検出内容はSecurityでも確認します。
 4. **Settings → Code security and analysis**（UIではCode security / Secret Protectionと分かれる場合があります）で利用可能な **Dependency graph / Dependabot alerts / Secret scanning / Push protection** を有効にします。CodeQLはリポジトリ内のadvancedワークフローを使い、default setupとの二重実行を避けます。
 5. **Settings → Actions → General** の標準トークン権限はread-onlyのままにし、fork PRへのwrite token・シークレット送信は有効にしません。既存のActions制限は緩和せず、必要な公式Actionsだけを許可します。

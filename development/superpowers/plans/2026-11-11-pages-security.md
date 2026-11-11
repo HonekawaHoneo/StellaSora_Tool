@@ -4,16 +4,16 @@
 
 **Goal:** 既存カウンターをGitHub Pagesへ安全に公開し、問題を検出・確認できるようにする。
 
-**Architecture:** distの明示的な4ファイルを検証して_siteへコピーする。PR・push・週次で検査し、mainだけをPagesへデプロイする。
+**Architecture:** distの4ファイルを検証してdocsへ同期し、main /docsから直接公開する。PR・push・週次で検査し、公開前の成功チェックはmain保護で必須にする。
 
 **Tech Stack:** 既存JavaScript、Python標準ライブラリー、GitHub Actions、Gitleaks、CodeQL。
 
-**Spec:** docs/superpowers/specs/2026-11-11-pages-security-design.md
+**Spec:** development/superpowers/specs/2026-11-11-pages-security-design.md
 
 ## Global Constraints
 
 - ランタイム・ビルドに外部パッケージを追加しない。
-- PRにデプロイ権限を与えない。Actionsは40桁SHAで固定する。
+- 独自のPages/OIDC権限を使わない。Actionsは40桁SHAで固定する。
 - APIキー・個人情報・サイト管理設定・git履歴をPagesの公開物に含めない。
 - 対象は元のStellaSora_Tool。fork先は変更しない。
 
@@ -36,10 +36,17 @@
 
 ### Task 2: 自動検出とPagesデプロイ
 
-**Files:** .github/workflows/pages.yml、.github/workflows/codeql.yml、.github/dependabot.yml、scripts/scan-secrets.sh、README.md、SECURITY.md、.gitignore
+**Files:** .github/workflows/pages.yml、.github/workflows/codeql.yml、.github/dependabot.yml、scripts/scan-secrets.sh、README.md、SECURITY.md、.gitignore、docsの公開物
 
 - [x] Gitleaksの固定バイナリー検証・履歴と作業ツリー検査を実装し、実データの検査とダミー秘密情報の検出を確認する。
-- [x] 検査失敗で公開を止めるActionsと最小権限のデプロイjobを作る。
+- [x] 最小権限で検査するActionsと、main保護を必須にする公開手順を作る。
 - [x] CodeQL（JavaScript・Actions）の週次検査とDependabotを追加する。
 - [x] 設定・通知・検出時の対応・制約を文書化する。
 - [ ] YAML/actionlint、全テスト、履歴検査、独立レビューを通してブランチをpush・PR化する。可能な設定操作とデプロイを完了し、実行できない設定だけを具体的に案内する。
+
+### Task 3: mainブランチからの直接公開へ変更（ユーザー指定）
+
+- [x] docsをアプリ専用にし、開発記録はdevelopmentへ移す。
+- [x] sync_pages/check_pagesの検証テストを先に追加し、公開用コピーの余分なファイル・リンク・変更差分を拒否する。
+- [x] docsを同期し、公開先main /docsの説明へ更新する。独自デプロイjobは削除し、CIの検査は維持する。
+- [ ] 全テスト・スキャン・独立レビューとGitHub CIの成功を確認し、PRをmainへマージする。公開設定とデプロイの状態を別途確認する。

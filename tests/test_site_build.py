@@ -110,6 +110,34 @@ class SiteBuildTest(unittest.TestCase):
         with self.assertRaises(FileExistsError):
             builder.build_site(self.source, output_link)
 
+    def test_pages_sync_contains_only_public_assets_and_detects_drift(self):
+        pages = self.root / "pages"
+        builder.sync_pages(self.source, pages)
+        builder.check_pages(self.source, pages)
+        self.assertEqual({p.name for p in pages.iterdir()},
+                         {".nojekyll", "index.html", "app.js", "counter.js", "styles.css"})
+        self.assertEqual((pages / ".nojekyll").read_bytes(), b"")
+        with (self.source / "app.js").open("a") as file:
+            file.write("\n// Updated source\n")
+        with self.assertRaises(ValueError):
+            builder.check_pages(self.source, pages)
+        builder.sync_pages(self.source, pages)
+        builder.check_pages(self.source, pages)
+
+    def test_pages_extra_files_and_symlinks_fail_before_sync(self):
+        pages = self.root / "pages"
+        builder.sync_pages(self.source, pages)
+        (pages / ".env").write_text("private placeholder")
+        for operation in [builder.check_pages, builder.sync_pages]:
+            with self.assertRaises(ValueError):
+                operation(self.source, pages)
+        (pages / ".env").unlink()
+        marker = pages / ".nojekyll"
+        marker.unlink()
+        marker.symlink_to(self.source / "app.js")
+        with self.assertRaises(ValueError):
+            builder.sync_pages(self.source, pages)
+
 
 if __name__ == "__main__":
     unittest.main()

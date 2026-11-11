@@ -2,13 +2,15 @@
 
 対象は `HonekawaHoneo/StellaSora_Tool`。公開済みであることを匿名のGitHub画面で確認した（連携APIのvisibility表示には遅延がある）。
 
-既存の依存ライブラリー不要の静的アプリをGitHub Pagesへ公開する。GitHub Actions方式を採用し、mainへのpushでテスト・公開物検証・秘密情報検査を通してからデプロイする。ブランチ直接公開ではdistだけの公開と検査の連動が難しいため採用しない。
+既存の依存ライブラリー不要の静的アプリをGitHub Pagesへ公開する。ユーザー指定に従い、mainブランチの/docsから直接公開する。distを正本とし、docsには検証済みの4ファイルと空の.nojekyllのみを複製する。PRでテスト・公開物検証・秘密情報検査を実行する。GitHub Actionsでデプロイする方式は採用しない。
 
-- 公開物はindex.html、styles.css、counter.js、app.jsの4ファイルのみ。想定外ファイル・シンボリックリンク・公開範囲の拡大を検出したら停止する。
+- 公開物はindex.html、styles.css、counter.js、app.jsの4ファイルと空の.nojekyllのみ。想定外ファイル・シンボリックリンク・公開範囲の拡大を検出したら停止する。
 - CSPで外部通信、外部スクリプト、インラインスクリプト、フォーム送信を制限する。Referrer Policyはno-referrer。既存の計算・保存・画面調整を維持する。
-- ActionsはコミットSHAで固定し、checkoutの認証情報を残さない。デプロイ権限とOIDCはデプロイjobだけに与え、PRから公開しない。
+- ActionsはコミットSHAで固定し、checkoutの認証情報を残さない。独自のデプロイjobとPages/OIDC権限は不要。Pagesによる公開はmain反映時に行い、PRから公開しない。
 - Gitleaksで履歴・作業ツリーを検査し、ログを秘匿化する。配布バイナリーは固定バージョンとSHA256で検証する。
 - CodeQLでJavaScriptとActionsをpush・PR・週次に解析し、Securityに結果を出す。DependabotでActionsの更新を提案する。
 - 手順にはPages source設定、HTTPS、mainの保護、秘密情報検査と通知の有効化、障害時の対応を明記する。設定APIにアクセスできない場合は有効化したと報告しない。
 
 GitHub Pagesは任意のHTTPヘッダーを設定できないため、metaで指定できないframe-ancestors等は提供できない。localStorageは同一originの他ページから読めるため機密情報を保存しない。検査は未知の脆弱性・秘密情報をすべて保証するものではない。サイトのURLが変わるため既存ホスティングの保存値は自動移行されない。
+
+main直接公開はCIの完了を待たない。公開前の検査を必須にするには、mainの保護で成功チェックを必須とし、直接pushを禁止する。初回はPRで成功を確認してからmainへマージする。週次検査には既定ブランチmainへの変更が必要。
