@@ -27,30 +27,47 @@
   const groups = {
     record: document.getElementById('record-counters'),
     reroll: document.getElementById('reroll-counters'),
-    note: document.getElementById('note-counters'),
+    90: document.getElementById('note-counters-90'),
+    400: document.getElementById('note-counters-400'),
   };
+  const noteFamilies = [
+    { base: 90, ids: ['note90', 'note72', 'note45'] },
+    { base: 400, ids: ['note400', 'note320', 'note200'] },
+  ];
+  const presentation = new Map(noteFamilies.flatMap(({ base, ids }) => ids.map(id => [id, base])));
+  const counterById = new Map(model.COUNTERS.map(counter => [counter.id, counter]));
+  const displayCounters = [
+    ...model.COUNTERS.filter(counter => !presentation.has(counter.id)),
+    ...noteFamilies.flatMap(({ ids }) => ids.map(id => counterById.get(id))),
+  ];
   const measureContext = document.createElement('canvas').getContext('2d');
 
   const iconFor = id => id === 'trait3' ? 'trait' : id === 'enhancement2' ? 'enhance' : id === 'reroll' ? 'reroll' : 'note';
 
-  for (const counter of model.COUNTERS) {
+  for (const counter of displayCounters) {
     const { id, label, cost } = counter;
     const record = cost === 0;
+    const base = presentation.get(id);
+    const discount = base ? Math.round((1 - cost / base) * 100) : 0;
     const card = document.createElement('article');
-    card.className = 'counter-card' + (record ? ' record' : '') + (id === 'reroll' ? ' reroll' : '');
+    card.className = 'counter-card ' + (record ? 'record' : id === 'reroll' ? 'reroll' : 'note-card');
     card.dataset.id = id;
     card.setAttribute('aria-label', label);
+    const heading = record
+      ? `<h3><svg class="icon card-icon" aria-hidden="true"><use href="#icon-${iconFor(id)}"/></svg>${label}</h3>`
+      : base
+        ? `<h4 class="note-price">${cost}<span>音符</span></h4><span class="discount-badge discount-${discount}">${discount ? discount + '%引き' : '通常'}</span>`
+        : `<h3 class="reroll-price">${cost}<span>音符 / 回</span></h3>`;
     card.innerHTML = `
       <div class="card-heading">
-        <h3><svg class="icon card-icon" aria-hidden="true"><use href="#icon-${iconFor(id)}"/></svg>${record ? label : id === 'reroll' ? 'リロール' : '音符'}</h3>
-        <span class="unit-badge">${record ? '記録用' : '× ' + cost}</span>
+        ${heading}
       </div>
       <div class="counter-controls">
         <button class="count-button decrement" type="button" aria-label="${label}を1減らす"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12"/></svg></button>
         <input id="count-${id}" class="count-input" type="number" min="0" max="9007199254740991" step="1" inputmode="numeric" autocomplete="off" aria-label="${label}の回数" value="0">
         <button class="count-button increment" type="button" aria-label="${label}を1増やす"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12M10 4v12"/></svg></button>
       </div>
-      <p class="card-subtotal">${record ? '合計に含めない' : '小計 0'}</p>`;
+      <p class="card-subtotal">${record ? '合計に含めない' : id === 'reroll' ? '消費音符 0' : '小計 0'}</p>`;
     const input = card.querySelector('input');
     const decrease = card.querySelector('.decrement');
     const increase = card.querySelector('.increment');
@@ -78,7 +95,7 @@
     });
     input.addEventListener('focus', () => input.select());
     input.addEventListener('keydown', event => { if (event.key === 'Enter') input.blur(); });
-    groups[record ? 'record' : id === 'reroll' ? 'reroll' : 'note'].appendChild(card);
+    groups[record ? 'record' : id === 'reroll' ? 'reroll' : base].appendChild(card);
   }
 
   target.addEventListener('input', () => {
@@ -163,7 +180,7 @@
       fitNumber(input, input.value || '0');
       decrease.disabled = count === 0;
       if (cost > 0) {
-        subtotal.textContent = '小計 ' + number.format(count * cost);
+        subtotal.textContent = (id === 'reroll' ? '消費音符 ' : '小計 ') + number.format(count * cost);
         subtotal.classList.toggle('has-value', count > 0);
       }
     }
