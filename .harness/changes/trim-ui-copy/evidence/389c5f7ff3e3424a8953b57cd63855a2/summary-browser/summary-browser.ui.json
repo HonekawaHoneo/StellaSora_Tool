@@ -1,0 +1,589 @@
+{
+  "schema_version": 3,
+  "scenarios": [
+    {
+      "id": "mobile-320",
+      "status": "passed",
+      "observations": "Edgeで支出グループ、表示文、目標と全カウンターの操作、保存を観測",
+      "environment": {
+        "viewport": {
+          "width": 320,
+          "height": 720
+        },
+        "browser": "Edg/157.0.4341.42 / Edg/157.0.0.0",
+        "theme": "light",
+        "fixture": "目標500・素質の再抽選2回・音符5個の通常購入1回"
+      },
+      "files": [
+        {
+          "path": "mobile-320.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "mobile-320-error.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "mobile-320-unset.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "mobile-320-storage.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "mobile-320.json",
+          "kind": "metrics"
+        }
+      ],
+      "case_results": [
+        {
+          "id": "mobile-320-summaryBox",
+          "observation": "Edgeの画面または実入力後の表示から .summary を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/summaryBox"
+          }
+        },
+        {
+          "id": "mobile-320-summaryRows",
+          "observation": "Edgeの画面または実入力後の表示から .metrics を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/summaryRows"
+          }
+        },
+        {
+          "id": "mobile-320-labels",
+          "observation": "Edgeの画面または実入力後の表示から .metric-label を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/labels"
+          }
+        },
+        {
+          "id": "mobile-320-labelSize",
+          "observation": "Edgeの画面または実入力後の表示から .metric-target .metric-label を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/labelSize"
+          }
+        },
+        {
+          "id": "mobile-320-labelLine",
+          "observation": "Edgeの画面または実入力後の表示から .metric-target .metric-label を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/labelLine"
+          }
+        },
+        {
+          "id": "mobile-320-rowHeight",
+          "observation": "Edgeの画面または実入力後の表示から .metric-target を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/rowHeight"
+          }
+        },
+        {
+          "id": "mobile-320-summaryInset",
+          "observation": "Edgeの画面または実入力後の表示から .spending を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/summaryInset"
+          }
+        },
+        {
+          "id": "mobile-320-targetWidth",
+          "observation": "Edgeの画面または実入力後の表示から #target を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/targetWidth"
+          }
+        },
+        {
+          "id": "mobile-320-targetHeight",
+          "observation": "Edgeの画面または実入力後の表示から #target を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/targetHeight"
+          }
+        },
+        {
+          "id": "mobile-320-valueColor",
+          "observation": "Edgeの画面または実入力後の表示から #remaining を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/valueColor"
+          }
+        },
+        {
+          "id": "mobile-320-texts",
+          "observation": "Edgeの画面または実入力後の表示から body を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/texts"
+          }
+        },
+        {
+          "id": "mobile-320-targetLabel",
+          "observation": "Edgeの画面または実入力後の表示から #target を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/targetLabel"
+          }
+        },
+        {
+          "id": "mobile-320-viewport",
+          "observation": "Edgeの画面または実入力後の表示から html を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/viewport"
+          }
+        },
+        {
+          "id": "mobile-320-noOverflow",
+          "observation": "Edgeの画面または実入力後の表示から html を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/noOverflow"
+          }
+        },
+        {
+          "id": "mobile-320-longValueFits",
+          "observation": "Edgeの画面または実入力後の表示から #remaining を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/longValueFits"
+          }
+        },
+        {
+          "id": "mobile-320-progressConsistent",
+          "observation": "Edgeの画面または実入力後の表示から .summary を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/progressConsistent"
+          }
+        },
+        {
+          "id": "mobile-320-keyboard",
+          "observation": "Edgeの画面または実入力後の表示から #target を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/keyboard"
+          }
+        },
+        {
+          "id": "mobile-320-hitActivates",
+          "observation": "Edgeの画面または実入力後の表示から #target を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/hitActivates"
+          }
+        },
+        {
+          "id": "mobile-320-reached",
+          "observation": "Edgeの画面または実入力後の表示から .summary を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/reached"
+          }
+        },
+        {
+          "id": "mobile-320-invalid",
+          "observation": "Edgeの画面または実入力後の表示から #target を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/invalid"
+          }
+        },
+        {
+          "id": "mobile-320-persisted",
+          "observation": "Edgeの画面または実入力後の表示から #target を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/persisted"
+          }
+        },
+        {
+          "id": "mobile-320-textsUnset",
+          "observation": "Edgeの画面または実入力後の表示から body を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/textsUnset"
+          }
+        },
+        {
+          "id": "mobile-320-textsError",
+          "observation": "Edgeの画面または実入力後の表示から body を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/textsError"
+          }
+        },
+        {
+          "id": "mobile-320-unsetState",
+          "observation": "Edgeの画面または実入力後の表示から .summary を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/unsetState"
+          }
+        },
+        {
+          "id": "mobile-320-indicatorContrast",
+          "observation": "Edgeの画面または実入力後の表示から #target を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/indicatorContrast"
+          }
+        },
+        {
+          "id": "mobile-320-spendingBox",
+          "observation": "Edgeの画面または実入力後の表示から .spending を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/spendingBox"
+          }
+        },
+        {
+          "id": "mobile-320-membership",
+          "observation": "Edgeの画面または実入力後の表示から .spending を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/membership"
+          }
+        },
+        {
+          "id": "mobile-320-appColor",
+          "observation": "Edgeの画面または実入力後の表示から .app-shell を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/appColor"
+          }
+        },
+        {
+          "id": "mobile-320-textsStorage",
+          "observation": "Edgeの画面または実入力後の表示から body を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/textsStorage"
+          }
+        },
+        {
+          "id": "mobile-320-storageFailure",
+          "observation": "Edgeの画面または実入力後の表示から #storage-status を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/storageFailure"
+          }
+        },
+        {
+          "id": "mobile-320-counterConnections",
+          "observation": "Edgeの画面または実入力後の表示から .counter-controls を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/counterConnections"
+          }
+        },
+        {
+          "id": "mobile-320-researchLimit",
+          "observation": "Edgeの画面または実入力後の表示から .record-group を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/researchLimit"
+          }
+        }
+      ]
+    },
+    {
+      "id": "desktop-1280",
+      "status": "passed",
+      "observations": "Edgeで支出グループ、表示文、目標と全カウンターの操作、保存を観測",
+      "environment": {
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "browser": "Edg/157.0.4341.42 / Edg/157.0.0.0",
+        "theme": "light",
+        "fixture": "目標500・素質の再抽選2回・音符5個の通常購入1回"
+      },
+      "files": [
+        {
+          "path": "desktop-1280.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "desktop-1280.json",
+          "kind": "metrics"
+        }
+      ],
+      "case_results": [
+        {
+          "id": "desktop-1280-summaryBox",
+          "observation": "Edgeの画面または実入力後の表示から .summary を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/summaryBox"
+          }
+        },
+        {
+          "id": "desktop-1280-summaryRows",
+          "observation": "Edgeの画面または実入力後の表示から .metrics を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/summaryRows"
+          }
+        },
+        {
+          "id": "desktop-1280-labels",
+          "observation": "Edgeの画面または実入力後の表示から .metric-label を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/labels"
+          }
+        },
+        {
+          "id": "desktop-1280-labelSize",
+          "observation": "Edgeの画面または実入力後の表示から .metric-target .metric-label を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/labelSize"
+          }
+        },
+        {
+          "id": "desktop-1280-labelLine",
+          "observation": "Edgeの画面または実入力後の表示から .metric-target .metric-label を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/labelLine"
+          }
+        },
+        {
+          "id": "desktop-1280-rowHeight",
+          "observation": "Edgeの画面または実入力後の表示から .metric-target を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/rowHeight"
+          }
+        },
+        {
+          "id": "desktop-1280-summaryInset",
+          "observation": "Edgeの画面または実入力後の表示から .spending を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/summaryInset"
+          }
+        },
+        {
+          "id": "desktop-1280-targetWidth",
+          "observation": "Edgeの画面または実入力後の表示から #target を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/targetWidth"
+          }
+        },
+        {
+          "id": "desktop-1280-targetHeight",
+          "observation": "Edgeの画面または実入力後の表示から #target を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/targetHeight"
+          }
+        },
+        {
+          "id": "desktop-1280-valueColor",
+          "observation": "Edgeの画面または実入力後の表示から #remaining を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/valueColor"
+          }
+        },
+        {
+          "id": "desktop-1280-texts",
+          "observation": "Edgeの画面または実入力後の表示から body を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/texts"
+          }
+        },
+        {
+          "id": "desktop-1280-targetLabel",
+          "observation": "Edgeの画面または実入力後の表示から #target を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/targetLabel"
+          }
+        },
+        {
+          "id": "desktop-1280-viewport",
+          "observation": "Edgeの画面または実入力後の表示から html を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/viewport"
+          }
+        },
+        {
+          "id": "desktop-1280-noOverflow",
+          "observation": "Edgeの画面または実入力後の表示から html を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/noOverflow"
+          }
+        },
+        {
+          "id": "desktop-1280-longValueFits",
+          "observation": "Edgeの画面または実入力後の表示から #remaining を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/longValueFits"
+          }
+        },
+        {
+          "id": "desktop-1280-progressConsistent",
+          "observation": "Edgeの画面または実入力後の表示から .summary を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/progressConsistent"
+          }
+        },
+        {
+          "id": "desktop-1280-keyboard",
+          "observation": "Edgeの画面または実入力後の表示から #target を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/keyboard"
+          }
+        },
+        {
+          "id": "desktop-1280-hitActivates",
+          "observation": "Edgeの画面または実入力後の表示から #target を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/hitActivates"
+          }
+        },
+        {
+          "id": "desktop-1280-reached",
+          "observation": "Edgeの画面または実入力後の表示から .summary を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/reached"
+          }
+        },
+        {
+          "id": "desktop-1280-invalid",
+          "observation": "Edgeの画面または実入力後の表示から #target を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/invalid"
+          }
+        },
+        {
+          "id": "desktop-1280-persisted",
+          "observation": "Edgeの画面または実入力後の表示から #target を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/persisted"
+          }
+        },
+        {
+          "id": "desktop-1280-textsUnset",
+          "observation": "Edgeの画面または実入力後の表示から body を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/textsUnset"
+          }
+        },
+        {
+          "id": "desktop-1280-textsError",
+          "observation": "Edgeの画面または実入力後の表示から body を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/textsError"
+          }
+        },
+        {
+          "id": "desktop-1280-unsetState",
+          "observation": "Edgeの画面または実入力後の表示から .summary を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/unsetState"
+          }
+        },
+        {
+          "id": "desktop-1280-indicatorContrast",
+          "observation": "Edgeの画面または実入力後の表示から #target を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/indicatorContrast"
+          }
+        },
+        {
+          "id": "desktop-1280-spendingBox",
+          "observation": "Edgeの画面または実入力後の表示から .spending を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/spendingBox"
+          }
+        },
+        {
+          "id": "desktop-1280-membership",
+          "observation": "Edgeの画面または実入力後の表示から .spending を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/membership"
+          }
+        },
+        {
+          "id": "desktop-1280-appColor",
+          "observation": "Edgeの画面または実入力後の表示から .app-shell を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/appColor"
+          }
+        },
+        {
+          "id": "desktop-1280-textsStorage",
+          "observation": "Edgeの画面または実入力後の表示から body を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/textsStorage"
+          }
+        },
+        {
+          "id": "desktop-1280-storageFailure",
+          "observation": "Edgeの画面または実入力後の表示から #storage-status を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/storageFailure"
+          }
+        },
+        {
+          "id": "desktop-1280-counterConnections",
+          "observation": "Edgeの画面または実入力後の表示から .counter-controls を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/counterConnections"
+          }
+        },
+        {
+          "id": "desktop-1280-boundaryWidths",
+          "observation": "Edgeの画面または実入力後の表示から .app-shell を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/boundaryWidths"
+          }
+        },
+        {
+          "id": "desktop-1280-researchLimit",
+          "observation": "Edgeの画面または実入力後の表示から .record-group を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/researchLimit"
+          }
+        }
+      ]
+    }
+  ]
+}

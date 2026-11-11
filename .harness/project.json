@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "checks": [
+    {
+      "timeout_seconds": 40,
+      "id": "counter",
+      "argv": [
+        "node",
+        "--test",
+        "tests/counter.test.cjs"
+      ]
+    },
+    {
+      "timeout_seconds": 40,
+      "id": "pages",
+      "argv": [
+        "python",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py"
+      ]
+    },
+    {
+      "timeout_seconds": 40,
+      "id": "pages-sync",
+      "argv": [
+        "python",
+        "-X",
+        "utf8",
+        "scripts/build-site.py",
+        "--check-pages"
+      ]
+    },
+    {
+      "timeout_seconds": 90,
+      "id": "summary-browser",
+      "argv": [
+        "node",
+        "development/ui/summary-browser.mjs"
+      ]
+    }
+  ],
+  "snapshot_ignore": [],
+  "skill_bindings": {
+    "orchestrator": "poteto-mode",
+    "requirements": "grill-me",
+    "design": "ponytail",
+    "review": "ponytail-review",
+    "ui_design": "semantic-ui-design",
+    "ui_implementation": "ui-implementation-harness"
+  },
+  "autonomy": {
+    "completion": "review",
+    "branch_prefix": "ai/",
+    "base_branch": "default"
+  },
+  "ui": {
+    "check_ids": [
+      "summary-browser"
+    ],
+    "input_globs": [
+      "dist/**"
+    ],
+    "mode": "enforce",
+    "schema_version": 3,
+    "registry": "development/ui/summary-registry.json"
+  }
+}

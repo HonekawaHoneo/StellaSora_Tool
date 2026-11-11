@@ -1,0 +1,18 @@
+✔ all seven weighted counters contribute their specified cost; record counters do not (10.8438ms)
+✔ changing one counter preserves the others and decrement stops at zero (0.5366ms)
+✔ one reset zeros every counter while keeping the target (12.4283ms)
+✔ remaining is target minus total including an exact goal and overshoot (0.2322ms)
+✔ invalid inputs cannot corrupt counts, target, or the weighted total (0.2281ms)
+✔ restoring saved data keeps valid fields and safely defaults malformed data (0.2887ms)
+✔ research counters start with ten Lv3 acquisitions and five double upgrades remaining (0.1457ms)
+✔ research usage deducts actual selections and reset restores all uses (0.1061ms)
+✔ research limits preserve older saved counts and report excess without negative uses (0.324ms)
+✔ purchases, rerolls and unknown IDs have no research usage limit (0.1652ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 298.3406

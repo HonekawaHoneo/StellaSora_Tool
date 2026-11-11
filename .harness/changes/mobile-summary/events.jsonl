@@ -1,0 +1,17 @@
+{"time": "2026-11-11T15:25:58.055389+00:00", "event": "created", "kind": "change", "author": "codex-root", "context": "01a1cb29-a5a5-7151-a4ee-bcdb4c7995f9"}
+{"time": "2026-11-11T15:25:59.223340+00:00", "event": "advanced", "previous": "discovery", "phase": "requirements", "artifact_digest": "ad9c08dc448331ee6bf410769a48448f741fa586b0e8ef599e65d4e45a6f81db"}
+{"time": "2026-11-11T15:26:00.132984+00:00", "event": "advanced", "previous": "requirements", "phase": "design", "artifact_digest": "184d43a8ebdef768b427ceff6d38896eeed0a11605bef3340769e7e694a2fffe"}
+{"time": "2026-11-11T15:31:07.572753+00:00", "event": "gate_failed", "phase": "design", "reason": "共有デザイン定義の変更はscope=sharedで検証してください"}
+{"time": "2026-11-11T15:31:29.014635+00:00", "event": "advanced", "previous": "design", "phase": "implementation", "artifact_digest": "b405efe7bd114d7ff5297085be548960f4e802acd63d6219e4b123ccae3a7886"}
+{"time": "2026-11-11T15:33:44.494797+00:00", "event": "verification", "success": true, "receipt": "evidence/923145b3bf4444729402a292b2701397.json"}
+{"time": "2026-11-11T15:34:04.782041+00:00", "event": "advanced", "previous": "implementation", "phase": "review", "artifact_digest": "3a8b262e66f599f9dc961e78aed62648e5d5c13d1cb97d5569a359ec6d187937"}
+{"time": "2026-11-11T15:37:47.099647+00:00", "event": "reopened", "previous": "review", "phase": "design", "reason": "独立レビューで未設定・負値エラー・入力値の可視証跡が不足。初期HTMLと実画面を揃え、固定ハーネスのGit改行を保護して再検証する。"}
+{"time": "2026-11-11T15:38:32.117752+00:00", "event": "reopened", "previous": "design", "phase": "requirements", "reason": "44pxを適用する表示幅を600 CSS px未満と明記する"}
+{"time": "2026-11-11T15:38:33.277685+00:00", "event": "advanced", "previous": "requirements", "phase": "design", "artifact_digest": "57a90551b26946b81a11c9cbcee7519593720586d4b025e5616a95e6ad072a16"}
+{"time": "2026-11-11T15:40:45.017659+00:00", "event": "advanced", "previous": "design", "phase": "implementation", "artifact_digest": "530cb152cd2b29304424d5ff7bbe6ff1f8bb09bbda08d6d9091a8e215bc90b4b"}
+{"time": "2026-11-11T15:42:35.615920+00:00", "event": "verification", "success": true, "receipt": "evidence/af6b30ca78dd40eab26575de8418774b.json"}
+{"time": "2026-11-11T15:43:01.242531+00:00", "event": "advanced", "previous": "implementation", "phase": "review", "artifact_digest": "a2c994733aab1ffe1a855a70e8d373599f013e903edd4673b857a70fc0a11808"}
+{"time": "2026-11-11T15:44:24.063523+00:00", "event": "reopened", "previous": "review", "phase": "implementation", "reason": "進捗幅のCSS遷移完了を実測し、状態と同じタイミングの画面を証跡として保存する"}
+{"time": "2026-11-11T15:45:17.923591+00:00", "event": "verification", "success": true, "receipt": "evidence/507a21c291cd4bab92b5cc83f9cf28ba.json"}
+{"time": "2026-11-11T15:45:31.440164+00:00", "event": "advanced", "previous": "implementation", "phase": "review", "artifact_digest": "a2c994733aab1ffe1a855a70e8d373599f013e903edd4673b857a70fc0a11808"}
+{"time": "2026-11-11T15:49:07.753746+00:00", "event": "advanced", "previous": "review", "phase": "done", "artifact_digest": "d111a26ea4c2a40938cfc747fc130807ad7e65afe2e4b490b15e01a15fa55b7e"}

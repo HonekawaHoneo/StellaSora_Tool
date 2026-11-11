@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "components": [
+    {
+      "id": "coin-summary",
+      "source_ref": {
+        "path": "README.md",
+        "anchor": "目標コインの自由入力"
+      },
+      "implementation_ref": {
+        "path": "dist/index.html",
+        "anchor": "class=\"summary\""
+      },
+      "meaning": "計算済みの支出・目標入力・差額の対比",
+      "use_when": [
+        "カウンターの集計を確認し目標を編集する"
+      ],
+      "relations": [],
+      "token_ids": [
+        "coin-difference-foreground"
+      ],
+      "required_cues": [
+        "目標の編集欄",
+        "金額のラベル"
+      ],
+      "optional_cues": [
+        "達成率バー"
+      ],
+      "avoid": [
+        "色だけでの意味区別"
+      ],
+      "a11y": [
+        "目標ラベルと入力欄を関連付け、キーボード操作順を保つ"
+      ]
+    },
+    {
+      "id": "counter-app",
+      "source_ref": {
+        "path": "README.md",
+        "anchor": "9個の独立したカウンター"
+      },
+      "implementation_ref": {
+        "path": "dist/index.html",
+        "anchor": "class=\"app-shell\""
+      },
+      "meaning": "全体のカウンター、価格と区分、保存状態",
+      "use_when": [
+        "回数と支出を記録する"
+      ],
+      "relations": [
+        {
+          "kind": "contains",
+          "component": "coin-summary"
+        }
+      ],
+      "token_ids": [
+        "app-text-foreground"
+      ],
+      "required_cues": [
+        "支出グループの境界",
+        "個数と価格単位"
+      ],
+      "optional_cues": [
+        "保存できない状態"
+      ],
+      "avoid": [
+        "通常価格や支出0の反復"
+      ],
+      "a11y": [
+        "区分と操作のアクセシブルな名前を保つ"
+      ]
+    }
+  ],
+  "tokens": [
+    {
+      "id": "coin-difference-foreground",
+      "source_ref": {
+        "path": "development/ui/summary-tokens.json",
+        "pointer": "/coinDifferenceForeground"
+      },
+      "meaning": "未達の差額表示に使う既存のアクセント色"
+    },
+    {
+      "id": "app-text-foreground",
+      "source_ref": {
+        "path": "development/ui/summary-tokens.json",
+        "pointer": "/appTextForeground"
+      },
+      "meaning": "アプリの既存基本テキスト色"
+    }
+  ]
+}

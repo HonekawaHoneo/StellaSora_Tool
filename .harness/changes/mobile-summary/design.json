@@ -1,0 +1,3174 @@
+{
+  "approach": "600 CSS px未満で合計、目標、差額を3行にして、各行のラベルの右に値を置く。目標は枠付きのネイティブ入力にする。",
+  "decisions": [
+    "3列を維持して文字だけ拡大すると狭い画面で金額の幅が足りない。",
+    "固定集計バーはカウンターの操作領域を覆うため追加しない。",
+    "目標入力の枠で編集を示し、クリックの説明を削る。未設定の文は状態名にする。",
+    "入力枠と編集印は背景とのコントラスト3:1以上とし、未設定と負値からの復帰を実画面で確認する。",
+    "固定ハーネスとUI証跡の指紋をGitの改行変換から保護し、一時ロックを保存対象から外す。"
+  ],
+  "rollback": "当該UI変更をrevertし、distとdocsを同時に戻す。既存の保存形式と保存値は互換。",
+  "impact_paths": [
+    "dist/index.html",
+    "dist/styles.css",
+    "dist/app.js",
+    "docs/index.html",
+    "docs/styles.css",
+    "docs/app.js",
+    "development/ui/summary-browser.mjs",
+    ".gitattributes",
+    ".gitignore"
+  ],
+  "traceability": [
+    {
+      "requirement": "summary-read",
+      "paths": [
+        "dist/index.html",
+        "dist/styles.css",
+        "dist/app.js",
+        "docs/index.html",
+        "docs/styles.css",
+        "docs/app.js",
+        "development/ui/summary-browser.mjs",
+        ".gitattributes",
+        ".gitignore"
+      ],
+      "checks": [
+        "counter",
+        "pages",
+        "pages-sync",
+        "summary-browser"
+      ]
+    },
+    {
+      "requirement": "summary-edit",
+      "paths": [
+        "dist/index.html",
+        "dist/styles.css",
+        "dist/app.js",
+        "docs/index.html",
+        "docs/styles.css",
+        "docs/app.js",
+        "development/ui/summary-browser.mjs",
+        ".gitattributes",
+        ".gitignore"
+      ],
+      "checks": [
+        "counter",
+        "pages",
+        "pages-sync",
+        "summary-browser"
+      ]
+    }
+  ],
+  "ui": {
+    "scope": "local",
+    "reason": "星ノ塔の集計欄の配置と表示のみ。共有トークンの定義を保つ。",
+    "registry_snapshot": {
+      "path": ".harness/changes/mobile-summary/inputs/ui-1771e012356e47fb8138d884b27d8dc9.json",
+      "sha256": "709412972a5caea987eff58d9c3887e340b14ee26f986d7d300e9e1eb4367c91"
+    },
+    "meanings": [
+      {
+        "id": "coin-amounts",
+        "requirement": "summary-read",
+        "meaning": "消費合計と目標との差額を読み取る"
+      },
+      {
+        "id": "coin-edit",
+        "requirement": "summary-edit",
+        "meaning": "目標入力とその表示結果を識別する"
+      }
+    ],
+    "decisions": [
+      {
+        "meaning": "coin-amounts",
+        "component": "coin-summary",
+        "cues": [
+          "金額のラベル"
+        ],
+        "omitted": [
+          {
+            "cue": "追加の色や影",
+            "reason": "順序と項目名で区別できる"
+          }
+        ],
+        "tokens": [
+          "coin-difference-foreground"
+        ]
+      },
+      {
+        "meaning": "coin-edit",
+        "component": "coin-summary",
+        "cues": [
+          "目標の編集欄"
+        ],
+        "omitted": [
+          {
+            "cue": "クリックする説明",
+            "reason": "ラベルと枠が編集可能と示す"
+          }
+        ],
+        "tokens": [
+          "coin-difference-foreground"
+        ]
+      }
+    ],
+    "scenarios": [
+      {
+        "id": "mobile-320",
+        "meanings": [
+          "coin-amounts",
+          "coin-edit"
+        ],
+        "check": "summary-browser",
+        "preview": "dist/index.html",
+        "baseline": "existing",
+        "reason": "320pxの幅で集計と編集を確認"
+      },
+      {
+        "id": "desktop-1280",
+        "meanings": [
+          "coin-amounts",
+          "coin-edit"
+        ],
+        "check": "summary-browser",
+        "preview": "dist/index.html",
+        "baseline": "existing",
+        "reason": "PCの3列と操作の維持"
+      }
+    ],
+    "cases": [
+      {
+        "id": "mobile-320-summaryBox",
+        "scenario": "mobile-320",
+        "target": ".summary",
+        "principles": [
+          "meaning",
+          "structure",
+          "reuse",
+          "visual_hierarchy"
+        ],
+        "question": "金額と編集欄をそれぞれ識別できるか",
+        "kind": "visual",
+        "tokens": []
+      },
+      {
+        "id": "mobile-320-summaryRows",
+        "scenario": "mobile-320",
+        "target": ".metrics",
+        "principles": [
+          "structure",
+          "visual_hierarchy"
+        ],
+        "question": "表示幅に合う行数か",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": 3
+        }
+      },
+      {
+        "id": "mobile-320-labels",
+        "scenario": "mobile-320",
+        "target": ".metric-label",
+        "principles": [
+          "accessibility"
+        ],
+        "question": "合計、目標、差額の読み順か",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": [
+            "消費コイン合計",
+            "目標コイン",
+            "目標との差額"
+          ]
+        }
+      },
+      {
+        "id": "mobile-320-labelSize",
+        "scenario": "mobile-320",
+        "target": ".metric-target .metric-label",
+        "principles": [
+          "density_typography"
+        ],
+        "question": "日本語ラベルの文字サイズ",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "range",
+          "min": 12,
+          "max": 13
+        }
+      },
+      {
+        "id": "mobile-320-labelLine",
+        "scenario": "mobile-320",
+        "target": ".metric-target .metric-label",
+        "principles": [
+          "density_typography"
+        ],
+        "question": "ラベルの行高",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "range",
+          "min": 18,
+          "max": 20
+        }
+      },
+      {
+        "id": "mobile-320-rowHeight",
+        "scenario": "mobile-320",
+        "target": ".metric-target",
+        "principles": [
+          "density_typography"
+        ],
+        "question": "操作欄と区切りに必要な行の高さ",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "range",
+          "min": 60,
+          "max": 68
+        }
+      },
+      {
+        "id": "mobile-320-summaryInset",
+        "scenario": "mobile-320",
+        "target": ".summary",
+        "principles": [
+          "density_typography"
+        ],
+        "question": "集計面の内側余白",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "range",
+          "min": 12,
+          "max": 14
+        }
+      },
+      {
+        "id": "mobile-320-targetWidth",
+        "scenario": "mobile-320",
+        "target": "#target",
+        "principles": [
+          "density_typography"
+        ],
+        "question": "見える枠と入力面の幅",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "range",
+          "min": 116,
+          "max": 160
+        },
+        "dimension": "width"
+      },
+      {
+        "id": "mobile-320-targetHeight",
+        "scenario": "mobile-320",
+        "target": "#target",
+        "principles": [
+          "density_typography",
+          "accessibility"
+        ],
+        "question": "見える枠と入力面の高さ",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "range",
+          "min": 44,
+          "max": 48
+        },
+        "dimension": "height"
+      },
+      {
+        "id": "mobile-320-valueColor",
+        "scenario": "mobile-320",
+        "target": "#remaining",
+        "principles": [
+          "tokens"
+        ],
+        "question": "差額に使う既存のアクセント色",
+        "kind": "assertion",
+        "tokens": [
+          "coin-difference-foreground"
+        ],
+        "expectation": {
+          "operator": "equals",
+          "value": "rgb(113, 97, 201)"
+        }
+      },
+      {
+        "id": "mobile-320-texts",
+        "scenario": "mobile-320",
+        "target": "body",
+        "principles": [
+          "copy"
+        ],
+        "question": "画面全体の表示文を設計と照合する",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": [
+            "STELLA SORA",
+            "星ノ塔",
+            "カウンター",
+            "すべてリセット",
+            "消費コイン合計",
+            "170",
+            "素質再抽選 ＋ 音符セット購入",
+            "目標コイン",
+            "500",
+            "目標との差額",
+            "330",
+            "目標コイン − 消費コイン",
+            "目標まで あと 330コイン",
+            "34%",
+            "研究効果の使用回数",
+            "コイン集計対象外",
+            "Lv3素質",
+            "0",
+            "残り10回 / 上限10回",
+            "＋2強化",
+            "0",
+            "残り5回 / 上限5回",
+            "難易度8以上・対応研究解放時の上限を表示",
+            "素質の再抽選",
+            "再抽選回数",
+            "40",
+            "コイン / 回",
+            "2",
+            "支出 80コイン",
+            "音符セットの購入回数",
+            "通常 → 20%引き → 半額",
+            "音符",
+            "5個",
+            "セット",
+            "通常90コイン",
+            "90",
+            "コイン",
+            "通常",
+            "1",
+            "支出 90コイン",
+            "72",
+            "コイン",
+            "20%引き",
+            "0",
+            "支出 0コイン",
+            "45",
+            "コイン",
+            "半額",
+            "0",
+            "支出 0コイン",
+            "音符",
+            "15個",
+            "セット",
+            "通常400コイン",
+            "400",
+            "コイン",
+            "通常",
+            "0",
+            "支出 0コイン",
+            "320",
+            "コイン",
+            "20%引き",
+            "0",
+            "支出 0コイン",
+            "200",
+            "コイン",
+            "半額",
+            "0",
+            "支出 0コイン",
+            "消費コイン ＝ 再抽選回数 × 40 ＋ 各セットの購入回数 × 価格",
+            "素質購入・強化マシン・イベントの支出は集計対象外",
+            "STELLA SORA",
+            "／",
+            "星ノ塔",
+            "このブラウザーに自動保存"
+          ]
+        }
+      },
+      {
+        "id": "mobile-320-targetLabel",
+        "scenario": "mobile-320",
+        "target": "#target",
+        "principles": [
+          "accessibility"
+        ],
+        "question": "入力に関連付いたラベル",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": "目標コイン"
+        }
+      },
+      {
+        "id": "mobile-320-viewport",
+        "scenario": "mobile-320",
+        "target": "html",
+        "principles": [
+          "accessibility"
+        ],
+        "question": "通常幅と1280pxを400%拡大したときに相当するCSS幅",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": 320
+        }
+      },
+      {
+        "id": "mobile-320-noOverflow",
+        "scenario": "mobile-320",
+        "target": "html",
+        "principles": [
+          "accessibility"
+        ],
+        "question": "ページに横スクロールがないか",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": true
+        }
+      },
+      {
+        "id": "mobile-320-longValueFits",
+        "scenario": "mobile-320",
+        "target": "#remaining",
+        "principles": [
+          "accessibility"
+        ],
+        "question": "最大の目標からの差額が表示欄に収まるか",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": true
+        }
+      },
+      {
+        "id": "mobile-320-progressConsistent",
+        "scenario": "mobile-320",
+        "target": ".summary",
+        "principles": [
+          "states_actions",
+          "meaning"
+        ],
+        "question": "差額330、進捗34%とアクセシブルな値は一致するか",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": true
+        }
+      },
+      {
+        "id": "mobile-320-keyboard",
+        "scenario": "mobile-320",
+        "target": "#target",
+        "principles": [
+          "states_actions",
+          "accessibility"
+        ],
+        "question": "Tabで移動し、フォーカスが見えるか",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": true
+        }
+      },
+      {
+        "id": "mobile-320-hitActivates",
+        "scenario": "mobile-320",
+        "target": "#target",
+        "principles": [
+          "states_actions"
+        ],
+        "question": "入力枠の端寄りに対する実クリックで編集が起動するか",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": true
+        },
+        "action": "set-target"
+      },
+      {
+        "id": "mobile-320-reached",
+        "scenario": "mobile-320",
+        "target": ".summary",
+        "principles": [
+          "states_actions"
+        ],
+        "question": "目標を170に編集すると差額0、達成率100%になるか",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": true
+        }
+      },
+      {
+        "id": "mobile-320-invalid",
+        "scenario": "mobile-320",
+        "target": "#target",
+        "principles": [
+          "states_actions"
+        ],
+        "question": "負値を拒否し、Enter後に元の値へ戻すか",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": true
+        }
+      },
+      {
+        "id": "mobile-320-persisted",
+        "scenario": "mobile-320",
+        "target": "#target",
+        "principles": [
+          "scope_connections"
+        ],
+        "question": "保存後の再読込で目標170と差額0、進捗100%が戻るか",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": true
+        }
+      },
+      {
+        "id": "desktop-1280-summaryBox",
+        "scenario": "desktop-1280",
+        "target": ".summary",
+        "principles": [
+          "meaning",
+          "structure",
+          "reuse",
+          "visual_hierarchy"
+        ],
+        "question": "金額と編集欄をそれぞれ識別できるか",
+        "kind": "visual",
+        "tokens": []
+      },
+      {
+        "id": "desktop-1280-summaryRows",
+        "scenario": "desktop-1280",
+        "target": ".metrics",
+        "principles": [
+          "structure",
+          "visual_hierarchy"
+        ],
+        "question": "表示幅に合う行数か",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": 1
+        }
+      },
+      {
+        "id": "desktop-1280-labels",
+        "scenario": "desktop-1280",
+        "target": ".metric-label",
+        "principles": [
+          "accessibility"
+        ],
+        "question": "合計、目標、差額の読み順か",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": [
+            "消費コイン合計",
+            "目標コイン",
+            "目標との差額"
+          ]
+        }
+      },
+      {
+        "id": "desktop-1280-labelSize",
+        "scenario": "desktop-1280",
+        "target": ".metric-target .metric-label",
+        "principles": [
+          "density_typography"
+        ],
+        "question": "日本語ラベルの文字サイズ",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "range",
+          "min": 11,
+          "max": 12
+        }
+      },
+      {
+        "id": "desktop-1280-labelLine",
+        "scenario": "desktop-1280",
+        "target": ".metric-target .metric-label",
+        "principles": [
+          "density_typography"
+        ],
+        "question": "ラベルの行高",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "range",
+          "min": 18,
+          "max": 20
+        }
+      },
+      {
+        "id": "desktop-1280-rowHeight",
+        "scenario": "desktop-1280",
+        "target": ".metric-target",
+        "principles": [
+          "density_typography"
+        ],
+        "question": "操作欄と区切りに必要な行の高さ",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "range",
+          "min": 72,
+          "max": 84
+        }
+      },
+      {
+        "id": "desktop-1280-summaryInset",
+        "scenario": "desktop-1280",
+        "target": ".summary",
+        "principles": [
+          "density_typography"
+        ],
+        "question": "集計面の内側余白",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "range",
+          "min": 19,
+          "max": 21
+        }
+      },
+      {
+        "id": "desktop-1280-targetWidth",
+        "scenario": "desktop-1280",
+        "target": "#target",
+        "principles": [
+          "density_typography"
+        ],
+        "question": "見える枠と入力面の幅",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "range",
+          "min": 285,
+          "max": 330
+        },
+        "dimension": "width"
+      },
+      {
+        "id": "desktop-1280-targetHeight",
+        "scenario": "desktop-1280",
+        "target": "#target",
+        "principles": [
+          "density_typography",
+          "accessibility"
+        ],
+        "question": "見える枠と入力面の高さ",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "range",
+          "min": 40,
+          "max": 44
+        },
+        "dimension": "height"
+      },
+      {
+        "id": "desktop-1280-valueColor",
+        "scenario": "desktop-1280",
+        "target": "#remaining",
+        "principles": [
+          "tokens"
+        ],
+        "question": "差額に使う既存のアクセント色",
+        "kind": "assertion",
+        "tokens": [
+          "coin-difference-foreground"
+        ],
+        "expectation": {
+          "operator": "equals",
+          "value": "rgb(113, 97, 201)"
+        }
+      },
+      {
+        "id": "desktop-1280-texts",
+        "scenario": "desktop-1280",
+        "target": "body",
+        "principles": [
+          "copy"
+        ],
+        "question": "画面全体の表示文を設計と照合する",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": [
+            "STELLA SORA",
+            "星ノ塔",
+            "カウンター",
+            "すべてリセット",
+            "消費コイン合計",
+            "170",
+            "素質再抽選 ＋ 音符セット購入",
+            "目標コイン",
+            "500",
+            "目標との差額",
+            "330",
+            "目標コイン − 消費コイン",
+            "目標まで あと 330コイン",
+            "34%",
+            "研究効果の使用回数",
+            "コイン集計対象外",
+            "Lv3素質",
+            "0",
+            "残り10回 / 上限10回",
+            "＋2強化",
+            "0",
+            "残り5回 / 上限5回",
+            "難易度8以上・対応研究解放時の上限を表示",
+            "素質の再抽選",
+            "再抽選回数",
+            "40",
+            "コイン / 回",
+            "2",
+            "支出 80コイン",
+            "音符セットの購入回数",
+            "通常 → 20%引き → 半額",
+            "音符",
+            "5個",
+            "セット",
+            "通常90コイン",
+            "90",
+            "コイン",
+            "通常",
+            "1",
+            "支出 90コイン",
+            "72",
+            "コイン",
+            "20%引き",
+            "0",
+            "支出 0コイン",
+            "45",
+            "コイン",
+            "半額",
+            "0",
+            "支出 0コイン",
+            "音符",
+            "15個",
+            "セット",
+            "通常400コイン",
+            "400",
+            "コイン",
+            "通常",
+            "0",
+            "支出 0コイン",
+            "320",
+            "コイン",
+            "20%引き",
+            "0",
+            "支出 0コイン",
+            "200",
+            "コイン",
+            "半額",
+            "0",
+            "支出 0コイン",
+            "消費コイン ＝ 再抽選回数 × 40 ＋ 各セットの購入回数 × 価格",
+            "素質購入・強化マシン・イベントの支出は集計対象外",
+            "STELLA SORA",
+            "／",
+            "星ノ塔",
+            "このブラウザーに自動保存"
+          ]
+        }
+      },
+      {
+        "id": "desktop-1280-targetLabel",
+        "scenario": "desktop-1280",
+        "target": "#target",
+        "principles": [
+          "accessibility"
+        ],
+        "question": "入力に関連付いたラベル",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": "目標コイン"
+        }
+      },
+      {
+        "id": "desktop-1280-viewport",
+        "scenario": "desktop-1280",
+        "target": "html",
+        "principles": [
+          "accessibility"
+        ],
+        "question": "通常幅と1280pxを400%拡大したときに相当するCSS幅",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": 1280
+        }
+      },
+      {
+        "id": "desktop-1280-noOverflow",
+        "scenario": "desktop-1280",
+        "target": "html",
+        "principles": [
+          "accessibility"
+        ],
+        "question": "ページに横スクロールがないか",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": true
+        }
+      },
+      {
+        "id": "desktop-1280-longValueFits",
+        "scenario": "desktop-1280",
+        "target": "#remaining",
+        "principles": [
+          "accessibility"
+        ],
+        "question": "最大の目標からの差額が表示欄に収まるか",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": true
+        }
+      },
+      {
+        "id": "desktop-1280-progressConsistent",
+        "scenario": "desktop-1280",
+        "target": ".summary",
+        "principles": [
+          "states_actions",
+          "meaning"
+        ],
+        "question": "差額330、進捗34%とアクセシブルな値は一致するか",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": true
+        }
+      },
+      {
+        "id": "desktop-1280-keyboard",
+        "scenario": "desktop-1280",
+        "target": "#target",
+        "principles": [
+          "states_actions",
+          "accessibility"
+        ],
+        "question": "Tabで移動し、フォーカスが見えるか",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": true
+        }
+      },
+      {
+        "id": "desktop-1280-hitActivates",
+        "scenario": "desktop-1280",
+        "target": "#target",
+        "principles": [
+          "states_actions"
+        ],
+        "question": "入力枠の端寄りに対する実クリックで編集が起動するか",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": true
+        },
+        "action": "set-target"
+      },
+      {
+        "id": "desktop-1280-reached",
+        "scenario": "desktop-1280",
+        "target": ".summary",
+        "principles": [
+          "states_actions"
+        ],
+        "question": "目標を170に編集すると差額0、達成率100%になるか",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": true
+        }
+      },
+      {
+        "id": "desktop-1280-invalid",
+        "scenario": "desktop-1280",
+        "target": "#target",
+        "principles": [
+          "states_actions"
+        ],
+        "question": "負値を拒否し、Enter後に元の値へ戻すか",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": true
+        }
+      },
+      {
+        "id": "desktop-1280-persisted",
+        "scenario": "desktop-1280",
+        "target": "#target",
+        "principles": [
+          "scope_connections"
+        ],
+        "question": "保存後の再読込で目標170と差額0、進捗100%が戻るか",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": true
+        }
+      },
+      {
+        "id": "mobile-320-textsUnset",
+        "scenario": "mobile-320",
+        "target": "body",
+        "principles": [
+          "copy"
+        ],
+        "question": "目標を0に変更した後の全表示文",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": [
+            "STELLA SORA",
+            "星ノ塔",
+            "カウンター",
+            "すべてリセット",
+            "消費コイン合計",
+            "170",
+            "素質再抽選 ＋ 音符セット購入",
+            "目標コイン",
+            "0",
+            "目標との差額",
+            "-170",
+            "目標コイン − 消費コイン",
+            "目標コイン未設定",
+            "—",
+            "研究効果の使用回数",
+            "コイン集計対象外",
+            "Lv3素質",
+            "0",
+            "残り10回 / 上限10回",
+            "＋2強化",
+            "0",
+            "残り5回 / 上限5回",
+            "難易度8以上・対応研究解放時の上限を表示",
+            "素質の再抽選",
+            "再抽選回数",
+            "40",
+            "コイン / 回",
+            "2",
+            "支出 80コイン",
+            "音符セットの購入回数",
+            "通常 → 20%引き → 半額",
+            "音符",
+            "5個",
+            "セット",
+            "通常90コイン",
+            "90",
+            "コイン",
+            "通常",
+            "1",
+            "支出 90コイン",
+            "72",
+            "コイン",
+            "20%引き",
+            "0",
+            "支出 0コイン",
+            "45",
+            "コイン",
+            "半額",
+            "0",
+            "支出 0コイン",
+            "音符",
+            "15個",
+            "セット",
+            "通常400コイン",
+            "400",
+            "コイン",
+            "通常",
+            "0",
+            "支出 0コイン",
+            "320",
+            "コイン",
+            "20%引き",
+            "0",
+            "支出 0コイン",
+            "200",
+            "コイン",
+            "半額",
+            "0",
+            "支出 0コイン",
+            "消費コイン ＝ 再抽選回数 × 40 ＋ 各セットの購入回数 × 価格",
+            "素質購入・強化マシン・イベントの支出は集計対象外",
+            "STELLA SORA",
+            "／",
+            "星ノ塔",
+            "このブラウザーに自動保存"
+          ]
+        }
+      },
+      {
+        "id": "mobile-320-textsError",
+        "scenario": "mobile-320",
+        "target": "body",
+        "principles": [
+          "copy"
+        ],
+        "question": "負値を拒否した直後の復帰とエラーの全表示文",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": [
+            "STELLA SORA",
+            "星ノ塔",
+            "カウンター",
+            "すべてリセット",
+            "消費コイン合計",
+            "170",
+            "素質再抽選 ＋ 音符セット購入",
+            "目標コイン",
+            "170",
+            "目標との差額",
+            "0",
+            "目標コイン − 消費コイン",
+            "目標コインに到達しました",
+            "100%",
+            "研究効果の使用回数",
+            "コイン集計対象外",
+            "Lv3素質",
+            "0",
+            "残り10回 / 上限10回",
+            "＋2強化",
+            "0",
+            "残り5回 / 上限5回",
+            "難易度8以上・対応研究解放時の上限を表示",
+            "素質の再抽選",
+            "再抽選回数",
+            "40",
+            "コイン / 回",
+            "2",
+            "支出 80コイン",
+            "音符セットの購入回数",
+            "通常 → 20%引き → 半額",
+            "音符",
+            "5個",
+            "セット",
+            "通常90コイン",
+            "90",
+            "コイン",
+            "通常",
+            "1",
+            "支出 90コイン",
+            "72",
+            "コイン",
+            "20%引き",
+            "0",
+            "支出 0コイン",
+            "45",
+            "コイン",
+            "半額",
+            "0",
+            "支出 0コイン",
+            "音符",
+            "15個",
+            "セット",
+            "通常400コイン",
+            "400",
+            "コイン",
+            "通常",
+            "0",
+            "支出 0コイン",
+            "320",
+            "コイン",
+            "20%引き",
+            "0",
+            "支出 0コイン",
+            "200",
+            "コイン",
+            "半額",
+            "0",
+            "支出 0コイン",
+            "消費コイン ＝ 再抽選回数 × 40 ＋ 各セットの購入回数 × 価格",
+            "素質購入・強化マシン・イベントの支出は集計対象外",
+            "STELLA SORA",
+            "／",
+            "星ノ塔",
+            "このブラウザーに自動保存",
+            "目標コインは0以上の整数で入力してください"
+          ]
+        }
+      },
+      {
+        "id": "mobile-320-unsetState",
+        "scenario": "mobile-320",
+        "target": ".summary",
+        "principles": [
+          "states_actions",
+          "meaning"
+        ],
+        "question": "目標0の状態名、達成率、差額、バーが整合するか",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": true
+        }
+      },
+      {
+        "id": "mobile-320-indicatorContrast",
+        "scenario": "mobile-320",
+        "target": "#target",
+        "principles": [
+          "accessibility"
+        ],
+        "question": "入力枠・編集印と隣接する色のコントラストは3:1以上か",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "range",
+          "min": 3,
+          "max": 21
+        }
+      },
+      {
+        "id": "desktop-1280-textsUnset",
+        "scenario": "desktop-1280",
+        "target": "body",
+        "principles": [
+          "copy"
+        ],
+        "question": "目標を0に変更した後の全表示文",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": [
+            "STELLA SORA",
+            "星ノ塔",
+            "カウンター",
+            "すべてリセット",
+            "消費コイン合計",
+            "170",
+            "素質再抽選 ＋ 音符セット購入",
+            "目標コイン",
+            "0",
+            "目標との差額",
+            "-170",
+            "目標コイン − 消費コイン",
+            "目標コイン未設定",
+            "—",
+            "研究効果の使用回数",
+            "コイン集計対象外",
+            "Lv3素質",
+            "0",
+            "残り10回 / 上限10回",
+            "＋2強化",
+            "0",
+            "残り5回 / 上限5回",
+            "難易度8以上・対応研究解放時の上限を表示",
+            "素質の再抽選",
+            "再抽選回数",
+            "40",
+            "コイン / 回",
+            "2",
+            "支出 80コイン",
+            "音符セットの購入回数",
+            "通常 → 20%引き → 半額",
+            "音符",
+            "5個",
+            "セット",
+            "通常90コイン",
+            "90",
+            "コイン",
+            "通常",
+            "1",
+            "支出 90コイン",
+            "72",
+            "コイン",
+            "20%引き",
+            "0",
+            "支出 0コイン",
+            "45",
+            "コイン",
+            "半額",
+            "0",
+            "支出 0コイン",
+            "音符",
+            "15個",
+            "セット",
+            "通常400コイン",
+            "400",
+            "コイン",
+            "通常",
+            "0",
+            "支出 0コイン",
+            "320",
+            "コイン",
+            "20%引き",
+            "0",
+            "支出 0コイン",
+            "200",
+            "コイン",
+            "半額",
+            "0",
+            "支出 0コイン",
+            "消費コイン ＝ 再抽選回数 × 40 ＋ 各セットの購入回数 × 価格",
+            "素質購入・強化マシン・イベントの支出は集計対象外",
+            "STELLA SORA",
+            "／",
+            "星ノ塔",
+            "このブラウザーに自動保存"
+          ]
+        }
+      },
+      {
+        "id": "desktop-1280-textsError",
+        "scenario": "desktop-1280",
+        "target": "body",
+        "principles": [
+          "copy"
+        ],
+        "question": "負値を拒否した直後の復帰とエラーの全表示文",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": [
+            "STELLA SORA",
+            "星ノ塔",
+            "カウンター",
+            "すべてリセット",
+            "消費コイン合計",
+            "170",
+            "素質再抽選 ＋ 音符セット購入",
+            "目標コイン",
+            "170",
+            "目標との差額",
+            "0",
+            "目標コイン − 消費コイン",
+            "目標コインに到達しました",
+            "100%",
+            "研究効果の使用回数",
+            "コイン集計対象外",
+            "Lv3素質",
+            "0",
+            "残り10回 / 上限10回",
+            "＋2強化",
+            "0",
+            "残り5回 / 上限5回",
+            "難易度8以上・対応研究解放時の上限を表示",
+            "素質の再抽選",
+            "再抽選回数",
+            "40",
+            "コイン / 回",
+            "2",
+            "支出 80コイン",
+            "音符セットの購入回数",
+            "通常 → 20%引き → 半額",
+            "音符",
+            "5個",
+            "セット",
+            "通常90コイン",
+            "90",
+            "コイン",
+            "通常",
+            "1",
+            "支出 90コイン",
+            "72",
+            "コイン",
+            "20%引き",
+            "0",
+            "支出 0コイン",
+            "45",
+            "コイン",
+            "半額",
+            "0",
+            "支出 0コイン",
+            "音符",
+            "15個",
+            "セット",
+            "通常400コイン",
+            "400",
+            "コイン",
+            "通常",
+            "0",
+            "支出 0コイン",
+            "320",
+            "コイン",
+            "20%引き",
+            "0",
+            "支出 0コイン",
+            "200",
+            "コイン",
+            "半額",
+            "0",
+            "支出 0コイン",
+            "消費コイン ＝ 再抽選回数 × 40 ＋ 各セットの購入回数 × 価格",
+            "素質購入・強化マシン・イベントの支出は集計対象外",
+            "STELLA SORA",
+            "／",
+            "星ノ塔",
+            "このブラウザーに自動保存",
+            "目標コインは0以上の整数で入力してください"
+          ]
+        }
+      },
+      {
+        "id": "desktop-1280-unsetState",
+        "scenario": "desktop-1280",
+        "target": ".summary",
+        "principles": [
+          "states_actions",
+          "meaning"
+        ],
+        "question": "目標0の状態名、達成率、差額、バーが整合するか",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "equals",
+          "value": true
+        }
+      },
+      {
+        "id": "desktop-1280-indicatorContrast",
+        "scenario": "desktop-1280",
+        "target": "#target",
+        "principles": [
+          "accessibility"
+        ],
+        "question": "入力枠・編集印と隣接する色のコントラストは3:1以上か",
+        "kind": "assertion",
+        "tokens": [],
+        "expectation": {
+          "operator": "range",
+          "min": 3,
+          "max": 21
+        }
+      }
+    ],
+    "principles": [
+      {
+        "id": "meaning",
+        "status": "applicable",
+        "decision": "3つの金額を支出・目標編集・差額に分ける。",
+        "source_refs": [
+          {
+            "path": "README.md",
+            "anchor": "目標コインの自由入力"
+          }
+        ],
+        "case_ids": [
+          "mobile-320-summaryBox",
+          "mobile-320-progressConsistent",
+          "desktop-1280-summaryBox",
+          "desktop-1280-progressConsistent",
+          "mobile-320-unsetState",
+          "desktop-1280-unsetState"
+        ],
+        "details": {
+          "primary_action": "目標コインの入力",
+          "objects": [
+            "消費コイン合計",
+            "目標コイン",
+            "目標との差額"
+          ],
+          "states": [
+            "目標未設定",
+            "目標未達",
+            "目標到達",
+            "目標超過"
+          ],
+          "risks": [
+            "差額を編集欄と取り違える",
+            "狭い表示幅で金額がはみ出す"
+          ],
+          "case_ids": [
+            "mobile-320-summaryBox",
+            "desktop-1280-summaryBox"
+          ]
+        }
+      },
+      {
+        "id": "structure",
+        "status": "applicable",
+        "decision": "狭い画面は各ラベルと値を同じ行にし、PCは列ごとに比較する。",
+        "source_refs": [
+          {
+            "path": "dist/index.html",
+            "anchor": "class=\"metrics\""
+          }
+        ],
+        "case_ids": [
+          "mobile-320-summaryBox",
+          "mobile-320-summaryRows",
+          "desktop-1280-summaryBox",
+          "desktop-1280-summaryRows"
+        ],
+        "details": {
+          "wireframe_ref": {
+            "path": ".harness/changes/mobile-summary/inputs/wireframe.md",
+            "anchor": "320pxの集計欄"
+          },
+          "groups": [
+            {
+              "id": "coin-metrics",
+              "members": [
+                "消費コイン合計",
+                "目標コイン",
+                "目標との差額"
+              ],
+              "comparison_axis": "スマートフォンは行、PCは列を比較",
+              "primary_action_location": "2番目の目標コインに対応する入力欄"
+            }
+          ]
+        }
+      },
+      {
+        "id": "reuse",
+        "status": "applicable",
+        "decision": "既存の集計・入力・出力・達成率バーを使う。",
+        "source_refs": [
+          {
+            "path": "dist/index.html",
+            "anchor": "class=\"summary\""
+          }
+        ],
+        "case_ids": [
+          "mobile-320-summaryBox",
+          "desktop-1280-summaryBox"
+        ],
+        "details": {
+          "components": [
+            {
+              "component": "coin-summary",
+              "existing_ref": {
+                "path": "dist/index.html",
+                "anchor": "class=\"summary\""
+              },
+              "standard_alternative": "既存パネルのグリッドとネイティブ入力を組み合わせる",
+              "choice": "reuse",
+              "reason": "集計を確認する場所と編集する場所が一致する",
+              "difference": "狭い画面の行配置と入力枠を調整する",
+              "uses": [
+                "星ノ塔カウンターの集計"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "visual_hierarchy",
+        "status": "applicable",
+        "decision": "合計、目標、差額の順を保ち、数値を大きく、目標を枠付きにする。",
+        "source_refs": [
+          {
+            "path": "dist/index.html",
+            "anchor": "class=\"metric metric-total\""
+          }
+        ],
+        "case_ids": [
+          "mobile-320-summaryBox",
+          "mobile-320-summaryRows",
+          "desktop-1280-summaryBox",
+          "desktop-1280-summaryRows"
+        ],
+        "details": {
+          "order": [
+            "消費コイン合計",
+            "目標コイン",
+            "目標との差額",
+            "進捗"
+          ],
+          "reason": "金額を優先して確認し、編集可能な欄を識別する",
+          "case_ids": [
+            "mobile-320-summaryBox",
+            "desktop-1280-summaryBox",
+            "mobile-320-summaryRows",
+            "desktop-1280-summaryRows"
+          ]
+        }
+      },
+      {
+        "id": "tokens",
+        "status": "applicable",
+        "decision": "既存の未達時の差額色を比較の補助として保つ。",
+        "source_refs": [
+          {
+            "path": "dist/styles.css",
+            "anchor": "--accent: #7161c9"
+          }
+        ],
+        "case_ids": [
+          "mobile-320-valueColor",
+          "desktop-1280-valueColor"
+        ],
+        "details": {
+          "bindings": [
+            {
+              "token": "coin-difference-foreground",
+              "target": "#remaining",
+              "case_ids": [
+                "mobile-320-valueColor",
+                "desktop-1280-valueColor"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "density_typography",
+        "status": "applicable",
+        "decision": "通常の金額を大きく保ち、狭い画面のラベルと操作面を拡大する。",
+        "source_refs": [
+          {
+            "path": "dist/styles.css",
+            "anchor": ".metric-label"
+          },
+          {
+            "path": "dist/styles.css",
+            "anchor": ".metric-target .metric-value"
+          }
+        ],
+        "case_ids": [
+          "mobile-320-labelSize",
+          "mobile-320-labelLine",
+          "mobile-320-rowHeight",
+          "mobile-320-summaryInset",
+          "mobile-320-targetWidth",
+          "mobile-320-targetHeight",
+          "desktop-1280-labelSize",
+          "desktop-1280-labelLine",
+          "desktop-1280-rowHeight",
+          "desktop-1280-summaryInset",
+          "desktop-1280-targetWidth",
+          "desktop-1280-targetHeight"
+        ],
+        "details": {
+          "measurements": [
+            {
+              "id": "labelSize",
+              "dimension": "font_size",
+              "target": ".metric-target .metric-label",
+              "purpose": "金額を説明する日本語ラベルを読む",
+              "case_ids": [
+                "mobile-320-labelSize",
+                "desktop-1280-labelSize"
+              ]
+            },
+            {
+              "id": "labelLine",
+              "dimension": "line_height",
+              "target": ".metric-target .metric-label",
+              "purpose": "日本語と編集印が収まる行内の空間",
+              "case_ids": [
+                "mobile-320-labelLine",
+                "desktop-1280-labelLine"
+              ]
+            },
+            {
+              "id": "rowHeight",
+              "dimension": "row_height",
+              "target": ".metric-target",
+              "purpose": "編集欄と項目の区切りを同じ行に収める",
+              "case_ids": [
+                "mobile-320-rowHeight",
+                "desktop-1280-rowHeight"
+              ]
+            },
+            {
+              "id": "targetWidth",
+              "dimension": "target_size",
+              "target": "#target",
+              "purpose": "金額を入力・選択する横幅",
+              "case_ids": [
+                "mobile-320-targetWidth",
+                "desktop-1280-targetWidth"
+              ]
+            },
+            {
+              "id": "summaryInset",
+              "dimension": "spacing",
+              "target": ".summary",
+              "purpose": "集計欄と隣接する画面領域の境目",
+              "case_ids": [
+                "mobile-320-summaryInset",
+                "desktop-1280-summaryInset"
+              ]
+            }
+          ],
+          "controls": [
+            {
+              "id": "edit-target-control",
+              "action": "set-target",
+              "visual": {
+                "target": "#target",
+                "width_case_ids": [
+                  "mobile-320-targetWidth",
+                  "desktop-1280-targetWidth"
+                ],
+                "height_case_ids": [
+                  "mobile-320-targetHeight",
+                  "desktop-1280-targetHeight"
+                ]
+              },
+              "hit": {
+                "target": "#target",
+                "width_case_ids": [
+                  "mobile-320-targetWidth",
+                  "desktop-1280-targetWidth"
+                ],
+                "height_case_ids": [
+                  "mobile-320-targetHeight",
+                  "desktop-1280-targetHeight"
+                ]
+              },
+              "activation_case_ids": [
+                "mobile-320-hitActivates",
+                "desktop-1280-hitActivates"
+              ],
+              "reason": "ネイティブ入力の枠と操作面は一致する。44pxは操作面の高さで、数字やアイコンはその大きさに拡大しない。"
+            }
+          ]
+        }
+      },
+      {
+        "id": "copy",
+        "status": "applicable",
+        "decision": "操作はラベルと枠で示し、クリックの説明を除く。目標未設定の文は状態名にする。",
+        "source_refs": [
+          {
+            "path": "dist/index.html",
+            "anchor": "for=\"target\""
+          },
+          {
+            "path": "README.md",
+            "anchor": "目標コインの自由入力"
+          }
+        ],
+        "case_ids": [
+          "mobile-320-texts",
+          "desktop-1280-texts",
+          "mobile-320-textsUnset",
+          "mobile-320-textsError",
+          "desktop-1280-textsUnset",
+          "desktop-1280-textsError"
+        ],
+        "details": {
+          "items": [
+            {
+              "id": "copy-1",
+              "text": "STELLA SORA",
+              "requirement": "summary-read",
+              "role": "name",
+              "purpose": "identity",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "STELLA SORA"
+              },
+              "reason": "ツール・項目・対象セットの名称を識別する",
+              "alternative": "名前を隠すと金額やカウンターが示す対象が分からなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-2",
+              "text": "星ノ塔",
+              "requirement": "summary-read",
+              "role": "name",
+              "purpose": "identity",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "星ノ塔"
+              },
+              "reason": "ツール・項目・対象セットの名称を識別する",
+              "alternative": "名前を隠すと金額やカウンターが示す対象が分からなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-3",
+              "text": "カウンター",
+              "requirement": "summary-read",
+              "role": "name",
+              "purpose": "identity",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "カウンター"
+              },
+              "reason": "ツール・項目・対象セットの名称を識別する",
+              "alternative": "名前を隠すと金額やカウンターが示す対象が分からなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-4",
+              "text": "すべてリセット",
+              "requirement": "summary-read",
+              "role": "label",
+              "purpose": "action_label",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "すべてリセット"
+              },
+              "reason": "操作の対象を明示する",
+              "alternative": "文字を除くとアイコン・入力値からは操作の対象を判別できない",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-5",
+              "text": "消費コイン合計",
+              "requirement": "summary-read",
+              "role": "name",
+              "purpose": "identity",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "消費コイン合計"
+              },
+              "reason": "ツール・項目・対象セットの名称を識別する",
+              "alternative": "名前を隠すと金額やカウンターが示す対象が分からなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-6",
+              "text": "170",
+              "requirement": "summary-read",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "totalOutput.textContent ="
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-7",
+              "text": "素質再抽選 ＋ 音符セット購入",
+              "requirement": "summary-read",
+              "role": "explanation",
+              "purpose": "explanation",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "素質再抽選 ＋ 音符セット購入"
+              },
+              "reason": "表示項目の読み方、計算範囲、条件を示す",
+              "alternative": "位置や色だけでは算出式や適用条件を確定できない",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-8",
+              "text": "目標コイン",
+              "requirement": "summary-read",
+              "role": "label",
+              "purpose": "action_label",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "目標コイン"
+              },
+              "reason": "操作の対象を明示する",
+              "alternative": "文字を除くとアイコン・入力値からは操作の対象を判別できない",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "text": "500",
+              "role": "data",
+              "purpose": "data",
+              "requirement": "summary-edit",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "const target ="
+              },
+              "reason": "編集欄に現在設定されている目標額を示す。",
+              "alternative": "数字を表示しない場合、値を確認したり次に入力する値を比較したりできない。",
+              "redundancy": "対象の入力または出力に対応した現在の値を表示する。",
+              "case_ids": [
+                "mobile-320-texts",
+                "desktop-1280-texts"
+              ],
+              "id": "copy-9"
+            },
+            {
+              "text": "0",
+              "role": "data",
+              "purpose": "data",
+              "requirement": "summary-edit",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "const target ="
+              },
+              "reason": "編集欄に現在設定されている目標額を示す。",
+              "alternative": "数字を表示しない場合、値を確認したり次に入力する値を比較したりできない。",
+              "redundancy": "対象の入力または出力に対応した現在の値を表示する。",
+              "case_ids": [
+                "mobile-320-textsUnset",
+                "desktop-1280-textsUnset"
+              ],
+              "id": "copy-10"
+            },
+            {
+              "text": "170",
+              "role": "data",
+              "purpose": "data",
+              "requirement": "summary-edit",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "const target ="
+              },
+              "reason": "編集欄に現在設定されている目標額を示す。",
+              "alternative": "数字を表示しない場合、値を確認したり次に入力する値を比較したりできない。",
+              "redundancy": "対象の入力または出力に対応した現在の値を表示する。",
+              "case_ids": [
+                "mobile-320-textsError",
+                "desktop-1280-textsError"
+              ],
+              "id": "copy-11"
+            },
+            {
+              "id": "copy-12",
+              "text": "目標との差額",
+              "requirement": "summary-read",
+              "role": "name",
+              "purpose": "identity",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "目標との差額"
+              },
+              "reason": "ツール・項目・対象セットの名称を識別する",
+              "alternative": "名前を隠すと金額やカウンターが示す対象が分からなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-13",
+              "text": "330",
+              "requirement": "summary-read",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "remainingOutput.textContent ="
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。",
+              "case_ids": [
+                "mobile-320-texts",
+                "desktop-1280-texts"
+              ]
+            },
+            {
+              "text": "-170",
+              "role": "data",
+              "purpose": "data",
+              "requirement": "summary-edit",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "remainingOutput.textContent ="
+              },
+              "reason": "目標0と支出170の差額",
+              "alternative": "数字を表示しない場合、値を確認したり次に入力する値を比較したりできない。",
+              "redundancy": "対象の入力または出力に対応した現在の値を表示する。",
+              "case_ids": [
+                "mobile-320-textsUnset",
+                "desktop-1280-textsUnset"
+              ],
+              "id": "copy-14"
+            },
+            {
+              "text": "0",
+              "role": "data",
+              "purpose": "data",
+              "requirement": "summary-edit",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "remainingOutput.textContent ="
+              },
+              "reason": "目標170への到達を表す差額",
+              "alternative": "数字を表示しない場合、値を確認したり次に入力する値を比較したりできない。",
+              "redundancy": "対象の入力または出力に対応した現在の値を表示する。",
+              "case_ids": [
+                "mobile-320-textsError",
+                "desktop-1280-textsError"
+              ],
+              "id": "copy-15"
+            },
+            {
+              "id": "copy-16",
+              "text": "目標コイン − 消費コイン",
+              "requirement": "summary-read",
+              "role": "explanation",
+              "purpose": "explanation",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "目標コイン − 消費コイン"
+              },
+              "reason": "表示項目の読み方、計算範囲、条件を示す",
+              "alternative": "位置や色だけでは算出式や適用条件を確定できない",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-17",
+              "text": "目標まで あと 330コイン",
+              "requirement": "summary-read",
+              "role": "status",
+              "purpose": "state_guidance",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "'目標まで あと '"
+              },
+              "reason": "現在の進捗状態や保存先を確認する",
+              "alternative": "バーや色だけでは超過と到達、保存先を判別できない",
+              "redundancy": "進捗の数値と独立して達成・超過を言葉で示す。保存表示は保存先の説明を兼ねる。",
+              "case_ids": [
+                "mobile-320-texts",
+                "desktop-1280-texts"
+              ]
+            },
+            {
+              "text": "目標コイン未設定",
+              "role": "status",
+              "purpose": "state_guidance",
+              "requirement": "summary-edit",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "'目標コイン未設定'"
+              },
+              "reason": "目標0のとき達成率が定義されていないことを伝える。",
+              "case_ids": [
+                "mobile-320-textsUnset",
+                "desktop-1280-textsUnset"
+              ],
+              "alternative": "状態を数値や色だけで表すと、進捗の状態や入力を直す方法が分からない。",
+              "redundancy": "実際の値や入力結果と連動する状態名で、別の説明を同じ場所に置かない。",
+              "id": "copy-18"
+            },
+            {
+              "text": "目標コインに到達しました",
+              "role": "status",
+              "purpose": "state_guidance",
+              "requirement": "summary-edit",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "'目標コインに到達しました'"
+              },
+              "reason": "支出が目標額と一致したことを伝える。",
+              "case_ids": [
+                "mobile-320-textsError",
+                "desktop-1280-textsError"
+              ],
+              "alternative": "状態を数値や色だけで表すと、進捗の状態や入力を直す方法が分からない。",
+              "redundancy": "実際の値や入力結果と連動する状態名で、別の説明を同じ場所に置かない。",
+              "id": "copy-19"
+            },
+            {
+              "id": "copy-20",
+              "text": "34%",
+              "requirement": "summary-read",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "progressPercent.textContent ="
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。",
+              "case_ids": [
+                "mobile-320-texts",
+                "desktop-1280-texts"
+              ]
+            },
+            {
+              "text": "—",
+              "role": "data",
+              "purpose": "data",
+              "requirement": "summary-edit",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "progressPercent.textContent ="
+              },
+              "reason": "目標0で達成率が表示されないことを示す",
+              "alternative": "数字を表示しない場合、値を確認したり次に入力する値を比較したりできない。",
+              "redundancy": "対象の入力または出力に対応した現在の値を表示する。",
+              "case_ids": [
+                "mobile-320-textsUnset",
+                "desktop-1280-textsUnset"
+              ],
+              "id": "copy-21"
+            },
+            {
+              "text": "100%",
+              "role": "data",
+              "purpose": "data",
+              "requirement": "summary-edit",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "progressPercent.textContent ="
+              },
+              "reason": "目標額に到達したときの達成率",
+              "alternative": "数字を表示しない場合、値を確認したり次に入力する値を比較したりできない。",
+              "redundancy": "対象の入力または出力に対応した現在の値を表示する。",
+              "case_ids": [
+                "mobile-320-textsError",
+                "desktop-1280-textsError"
+              ],
+              "id": "copy-22"
+            },
+            {
+              "id": "copy-23",
+              "text": "研究効果の使用回数",
+              "requirement": "summary-read",
+              "role": "name",
+              "purpose": "identity",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "研究効果の使用回数"
+              },
+              "reason": "ツール・項目・対象セットの名称を識別する",
+              "alternative": "名前を隠すと金額やカウンターが示す対象が分からなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-24",
+              "text": "コイン集計対象外",
+              "requirement": "summary-edit",
+              "role": "explanation",
+              "purpose": "explanation",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "コイン集計対象外"
+              },
+              "reason": "表示項目の読み方、計算範囲、条件を示す",
+              "alternative": "位置や色だけでは算出式や適用条件を確定できない",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-25",
+              "text": "Lv3素質",
+              "requirement": "summary-edit",
+              "role": "name",
+              "purpose": "identity",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "Lv3素質の取得回数、＋2強化の使用回数"
+              },
+              "reason": "ツール・項目・対象セットの名称を識別する",
+              "alternative": "名前を隠すと金額やカウンターが示す対象が分からなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "text": "0",
+              "role": "data",
+              "purpose": "data",
+              "requirement": "summary-edit",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "id=\"count-${id}\""
+              },
+              "reason": "このカウンターで数えた回数を確認する。",
+              "alternative": "数字を表示しない場合、値を確認したり次に入力する値を比較したりできない。",
+              "redundancy": "対象の入力または出力に対応した現在の値を表示する。",
+              "id": "copy-26"
+            },
+            {
+              "id": "copy-27",
+              "text": "残り10回 / 上限10回",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "'残り' + number.format(usage.remaining)"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-28",
+              "text": "＋2強化",
+              "requirement": "summary-edit",
+              "role": "name",
+              "purpose": "identity",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "Lv3素質の取得回数、＋2強化の使用回数"
+              },
+              "reason": "ツール・項目・対象セットの名称を識別する",
+              "alternative": "名前を隠すと金額やカウンターが示す対象が分からなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "text": "0",
+              "role": "data",
+              "purpose": "data",
+              "requirement": "summary-edit",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "id=\"count-${id}\""
+              },
+              "reason": "このカウンターで数えた回数を確認する。",
+              "alternative": "数字を表示しない場合、値を確認したり次に入力する値を比較したりできない。",
+              "redundancy": "対象の入力または出力に対応した現在の値を表示する。",
+              "id": "copy-29"
+            },
+            {
+              "id": "copy-30",
+              "text": "残り5回 / 上限5回",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "'残り' + number.format(usage.remaining)"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-31",
+              "text": "難易度8以上・対応研究解放時の上限を表示",
+              "requirement": "summary-edit",
+              "role": "explanation",
+              "purpose": "explanation",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "難易度8以上・対応研究解放時の上限を表示"
+              },
+              "reason": "表示項目の読み方、計算範囲、条件を示す",
+              "alternative": "位置や色だけでは算出式や適用条件を確定できない",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-32",
+              "text": "素質の再抽選",
+              "requirement": "summary-edit",
+              "role": "name",
+              "purpose": "identity",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "素質の再抽選"
+              },
+              "reason": "ツール・項目・対象セットの名称を識別する",
+              "alternative": "名前を隠すと金額やカウンターが示す対象が分からなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-33",
+              "text": "再抽選回数",
+              "requirement": "summary-edit",
+              "role": "explanation",
+              "purpose": "explanation",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "再抽選回数"
+              },
+              "reason": "表示項目の読み方、計算範囲、条件を示す",
+              "alternative": "位置や色だけでは算出式や適用条件を確定できない",
+              "redundancy": "見出しは対象、補助ラベルは同じ区域の40コインと操作する回数を区別する。"
+            },
+            {
+              "id": "copy-34",
+              "text": "40",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "1回40コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-35",
+              "text": "コイン / 回",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "1回40コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "text": "2",
+              "role": "data",
+              "purpose": "data",
+              "requirement": "summary-edit",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "id=\"count-${id}\""
+              },
+              "reason": "このカウンターで数えた回数を確認する。",
+              "alternative": "数字を表示しない場合、値を確認したり次に入力する値を比較したりできない。",
+              "redundancy": "対象の入力または出力に対応した現在の値を表示する。",
+              "id": "copy-36"
+            },
+            {
+              "id": "copy-37",
+              "text": "支出 80コイン",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "subtotal.textContent = '支出 '"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-38",
+              "text": "音符セットの購入回数",
+              "requirement": "summary-edit",
+              "role": "name",
+              "purpose": "identity",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "音符セットの購入回数"
+              },
+              "reason": "ツール・項目・対象セットの名称を識別する",
+              "alternative": "名前を隠すと金額やカウンターが示す対象が分からなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-39",
+              "text": "通常 → 20%引き → 半額",
+              "requirement": "summary-edit",
+              "role": "explanation",
+              "purpose": "explanation",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "通常 → 20%引き → 半額"
+              },
+              "reason": "表示項目の読み方、計算範囲、条件を示す",
+              "alternative": "位置や色だけでは算出式や適用条件を確定できない",
+              "redundancy": "価格カードの並びをグループの入口で示し、下へスクロールする前に操作位置を予測できる。"
+            },
+            {
+              "id": "copy-40",
+              "text": "音符",
+              "requirement": "summary-edit",
+              "role": "name",
+              "purpose": "identity",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "音符"
+              },
+              "reason": "ツール・項目・対象セットの名称を識別する",
+              "alternative": "名前を隠すと金額やカウンターが示す対象が分からなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-41",
+              "text": "5個",
+              "requirement": "summary-edit",
+              "role": "name",
+              "purpose": "identity",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "family-90-heading"
+              },
+              "reason": "ツール・項目・対象セットの名称を識別する",
+              "alternative": "名前を隠すと金額やカウンターが示す対象が分からなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-42",
+              "text": "セット",
+              "requirement": "summary-edit",
+              "role": "name",
+              "purpose": "identity",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "セット"
+              },
+              "reason": "ツール・項目・対象セットの名称を識別する",
+              "alternative": "名前を隠すと金額やカウンターが示す対象が分からなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-43",
+              "text": "通常90コイン",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常90／20%引き72／半額45コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-44",
+              "text": "90",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常90／20%引き72／半額45コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-45",
+              "text": "コイン",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常90／20%引き72／半額45コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-46",
+              "text": "通常",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常90／20%引き72／半額45コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "text": "1",
+              "role": "data",
+              "purpose": "data",
+              "requirement": "summary-edit",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "id=\"count-${id}\""
+              },
+              "reason": "このカウンターで数えた回数を確認する。",
+              "alternative": "数字を表示しない場合、値を確認したり次に入力する値を比較したりできない。",
+              "redundancy": "対象の入力または出力に対応した現在の値を表示する。",
+              "id": "copy-47"
+            },
+            {
+              "id": "copy-48",
+              "text": "支出 90コイン",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "subtotal.textContent = '支出 '"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-49",
+              "text": "72",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常90／20%引き72／半額45コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-50",
+              "text": "コイン",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常90／20%引き72／半額45コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-51",
+              "text": "20%引き",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常90／20%引き72／半額45コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "text": "0",
+              "role": "data",
+              "purpose": "data",
+              "requirement": "summary-edit",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "id=\"count-${id}\""
+              },
+              "reason": "このカウンターで数えた回数を確認する。",
+              "alternative": "数字を表示しない場合、値を確認したり次に入力する値を比較したりできない。",
+              "redundancy": "対象の入力または出力に対応した現在の値を表示する。",
+              "id": "copy-52"
+            },
+            {
+              "id": "copy-53",
+              "text": "支出 0コイン",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "subtotal.textContent = '支出 '"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-54",
+              "text": "45",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常90／20%引き72／半額45コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-55",
+              "text": "コイン",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常90／20%引き72／半額45コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-56",
+              "text": "半額",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常90／20%引き72／半額45コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "text": "0",
+              "role": "data",
+              "purpose": "data",
+              "requirement": "summary-edit",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "id=\"count-${id}\""
+              },
+              "reason": "このカウンターで数えた回数を確認する。",
+              "alternative": "数字を表示しない場合、値を確認したり次に入力する値を比較したりできない。",
+              "redundancy": "対象の入力または出力に対応した現在の値を表示する。",
+              "id": "copy-57"
+            },
+            {
+              "id": "copy-58",
+              "text": "支出 0コイン",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "subtotal.textContent = '支出 '"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-59",
+              "text": "音符",
+              "requirement": "summary-edit",
+              "role": "name",
+              "purpose": "identity",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "音符"
+              },
+              "reason": "ツール・項目・対象セットの名称を識別する",
+              "alternative": "名前を隠すと金額やカウンターが示す対象が分からなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-60",
+              "text": "15個",
+              "requirement": "summary-edit",
+              "role": "name",
+              "purpose": "identity",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "family-400-heading"
+              },
+              "reason": "ツール・項目・対象セットの名称を識別する",
+              "alternative": "名前を隠すと金額やカウンターが示す対象が分からなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-61",
+              "text": "セット",
+              "requirement": "summary-edit",
+              "role": "name",
+              "purpose": "identity",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "セット"
+              },
+              "reason": "ツール・項目・対象セットの名称を識別する",
+              "alternative": "名前を隠すと金額やカウンターが示す対象が分からなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-62",
+              "text": "通常400コイン",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常400／20%引き320／半額200コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-63",
+              "text": "400",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常400／20%引き320／半額200コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-64",
+              "text": "コイン",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常90／20%引き72／半額45コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-65",
+              "text": "通常",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常90／20%引き72／半額45コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "text": "0",
+              "role": "data",
+              "purpose": "data",
+              "requirement": "summary-edit",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "id=\"count-${id}\""
+              },
+              "reason": "このカウンターで数えた回数を確認する。",
+              "alternative": "数字を表示しない場合、値を確認したり次に入力する値を比較したりできない。",
+              "redundancy": "対象の入力または出力に対応した現在の値を表示する。",
+              "id": "copy-66"
+            },
+            {
+              "id": "copy-67",
+              "text": "支出 0コイン",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "subtotal.textContent = '支出 '"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-68",
+              "text": "320",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常400／20%引き320／半額200コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-69",
+              "text": "コイン",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常90／20%引き72／半額45コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-70",
+              "text": "20%引き",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常90／20%引き72／半額45コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "text": "0",
+              "role": "data",
+              "purpose": "data",
+              "requirement": "summary-edit",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "id=\"count-${id}\""
+              },
+              "reason": "このカウンターで数えた回数を確認する。",
+              "alternative": "数字を表示しない場合、値を確認したり次に入力する値を比較したりできない。",
+              "redundancy": "対象の入力または出力に対応した現在の値を表示する。",
+              "id": "copy-71"
+            },
+            {
+              "id": "copy-72",
+              "text": "支出 0コイン",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "subtotal.textContent = '支出 '"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-73",
+              "text": "200",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常400／20%引き320／半額200コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-74",
+              "text": "コイン",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常90／20%引き72／半額45コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-75",
+              "text": "半額",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "README.md",
+                "anchor": "通常90／20%引き72／半額45コイン"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "text": "0",
+              "role": "data",
+              "purpose": "data",
+              "requirement": "summary-edit",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "id=\"count-${id}\""
+              },
+              "reason": "このカウンターで数えた回数を確認する。",
+              "alternative": "数字を表示しない場合、値を確認したり次に入力する値を比較したりできない。",
+              "redundancy": "対象の入力または出力に対応した現在の値を表示する。",
+              "id": "copy-76"
+            },
+            {
+              "id": "copy-77",
+              "text": "支出 0コイン",
+              "requirement": "summary-edit",
+              "role": "data",
+              "purpose": "data",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "subtotal.textContent = '支出 '"
+              },
+              "reason": "金額、達成率、上限、または購入条件を数値や単位で伝える",
+              "alternative": "数値・条件・単位の省略で比較または価格の解釈ができなくなる",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-78",
+              "text": "消費コイン ＝ 再抽選回数 × 40 ＋ 各セットの購入回数 × 価格",
+              "requirement": "summary-edit",
+              "role": "explanation",
+              "purpose": "explanation",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "消費コイン ＝ 再抽選回数 × 40 ＋ 各セットの購入回数 × 価格"
+              },
+              "reason": "表示項目の読み方、計算範囲、条件を示す",
+              "alternative": "位置や色だけでは算出式や適用条件を確定できない",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-79",
+              "text": "素質購入・強化マシン・イベントの支出は集計対象外",
+              "requirement": "summary-edit",
+              "role": "explanation",
+              "purpose": "explanation",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "素質購入・強化マシン・イベントの支出は集計対象外"
+              },
+              "reason": "表示項目の読み方、計算範囲、条件を示す",
+              "alternative": "位置や色だけでは算出式や適用条件を確定できない",
+              "redundancy": "同じ場所に別の表現は足さない。カードで繰り返すラベル・単位は各金額や操作に対応する。"
+            },
+            {
+              "id": "copy-80",
+              "text": "STELLA SORA",
+              "requirement": "summary-edit",
+              "role": "name",
+              "purpose": "identity",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "STELLA SORA"
+              },
+              "reason": "ツール・項目・対象セットの名称を識別する",
+              "alternative": "名前を隠すと金額やカウンターが示す対象が分からなくなる",
+              "redundancy": "スクロール末尾で自動保存の対象となるゲームとモードの組を識別する既存表示。"
+            },
+            {
+              "id": "copy-81",
+              "text": "／",
+              "requirement": "summary-edit",
+              "role": "name",
+              "purpose": "identity",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "class=\"page-footer\""
+              },
+              "reason": "ツール・項目・対象セットの名称を識別する",
+              "alternative": "名前を隠すと金額やカウンターが示す対象が分からなくなる",
+              "redundancy": "スクロール末尾で自動保存の対象となるゲームとモードの組を識別する既存表示。"
+            },
+            {
+              "id": "copy-82",
+              "text": "星ノ塔",
+              "requirement": "summary-edit",
+              "role": "name",
+              "purpose": "identity",
+              "source_ref": {
+                "path": "dist/index.html",
+                "anchor": "星ノ塔"
+              },
+              "reason": "ツール・項目・対象セットの名称を識別する",
+              "alternative": "名前を隠すと金額やカウンターが示す対象が分からなくなる",
+              "redundancy": "スクロール末尾で自動保存の対象となるゲームとモードの組を識別する既存表示。"
+            },
+            {
+              "id": "copy-83",
+              "text": "このブラウザーに自動保存",
+              "requirement": "summary-edit",
+              "role": "status",
+              "purpose": "state_guidance",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "このブラウザーに自動保存"
+              },
+              "reason": "現在の進捗状態や保存先を確認する",
+              "alternative": "バーや色だけでは超過と到達、保存先を判別できない",
+              "redundancy": "進捗の数値と独立して達成・超過を言葉で示す。保存表示は保存先の説明を兼ねる。"
+            },
+            {
+              "text": "目標コインは0以上の整数で入力してください",
+              "role": "error",
+              "purpose": "error_guidance",
+              "requirement": "summary-edit",
+              "source_ref": {
+                "path": "dist/app.js",
+                "anchor": "'目標コインは0以上の整数で入力してください'"
+              },
+              "reason": "負値から復帰した直後、入力できる値を具体的に伝える。",
+              "case_ids": [
+                "mobile-320-textsError",
+                "desktop-1280-textsError"
+              ],
+              "alternative": "状態を数値や色だけで表すと、進捗の状態や入力を直す方法が分からない。",
+              "redundancy": "実際の値や入力結果と連動する状態名で、別の説明を同じ場所に置かない。",
+              "id": "copy-84"
+            }
+          ],
+          "inventory_case_ids": [
+            "mobile-320-texts",
+            "desktop-1280-texts",
+            "mobile-320-textsUnset",
+            "desktop-1280-textsUnset",
+            "mobile-320-textsError",
+            "desktop-1280-textsError"
+          ]
+        }
+      },
+      {
+        "id": "states_actions",
+        "status": "applicable",
+        "decision": "既存の同期入力・値検証・進捗更新を使う。",
+        "source_refs": [
+          {
+            "path": "dist/app.js",
+            "anchor": "target.addEventListener('input'"
+          }
+        ],
+        "case_ids": [
+          "mobile-320-progressConsistent",
+          "mobile-320-keyboard",
+          "mobile-320-hitActivates",
+          "mobile-320-reached",
+          "mobile-320-invalid",
+          "desktop-1280-progressConsistent",
+          "desktop-1280-keyboard",
+          "desktop-1280-hitActivates",
+          "desktop-1280-reached",
+          "desktop-1280-invalid",
+          "mobile-320-unsetState",
+          "desktop-1280-unsetState"
+        ],
+        "details": {
+          "consistency_case_ids": [
+            "mobile-320-progressConsistent",
+            "desktop-1280-progressConsistent",
+            "mobile-320-reached",
+            "desktop-1280-reached",
+            "mobile-320-unsetState",
+            "desktop-1280-unsetState"
+          ],
+          "actions": [
+            {
+              "id": "set-target",
+              "entrypoint": "#target",
+              "outcomes": [
+                {
+                  "outcome": "success",
+                  "reason": "入力後に差額と進捗が一致する",
+                  "applicable": true,
+                  "case_ids": [
+                    "mobile-320-reached",
+                    "desktop-1280-reached"
+                  ]
+                },
+                {
+                  "outcome": "failure",
+                  "reason": "負値は前の値へ戻る",
+                  "applicable": true,
+                  "case_ids": [
+                    "mobile-320-invalid",
+                    "desktop-1280-invalid"
+                  ]
+                },
+                {
+                  "outcome": "cancel",
+                  "reason": "即時入力で送信前の確認や取消フローはない",
+                  "applicable": false,
+                  "case_ids": []
+                },
+                {
+                  "outcome": "duplicate",
+                  "reason": "フォーム送信を行わない同期入力",
+                  "applicable": false,
+                  "case_ids": []
+                },
+                {
+                  "outcome": "late_response",
+                  "reason": "ネットワーク応答を待たない",
+                  "applicable": false,
+                  "case_ids": []
+                },
+                {
+                  "outcome": "focus",
+                  "reason": "Tabで目標入力にフォーカスする",
+                  "applicable": true,
+                  "case_ids": [
+                    "mobile-320-keyboard",
+                    "desktop-1280-keyboard"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "accessibility",
+        "status": "applicable",
+        "decision": "ラベル、読み順、Tabとフォーカス、320px相当のリフロー、入力面を測る。",
+        "source_refs": [
+          {
+            "path": "dist/index.html",
+            "anchor": "for=\"target\""
+          },
+          {
+            "path": "dist/styles.css",
+            "anchor": "input:focus-visible"
+          }
+        ],
+        "case_ids": [
+          "mobile-320-labels",
+          "mobile-320-targetHeight",
+          "mobile-320-targetLabel",
+          "mobile-320-viewport",
+          "mobile-320-noOverflow",
+          "mobile-320-longValueFits",
+          "mobile-320-keyboard",
+          "desktop-1280-labels",
+          "desktop-1280-targetHeight",
+          "desktop-1280-targetLabel",
+          "desktop-1280-viewport",
+          "desktop-1280-noOverflow",
+          "desktop-1280-longValueFits",
+          "desktop-1280-keyboard",
+          "mobile-320-indicatorContrast",
+          "desktop-1280-indicatorContrast"
+        ],
+        "details": {
+          "checks": [
+            {
+              "aspect": "label",
+              "target": "#target",
+              "case_ids": [
+                "mobile-320-targetLabel",
+                "desktop-1280-targetLabel"
+              ]
+            },
+            {
+              "aspect": "keyboard",
+              "target": "#target",
+              "case_ids": [
+                "mobile-320-keyboard",
+                "desktop-1280-keyboard"
+              ]
+            },
+            {
+              "aspect": "focus",
+              "target": "#target",
+              "case_ids": [
+                "mobile-320-keyboard",
+                "desktop-1280-keyboard"
+              ]
+            },
+            {
+              "aspect": "width",
+              "target": "html",
+              "case_ids": [
+                "mobile-320-noOverflow",
+                "desktop-1280-noOverflow"
+              ]
+            },
+            {
+              "aspect": "zoom",
+              "target": "html",
+              "case_ids": [
+                "mobile-320-viewport",
+                "desktop-1280-viewport"
+              ]
+            },
+            {
+              "aspect": "reading_order",
+              "target": ".metric-label",
+              "case_ids": [
+                "mobile-320-labels",
+                "desktop-1280-labels"
+              ]
+            },
+            {
+              "aspect": "operable_targets",
+              "target": "#target",
+              "case_ids": [
+                "mobile-320-targetHeight",
+                "desktop-1280-targetHeight",
+                "mobile-320-indicatorContrast",
+                "desktop-1280-indicatorContrast"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "scope_connections",
+        "status": "applicable",
+        "decision": "集計の表示だけ見直し、既存の入力・計算・保存経路を使う。",
+        "source_refs": [
+          {
+            "path": "dist/app.js",
+            "anchor": "const storageKey"
+          },
+          {
+            "path": "dist/app.js",
+            "anchor": "function commit(next)"
+          }
+        ],
+        "case_ids": [
+          "mobile-320-persisted",
+          "desktop-1280-persisted"
+        ],
+        "details": {
+          "changed": [
+            "dist/index.html",
+            "dist/styles.css",
+            "dist/app.js"
+          ],
+          "related": [
+            "dist/counter.js",
+            "docs/index.html",
+            "docs/styles.css",
+            "docs/app.js",
+            "README.md"
+          ],
+          "state_owner": "dist/app.jsのstateとStarTowerCounter",
+          "boundaries": "既存モデルとブラウザー内の保存を使う",
+          "complexity": "CSSで狭い画面の配置を変え、イベントや計算処理を増やさない",
+          "connections": [
+            {
+              "entrypoint": "#target",
+              "handler_ref": {
+                "path": "dist/app.js",
+                "anchor": "target.addEventListener('input'"
+              },
+              "status": "production",
+              "case_ids": [
+                "mobile-320-persisted",
+                "desktop-1280-persisted"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

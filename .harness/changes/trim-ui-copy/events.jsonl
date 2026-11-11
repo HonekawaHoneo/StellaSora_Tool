@@ -1,0 +1,23 @@
+{"time": "2026-11-11T16:03:54.246510+00:00", "event": "created", "kind": "change", "author": "codex-root", "context": "01a1cb29-a5a5-7151-a4ee-bcdb4c7995f9/trim-ui-copy"}
+{"time": "2026-11-11T16:03:55.722830+00:00", "event": "advanced", "previous": "discovery", "phase": "requirements", "artifact_digest": "f24bab48f92e73d805b8c97f733460d6e012c51c1bc2daad5475590515248def"}
+{"time": "2026-11-11T16:03:56.661448+00:00", "event": "advanced", "previous": "requirements", "phase": "design", "artifact_digest": "5a321df77b44e8c6e37289ccf6eaa8186b1ac10d27aa5ba8d3fc24351f6fb878"}
+{"time": "2026-11-11T16:06:12.290365+00:00", "event": "gate_failed", "phase": "design", "reason": "copy.requirementが不明です"}
+{"time": "2026-11-11T16:06:24.436444+00:00", "event": "advanced", "previous": "design", "phase": "implementation", "artifact_digest": "2c13cff98eacbcb74f7feec4040b01445b5bb2be84fb0895f96cfe0d3b063131"}
+{"time": "2026-11-11T16:10:44.570736+00:00", "event": "verification", "success": false, "receipt": "evidence/57036b59f3a14edf858874d0875402f1.json"}
+{"time": "2026-11-11T16:12:22.359454+00:00", "event": "verification", "success": true, "receipt": "evidence/14abc13555d7420a9aa6be529bfaad3d.json"}
+{"time": "2026-11-11T16:12:40.585891+00:00", "event": "advanced", "previous": "implementation", "phase": "review", "artifact_digest": "7a27dba4cf269b1531a503442a23803bf5b328e276e6d34b3861711f4f75e649"}
+{"time": "2026-11-11T16:15:35.180476+00:00", "event": "reopened", "previous": "review", "phase": "design", "reason": "480pxの3列で支出枠の分だけ数値欄が狭くなるため、5桁を読める寸法と実測を追加する"}
+{"time": "2026-11-11T16:15:36.977852+00:00", "event": "advanced", "previous": "design", "phase": "implementation", "artifact_digest": "6d992365e95cae53a1457a72e88a56402cc24fb97c2cdd7ce9e3e7fbe49a3c7e"}
+{"time": "2026-11-11T16:16:17.196180+00:00", "event": "reopened", "previous": "implementation", "phase": "design", "reason": "研究領域の移動による上限超過時の表示を確認し、15個セット文言の出典を補正する"}
+{"time": "2026-11-11T16:16:23.645217+00:00", "event": "advanced", "previous": "design", "phase": "implementation", "artifact_digest": "4c3a00c576a7f38b1e2ebc79b9e2670be2df573b12d4f201721b1012e1d3adf3"}
+{"time": "2026-11-11T16:18:33.216871+00:00", "event": "reopened", "previous": "implementation", "phase": "requirements", "reason": "未設定時の負の差額が誤解を招くため、差額の位置を未設定表示にする"}
+{"time": "2026-11-11T16:18:34.266029+00:00", "event": "advanced", "previous": "requirements", "phase": "design", "artifact_digest": "26bfe4815e891088bd8300f9ae91750cded1e256815b87c983d261feb868d71c"}
+{"time": "2026-11-11T16:18:36.174445+00:00", "event": "advanced", "previous": "design", "phase": "implementation", "artifact_digest": "c43c1cebe070be1431d6941340d78a314595640ba2089a01c9c3a2cfde959e30"}
+{"time": "2026-11-11T16:19:57.498041+00:00", "event": "verification", "success": true, "receipt": "evidence/389c5f7ff3e3424a8953b57cd63855a2.json"}
+{"time": "2026-11-11T16:20:10.927241+00:00", "event": "advanced", "previous": "implementation", "phase": "review", "artifact_digest": "ac21b913da2bc00a018e19977eaa1e97c516ad36fea68c6e3ebeb6dc3880eb01"}
+{"time": "2026-11-11T16:24:10.976399+00:00", "event": "advanced", "previous": "review", "phase": "done", "artifact_digest": "9bd39522d034b73c73b13f2499567c3c3e404e55b212b68489339d14899a4184"}
+{"time": "2026-11-11T16:36:24.177504+00:00", "event": "reopened", "previous": "done", "phase": "design", "reason": "mainへマージ前のSecret scanで、履歴と作業ツリーにある4件の公開ファイルのSHA-256が誤検出されたため、実証済みの組み合わせだけ除外する"}
+{"time": "2026-11-11T16:36:26.157554+00:00", "event": "advanced", "previous": "design", "phase": "implementation", "artifact_digest": "defe508f7285618593e904bcf69b0ab9f30e5f86d55f074955901e0d22cb1e09"}
+{"time": "2026-11-11T16:37:28.697935+00:00", "event": "verification", "success": true, "receipt": "evidence/123c57badd824df1a101268d289f94db.json"}
+{"time": "2026-11-11T16:37:43.265178+00:00", "event": "advanced", "previous": "implementation", "phase": "review", "artifact_digest": "4bf25aa2bd3cbe4edc9c9e3f4e687083fc131821f0a67f0312e82fa4ff654e18"}
+{"time": "2026-11-11T16:41:58.107661+00:00", "event": "advanced", "previous": "review", "phase": "done", "artifact_digest": "ca05990a5344f8873cfb8f8d80fcbcdbd5b380c5369e62a66993e94fe0c68f5d"}

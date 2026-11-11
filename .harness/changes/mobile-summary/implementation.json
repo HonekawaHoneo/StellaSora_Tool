@@ -1,0 +1,18 @@
+{
+  "author": "codex-root",
+  "summary": "600px未満の集計を3行にして目標欄の実操作面を44pxにした。入力枠と鉛筆のコントラストを上げ、目標未設定の初期・実行時表示を統一。実ブラウザーで未設定、負値エラー、再読込、表示された入力値を検証する。固定ハーネスとUI証跡の改行変換を止める。",
+  "changed_paths": [
+    "dist/index.html",
+    "dist/styles.css",
+    "dist/app.js",
+    "docs/index.html",
+    "docs/styles.css",
+    "docs/app.js",
+    "development/ui/summary-browser.mjs",
+    ".gitattributes",
+    ".gitignore"
+  ],
+  "limitations": [
+    "Windows Edge / Node 24で320pxと1280pxを検証。320pxは1280pxを400%拡大した場合と同じCSS表示幅。モバイル実機のソフトキーボードは未検証。"
+  ]
+}

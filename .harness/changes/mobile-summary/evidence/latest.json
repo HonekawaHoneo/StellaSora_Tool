@@ -1,0 +1,1263 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-11-11T15:45:05.949111+00:00",
+  "project_digest": "6868033377877008cc4bf052d4871d1fcbd4ccabd75421690a95d6a487f14465",
+  "artifacts_digest": "af6fa0742a18d27001177f3da6d51c7eebd179538afc2403c187d8c5cea76cb6",
+  "checks": [
+    {
+      "timeout_seconds": 40,
+      "id": "counter",
+      "argv": [
+        "node",
+        "--test",
+        "tests/counter.test.cjs"
+      ]
+    },
+    {
+      "timeout_seconds": 40,
+      "id": "pages",
+      "argv": [
+        "python",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py"
+      ]
+    },
+    {
+      "timeout_seconds": 40,
+      "id": "pages-sync",
+      "argv": [
+        "python",
+        "-X",
+        "utf8",
+        "scripts/build-site.py",
+        "--check-pages"
+      ]
+    },
+    {
+      "timeout_seconds": 90,
+      "id": "summary-browser",
+      "argv": [
+        "node",
+        "development/ui/summary-browser.mjs"
+      ]
+    }
+  ],
+  "checks_digest": "3a1f634c753e4ce9aae03dd1475180c297918a186277f9ac92f047e7dc1648cc",
+  "source_changes": [
+    ".gitattributes",
+    ".gitignore",
+    "development/ui/summary-browser.mjs",
+    "dist/app.js",
+    "dist/index.html",
+    "dist/styles.css",
+    "docs/app.js",
+    "docs/index.html",
+    "docs/styles.css"
+  ],
+  "base_sha": "e8de1d1582ad4880827a45f892827b56e4ff21a1",
+  "ci_base_sha": null,
+  "provenance": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "head_sha": "e8de1d1582ad4880827a45f892827b56e4ff21a1"
+  },
+  "results": [
+    {
+      "id": "counter",
+      "argv": [
+        "node",
+        "--test",
+        "tests/counter.test.cjs"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "started_at": "2026-11-11T15:45:06.437075+00:00",
+      "finished_at": "2026-11-11T15:45:07.014956+00:00",
+      "log": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba-counter.log",
+      "log_digest": "08c8ea52fd006b911c83e85dc83e115f0d40dc74171d4bb5e418676d7992db6e"
+    },
+    {
+      "id": "pages",
+      "argv": [
+        "python",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "started_at": "2026-11-11T15:45:07.031489+00:00",
+      "finished_at": "2026-11-11T15:45:07.810205+00:00",
+      "log": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba-pages.log",
+      "log_digest": "7cbc7b18ce3b8deeed0ec98bdb62fcf1ba6df9e25d49334020509353082be1fd"
+    },
+    {
+      "id": "pages-sync",
+      "argv": [
+        "python",
+        "-X",
+        "utf8",
+        "scripts/build-site.py",
+        "--check-pages"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "started_at": "2026-11-11T15:45:07.816754+00:00",
+      "finished_at": "2026-11-11T15:45:07.995446+00:00",
+      "log": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba-pages-sync.log",
+      "log_digest": "14afcd6549dd569cea2ab98e7fc53ce94bdd03cb9a89af4576eee7808b287e46"
+    },
+    {
+      "id": "summary-browser",
+      "argv": [
+        "node",
+        "development/ui/summary-browser.mjs"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "started_at": "2026-11-11T15:45:08.001577+00:00",
+      "finished_at": "2026-11-11T15:45:17.395150+00:00",
+      "log": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba-summary-browser.log",
+      "log_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "success": true,
+  "ui": {
+    "status": "passed",
+    "directory": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba",
+    "registry_digest": "6ab943b60095835819c807eeeead3e297af4f5f36f4c59c58dd35b8d83ee836f",
+    "reports": [
+      {
+        "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/summary-browser.ui.json",
+        "sha256": "f9474fbc4370cfd9203e0584f8c13d3211398a16ecd5a623eaa75a3137e7285f"
+      }
+    ],
+    "scenarios": [
+      {
+        "id": "mobile-320",
+        "status": "passed",
+        "observations": "Edgeで集計欄の寸法、表示文、目標入力、保存を観測",
+        "environment": {
+          "viewport": {
+            "width": 320,
+            "height": 720
+          },
+          "browser": "Edg/157.0.4341.42 / Edg/157.0.0.0",
+          "theme": "light",
+          "fixture": "目標500・素質の再抽選2回・音符5個の通常購入1回"
+        },
+        "files": [
+          {
+            "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.png",
+            "sha256": "31fffb51b6f02a713ac852c5796ae597f2112654a02fa7cb60420e365ccf3665",
+            "kind": "screenshot"
+          },
+          {
+            "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320-error.png",
+            "sha256": "5698bab38ca5a5b9c9da01b309b65aef3086fb3ca657da0e91d7b784f53881fd",
+            "kind": "screenshot"
+          },
+          {
+            "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320-unset.png",
+            "sha256": "e06c7e93cb4d49572250c802b8f90cd2c9e4bb5c96fd5528bf94f09b4f67ed17",
+            "kind": "screenshot"
+          },
+          {
+            "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+            "sha256": "9c8225188f88bb16dc198a6b5b3ef56adfdd34179924b0fbf3db9dbd309eb706",
+            "kind": "metrics"
+          }
+        ],
+        "case_results": [
+          {
+            "id": "mobile-320-summaryBox",
+            "observation": "Edgeの画面または実入力後の表示から .summary を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/summaryBox"
+            },
+            "actual": {
+              "x": 14,
+              "y": 79.1875,
+              "width": 292,
+              "height": 232.5,
+              "top": 79.1875,
+              "right": 306,
+              "bottom": 311.6875,
+              "left": 14
+            },
+            "status": "observed",
+            "kind": "visual"
+          },
+          {
+            "id": "mobile-320-summaryRows",
+            "observation": "Edgeの画面または実入力後の表示から .metrics を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/summaryRows"
+            },
+            "actual": 3,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-labels",
+            "observation": "Edgeの画面または実入力後の表示から .metric-label を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/labels"
+            },
+            "actual": [
+              "消費コイン合計",
+              "目標コイン",
+              "目標との差額"
+            ],
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-labelSize",
+            "observation": "Edgeの画面または実入力後の表示から .metric-target .metric-label を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/labelSize"
+            },
+            "actual": 12,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-labelLine",
+            "observation": "Edgeの画面または実入力後の表示から .metric-target .metric-label を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/labelLine"
+            },
+            "actual": 18,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-rowHeight",
+            "observation": "Edgeの画面または実入力後の表示から .metric-target を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/rowHeight"
+            },
+            "actual": 61,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-summaryInset",
+            "observation": "Edgeの画面または実入力後の表示から .summary を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/summaryInset"
+            },
+            "actual": 12,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-targetWidth",
+            "observation": "Edgeの画面または実入力後の表示から #target を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/targetWidth"
+            },
+            "actual": 134.109375,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-targetHeight",
+            "observation": "Edgeの画面または実入力後の表示から #target を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/targetHeight"
+            },
+            "actual": 44,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-valueColor",
+            "observation": "Edgeの画面または実入力後の表示から #remaining を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/valueColor"
+            },
+            "actual": "rgb(113, 97, 201)",
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-texts",
+            "observation": "Edgeの画面または実入力後の表示から body を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/texts"
+            },
+            "actual": [
+              "STELLA SORA",
+              "星ノ塔",
+              "カウンター",
+              "すべてリセット",
+              "消費コイン合計",
+              "170",
+              "素質再抽選 ＋ 音符セット購入",
+              "目標コイン",
+              "500",
+              "目標との差額",
+              "330",
+              "目標コイン − 消費コイン",
+              "目標まで あと 330コイン",
+              "34%",
+              "研究効果の使用回数",
+              "コイン集計対象外",
+              "Lv3素質",
+              "0",
+              "残り10回 / 上限10回",
+              "＋2強化",
+              "0",
+              "残り5回 / 上限5回",
+              "難易度8以上・対応研究解放時の上限を表示",
+              "素質の再抽選",
+              "再抽選回数",
+              "40",
+              "コイン / 回",
+              "2",
+              "支出 80コイン",
+              "音符セットの購入回数",
+              "通常 → 20%引き → 半額",
+              "音符",
+              "5個",
+              "セット",
+              "通常90コイン",
+              "90",
+              "コイン",
+              "通常",
+              "1",
+              "支出 90コイン",
+              "72",
+              "コイン",
+              "20%引き",
+              "0",
+              "支出 0コイン",
+              "45",
+              "コイン",
+              "半額",
+              "0",
+              "支出 0コイン",
+              "音符",
+              "15個",
+              "セット",
+              "通常400コイン",
+              "400",
+              "コイン",
+              "通常",
+              "0",
+              "支出 0コイン",
+              "320",
+              "コイン",
+              "20%引き",
+              "0",
+              "支出 0コイン",
+              "200",
+              "コイン",
+              "半額",
+              "0",
+              "支出 0コイン",
+              "消費コイン ＝ 再抽選回数 × 40 ＋ 各セットの購入回数 × 価格",
+              "素質購入・強化マシン・イベントの支出は集計対象外",
+              "STELLA SORA",
+              "／",
+              "星ノ塔",
+              "このブラウザーに自動保存"
+            ],
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-targetLabel",
+            "observation": "Edgeの画面または実入力後の表示から #target を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/targetLabel"
+            },
+            "actual": "目標コイン",
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-viewport",
+            "observation": "Edgeの画面または実入力後の表示から html を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/viewport"
+            },
+            "actual": 320,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-noOverflow",
+            "observation": "Edgeの画面または実入力後の表示から html を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/noOverflow"
+            },
+            "actual": true,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-longValueFits",
+            "observation": "Edgeの画面または実入力後の表示から #remaining を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/longValueFits"
+            },
+            "actual": true,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-progressConsistent",
+            "observation": "Edgeの画面または実入力後の表示から .summary を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/progressConsistent"
+            },
+            "actual": true,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-keyboard",
+            "observation": "Edgeの画面または実入力後の表示から #target を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/keyboard"
+            },
+            "actual": true,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-hitActivates",
+            "observation": "Edgeの画面または実入力後の表示から #target を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/hitActivates"
+            },
+            "actual": true,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-reached",
+            "observation": "Edgeの画面または実入力後の表示から .summary を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/reached"
+            },
+            "actual": true,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-invalid",
+            "observation": "Edgeの画面または実入力後の表示から #target を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/invalid"
+            },
+            "actual": true,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-persisted",
+            "observation": "Edgeの画面または実入力後の表示から #target を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/persisted"
+            },
+            "actual": true,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-textsUnset",
+            "observation": "Edgeの画面または実入力後の表示から body を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/textsUnset"
+            },
+            "actual": [
+              "STELLA SORA",
+              "星ノ塔",
+              "カウンター",
+              "すべてリセット",
+              "消費コイン合計",
+              "170",
+              "素質再抽選 ＋ 音符セット購入",
+              "目標コイン",
+              "0",
+              "目標との差額",
+              "-170",
+              "目標コイン − 消費コイン",
+              "目標コイン未設定",
+              "—",
+              "研究効果の使用回数",
+              "コイン集計対象外",
+              "Lv3素質",
+              "0",
+              "残り10回 / 上限10回",
+              "＋2強化",
+              "0",
+              "残り5回 / 上限5回",
+              "難易度8以上・対応研究解放時の上限を表示",
+              "素質の再抽選",
+              "再抽選回数",
+              "40",
+              "コイン / 回",
+              "2",
+              "支出 80コイン",
+              "音符セットの購入回数",
+              "通常 → 20%引き → 半額",
+              "音符",
+              "5個",
+              "セット",
+              "通常90コイン",
+              "90",
+              "コイン",
+              "通常",
+              "1",
+              "支出 90コイン",
+              "72",
+              "コイン",
+              "20%引き",
+              "0",
+              "支出 0コイン",
+              "45",
+              "コイン",
+              "半額",
+              "0",
+              "支出 0コイン",
+              "音符",
+              "15個",
+              "セット",
+              "通常400コイン",
+              "400",
+              "コイン",
+              "通常",
+              "0",
+              "支出 0コイン",
+              "320",
+              "コイン",
+              "20%引き",
+              "0",
+              "支出 0コイン",
+              "200",
+              "コイン",
+              "半額",
+              "0",
+              "支出 0コイン",
+              "消費コイン ＝ 再抽選回数 × 40 ＋ 各セットの購入回数 × 価格",
+              "素質購入・強化マシン・イベントの支出は集計対象外",
+              "STELLA SORA",
+              "／",
+              "星ノ塔",
+              "このブラウザーに自動保存"
+            ],
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-textsError",
+            "observation": "Edgeの画面または実入力後の表示から body を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/textsError"
+            },
+            "actual": [
+              "STELLA SORA",
+              "星ノ塔",
+              "カウンター",
+              "すべてリセット",
+              "消費コイン合計",
+              "170",
+              "素質再抽選 ＋ 音符セット購入",
+              "目標コイン",
+              "170",
+              "目標との差額",
+              "0",
+              "目標コイン − 消費コイン",
+              "目標コインに到達しました",
+              "100%",
+              "研究効果の使用回数",
+              "コイン集計対象外",
+              "Lv3素質",
+              "0",
+              "残り10回 / 上限10回",
+              "＋2強化",
+              "0",
+              "残り5回 / 上限5回",
+              "難易度8以上・対応研究解放時の上限を表示",
+              "素質の再抽選",
+              "再抽選回数",
+              "40",
+              "コイン / 回",
+              "2",
+              "支出 80コイン",
+              "音符セットの購入回数",
+              "通常 → 20%引き → 半額",
+              "音符",
+              "5個",
+              "セット",
+              "通常90コイン",
+              "90",
+              "コイン",
+              "通常",
+              "1",
+              "支出 90コイン",
+              "72",
+              "コイン",
+              "20%引き",
+              "0",
+              "支出 0コイン",
+              "45",
+              "コイン",
+              "半額",
+              "0",
+              "支出 0コイン",
+              "音符",
+              "15個",
+              "セット",
+              "通常400コイン",
+              "400",
+              "コイン",
+              "通常",
+              "0",
+              "支出 0コイン",
+              "320",
+              "コイン",
+              "20%引き",
+              "0",
+              "支出 0コイン",
+              "200",
+              "コイン",
+              "半額",
+              "0",
+              "支出 0コイン",
+              "消費コイン ＝ 再抽選回数 × 40 ＋ 各セットの購入回数 × 価格",
+              "素質購入・強化マシン・イベントの支出は集計対象外",
+              "STELLA SORA",
+              "／",
+              "星ノ塔",
+              "このブラウザーに自動保存",
+              "目標コインは0以上の整数で入力してください"
+            ],
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-unsetState",
+            "observation": "Edgeの画面または実入力後の表示から .summary を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/unsetState"
+            },
+            "actual": true,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "mobile-320-indicatorContrast",
+            "observation": "Edgeの画面または実入力後の表示から #target を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/mobile-320.json",
+              "pointer": "/indicatorContrast"
+            },
+            "actual": 3.7372862935226467,
+            "status": "passed",
+            "kind": "assertion"
+          }
+        ]
+      },
+      {
+        "id": "desktop-1280",
+        "status": "passed",
+        "observations": "Edgeで集計欄の寸法、表示文、目標入力、保存を観測",
+        "environment": {
+          "viewport": {
+            "width": 1280,
+            "height": 800
+          },
+          "browser": "Edg/157.0.4341.42 / Edg/157.0.0.0",
+          "theme": "light",
+          "fixture": "目標500・素質の再抽選2回・音符5個の通常購入1回"
+        },
+        "files": [
+          {
+            "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.png",
+            "sha256": "f392fd8875ac09060b1f2e732ba835bcc831ae4f9663ead7cfd5c1dad020d139",
+            "kind": "screenshot"
+          },
+          {
+            "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280-error.png",
+            "sha256": "af4761d7c4373020f4f68b0f73e40a8e3954152ec54986874a3665c75a5001f1",
+            "kind": "screenshot"
+          },
+          {
+            "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280-unset.png",
+            "sha256": "cebd157416cc9b3baf9bdcc2d95d445a9d4ad3e274de5dd3c4df76188ce2af5b",
+            "kind": "screenshot"
+          },
+          {
+            "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+            "sha256": "3a846397cf436feecb74357d6b618761ce1297fe579da20102092005f828549a",
+            "kind": "metrics"
+          }
+        ],
+        "case_results": [
+          {
+            "id": "desktop-1280-summaryBox",
+            "observation": "Edgeの画面または実入力後の表示から .summary を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/summaryBox"
+            },
+            "actual": {
+              "x": 88,
+              "y": 82.390625,
+              "width": 1104,
+              "height": 142.796875,
+              "top": 82.390625,
+              "right": 1192,
+              "bottom": 225.1875,
+              "left": 88
+            },
+            "status": "observed",
+            "kind": "visual"
+          },
+          {
+            "id": "desktop-1280-summaryRows",
+            "observation": "Edgeの画面または実入力後の表示から .metrics を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/summaryRows"
+            },
+            "actual": 1,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-labels",
+            "observation": "Edgeの画面または実入力後の表示から .metric-label を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/labels"
+            },
+            "actual": [
+              "消費コイン合計",
+              "目標コイン",
+              "目標との差額"
+            ],
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-labelSize",
+            "observation": "Edgeの画面または実入力後の表示から .metric-target .metric-label を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/labelSize"
+            },
+            "actual": 11,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-labelLine",
+            "observation": "Edgeの画面または実入力後の表示から .metric-target .metric-label を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/labelLine"
+            },
+            "actual": 18,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-rowHeight",
+            "observation": "Edgeの画面または実入力後の表示から .metric-target を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/rowHeight"
+            },
+            "actual": 77.796875,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-summaryInset",
+            "observation": "Edgeの画面または実入力後の表示から .summary を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/summaryInset"
+            },
+            "actual": 20,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-targetWidth",
+            "observation": "Edgeの画面または実入力後の表示から #target を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/targetWidth"
+            },
+            "actual": 309,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-targetHeight",
+            "observation": "Edgeの画面または実入力後の表示から #target を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/targetHeight"
+            },
+            "actual": 41.390625,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-valueColor",
+            "observation": "Edgeの画面または実入力後の表示から #remaining を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/valueColor"
+            },
+            "actual": "rgb(113, 97, 201)",
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-texts",
+            "observation": "Edgeの画面または実入力後の表示から body を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/texts"
+            },
+            "actual": [
+              "STELLA SORA",
+              "星ノ塔",
+              "カウンター",
+              "すべてリセット",
+              "消費コイン合計",
+              "170",
+              "素質再抽選 ＋ 音符セット購入",
+              "目標コイン",
+              "500",
+              "目標との差額",
+              "330",
+              "目標コイン − 消費コイン",
+              "目標まで あと 330コイン",
+              "34%",
+              "研究効果の使用回数",
+              "コイン集計対象外",
+              "Lv3素質",
+              "0",
+              "残り10回 / 上限10回",
+              "＋2強化",
+              "0",
+              "残り5回 / 上限5回",
+              "難易度8以上・対応研究解放時の上限を表示",
+              "素質の再抽選",
+              "再抽選回数",
+              "40",
+              "コイン / 回",
+              "2",
+              "支出 80コイン",
+              "音符セットの購入回数",
+              "通常 → 20%引き → 半額",
+              "音符",
+              "5個",
+              "セット",
+              "通常90コイン",
+              "90",
+              "コイン",
+              "通常",
+              "1",
+              "支出 90コイン",
+              "72",
+              "コイン",
+              "20%引き",
+              "0",
+              "支出 0コイン",
+              "45",
+              "コイン",
+              "半額",
+              "0",
+              "支出 0コイン",
+              "音符",
+              "15個",
+              "セット",
+              "通常400コイン",
+              "400",
+              "コイン",
+              "通常",
+              "0",
+              "支出 0コイン",
+              "320",
+              "コイン",
+              "20%引き",
+              "0",
+              "支出 0コイン",
+              "200",
+              "コイン",
+              "半額",
+              "0",
+              "支出 0コイン",
+              "消費コイン ＝ 再抽選回数 × 40 ＋ 各セットの購入回数 × 価格",
+              "素質購入・強化マシン・イベントの支出は集計対象外",
+              "STELLA SORA",
+              "／",
+              "星ノ塔",
+              "このブラウザーに自動保存"
+            ],
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-targetLabel",
+            "observation": "Edgeの画面または実入力後の表示から #target を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/targetLabel"
+            },
+            "actual": "目標コイン",
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-viewport",
+            "observation": "Edgeの画面または実入力後の表示から html を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/viewport"
+            },
+            "actual": 1280,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-noOverflow",
+            "observation": "Edgeの画面または実入力後の表示から html を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/noOverflow"
+            },
+            "actual": true,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-longValueFits",
+            "observation": "Edgeの画面または実入力後の表示から #remaining を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/longValueFits"
+            },
+            "actual": true,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-progressConsistent",
+            "observation": "Edgeの画面または実入力後の表示から .summary を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/progressConsistent"
+            },
+            "actual": true,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-keyboard",
+            "observation": "Edgeの画面または実入力後の表示から #target を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/keyboard"
+            },
+            "actual": true,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-hitActivates",
+            "observation": "Edgeの画面または実入力後の表示から #target を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/hitActivates"
+            },
+            "actual": true,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-reached",
+            "observation": "Edgeの画面または実入力後の表示から .summary を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/reached"
+            },
+            "actual": true,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-invalid",
+            "observation": "Edgeの画面または実入力後の表示から #target を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/invalid"
+            },
+            "actual": true,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-persisted",
+            "observation": "Edgeの画面または実入力後の表示から #target を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/persisted"
+            },
+            "actual": true,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-textsUnset",
+            "observation": "Edgeの画面または実入力後の表示から body を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/textsUnset"
+            },
+            "actual": [
+              "STELLA SORA",
+              "星ノ塔",
+              "カウンター",
+              "すべてリセット",
+              "消費コイン合計",
+              "170",
+              "素質再抽選 ＋ 音符セット購入",
+              "目標コイン",
+              "0",
+              "目標との差額",
+              "-170",
+              "目標コイン − 消費コイン",
+              "目標コイン未設定",
+              "—",
+              "研究効果の使用回数",
+              "コイン集計対象外",
+              "Lv3素質",
+              "0",
+              "残り10回 / 上限10回",
+              "＋2強化",
+              "0",
+              "残り5回 / 上限5回",
+              "難易度8以上・対応研究解放時の上限を表示",
+              "素質の再抽選",
+              "再抽選回数",
+              "40",
+              "コイン / 回",
+              "2",
+              "支出 80コイン",
+              "音符セットの購入回数",
+              "通常 → 20%引き → 半額",
+              "音符",
+              "5個",
+              "セット",
+              "通常90コイン",
+              "90",
+              "コイン",
+              "通常",
+              "1",
+              "支出 90コイン",
+              "72",
+              "コイン",
+              "20%引き",
+              "0",
+              "支出 0コイン",
+              "45",
+              "コイン",
+              "半額",
+              "0",
+              "支出 0コイン",
+              "音符",
+              "15個",
+              "セット",
+              "通常400コイン",
+              "400",
+              "コイン",
+              "通常",
+              "0",
+              "支出 0コイン",
+              "320",
+              "コイン",
+              "20%引き",
+              "0",
+              "支出 0コイン",
+              "200",
+              "コイン",
+              "半額",
+              "0",
+              "支出 0コイン",
+              "消費コイン ＝ 再抽選回数 × 40 ＋ 各セットの購入回数 × 価格",
+              "素質購入・強化マシン・イベントの支出は集計対象外",
+              "STELLA SORA",
+              "／",
+              "星ノ塔",
+              "このブラウザーに自動保存"
+            ],
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-textsError",
+            "observation": "Edgeの画面または実入力後の表示から body を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/textsError"
+            },
+            "actual": [
+              "STELLA SORA",
+              "星ノ塔",
+              "カウンター",
+              "すべてリセット",
+              "消費コイン合計",
+              "170",
+              "素質再抽選 ＋ 音符セット購入",
+              "目標コイン",
+              "170",
+              "目標との差額",
+              "0",
+              "目標コイン − 消費コイン",
+              "目標コインに到達しました",
+              "100%",
+              "研究効果の使用回数",
+              "コイン集計対象外",
+              "Lv3素質",
+              "0",
+              "残り10回 / 上限10回",
+              "＋2強化",
+              "0",
+              "残り5回 / 上限5回",
+              "難易度8以上・対応研究解放時の上限を表示",
+              "素質の再抽選",
+              "再抽選回数",
+              "40",
+              "コイン / 回",
+              "2",
+              "支出 80コイン",
+              "音符セットの購入回数",
+              "通常 → 20%引き → 半額",
+              "音符",
+              "5個",
+              "セット",
+              "通常90コイン",
+              "90",
+              "コイン",
+              "通常",
+              "1",
+              "支出 90コイン",
+              "72",
+              "コイン",
+              "20%引き",
+              "0",
+              "支出 0コイン",
+              "45",
+              "コイン",
+              "半額",
+              "0",
+              "支出 0コイン",
+              "音符",
+              "15個",
+              "セット",
+              "通常400コイン",
+              "400",
+              "コイン",
+              "通常",
+              "0",
+              "支出 0コイン",
+              "320",
+              "コイン",
+              "20%引き",
+              "0",
+              "支出 0コイン",
+              "200",
+              "コイン",
+              "半額",
+              "0",
+              "支出 0コイン",
+              "消費コイン ＝ 再抽選回数 × 40 ＋ 各セットの購入回数 × 価格",
+              "素質購入・強化マシン・イベントの支出は集計対象外",
+              "STELLA SORA",
+              "／",
+              "星ノ塔",
+              "このブラウザーに自動保存",
+              "目標コインは0以上の整数で入力してください"
+            ],
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-unsetState",
+            "observation": "Edgeの画面または実入力後の表示から .summary を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/unsetState"
+            },
+            "actual": true,
+            "status": "passed",
+            "kind": "assertion"
+          },
+          {
+            "id": "desktop-1280-indicatorContrast",
+            "observation": "Edgeの画面または実入力後の表示から #target を観測",
+            "value_ref": {
+              "path": ".harness/changes/mobile-summary/evidence/507a21c291cd4bab92b5cc83f9cf28ba/summary-browser/desktop-1280.json",
+              "pointer": "/indicatorContrast"
+            },
+            "actual": 3.9151022533584454,
+            "status": "passed",
+            "kind": "assertion"
+          }
+        ]
+      }
+    ],
+    "issues": []
+  },
+  "finished_at": "2026-11-11T15:45:17.919576+00:00",
+  "source_unchanged": true
+}

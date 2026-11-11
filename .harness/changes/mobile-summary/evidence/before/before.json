@@ -1,0 +1,28 @@
+[
+  {
+    "scenario": "mobile-320",
+    "path": ".harness/changes/mobile-summary/evidence/before/mobile-320.png",
+    "environment": {
+      "viewport": {
+        "width": 320,
+        "height": 720
+      },
+      "browser": "Edg/157.0.4341.42 / Edg/157.0.0.0",
+      "theme": "light",
+      "fixture": "目標500・素質の再抽選2回・音符5個の通常購入1回"
+    }
+  },
+  {
+    "scenario": "desktop-1280",
+    "path": ".harness/changes/mobile-summary/evidence/before/desktop-1280.png",
+    "environment": {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "browser": "Edg/157.0.4341.42 / Edg/157.0.0.0",
+      "theme": "light",
+      "fixture": "目標500・素質の再抽選2回・音符5個の通常購入1回"
+    }
+  }
+]
