@@ -2,15 +2,15 @@
   'use strict';
 
   const COUNTERS = Object.freeze([
-    { id: 'trait3', label: '素質3', cost: 0 },
-    { id: 'enhancement2', label: '強化2', cost: 0 },
-    { id: 'reroll', label: 'リロール(40)', cost: 40 },
-    { id: 'note45', label: '音符(45)', cost: 45 },
-    { id: 'note72', label: '音符(72)', cost: 72 },
-    { id: 'note90', label: '音符(90)', cost: 90 },
-    { id: 'note200', label: '音符(200)', cost: 200 },
-    { id: 'note320', label: '音符(320)', cost: 320 },
-    { id: 'note400', label: '音符(400)', cost: 400 },
+    { id: 'trait3', label: 'Lv3素質', cost: 0, limit: 10 },
+    { id: 'enhancement2', label: '＋2強化', cost: 0, limit: 5 },
+    { id: 'reroll', label: '素質の再抽選', cost: 40 },
+    { id: 'note45', label: '音符5個セット・半額45コイン', cost: 45 },
+    { id: 'note72', label: '音符5個セット・20%引き72コイン', cost: 72 },
+    { id: 'note90', label: '音符5個セット・通常90コイン', cost: 90 },
+    { id: 'note200', label: '音符15個セット・半額200コイン', cost: 200 },
+    { id: 'note320', label: '音符15個セット・20%引き320コイン', cost: 320 },
+    { id: 'note400', label: '音符15個セット・通常400コイン', cost: 400 },
   ].map(Object.freeze));
 
   function integer(value) {
@@ -31,6 +31,18 @@
 
   function remaining(state) {
     return state.target - total(state);
+  }
+
+  function researchUsage(state, id) {
+    const counter = COUNTERS.find(counter => counter.id === id && counter.limit);
+    if (!counter) return null;
+    const used = state.counts[id];
+    return {
+      used,
+      limit: counter.limit,
+      remaining: Math.max(0, counter.limit - used),
+      excess: Math.max(0, used - counter.limit),
+    };
   }
 
   function setCount(state, id, value) {
@@ -63,7 +75,7 @@
     return state;
   }
 
-  const api = Object.freeze({ COUNTERS, createState, setCount, adjustCount, setTarget, resetCounts, total, remaining, restoreState });
+  const api = Object.freeze({ COUNTERS, createState, setCount, adjustCount, setTarget, resetCounts, total, remaining, researchUsage, restoreState });
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.StarTowerCounter = api;
 })(globalThis);

@@ -47,6 +47,7 @@
   for (const counter of displayCounters) {
     const { id, label, cost } = counter;
     const record = cost === 0;
+    const countLabel = record ? label + (id === 'trait3' ? 'の取得回数' : 'の使用回数') : id === 'reroll' ? '素質の再抽選回数' : label + 'の購入回数';
     const base = presentation.get(id);
     const discount = base ? Math.round((1 - cost / base) * 100) : 0;
     const card = document.createElement('article');
@@ -56,18 +57,18 @@
     const heading = record
       ? `<h3><svg class="icon card-icon" aria-hidden="true"><use href="#icon-${iconFor(id)}"/></svg>${label}</h3>`
       : base
-        ? `<h4 class="note-price">${cost}<span>音符</span></h4><span class="discount-badge discount-${discount}">${discount ? discount + '%引き' : '通常'}</span>`
-        : `<h3 class="reroll-price">${cost}<span>音符 / 回</span></h3>`;
+        ? `<h4 class="note-price">${cost}<span>コイン</span></h4><span class="discount-badge discount-${discount}">${discount === 50 ? '半額' : discount ? discount + '%引き' : '通常'}</span>`
+        : `<h3 class="reroll-price">${cost}<span>コイン / 回</span></h3>`;
     card.innerHTML = `
       <div class="card-heading">
         ${heading}
       </div>
       <div class="counter-controls">
-        <button class="count-button decrement" type="button" aria-label="${label}を1減らす"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12"/></svg></button>
-        <input id="count-${id}" class="count-input" type="number" min="0" max="9007199254740991" step="1" inputmode="numeric" autocomplete="off" aria-label="${label}の回数" value="0">
-        <button class="count-button increment" type="button" aria-label="${label}を1増やす"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12M10 4v12"/></svg></button>
+        <button class="count-button decrement" type="button" aria-label="${countLabel}を1減らす"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12"/></svg></button>
+        <input id="count-${id}" class="count-input" type="number" min="0" max="9007199254740991" step="1" inputmode="numeric" autocomplete="off" aria-label="${countLabel}"${record ? ' aria-describedby="research-condition"' : ''} value="0">
+        <button class="count-button increment" type="button" aria-label="${countLabel}を1増やす"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12M10 4v12"/></svg></button>
       </div>
-      <p class="card-subtotal">${record ? '合計に含めない' : id === 'reroll' ? '消費音符 0' : '小計 0'}</p>`;
+      <p class="card-subtotal${record ? ' research-remaining' : ''}">${record ? '' : '支出 0コイン'}</p>`;
     const input = card.querySelector('input');
     const decrease = card.querySelector('.decrement');
     const increase = card.querySelector('.increment');
@@ -108,7 +109,7 @@
   target.addEventListener('focus', () => target.select());
   target.addEventListener('blur', () => {
     if (target.value === '') commit(model.setTarget(state, 0));
-    else if (target.getAttribute('aria-invalid') === 'true') showToast('目標値は0以上の整数で入力してください');
+    else if (target.getAttribute('aria-invalid') === 'true') showToast('目標コインは0以上の整数で入力してください');
     target.removeAttribute('aria-invalid');
     target.value = state.target;
     render();
@@ -168,7 +169,7 @@
     progress.setAttribute('aria-valuenow', Math.round(percent));
     progress.setAttribute('aria-valuetext', state.target > 0 ? Math.floor(percent) + '%' : '目標未設定');
     progressPercent.textContent = state.target > 0 ? Math.floor(percent) + '%' : '—';
-    progressLabel.textContent = state.target === 0 ? '目標値を設定してはじめましょう' : rest > 0 ? '目標まで あと ' + number.format(rest) : rest === 0 ? '目標に到達しました' : '目標を ' + number.format(-rest) + ' 超えています';
+    progressLabel.textContent = state.target === 0 ? '目標コインを設定してはじめましょう' : rest > 0 ? '目標まで あと ' + number.format(rest) + 'コイン' : rest === 0 ? '目標コインに到達しました' : '目標を ' + number.format(-rest) + 'コイン超えています';
     progress.parentElement.classList.toggle('complete', state.target > 0 && rest <= 0);
 
     for (const { id, cost } of model.COUNTERS) {
@@ -180,8 +181,12 @@
       fitNumber(input, input.value || '0');
       decrease.disabled = count === 0;
       if (cost > 0) {
-        subtotal.textContent = (id === 'reroll' ? '消費音符 ' : '小計 ') + number.format(count * cost);
+        subtotal.textContent = '支出 ' + number.format(count * cost) + 'コイン';
         subtotal.classList.toggle('has-value', count > 0);
+      } else {
+        const usage = model.researchUsage(state, id);
+        subtotal.textContent = '残り' + number.format(usage.remaining) + '回 / 上限' + usage.limit + '回' + (usage.excess ? '（' + number.format(usage.excess) + '回超過）' : '');
+        subtotal.classList.toggle('exceeded', usage.excess > 0);
       }
     }
     fitNumber(target, target.value || '0');

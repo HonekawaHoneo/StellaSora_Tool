@@ -80,10 +80,13 @@ h2 .icon { width: 15px; height: 15px; }
 .family-header > span { color: #8c80a6; font-size: 9px; }
 .note-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .counter-card { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 11px 12px 8px; }
-.counter-card.record { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); align-items: center; gap: 8px; padding: 6px 12px 6px 0; border: 0; border-radius: 0; background: transparent; }
+.counter-card.record { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); align-items: center; column-gap: 8px; row-gap: 0; padding: 6px 12px 6px 0; border: 0; border-radius: 0; background: transparent; }
 .record + .record { padding-left: 12px; padding-right: 0; border-left: 1px solid #d8e0e9; }
-.record .card-heading { margin: 0; }
-.record .card-subtotal { display: none; }
+.record .card-heading { grid-column: 1; grid-row: 1; margin: 0; }
+.record .counter-controls { grid-column: 2; grid-row: 1/3; }
+.record .card-subtotal { display: block; grid-column: 1; grid-row: 2; min-height: 0; margin: 0; text-align: left; line-height: 1.6; color: #718198; }
+.record .research-remaining.exceeded { color: #99651d; }
+.research-condition { margin-top: 8px; color: #7d8a9c; font-size: 9px; line-height: 1.6; }
 .record .count-input { font-size: 23px; color: #465771; }
 .record .count-button { border-color: #d4dde8; background: #f8fafc; color: #62758e; }
 .record .count-button.increment { border-color: #c6d1df; background: #f8fafc; color: #4e637e; }
@@ -100,7 +103,7 @@ h2 .icon { width: 15px; height: 15px; }
 .reroll .count-button.increment:hover { border-color: #a56411; background: #a56411; }
 .reroll .count-button.decrement:hover:not(:disabled) { border-color: #d6b477; background: #f8e8cb; }
 .note-card { border-color: #e5def1; border-radius: 8px; padding: 9px 10px 8px; }
-.note-card .card-heading { align-items: center; gap: 5px; margin-bottom: 9px; }
+.note-card .card-heading { align-items: center; flex-wrap: wrap; gap: 5px; margin-bottom: 9px; }
 .note-price { display: flex; align-items: baseline; gap: 4px; color: #59487c; font-size: 21px; font-weight: 650; font-variant-numeric: tabular-nums; }
 .note-price span { color: #9386a9; font-size: 8px; font-weight: 400; white-space: nowrap; }
 .discount-badge { padding: 2px 6px; border-radius: 4px; background: #eef0f5; color: #72798b; font-size: 9px; line-height: 15px; font-weight: 550; white-space: nowrap; }
@@ -124,7 +127,7 @@ h2 .icon { width: 15px; height: 15px; }
 .card-subtotal { min-height: 14px; margin-top: 6px; text-align: center; color: #9a9eb1; font-size: 9px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 .card-subtotal.has-value { color: #78708f; }
 .formula { margin: 12px 0; text-align: center; font-size: 9px; color: #8b90a4; line-height: 1.7; }
-.formula span { margin-left: 12px; color: #a0a4b4; }
+.formula span { display: block; color: #a0a4b4; }
 .page-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px solid var(--line); padding-top: 10px; color: #969bae; font-size: 9px; letter-spacing: .02em; }
 .page-footer p { display: flex; align-items: center; gap: 6px; }
 .page-footer p:first-child { font-size: 8px; letter-spacing: .06em; }
@@ -161,6 +164,7 @@ h2 .icon { width: 15px; height: 15px; }
   .metric-value, .metric-target .metric-value { font-size: 27px; }
   .metric-value.long, .metric-target .metric-value.long { font-size: 18px; min-height: 35px; }
   .metric-caption { margin-top: 3px; font-size: 8px; }
+  .record-group .section-header, .reroll-group .section-header, .notes-group > .section-header { flex-wrap: wrap; row-gap: 3px; }
   .progress-copy { font-size: 8px; }
   .utility-groups { grid-template-columns: minmax(0, 1fr); gap: 14px; margin-top: 14px; }
   .notes-group { margin-top: 14px; }
@@ -194,6 +198,7 @@ h2 .icon { width: 15px; height: 15px; }
   .summary { padding-right: 10px; padding-left: 10px; }
   .metric { padding-right: 7px; padding-left: 7px; }
   .metric-label { font-size: 9px; }
+  .metric-caption { overflow-wrap: anywhere; }
   .metric-value, .metric-target .metric-value { font-size: 23px; }
   .counter-card { padding-right: 9px; padding-left: 9px; }
   .page-footer { flex-wrap: wrap; row-gap: 6px; }
