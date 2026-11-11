@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8fc">
+  <meta name="description" content="ステラソラ「星ノ塔」用の周回カウンター。Lv3素質・＋2強化の使用回数、素質再抽選・音符セット購入の消費コインと目標との差額を記録します。">
+  <title>星ノ塔カウンター | ステラソラ</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%236f62cc'/%3E%3Cpath d='M32 11l5.8 15.2L53 32l-15.2 5.8L32 53l-5.8-15.2L11 32l15.2-5.8z' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+  <script defer src="./counter.js"></script>
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="icon-star" viewBox="0 0 24 24"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3Z"/><path d="M20 3v4M18 5h4"/></symbol>
+    <symbol id="icon-reset" viewBox="0 0 24 24"><path d="M3 10a9 9 0 1 1 1.5 7M3 4v6h6"/></symbol>
+    <symbol id="icon-note" viewBox="0 0 24 24"><path d="M9 18V5l11-2v13M9 9l11-2"/><ellipse cx="5.5" cy="18" rx="3.5" ry="3"/><ellipse cx="16.5" cy="16" rx="3.5" ry="3"/></symbol>
+    <symbol id="icon-trait" viewBox="0 0 24 24"><path d="m12 3 8 9-8 9-8-9 8-9Z"/><path d="m12 8 3.5 4-3.5 4L8.5 12 12 8Z"/></symbol>
+    <symbol id="icon-enhance" viewBox="0 0 24 24"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z"/><path d="M12 8v8M8 12h8"/></symbol>
+    <symbol id="icon-reroll" viewBox="0 0 24 24"><path d="M4 10a8 8 0 0 1 14-3l2 2M20 4v5h-5M20 14a8 8 0 0 1-14 3l-2-2M4 20v-5h5"/></symbol>
+    <symbol id="icon-record" viewBox="0 0 24 24"><path d="M9 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3M8 11h8M8 15h5"/><rect x="9" y="3" width="6" height="4" rx="1"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+  </svg>
+
+  <div class="app-shell">
+    <header class="page-header">
+      <div class="brand">
+        <div class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#icon-star"/></svg></div>
+        <div><p class="eyebrow">STELLA SORA</p><h1>星ノ塔<span>カウンター</span></h1></div>
+      </div>
+      <button class="reset-button" id="reset" type="button"><svg class="icon" aria-hidden="true"><use href="#icon-reset"/></svg><span>すべてリセット</span></button>
+    </header>
+
+    <main>
+      <section class="summary" aria-label="集計と目標">
+        <div class="metrics">
+          <div class="metric metric-total">
+            <p class="metric-label">消費コイン合計</p>
+            <output id="total" class="metric-value" aria-label="素質再抽選と音符セット購入の消費コイン合計">0</output>
+            <p class="metric-caption">素質再抽選 ＋ 音符セット購入</p>
+          </div>
+          <div class="metric metric-target">
+            <label class="metric-label" for="target">目標コイン<svg class="edit-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="m10.5 2.5 3 3M2 14l3.5-1 8-8a1.4 1.4 0 0 0-3-3l-8 8L2 14Z"/></svg></label>
+            <div class="target-wrap"><input id="target" class="metric-value" type="number" min="0" max="9007199254740991" step="1" inputmode="numeric" value="0" autocomplete="off" aria-describedby="target-hint"></div>
+            <p class="metric-caption" id="target-hint">コイン単位・クリックして変更</p>
+          </div>
+          <div class="metric metric-remaining">
+            <p class="metric-label">目標との差額</p>
+            <output id="remaining" class="metric-value" aria-label="目標コインから消費コイン合計を引いた差額">0</output>
+            <p class="metric-caption">目標コイン − 消費コイン</p>
+          </div>
+        </div>
+        <div class="progress-area">
+          <div class="progress-copy"><span id="progress-label">目標コインを設定してはじめましょう</span><span id="progress-percent">—</span></div>
+          <div class="progress-track" role="progressbar" aria-label="目標の達成率" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress"><div id="progress-fill"></div></div>
+        </div>
+      </section>
+
+      <div class="utility-groups">
+        <section class="counter-group record-group" aria-labelledby="record-heading">
+          <div class="section-header"><h2 id="record-heading"><svg class="icon" aria-hidden="true"><use href="#icon-record"/></svg>研究効果の使用回数</h2><span class="section-hint">コイン集計対象外</span></div>
+          <div class="counter-grid record-grid" id="record-counters"></div>
+          <p class="research-condition" id="research-condition">難易度8以上・対応研究解放時の上限を表示</p>
+        </section>
+        <section class="counter-group reroll-group" aria-labelledby="reroll-heading">
+          <div class="section-header"><h2 id="reroll-heading"><svg class="icon" aria-hidden="true"><use href="#icon-reroll"/></svg>素質の再抽選</h2><span class="section-hint">再抽選回数</span></div>
+          <div class="counter-grid reroll-grid" id="reroll-counters"></div>
+        </section>
+      </div>
+      <section class="counter-group notes-group" aria-labelledby="notes-heading">
+        <div class="section-header"><h2 id="notes-heading"><svg class="icon" aria-hidden="true"><use href="#icon-note"/></svg>音符セットの購入回数</h2><span class="section-hint">通常 → 20%引き → 半額</span></div>
+        <div class="note-families">
+          <section class="note-family" aria-labelledby="family-90-heading">
+            <div class="family-header"><h3 id="family-90-heading">音符 <strong>5個</strong>セット</h3><span>通常90コイン</span></div>
+            <div class="counter-grid note-grid" id="note-counters-90"></div>
+          </section>
+          <section class="note-family" aria-labelledby="family-400-heading">
+            <div class="family-header"><h3 id="family-400-heading">音符 <strong>15個</strong>セット</h3><span>通常400コイン</span></div>
+            <div class="counter-grid note-grid" id="note-counters-400"></div>
+          </section>
+        </div>
+      </section>
+      <p class="formula">消費コイン ＝ 再抽選回数 × 40 ＋ 各セットの購入回数 × 価格<span>素質購入・強化マシン・イベントの支出は集計対象外</span></p>
+      <noscript><p class="noscript">このツールを使用するにはJavaScriptを有効にしてください。</p></noscript>
+    </main>
+
+    <footer class="page-footer"><p>STELLA SORA <span>／</span> 星ノ塔</p><p id="storage-status"><span class="status-dot"></span>このブラウザーに自動保存</p></footer>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

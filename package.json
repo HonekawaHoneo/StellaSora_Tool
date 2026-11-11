@@ -1,0 +1,7 @@
+{
+  "name": "stella-sora-star-tower-counter",
+  "private": true,
+  "version": "1.0.0",
+  "description": "ステラソラ 星ノ塔用カウンター",
+  "scripts": { "test": "node --test tests/*.test.cjs" }
+}
