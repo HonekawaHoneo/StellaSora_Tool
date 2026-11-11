@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "checks": [],
+  "snapshot_ignore": [],
+  "skill_bindings": {
+    "orchestrator": "poteto-mode",
+    "requirements": "grill-me",
+    "design": "ponytail",
+    "review": "ponytail-review",
+    "ui_design": "semantic-ui-design",
+    "ui_implementation": "ui-implementation-harness"
+  },
+  "autonomy": {
+    "completion": "review",
+    "branch_prefix": "ai/",
+    "base_branch": "default"
+  }
+}

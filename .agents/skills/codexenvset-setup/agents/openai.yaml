@@ -1,0 +1,5 @@
+interface:
+  display_name: CodexEnvSetの導入と接続
+  short_description: CodexEnvSetからハーネスを導入・有効化・修復するときに使う
+policy:
+  allow_implicit_invocation: true
