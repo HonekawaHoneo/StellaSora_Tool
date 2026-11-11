@@ -28,6 +28,12 @@
 
 ## 使い方
 
+GitHub Pages公開先（初回の設定・デプロイ成功後）:
+
+[星ノ塔カウンター](https://honekawahoneo.github.io/StellaSora_Tool/)
+
+既存の別ホスティングからはURLが変わるため、保存済みの回数・目標値は自動移行されません。
+
 `dist/index.html`をブラウザーで開くだけで使えます。保存領域が制限された環境でも、カウント・計算は動作します。自動保存は同じブラウザー・URLで使用する場合に有効です。
 
 HTTPサーバーで使う場合:
@@ -47,3 +53,18 @@ npm test
 ```
 
 `dist/counter.js`が計算と入力検証、`dist/app.js`が画面操作と保存、`dist/styles.css`が表示を担当します。
+
+## GitHub Pagesへの公開
+
+管理者設定と検出結果の確認方法は [SECURITY.md](SECURITY.md) を参照してください。まず既定ブランチを `main`、PagesのSourceを **GitHub Actions** に設定します。mainへのpushでテスト・公開物検査・秘密情報検査を実行し、成功した場合に公開します。再実行は **Actions → Validate and publish → Run workflow → main** から行えます。
+
+公開するのは明示的に検証した `dist` の4ファイルだけです。リポジトリ全体・`.git`・`.openai`・テスト・文書・認証情報はPagesの成果物に含めません。PRからのデプロイは実行しません。
+
+公開物検査とビルドはPython 3.9以降で実行できます。出力先 `_site` が既にある場合は、安全のためビルドは停止します。中身を確認して削除するか別の出力先を指定してください。
+
+```sh
+npm run test:site
+npm run build
+# Linux x86_64での秘密情報検査（公式バイナリーをSHA256確認後に実行）
+bash scripts/scan-secrets.sh
+```

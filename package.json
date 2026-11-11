@@ -3,5 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "description": "ステラソラ 星ノ塔用カウンター",
-  "scripts": { "test": "node --test tests/*.test.cjs" }
+  "scripts": {
+    "test": "node --test tests/*.test.cjs",
+    "test:site": "python3 -m unittest discover -s tests -p 'test_*.py'",
+    "build": "python3 scripts/build-site.py"
+  }
 }

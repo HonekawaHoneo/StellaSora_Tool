@@ -3,3 +3,11 @@ node_modules/
 .superpowers/
 *.tar.gz
 *.zip
+_site/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+*.pem
+*.key
