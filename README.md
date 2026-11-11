@@ -28,6 +28,12 @@
 
 ## 使い方
 
+GitHub Pages公開先（初回の設定・デプロイ成功後）:
+
+[星ノ塔カウンター](https://honekawahoneo.github.io/StellaSora_Tool/)
+
+既存の別ホスティングからはURLが変わるため、保存済みの回数・目標値は自動移行されません。
+
 `dist/index.html`をブラウザーで開くだけで使えます。保存領域が制限された環境でも、カウント・計算は動作します。自動保存は同じブラウザー・URLで使用する場合に有効です。
 
 HTTPサーバーで使う場合:
@@ -47,3 +53,22 @@ npm test
 ```
 
 `dist/counter.js`が計算と入力検証、`dist/app.js`が画面操作と保存、`dist/styles.css`が表示を担当します。
+
+## GitHub Pagesへの公開
+
+管理者設定と検出結果の確認方法は [SECURITY.md](SECURITY.md) を参照してください。**Settings → Pages** でSourceを **Deploy from a branch**、ブランチを **main**、フォルダーを **/docs** に設定して保存します。mainへ変更を反映するとGitHub Pagesが公開します。検査は **Actions → Validate site** と **CodeQL** で確認できます。
+
+`dist` をアプリの正本とし、公開用の `docs` には同じ4ファイルと空の `.nojekyll` だけを置きます。開発記録は `development` に保存します。リポジトリ全体・`.git`・`.openai`・テスト・開発記録をPagesの配信対象に含めません。
+
+アプリを変更したら `npm run sync:pages` で公開用コピーを更新します。CIは余分なファイル・リンク・コピーの不一致を検出します。main直接公開はCIの完了を待たないため、公開前の検査を必須にするにはmainの保護で成功チェックとPR経由のマージを必須にしてください。
+
+公開物検査とビルドはPython 3.9以降で実行できます。出力先 `_site` が既にある場合は、安全のためビルドは停止します。中身を確認して削除するか別の出力先を指定してください。
+
+```sh
+npm run test:site
+npm run sync:pages
+npm run check:pages
+npm run build
+# Linux x86_64での秘密情報検査（公式バイナリーをSHA256確認後に実行）
+bash scripts/scan-secrets.sh
+```
