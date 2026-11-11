@@ -16,3 +16,8 @@
 {"time": "2026-11-11T16:19:57.498041+00:00", "event": "verification", "success": true, "receipt": "evidence/389c5f7ff3e3424a8953b57cd63855a2.json"}
 {"time": "2026-11-11T16:20:10.927241+00:00", "event": "advanced", "previous": "implementation", "phase": "review", "artifact_digest": "ac21b913da2bc00a018e19977eaa1e97c516ad36fea68c6e3ebeb6dc3880eb01"}
 {"time": "2026-11-11T16:24:10.976399+00:00", "event": "advanced", "previous": "review", "phase": "done", "artifact_digest": "9bd39522d034b73c73b13f2499567c3c3e404e55b212b68489339d14899a4184"}
+{"time": "2026-11-11T16:36:24.177504+00:00", "event": "reopened", "previous": "done", "phase": "design", "reason": "mainへマージ前のSecret scanで、履歴と作業ツリーにある4件の公開ファイルのSHA-256が誤検出されたため、実証済みの組み合わせだけ除外する"}
+{"time": "2026-11-11T16:36:26.157554+00:00", "event": "advanced", "previous": "design", "phase": "implementation", "artifact_digest": "defe508f7285618593e904bcf69b0ab9f30e5f86d55f074955901e0d22cb1e09"}
+{"time": "2026-11-11T16:37:28.697935+00:00", "event": "verification", "success": true, "receipt": "evidence/123c57badd824df1a101268d289f94db.json"}
+{"time": "2026-11-11T16:37:43.265178+00:00", "event": "advanced", "previous": "implementation", "phase": "review", "artifact_digest": "4bf25aa2bd3cbe4edc9c9e3f4e687083fc131821f0a67f0312e82fa4ff654e18"}
+{"time": "2026-11-11T16:41:58.107661+00:00", "event": "advanced", "previous": "review", "phase": "done", "artifact_digest": "ca05990a5344f8873cfb8f8d80fcbcdbd5b380c5369e62a66993e94fe0c68f5d"}

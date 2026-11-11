@@ -8,9 +8,9 @@
   "approvals": {
     "discovery": "f24bab48f92e73d805b8c97f733460d6e012c51c1bc2daad5475590515248def",
     "requirements": "26bfe4815e891088bd8300f9ae91750cded1e256815b87c983d261feb868d71c",
-    "design": "c43c1cebe070be1431d6941340d78a314595640ba2089a01c9c3a2cfde959e30",
-    "implementation": "ac21b913da2bc00a018e19977eaa1e97c516ad36fea68c6e3ebeb6dc3880eb01",
-    "review": "9bd39522d034b73c73b13f2499567c3c3e404e55b212b68489339d14899a4184"
+    "design": "defe508f7285618593e904bcf69b0ab9f30e5f86d55f074955901e0d22cb1e09",
+    "implementation": "4bf25aa2bd3cbe4edc9c9e3f4e687083fc131821f0a67f0312e82fa4ff654e18",
+    "review": "ca05990a5344f8873cfb8f8d80fcbcdbd5b380c5369e62a66993e94fe0c68f5d"
   },
   "intent_contract": 1,
   "baseline_files": {

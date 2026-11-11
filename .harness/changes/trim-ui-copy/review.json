@@ -2,7 +2,7 @@
   "reviewer": "codex-trim-review",
   "context": "01a1cb29-a5a5-7151-a4ee-bcdb4c7995f9/trim-ui-copy/independent-review",
   "decision": "passed",
-  "summary": "変更前後の320px・1280pxの画面を設計上の期待値より先に観察し、最新の実画面・操作証跡と実装を照合した。白い支出枠が集計対象を伝え、外側の研究効果の所属、局所的な購入条件、操作と必要な状態を維持した。ponytail-review、quality-review、semantic-ui-design、ui-implementation-harnessを適用。",
+  "summary": "変更前後の320px・1280pxの画面を設計上の期待値より先に観察し、実画面・操作証跡と実装を照合した。白い支出枠が集計対象を伝え、外側の研究効果の所属、局所的な購入条件、操作と必要な状態を維持した。マージ前の再レビューではGitleaks例外の対象を独立に検証し、新しい実画面・操作証跡を照合した。ponytail-review、quality-review、semantic-ui-design、ui-implementation-harnessを適用。",
   "checked_requirements": [
     "compact-copy",
     "preserve-states"
@@ -25,14 +25,21 @@
       "severity": "minor",
       "status": "resolved",
       "resolution": "既存の濃い見出し・単価色を再利用。研究条件と残り回数のCSS色は対背景5.18:1で、両幅の通常画像に表示される。"
+    },
+    {
+      "description": "マージ前のGitleaksで、公開ファイルのSHA-256が履歴上の4箇所で検出された。",
+      "severity": "major",
+      "status": "resolved",
+      "resolution": "4箇所のJSON値が各コミットの対応するGit blobのSHA-256と一致することを独立に再計算。4箇所には3種類の値があり、既定ルールを維持して該当ルール・完全一致のパス・キーと値の行をAND条件で例外化した。Windows版Gitleaks 8.30.1のgit --allとdirは検出0、同じ3相対パスで値だけを変えた対照は3件を検出した。証跡はevidence/secret-scan-verification.json。"
     }
   ],
   "limitations": [
     "Windows版Edgeの320px/1280pxとデスクトップの切替境界で確認。スマートフォン実機・ソフトキーボード・支援技術での読み上げは未検証。",
     "回数入力エラー、リセット通知、JavaScript無効時の既存コピーはコード上の同一性を確認。今回は既存のままで、それぞれのスクリーンショットは取得していない。"
   ],
-  "project_digest": "81a003cf0a0cf03cc2ef1e1c670fa74dc8eb77d7a959ea8246b9dfb9a97662aa",
-  "artifacts_digest": "46fd5d9be117591f32f252119d495abb6a3428a875ced5ca9e28d73a6fe1a143",
+  "base_sha": "e8de1d1582ad4880827a45f892827b56e4ff21a1",
+  "project_digest": "935607af83d58b277ea187b405d2a418a6ba1433dfe5271b9640ac0b703a7893",
+  "artifacts_digest": "0f45d12312f9ee396a2bea1f43292e95a5c41aa51b3eb2aced3b1da5ea1b3972",
   "intent_review": {
     "purpose": {
       "status": "passed",
@@ -57,8 +64,8 @@
   },
   "ui": {
     "receipt_ref": {
-      "path": ".harness/changes/trim-ui-copy/evidence/389c5f7ff3e3424a8953b57cd63855a2.json",
-      "sha256": "49fc86bc8428e2773506cc604f4dbca645be3e74509c67cca94793ed4012df18"
+      "path": ".harness/changes/trim-ui-copy/evidence/123c57badd824df1a101268d289f94db.json",
+      "sha256": "914a7fbea31f4fe404a2cc3aa6164e2842219e722ddab8ea18852ed639f636ac"
     },
     "checked_scenarios": [
       "mobile-320",
@@ -287,7 +294,8 @@
           "desktop-1280-researchLimit"
         ],
         "observations": [
-          "dist/app.jsの既存state、StarTowerCounter、保存キーを再利用し、追加の同期や依存はない。実入力で目標が保存・再読込され、9カウンターの増減を各単価どおり反映し、研究11回は残り0・1回超過で合計170のまま。保存例外でも計算でき、公開用docsが正本と一致。"
+          "dist/app.jsの既存state、StarTowerCounter、保存キーを再利用し、追加の同期や依存はない。実入力で目標が保存・再読込され、9カウンターの増減を各単価どおり反映し、研究11回は残り0・1回超過で合計170のまま。保存例外でも計算でき、公開用docsが正本と一致。",
+          "45b58f4との比較でdist、docs、development/ui、既存のCI設定とスキャンスクリプトに差分がない。Gitleaks設定追加後に4つの登録検証を再実行して成功し、新receiptの320px・1280pxの通常画面とモバイルの例外状態を観察。両幅の実測JSONとブラウザー報告が前回と一致した。"
         ],
         "status": "passed",
         "excess": [],

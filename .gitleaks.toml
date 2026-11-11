@@ -1,0 +1,34 @@
+# These are file SHA-256 digests, not credentials. Keep the default rules.
+# Match the exact verified key and digest only in the recorded file.
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Verified SHA-256 for development/ui/summary-tokens.json"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = ['^\.harness/changes/mobile\-summary/inputs/ui\-1771e012356e47fb8138d884b27d8dc9\.json$']
+regexes = [
+  '^\s*"development/ui/summary\-tokens\.json"\s*:\s*"23ea5428aca46d4350888b5a2e5b3c5d3ee08cb85fd55accfacda91a57a14328"\s*,?\s*$',
+]
+
+[[allowlists]]
+description = "Verified SHA-256 for development/ui/summary-tokens.json"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = ['^\.harness/changes/trim\-ui\-copy/inputs/ui\-99e26ffd58ee4678837bde3a111694d0\.json$']
+regexes = [
+  '^\s*"development/ui/summary\-tokens\.json"\s*:\s*"477cb74d5e54313ab31dacb3c64b8497676093c20f2c66037b889bbb3b17dbec"\s*,?\s*$',
+]
+
+[[allowlists]]
+description = "Verified SHA-256 for .agents/skills/why/references/sources/sentry.md"
+targetRules = ["sentry-access-token"]
+condition = "AND"
+regexTarget = "line"
+paths = ['^\.harness/framework\.lock\.json$']
+regexes = [
+  '^\s*"\.agents/skills/why/references/sources/sentry\.md"\s*:\s*"2d4f83048eac1df530b399e2aed75dd7c9c18577b7665420aaeb96d0ceb0b702"\s*,?\s*$',
+]

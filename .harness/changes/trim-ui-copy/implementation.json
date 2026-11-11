@@ -1,6 +1,6 @@
 {
   "author": "codex-root",
-  "summary": "支出の集計と再抽選・音符購入をまとめ、研究効果を分離。説明文・ゼロ支出・成功時の保存表示を減らし、目標未設定では差額の位置に状態を表示。狭い3列で回数欄に5桁を確保し、研究条件と価格単位を読みやすくした。",
+  "summary": "支出の集計と再抽選・音符購入をまとめ、研究効果を分離。説明文・ゼロ支出・成功時の保存表示を減らし、目標未設定では差額の位置に状態を表示。狭い3列で回数欄に5桁を確保し、研究条件と価格単位を読みやすくした。 マージ前のGitleaks誤検出を、既定検査を保った厳密な4個の公開ファイルハッシュの除外で修正した。",
   "changed_paths": [
     "dist/index.html",
     "dist/styles.css",
@@ -8,7 +8,8 @@
     "docs/index.html",
     "docs/styles.css",
     "docs/app.js",
-    "development/ui/summary-browser.mjs"
+    "development/ui/summary-browser.mjs",
+    ".gitleaks.toml"
   ],
   "limitations": [
     "Windows版Edgeで検証。スマートフォン実機とソフトキーボードは未検証。"
