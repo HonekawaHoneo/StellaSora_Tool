@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "token": "2c19f0484bc9411fae325553a7ea92fe",
+  "context": "codex-ui-b-20261113",
+  "request_digest": "9f467ae128e4513fc297499cf92dcc98c18e94bfb02b3d493c8b4aa1048d609b",
+  "started_at": "2026-11-12T15:17:05.217041+00:00",
+  "binding": {
+    "id": "ui-b-no-percent",
+    "phase": "requirements",
+    "activities": [
+      "code",
+      "ui"
+    ],
+    "required_skills": {
+      "response": ".agents/skills/evidence-first-response/SKILL.md",
+      "orchestrator": ".agents/skills/poteto-mode/SKILL.md",
+      "general": ".agents/skills/ponytail/SKILL.md",
+      "writing": ".agents/skills/unslop/SKILL.md",
+      "technical_writing": ".agents/skills/technical-writing/SKILL.md",
+      "requirements": ".agents/skills/grill-me/SKILL.md",
+      "implementation": ".agents/skills/implementation-planning/SKILL.md",
+      "ui_design": ".agents/skills/semantic-ui-design/SKILL.md",
+      "ui_implementation": ".agents/skills/ui-implementation-harness/SKILL.md"
+    },
+    "context_paths": [
+      ".harness/changes/ui-b-no-percent/discovery.json",
+      ".harness/changes/ui-b-no-percent/requirements.json"
+    ],
+    "config_sha256": "f17ae098e00b410cf242f6b1efe1bcb641f89851f2aef26325a1de6b91df6e55"
+  },
+  "allowed_context_paths": [
+    ".harness/changes/ui-b-no-percent/discovery.json",
+    ".harness/changes/ui-b-no-percent/requirements.json",
+    ".harness/changes/ui-b-no-percent/state.json",
+    ".harness/project.json"
+  ],
+  "pins": {
+    ".harness/changes/ui-b-no-percent/requirements.json": "ac14b883e5b72392e2b5f405adc962c758a179c2067733fdf6201bcc8f35b099",
+    ".agents/skills/grill-me/SKILL.md": "cfd049dd16df9579d17e480746c19ea158d80405249bce2202e67c8b4fcc8a87",
+    ".agents/skills/implementation-planning/SKILL.md": "32a001822dcc1461a13fc1529f0194b91ae01be5888f73e57bd5bae1cb00c959",
+    ".agents/skills/poteto-mode/SKILL.md": "3e9dd20e63b21d71572f8313fdfb43ffc1b835612a2463f23a3908db534acf29",
+    ".agents/skills/ui-implementation-harness/SKILL.md": "882b2be8bd5322e96f230cabfe2939f02ad42541e7a0b803061f4e39e9010ff6",
+    ".agents/skills/unslop/SKILL.md": "8a2686d30e2cd8d884055cc0e6018d5c87cd320cb40232d8a80a59eb0786fa00",
+    ".agents/skills/semantic-ui-design/SKILL.md": "5188365396aa1644179d60b7227d115800c095747e70f398c076520b64b713c6",
+    ".agents/skills/technical-writing/SKILL.md": "78b0db9c357d2c874a4cc6b551d6489085c2e5b16865ace5afefca3f453cc3bb",
+    ".harness/changes/ui-b-no-percent/discovery.json": "081ff925442f6a736864c2889e808de79179808fe7e5f8e327179dbc52c4d92f",
+    ".agents/skills/evidence-first-response/SKILL.md": "9eb9f425a2a53547c511d69d5f5ad71ea5de39ff90232a6980cc33cef422efaf",
+    ".agents/skills/ponytail/SKILL.md": "83ba94bce0dcbf4e36570fc8eb7ba04b40183d8ee46e2cca478404f943d127da"
+  },
+  "reads": {
+    ".agents/skills/evidence-first-response/SKILL.md": "9eb9f425a2a53547c511d69d5f5ad71ea5de39ff90232a6980cc33cef422efaf",
+    ".agents/skills/poteto-mode/SKILL.md": "3e9dd20e63b21d71572f8313fdfb43ffc1b835612a2463f23a3908db534acf29",
+    ".agents/skills/ponytail/SKILL.md": "83ba94bce0dcbf4e36570fc8eb7ba04b40183d8ee46e2cca478404f943d127da",
+    ".agents/skills/unslop/SKILL.md": "8a2686d30e2cd8d884055cc0e6018d5c87cd320cb40232d8a80a59eb0786fa00",
+    ".agents/skills/technical-writing/SKILL.md": "78b0db9c357d2c874a4cc6b551d6489085c2e5b16865ace5afefca3f453cc3bb",
+    ".agents/skills/grill-me/SKILL.md": "cfd049dd16df9579d17e480746c19ea158d80405249bce2202e67c8b4fcc8a87",
+    ".agents/skills/implementation-planning/SKILL.md": "32a001822dcc1461a13fc1529f0194b91ae01be5888f73e57bd5bae1cb00c959",
+    ".agents/skills/semantic-ui-design/SKILL.md": "5188365396aa1644179d60b7227d115800c095747e70f398c076520b64b713c6",
+    ".agents/skills/ui-implementation-harness/SKILL.md": "882b2be8bd5322e96f230cabfe2939f02ad42541e7a0b803061f4e39e9010ff6",
+    ".harness/changes/ui-b-no-percent/discovery.json": "081ff925442f6a736864c2889e808de79179808fe7e5f8e327179dbc52c4d92f",
+    ".harness/changes/ui-b-no-percent/requirements.json": "ac14b883e5b72392e2b5f405adc962c758a179c2067733fdf6201bcc8f35b099"
+  },
+  "application": {
+    "path": ".harness/changes/ui-b-no-percent/skill-requirements-2c19f0484bc9411fae325553a7ea92fe.json",
+    "sha256": "8b9c875903fe27ee68ad9b4b17f409e91f5c2647dceaa6a63a27085d4feb0e51",
+    "evidence": {
+      ".harness/changes/ui-b-no-percent/discovery.json": "081ff925442f6a736864c2889e808de79179808fe7e5f8e327179dbc52c4d92f"
+    }
+  },
+  "finished": null
+}
