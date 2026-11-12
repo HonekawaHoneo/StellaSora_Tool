@@ -5,6 +5,7 @@ import fnmatch
 import hashlib
 import json
 import os
+import platform
 import re
 import signal
 import shlex
@@ -241,8 +242,7 @@ def project_entries(root, settings):
         elif path.is_file():
             executable = git_modes.get(relative, False) if WINDOWS else bool(path.stat().st_mode & 0o111)
             entries[relative] = {"sha256": file_sha(path), "executable": executable}
-        else:
-            entries[relative] = {"missing": True}
+        # A tracked deletion has the same content identity before and after commit.
     return entries
 
 
@@ -254,22 +254,134 @@ def validate_checks(checks):
         require(re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}", name) and name not in ids, f"不正・重複したcheck.id: {name}")
         ids.add(name)
         strings(entry.get("argv"), f"{name}.argv", 1)
+        if "kind" in entry:
+            require(isinstance(entry["kind"], str) and entry["kind"] in {"test", "lint", "security"},
+                    f"{name}.kindはtest/lint/securityのいずれかです")
         timeout = entry.get("timeout_seconds")
-        require(type(timeout) in (int, float) and 0 < timeout <= 3600, f"{name}: timeout_secondsは0超3600以下です")
+        require(timeout is None or (type(timeout) in (int, float) and 0 < timeout <= 3600),
+                f"{name}: timeout_secondsは省略/null（無制限）または0超3600以下です")
+        environment = entry.get("env", {})
+        require(isinstance(environment, dict), f"{name}.envはオブジェクトです")
+        for key, value in environment.items():
+            require(isinstance(key, str) and key and "=" not in key and "\0" not in key,
+                    f"{name}.envの変数名が不正です")
+            require(not key.upper().startswith("HARNESS_"), f"{name}.envでHARNESS_変数は変更できません")
+            require(isinstance(value, str) and "\0" not in value, f"{name}.envの値は文字列です")
+
+
+def validate_quality_checks(checks):
+    """Require declared coverage; argv meaning remains the independent review's job."""
+    validate_checks(checks)
+    missing = {"test", "lint", "security"} - {entry.get("kind") for entry in checks}
+    require(not missing, f"品質検証のkindが不足しています: {', '.join(sorted(missing))}")
+
+
+WINDOWS_CORE_CHECKS = {"skills", "windows", "session-hooks", "git-security", "secure-save", "cloud-connection",
+                       "execution", "execution-integration", "completion-save", "ui-copy-policy", "quality-coverage"}
+
+
+def platform_source_manifest(root):
+    entries = project_entries(root, {})
+    require(entries and all("sha256" in entry for entry in entries.values()), "受入対象のソースが不足しています")
+    return {path: entry["sha256"] for path, entry in entries.items()}
+
+
+def platform_receipt_context(root):
+    manifest = platform_source_manifest(root)
+    git = shutil.which("git")
+    require(git is not None, "Windows受入にはGitが必要です")
+    metadata = {}
+    for key, arguments in (("version", ["--version"]), ("revision", ["rev-parse", "HEAD"])):
+        result = subprocess.run([git, *arguments], cwd=root, capture_output=True, encoding="utf-8")
+        require(result.returncode == 0, f"受入Git情報を取得できません: {key}")
+        metadata[key] = result.stdout.strip()
+    return {"host": {"os_name": os.name, "system": platform.system(), "release": platform.release(),
+                     "version": platform.version(), "machine": platform.machine()},
+            "python": {"executable": sys.executable, "version": platform.python_version()},
+            "git": {"executable": git, "version": metadata["version"]},
+            "source_revision": metadata["revision"], "source_manifest": manifest, "source_digest": digest(manifest)}
+
+
+def receipt_time(value):
+    try:
+        timestamp = dt.datetime.fromisoformat(value)
+        require(timestamp.tzinfo is not None, "受入時刻にはタイムゾーンが必要です")
+        return timestamp
+    except (TypeError, ValueError) as exc:
+        raise GateError("受入時刻が不正です") from exc
+
+
+def validate_platform_receipt(root, directory, require_native=False):
+    """Validate record shape and source/log freshness, not the authenticity of a remote Windows host."""
+    value = read_json(directory / "result.json")
+    require(value.get("schema_version") == 1 and value.get("platform") == "Windows", "Windows受入形式が不正です")
+    run_id = value.get("run_id")
+    require(isinstance(run_id, str) and re.fullmatch(r"[0-9a-f]{32}", run_id), "受入run_idが不正です")
+    require(value.get("status") == "complete" and value.get("core_verified") is True,
+            "Windows受入は未完了です")
+    started, finished = receipt_time(value.get("started_at")), receipt_time(value.get("finished_at"))
+    require(started <= finished <= dt.datetime.now(dt.timezone.utc), "Windows受入時刻が不正です")
+    host = value.get("host")
+    require(isinstance(host, dict) and host.get("os_name") == "nt" and host.get("system") == "Windows",
+            "Windows OS情報が不足しています")
+    for key in ("release", "version", "machine"):
+        nonempty(host.get(key), f"host.{key}")
+    for tool in ("python", "git"):
+        require(isinstance(value.get(tool), dict), f"{tool}の実体・版が必要です")
+        for key in ("executable", "version"):
+            nonempty(value[tool].get(key), f"{tool}.{key}")
+    revision = value.get("source_revision")
+    require(isinstance(revision, str) and re.fullmatch(r"[0-9a-f]{40}|[0-9a-f]{64}", revision), "Git revisionが不正です")
+    manifest = platform_source_manifest(root)
+    require(value.get("source_manifest") == manifest and value.get("source_digest") == digest(manifest),
+            "Windows受入後にソースが変更されました")
+    requested = value.get("requested_native_hooks")
+    require(type(requested) is bool and value.get("native_fixture_verified") is requested,
+            "native fixtureの実施状態が不正です")
+    require(not require_native or requested, "native fixtureは未検証です")
+    require(value.get("user_environment_activation") == "unverified", "利用者環境の有効化は別途確認が必要です")
+    expected = WINDOWS_CORE_CHECKS | ({"native-hooks"} if requested else set())
+    seen, logs = set(), set()
+    for check in sequence(value.get("checks"), "Windows checks", 1):
+        require(isinstance(check, dict), "Windows checkはオブジェクトです")
+        name = check.get("id")
+        require(isinstance(name, str) and name in expected and name not in seen, "Windows check IDが不正・重複です")
+        seen.add(name)
+        require(check.get("run_id") == run_id and check.get("status") == "complete" and
+                type(check.get("returncode")) is int and check["returncode"] == 0 and
+                type(check.get("skipped")) is int and check["skipped"] == 0,
+                f"{name}: 未実施・失敗・skipを確認済みにできません")
+        strings(check.get("argv"), f"{name}.argv", 1)
+        require(started <= receipt_time(check.get("started_at")) <= receipt_time(check.get("finished_at")) <= finished,
+                f"{name}: 今回の実行時刻ではありません")
+        log = safe_path(directory, check.get("log"))
+        require(log.is_file() and log not in logs and check.get("log_digest") == file_sha(log),
+                f"{name}: 実行ログが不足・変更されています")
+        logs.add(log)
+        try:
+            content = log.read_text(encoding="utf-8-sig")
+        except UnicodeError as exc:
+            raise GateError(f"{name}: UTF-8ログが必要です") from exc
+        require(content.strip() and not re.search(r"\bskipped\b", content, re.IGNORECASE), f"{name}: ログが空またはskipを含みます")
+    require(seen == expected, "Windows受入の必須checkが不足しています")
 
 
 def execute_check(root, directory, token, entry, env):
     log = directory / f"{token}-{entry['id']}.log"
     started, timed_out = now(), False
     child_env = env.copy()
+    child_env.update(entry.get("env", {}))
+    argv = list(entry["argv"])
+    if argv[0] in ("python", "python3"):
+        argv[0] = sys.executable
     if entry["argv"][1:] == [".harness/structure.py", "check"]:
         child_env.update(PYTHONUTF8="1", PYTHONIOENCODING="utf-8")
     with log.open("wb") as output:
         try:
-            process = subprocess.Popen(entry["argv"], cwd=root, stdout=output, stderr=subprocess.STDOUT,
+            process = subprocess.Popen(argv, cwd=root, stdout=output, stderr=subprocess.STDOUT,
                                        **process_options(), env=child_env)
             try:
-                code = process.wait(timeout=entry["timeout_seconds"])
+                code = process.wait(timeout=entry.get("timeout_seconds"))
             except subprocess.TimeoutExpired:
                 timed_out = True
                 stop_process_tree(process)

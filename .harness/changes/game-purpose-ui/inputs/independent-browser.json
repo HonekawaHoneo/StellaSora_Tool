@@ -1,0 +1,941 @@
+{
+  "environment": {
+    "browser": "Chrome/156.0.8078.79",
+    "theme": "light",
+    "fixture": "reroll2 note901 target500",
+    "viewport": {
+      "width": 320,
+      "height": 400
+    }
+  },
+  "initial": {
+    "text": "星ノ塔\nカウンター\n回数をリセット\n\n消費コイン合計\n\n170\n目標コイン\n\n目標との差額\n\n330\n34%\n素質の再抽選\n40\nコイン / 回\n音符購入\n5個セット\n90\nコイン\n通常\n72\nコイン\n20%引き\n45\nコイン\n半額\n15個セット\n400\nコイン\n通常\n320\nコイン\n20%引き\n200\nコイン\n半額\n研究効果\nLv3素質\n\n残り10 / 10回\n\n＋2強化\n\n残り5 / 5回\n\n研究・4 / 難易度8以上",
+    "values": [
+      {
+        "id": "target",
+        "value": "500"
+      },
+      {
+        "id": "count-reroll",
+        "value": "2"
+      },
+      {
+        "id": "count-note90",
+        "value": "1"
+      },
+      {
+        "id": "count-note72",
+        "value": "0"
+      },
+      {
+        "id": "count-note45",
+        "value": "0"
+      },
+      {
+        "id": "count-note400",
+        "value": "0"
+      },
+      {
+        "id": "count-note320",
+        "value": "0"
+      },
+      {
+        "id": "count-note200",
+        "value": "0"
+      },
+      {
+        "id": "count-trait3",
+        "value": "0"
+      },
+      {
+        "id": "count-enhancement2",
+        "value": "0"
+      }
+    ],
+    "scrollX": 0,
+    "scrollY": 0,
+    "width": 305,
+    "view": 320,
+    "sticky": []
+  },
+  "hits": [
+    {
+      "id": "count-reroll",
+      "before": "2",
+      "plus": "3",
+      "minus": "2",
+      "direct": "3"
+    },
+    {
+      "id": "count-note90",
+      "before": "1",
+      "plus": "2",
+      "minus": "1",
+      "direct": "3"
+    },
+    {
+      "id": "count-note72",
+      "before": "0",
+      "plus": "1",
+      "minus": "0",
+      "direct": "3"
+    },
+    {
+      "id": "count-note45",
+      "before": "0",
+      "plus": "1",
+      "minus": "0",
+      "direct": "3"
+    },
+    {
+      "id": "count-note400",
+      "before": "0",
+      "plus": "1",
+      "minus": "0",
+      "direct": "3"
+    },
+    {
+      "id": "count-note320",
+      "before": "0",
+      "plus": "1",
+      "minus": "0",
+      "direct": "3"
+    },
+    {
+      "id": "count-note200",
+      "before": "0",
+      "plus": "1",
+      "minus": "0",
+      "direct": "3"
+    },
+    {
+      "id": "count-trait3",
+      "before": "0",
+      "plus": "1",
+      "minus": "0",
+      "direct": "3"
+    },
+    {
+      "id": "count-enhancement2",
+      "before": "0",
+      "plus": "1",
+      "minus": "0",
+      "direct": "3"
+    }
+  ],
+  "lowViewport": {
+    "text": "星ノ塔\nカウンター\n回数をリセット\n\n消費コイン合計\n\n3,501\n目標コイン\n\n目標との差額\n\n-3,001\n目標超過\n100%\n素質の再抽選\n40\nコイン / 回\n音符購入\n5個セット\n90\nコイン\n通常\n72\nコイン\n20%引き\n45\nコイン\n半額\n15個セット\n400\nコイン\n通常\n320\nコイン\n20%引き\n200\nコイン\n半額\n研究効果\nLv3素質\n\n残り7 / 10回\n\n＋2強化\n\n残り2 / 5回\n\n研究・4 / 難易度8以上",
+    "values": [
+      {
+        "id": "target",
+        "value": "500"
+      },
+      {
+        "id": "count-reroll",
+        "value": "3"
+      },
+      {
+        "id": "count-note90",
+        "value": "3"
+      },
+      {
+        "id": "count-note72",
+        "value": "3"
+      },
+      {
+        "id": "count-note45",
+        "value": "3"
+      },
+      {
+        "id": "count-note400",
+        "value": "3"
+      },
+      {
+        "id": "count-note320",
+        "value": "3"
+      },
+      {
+        "id": "count-note200",
+        "value": "3"
+      },
+      {
+        "id": "count-trait3",
+        "value": "3"
+      },
+      {
+        "id": "count-enhancement2",
+        "value": "3"
+      }
+    ],
+    "scrollX": 0,
+    "scrollY": 644,
+    "width": 305,
+    "view": 320,
+    "sticky": []
+  },
+  "overshoot": {
+    "text": "星ノ塔\nカウンター\n回数をリセット\n\n消費コイン合計\n\n3,501\n目標コイン\n\n目標との差額\n\n-3,500\n目標超過\n100%\n素質の再抽選\n40\nコイン / 回\n音符購入\n5個セット\n90\nコイン\n通常\n72\nコイン\n20%引き\n45\nコイン\n半額\n15個セット\n400\nコイン\n通常\n320\nコイン\n20%引き\n200\nコイン\n半額\n研究効果\nLv3素質\n\n残り7 / 10回\n\n＋2強化\n\n残り2 / 5回\n\n研究・4 / 難易度8以上",
+    "values": [
+      {
+        "id": "target",
+        "value": "1"
+      },
+      {
+        "id": "count-reroll",
+        "value": "3"
+      },
+      {
+        "id": "count-note90",
+        "value": "3"
+      },
+      {
+        "id": "count-note72",
+        "value": "3"
+      },
+      {
+        "id": "count-note45",
+        "value": "3"
+      },
+      {
+        "id": "count-note400",
+        "value": "3"
+      },
+      {
+        "id": "count-note320",
+        "value": "3"
+      },
+      {
+        "id": "count-note200",
+        "value": "3"
+      },
+      {
+        "id": "count-trait3",
+        "value": "3"
+      },
+      {
+        "id": "count-enhancement2",
+        "value": "3"
+      }
+    ],
+    "scrollX": 0,
+    "scrollY": 0,
+    "width": 305,
+    "view": 320,
+    "sticky": []
+  },
+  "invalid": {
+    "text": "星ノ塔\nカウンター\n回数をリセット\n\n消費コイン合計\n\n3,501\n目標コイン\n\n目標との差額\n\n-3,500\n目標超過\n100%\n素質の再抽選\n40\nコイン / 回\n音符購入\n5個セット\n90\nコイン\n通常\n72\nコイン\n20%引き\n45\nコイン\n半額\n15個セット\n400\nコイン\n通常\n320\nコイン\n20%引き\n200\nコイン\n半額\n研究効果\nLv3素質\n\n残り7 / 10回\n\n＋2強化\n\n残り2 / 5回\n\n研究・4 / 難易度8以上\n\n0以上の整数",
+    "values": [
+      {
+        "id": "target",
+        "value": "1"
+      },
+      {
+        "id": "count-reroll",
+        "value": "3"
+      },
+      {
+        "id": "count-note90",
+        "value": "3"
+      },
+      {
+        "id": "count-note72",
+        "value": "3"
+      },
+      {
+        "id": "count-note45",
+        "value": "3"
+      },
+      {
+        "id": "count-note400",
+        "value": "3"
+      },
+      {
+        "id": "count-note320",
+        "value": "3"
+      },
+      {
+        "id": "count-note200",
+        "value": "3"
+      },
+      {
+        "id": "count-trait3",
+        "value": "3"
+      },
+      {
+        "id": "count-enhancement2",
+        "value": "3"
+      }
+    ],
+    "scrollX": 0,
+    "scrollY": 0,
+    "width": 305,
+    "view": 320,
+    "sticky": []
+  },
+  "unset": {
+    "text": "星ノ塔\nカウンター\n回数をリセット\n\n消費コイン合計\n\n3,501\n目標コイン\n\n目標との差額\n\n目標未設定\n素質の再抽選\n40\nコイン / 回\n音符購入\n5個セット\n90\nコイン\n通常\n72\nコイン\n20%引き\n45\nコイン\n半額\n15個セット\n400\nコイン\n通常\n320\nコイン\n20%引き\n200\nコイン\n半額\n研究効果\nLv3素質\n\n残り7 / 10回\n\n＋2強化\n\n残り2 / 5回\n\n研究・4 / 難易度8以上\n\n0以上の整数",
+    "values": [
+      {
+        "id": "target",
+        "value": "0"
+      },
+      {
+        "id": "count-reroll",
+        "value": "3"
+      },
+      {
+        "id": "count-note90",
+        "value": "3"
+      },
+      {
+        "id": "count-note72",
+        "value": "3"
+      },
+      {
+        "id": "count-note45",
+        "value": "3"
+      },
+      {
+        "id": "count-note400",
+        "value": "3"
+      },
+      {
+        "id": "count-note320",
+        "value": "3"
+      },
+      {
+        "id": "count-note200",
+        "value": "3"
+      },
+      {
+        "id": "count-trait3",
+        "value": "3"
+      },
+      {
+        "id": "count-enhancement2",
+        "value": "3"
+      }
+    ],
+    "scrollX": 0,
+    "scrollY": 0,
+    "width": 305,
+    "view": 320,
+    "sticky": []
+  },
+  "reset": {
+    "text": "星ノ塔\nカウンター\n回数をリセット\n\n消費コイン合計\n\n0\n目標コイン\n\n目標との差額\n\n500\n0%\n素質の再抽選\n40\nコイン / 回\n音符購入\n5個セット\n90\nコイン\n通常\n72\nコイン\n20%引き\n45\nコイン\n半額\n15個セット\n400\nコイン\n通常\n320\nコイン\n20%引き\n200\nコイン\n半額\n研究効果\nLv3素質\n\n残り10 / 10回\n\n＋2強化\n\n残り5 / 5回\n\n研究・4 / 難易度8以上\n\n0以上の整数",
+    "values": [
+      {
+        "id": "target",
+        "value": "500"
+      },
+      {
+        "id": "count-reroll",
+        "value": "0"
+      },
+      {
+        "id": "count-note90",
+        "value": "0"
+      },
+      {
+        "id": "count-note72",
+        "value": "0"
+      },
+      {
+        "id": "count-note45",
+        "value": "0"
+      },
+      {
+        "id": "count-note400",
+        "value": "0"
+      },
+      {
+        "id": "count-note320",
+        "value": "0"
+      },
+      {
+        "id": "count-note200",
+        "value": "0"
+      },
+      {
+        "id": "count-trait3",
+        "value": "0"
+      },
+      {
+        "id": "count-enhancement2",
+        "value": "0"
+      }
+    ],
+    "scrollX": 0,
+    "scrollY": 0,
+    "width": 305,
+    "view": 320,
+    "sticky": []
+  },
+  "reload": {
+    "text": "星ノ塔\nカウンター\n回数をリセット\n\n消費コイン合計\n\n0\n目標コイン\n\n目標との差額\n\n500\n0%\n素質の再抽選\n40\nコイン / 回\n音符購入\n5個セット\n90\nコイン\n通常\n72\nコイン\n20%引き\n45\nコイン\n半額\n15個セット\n400\nコイン\n通常\n320\nコイン\n20%引き\n200\nコイン\n半額\n研究効果\nLv3素質\n\n残り10 / 10回\n\n＋2強化\n\n残り5 / 5回\n\n研究・4 / 難易度8以上",
+    "values": [
+      {
+        "id": "target",
+        "value": "500"
+      },
+      {
+        "id": "count-reroll",
+        "value": "0"
+      },
+      {
+        "id": "count-note90",
+        "value": "0"
+      },
+      {
+        "id": "count-note72",
+        "value": "0"
+      },
+      {
+        "id": "count-note45",
+        "value": "0"
+      },
+      {
+        "id": "count-note400",
+        "value": "0"
+      },
+      {
+        "id": "count-note320",
+        "value": "0"
+      },
+      {
+        "id": "count-note200",
+        "value": "0"
+      },
+      {
+        "id": "count-trait3",
+        "value": "0"
+      },
+      {
+        "id": "count-enhancement2",
+        "value": "0"
+      }
+    ],
+    "scrollX": 0,
+    "scrollY": 0,
+    "width": 305,
+    "view": 320,
+    "sticky": []
+  },
+  "mobile390Bottom": {
+    "text": "星ノ塔カウンター\n回数をリセット\n\n消費コイン合計\n\n0\n目標コイン\n\n目標との差額\n\n500\n0%\n素質の再抽選\n40\nコイン / 回\n音符購入\n5個セット\n90\nコイン\n通常\n72\nコイン\n20%引き\n45\nコイン\n半額\n15個セット\n400\nコイン\n通常\n320\nコイン\n20%引き\n200\nコイン\n半額\n研究効果\nLv3素質\n\n残り10 / 10回\n\n＋2強化\n\n残り5 / 5回\n\n研究・4 / 難易度8以上",
+    "values": [
+      {
+        "id": "target",
+        "value": "500"
+      },
+      {
+        "id": "count-reroll",
+        "value": "0"
+      },
+      {
+        "id": "count-note90",
+        "value": "0"
+      },
+      {
+        "id": "count-note72",
+        "value": "0"
+      },
+      {
+        "id": "count-note45",
+        "value": "0"
+      },
+      {
+        "id": "count-note400",
+        "value": "0"
+      },
+      {
+        "id": "count-note320",
+        "value": "0"
+      },
+      {
+        "id": "count-note200",
+        "value": "0"
+      },
+      {
+        "id": "count-trait3",
+        "value": "0"
+      },
+      {
+        "id": "count-enhancement2",
+        "value": "0"
+      }
+    ],
+    "scrollX": 0,
+    "scrollY": 328,
+    "width": 375,
+    "view": 390,
+    "sticky": [
+      {
+        "cls": "summary",
+        "box": {
+          "x": 27,
+          "y": 0,
+          "width": 321,
+          "height": 158.59375,
+          "top": 0,
+          "right": 348,
+          "bottom": 158.59375,
+          "left": 27
+        }
+      }
+    ]
+  },
+  "focus": {
+    "text": "星ノ塔カウンター\n回数をリセット\n\n消費コイン合計\n\n0\n目標コイン\n\n目標との差額\n\n500\n0%\n素質の再抽選\n40\nコイン / 回\n音符購入\n5個セット\n90\nコイン\n通常\n72\nコイン\n20%引き\n45\nコイン\n半額\n15個セット\n400\nコイン\n通常\n320\nコイン\n20%引き\n200\nコイン\n半額\n研究効果\nLv3素質\n\n残り10 / 10回\n\n＋2強化\n\n残り1 / 5回\n\n研究・4 / 難易度8以上",
+    "values": [
+      {
+        "id": "target",
+        "value": "500"
+      },
+      {
+        "id": "count-reroll",
+        "value": "0"
+      },
+      {
+        "id": "count-note90",
+        "value": "0"
+      },
+      {
+        "id": "count-note72",
+        "value": "0"
+      },
+      {
+        "id": "count-note45",
+        "value": "0"
+      },
+      {
+        "id": "count-note400",
+        "value": "0"
+      },
+      {
+        "id": "count-note320",
+        "value": "0"
+      },
+      {
+        "id": "count-note200",
+        "value": "0"
+      },
+      {
+        "id": "count-trait3",
+        "value": "0"
+      },
+      {
+        "id": "count-enhancement2",
+        "value": "4"
+      }
+    ],
+    "scrollX": 0,
+    "scrollY": 328,
+    "width": 375,
+    "view": 390,
+    "sticky": [
+      {
+        "cls": "summary",
+        "box": {
+          "x": 27,
+          "y": 0,
+          "width": 321,
+          "height": 158.59375,
+          "top": 0,
+          "right": 348,
+          "bottom": 158.59375,
+          "left": 27
+        }
+      }
+    ]
+  },
+  "desktopLow": {
+    "text": "星ノ塔カウンター\n回数をリセット\n\n消費コイン合計\n\n0\n目標コイン\n\n目標との差額\n\n500\n0%\n素質の再抽選\n40\nコイン / 回\n音符購入\n5個セット\n90\nコイン\n通常\n72\nコイン\n20%引き\n45\nコイン\n半額\n15個セット\n400\nコイン\n通常\n320\nコイン\n20%引き\n200\nコイン\n半額\n研究効果\nLv3素質\n\n残り10 / 10回\n\n＋2強化\n\n残り1 / 5回\n\n研究・4 / 難易度8以上",
+    "values": [
+      {
+        "id": "target",
+        "value": "500"
+      },
+      {
+        "id": "count-reroll",
+        "value": "0"
+      },
+      {
+        "id": "count-note90",
+        "value": "0"
+      },
+      {
+        "id": "count-note72",
+        "value": "0"
+      },
+      {
+        "id": "count-note45",
+        "value": "0"
+      },
+      {
+        "id": "count-note400",
+        "value": "0"
+      },
+      {
+        "id": "count-note320",
+        "value": "0"
+      },
+      {
+        "id": "count-note200",
+        "value": "0"
+      },
+      {
+        "id": "count-trait3",
+        "value": "0"
+      },
+      {
+        "id": "count-enhancement2",
+        "value": "4"
+      }
+    ],
+    "scrollX": 0,
+    "scrollY": 102,
+    "width": 1265,
+    "view": 1280,
+    "sticky": []
+  },
+  "reflow": {
+    "text": "星ノ塔カウンター\n回数をリセット\n\n消費コイン合計\n\n0\n目標コイン\n\n目標との差額\n\n640\n0%\n素質の再抽選\n40\nコイン / 回\n音符購入\n5個セット\n90\nコイン\n通常\n72\nコイン\n20%引き\n45\nコイン\n半額\n15個セット\n400\nコイン\n通常\n320\nコイン\n20%引き\n200\nコイン\n半額\n研究効果\nLv3素質\n\n残り10 / 10回\n\n＋2強化\n\n残り1 / 5回\n\n研究・4 / 難易度8以上",
+    "values": [
+      {
+        "id": "target",
+        "value": "640"
+      },
+      {
+        "id": "count-reroll",
+        "value": "0"
+      },
+      {
+        "id": "count-note90",
+        "value": "0"
+      },
+      {
+        "id": "count-note72",
+        "value": "0"
+      },
+      {
+        "id": "count-note45",
+        "value": "0"
+      },
+      {
+        "id": "count-note400",
+        "value": "0"
+      },
+      {
+        "id": "count-note320",
+        "value": "0"
+      },
+      {
+        "id": "count-note200",
+        "value": "0"
+      },
+      {
+        "id": "count-trait3",
+        "value": "0"
+      },
+      {
+        "id": "count-enhancement2",
+        "value": "4"
+      }
+    ],
+    "scrollX": 0,
+    "scrollY": 0,
+    "width": 625,
+    "view": 640,
+    "sticky": []
+  },
+  "surfaces": {
+    "body": "星ノ塔カウンター\n回数をリセット\n\n消費コイン合計\n\n0\n目標コイン\n\n目標との差額\n\n640\n0%\n素質の再抽選\n40\nコイン / 回\n音符購入\n5個セット\n90\nコイン\n通常\n72\nコイン\n20%引き\n45\nコイン\n半額\n15個セット\n400\nコイン\n通常\n320\nコイン\n20%引き\n200\nコイン\n半額\n研究効果\nLv3素質\n\n残り10 / 10回\n\n＋2強化\n\n残り1 / 5回\n\n研究・4 / 難易度8以上",
+    "qa": [],
+    "tooltip": [],
+    "accessible": [
+      {
+        "tag": "SECTION",
+        "id": "",
+        "label": "集計と目標",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "OUTPUT",
+        "id": "total",
+        "label": "素質再抽選と音符セット購入の消費コイン合計",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "OUTPUT",
+        "id": "remaining",
+        "label": "目標コインから消費コイン合計を引いた差額",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "DIV",
+        "id": "progress",
+        "label": "目標の達成率",
+        "description": null,
+        "value": "0%"
+      },
+      {
+        "tag": "ARTICLE",
+        "id": "",
+        "label": "素質の再抽選",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "label": "素質の再抽選回数を1減らす",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "INPUT",
+        "id": "count-reroll",
+        "label": "素質の再抽選回数",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "label": "素質の再抽選回数を1増やす",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "ARTICLE",
+        "id": "",
+        "label": "音符5個セット・通常90コイン",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "label": "音符5個セット・通常90コインの購入回数を1減らす",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "INPUT",
+        "id": "count-note90",
+        "label": "音符5個セット・通常90コインの購入回数",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "label": "音符5個セット・通常90コインの購入回数を1増やす",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "ARTICLE",
+        "id": "",
+        "label": "音符5個セット・20%引き72コイン",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "label": "音符5個セット・20%引き72コインの購入回数を1減らす",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "INPUT",
+        "id": "count-note72",
+        "label": "音符5個セット・20%引き72コインの購入回数",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "label": "音符5個セット・20%引き72コインの購入回数を1増やす",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "ARTICLE",
+        "id": "",
+        "label": "音符5個セット・半額45コイン",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "label": "音符5個セット・半額45コインの購入回数を1減らす",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "INPUT",
+        "id": "count-note45",
+        "label": "音符5個セット・半額45コインの購入回数",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "label": "音符5個セット・半額45コインの購入回数を1増やす",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "ARTICLE",
+        "id": "",
+        "label": "音符15個セット・通常400コイン",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "label": "音符15個セット・通常400コインの購入回数を1減らす",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "INPUT",
+        "id": "count-note400",
+        "label": "音符15個セット・通常400コインの購入回数",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "label": "音符15個セット・通常400コインの購入回数を1増やす",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "ARTICLE",
+        "id": "",
+        "label": "音符15個セット・20%引き320コイン",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "label": "音符15個セット・20%引き320コインの購入回数を1減らす",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "INPUT",
+        "id": "count-note320",
+        "label": "音符15個セット・20%引き320コインの購入回数",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "label": "音符15個セット・20%引き320コインの購入回数を1増やす",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "ARTICLE",
+        "id": "",
+        "label": "音符15個セット・半額200コイン",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "label": "音符15個セット・半額200コインの購入回数を1減らす",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "INPUT",
+        "id": "count-note200",
+        "label": "音符15個セット・半額200コインの購入回数",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "label": "音符15個セット・半額200コインの購入回数を1増やす",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "ARTICLE",
+        "id": "",
+        "label": "Lv3素質",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "label": "Lv3素質の取得回数を1減らす",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "INPUT",
+        "id": "count-trait3",
+        "label": "Lv3素質の取得回数",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "label": "Lv3素質の取得回数を1増やす",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "ARTICLE",
+        "id": "",
+        "label": "＋2強化",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "label": "＋2強化の使用回数を1減らす",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "INPUT",
+        "id": "count-enhancement2",
+        "label": "＋2強化の使用回数",
+        "description": null,
+        "value": null
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "label": "＋2強化の使用回数を1増やす",
+        "description": null,
+        "value": null
+      }
+    ]
+  }
+}

@@ -16,5 +16,6 @@ printf '%s  %s\n' "$checksum" "$scan_temp/gitleaks.tar.gz" | sha256sum --check -
 tar -xzf "$scan_temp/gitleaks.tar.gz" -C "$scan_temp" gitleaks
 
 cd "$repo_root"
+python3 scripts/check-secret-rules.py "$scan_temp/gitleaks"
 "$scan_temp/gitleaks" git --log-opts='--all' --redact=100 --no-banner --ignore-gitleaks-allow .
 "$scan_temp/gitleaks" dir --redact=100 --no-banner --ignore-gitleaks-allow .

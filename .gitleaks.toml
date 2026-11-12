@@ -1,5 +1,5 @@
-# These are file SHA-256 digests, not credentials. Keep the default rules.
-# Match the exact verified key and digest only in the recorded file.
+# Keep default detection rules. These scoped exceptions are public metadata.
+# Digests require verified paths and values; workflow nonces require UUIDv4 token lines.
 [extend]
 useDefault = true
 
@@ -32,3 +32,33 @@ paths = ['^\.harness/framework\.lock\.json$']
 regexes = [
   '^\s*"\.agents/skills/why/references/sources/sentry\.md"\s*:\s*"2d4f83048eac1df530b399e2aed75dd7c9c18577b7665420aaeb96d0ceb0b702"\s*,?\s*$',
 ]
+
+[[allowlists]]
+description = "Public harness workflow UUIDv4 nonce fields (not authentication)"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = [
+  '^\.harness/changes/\.execution/(?:[a-f0-9]{12}4[a-f0-9]{3}[89ab][a-f0-9]{15}|contexts/[a-f0-9]{64})\.json$',
+  '^\.harness/changes/[a-z0-9][a-z0-9-]*/skill-(?:discovery|requirements|design|implementation|review)(?:-[a-f0-9]{12}4[a-f0-9]{3}[89ab][a-f0-9]{15})?\.json$',
+  '^\.harness/changes/[a-z0-9][a-z0-9-]*/state\.json$',
+  '^\.harness/changes/game-purpose-ui/inputs/review-skill-application\.json$',
+  '^\.harness/changes/\.inputs/cloud-install-application\.json$',
+]
+regexes = ['^\s*"token"\s*:\s*"[a-f0-9]{12}4[a-f0-9]{3}[89ab][a-f0-9]{15}"\s*,?\s*$']
+
+[[allowlists]]
+description = "Public harness skill-application event UUIDv4 nonce (not authentication)"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = ['^\.harness/changes/[a-z0-9][a-z0-9-]*/events\.jsonl$']
+regexes = ['^\s*\{"time": "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]+)?[+\-][0-9]{2}:[0-9]{2}", "event": "skill_application_verified", "token": "[a-f0-9]{12}4[a-f0-9]{3}[89ab][a-f0-9]{15}", "phase": "(?:discovery|requirements|design|implementation|review|done)", "request_digest": "[a-f0-9]{64}"\}\s*$']
+
+[[allowlists]]
+description = "Verified SHA-256 for development/ui/summary-tokens.json in game-purpose-ui snapshot"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = ['^\.harness/changes/game-purpose-ui/inputs/ui-4274fbc5be2f48bab5540dfaff4cc611\.json$']
+regexes = ['^\s*"development/ui/summary-tokens\.json"\s*:\s*"477cb74d5e54313ab31dacb3c64b8497676093c20f2c66037b889bbb3b17dbec"\s*,?\s*$']

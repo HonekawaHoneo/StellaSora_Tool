@@ -3,6 +3,8 @@ name: requirements-discovery
 description: 共通開発基盤で、開発依頼の目的・現状・制約を調査し、観測可能な受入条件を持つ要件にまとめる。新規開発と既存システム変更の要件工程を担当する。
 ---
 
+0.17以降の新規作業は`.harness/execution.md`の読出し・適用記録と`--turn`を使う。原指示の引用はspanのstart/endで全範囲を分類し、例示・仮説も取り落とさない。旧固定版はその版の契約を保持する。
+
 # 調査と要件
 
 AGENTSと `.harness/protocol.md`、対象変更のstate.jsonを読む。

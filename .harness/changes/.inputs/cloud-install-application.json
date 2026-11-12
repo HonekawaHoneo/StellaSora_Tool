@@ -1,0 +1,89 @@
+{
+  "token": "c5183c1822d147eeafacc290475422cc",
+  "request_digest": "2f0d80e342fef21108d52a323dd0b73d7690de3936f80044e7966235a5ef5302",
+  "intent": {
+    "goal": "CodexEnvSetの最新ハーネスを現在のCloud環境の開発対象に導入し有効化する",
+    "relation": "new",
+    "question_check": "現在の対象はStellaSora_Toolで、最新mainは0.17.0。公式Cloud経路と既存設定保持を確認済みで追加質問は不要。"
+  },
+  "skills": {
+    "response": {
+      "applied": "最新mainの版とCloud接続の実行結果を照合し、readyと自動Hook実行を区別して報告する。",
+      "evidence": [
+        {
+          "path": ".harness/changes/.inputs/cloud-install-receipt.json",
+          "pointer": "/ready"
+        },
+        {
+          "path": ".harness/framework.lock.json",
+          "pointer": "/version"
+        }
+      ]
+    },
+    "orchestrator": {
+      "applied": "codexenvset-setupのCloud専用経路を使い、導入確認を製品の開発完了と区別した。",
+      "evidence": [
+        {
+          "path": ".harness/changes/.inputs/cloud-install-receipt.json",
+          "pointer": "/ready"
+        },
+        {
+          "path": ".harness/framework.lock.json",
+          "pointer": "/version"
+        }
+      ]
+    },
+    "general": {
+      "applied": "公式インストーラだけで管理ファイルを更新し、153個の利用者所有ファイルを保持した。",
+      "evidence": [
+        {
+          "path": ".harness/changes/.inputs/cloud-install-receipt.json",
+          "pointer": "/ready"
+        },
+        {
+          "path": ".harness/framework.lock.json",
+          "pointer": "/version"
+        }
+      ]
+    },
+    "writing": {
+      "applied": "導入版、対象、検証結果、Cloudでの適用範囲を短い日本語で報告する。",
+      "evidence": [
+        {
+          "path": ".harness/changes/.inputs/cloud-install-receipt.json",
+          "pointer": "/ready"
+        },
+        {
+          "path": ".harness/framework.lock.json",
+          "pointer": "/version"
+        }
+      ]
+    },
+    "technical_writing": {
+      "applied": "公式CLIの実際のフィールド名と正確な版を使って結果を示す。",
+      "evidence": [
+        {
+          "path": ".harness/changes/.inputs/cloud-install-receipt.json",
+          "pointer": "/ready"
+        },
+        {
+          "path": ".harness/framework.lock.json",
+          "pointer": "/version"
+        }
+      ]
+    },
+    "requirements": {
+      "applied": "既存対象と最新mainは環境から確認し、明示された導入と有効化を実行した。",
+      "evidence": [
+        {
+          "path": ".harness/changes/.inputs/cloud-install-receipt.json",
+          "pointer": "/ready"
+        },
+        {
+          "path": ".harness/framework.lock.json",
+          "pointer": "/version"
+        }
+      ]
+    }
+  }
+}

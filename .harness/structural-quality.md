@@ -37,11 +37,13 @@ source roots内のPythonは実ファイル一覧と指紋を照合する。snaps
 設定を用意した後、実装前に実行する。
 
 ```sh
-python3 .harness/harness.py new feature --kind change --author builder --context session --base BASE_SHA
+python3 .harness/harness.py new feature --kind change --author builder --context session --base BASE_SHA --request-file .harness/changes/.inputs/request-builder.txt
 python3 .harness/harness.py baseline feature
 ```
 
 BASE_SHAは実際のマージ先コミットに置き換える。Gitが空・存在しない場合だけ基準なしを許し、Git比較は未実施とする。既存の未コミット作業を含む開始状態を保持する。
+
+0.17以降の入力準備、Skill本文・原指示の読出し、適用根拠とadvance/runの`--turn`は[実行契約](execution.md)を使う。一時入力は自分のものだけを扱い、検証対象のソースをbaseline取得前に変更しない。
 
 baselineはdiscovery中に一度だけ取得する。開始時からソース・設定が変われば取り直せない。baselineの失敗は原因を直して新しい変更単位で開始し、現在の実装を過去の状態として承認しない。
 

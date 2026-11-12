@@ -68,7 +68,7 @@
         <input id="count-${id}" class="count-input" type="number" min="0" max="9007199254740991" step="1" inputmode="numeric" autocomplete="off" aria-label="${countLabel}"${record ? ' aria-describedby="research-condition"' : ''} value="0">
         <button class="count-button increment" type="button" aria-label="${countLabel}を1増やす"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12M10 4v12"/></svg></button>
       </div>
-      <p class="card-subtotal${record ? ' research-remaining' : ''}"></p>`;
+      ${record ? '<p class="card-subtotal research-remaining"></p>' : ''}`;
     const input = card.querySelector('input');
     const decrease = card.querySelector('.decrement');
     const increase = card.querySelector('.increment');
@@ -89,7 +89,7 @@
     });
     input.addEventListener('blur', () => {
       if (input.value === '') commit(model.setCount(state, id, 0));
-      else if (input.getAttribute('aria-invalid') === 'true') showToast('回数は0以上の整数で入力してください');
+      else if (input.getAttribute('aria-invalid') === 'true') showToast('0以上の整数');
       input.removeAttribute('aria-invalid');
       input.value = state.counts[id];
       render();
@@ -109,7 +109,7 @@
   target.addEventListener('focus', () => target.select());
   target.addEventListener('blur', () => {
     if (target.value === '') commit(model.setTarget(state, 0));
-    else if (target.getAttribute('aria-invalid') === 'true') showToast('目標コインは0以上の整数で入力してください');
+    else if (target.getAttribute('aria-invalid') === 'true') showToast('0以上の整数');
     target.removeAttribute('aria-invalid');
     target.value = state.target;
     render();
@@ -118,7 +118,6 @@
 
   document.getElementById('reset').addEventListener('click', () => {
     commit(model.resetCounts(state));
-    showToast('すべてのカウンターをリセットしました');
   });
 
   function showToast(message) {
@@ -182,12 +181,9 @@
       input.parentElement.classList.toggle('wide-number', String(count).length > 5);
       fitNumber(input, input.value || '0');
       decrease.disabled = count === 0;
-      if (cost > 0) {
-        subtotal.textContent = count > 0 ? '支出 ' + number.format(count * cost) + 'コイン' : '';
-        subtotal.classList.toggle('has-value', count > 0);
-      } else {
+      if (cost === 0) {
         const usage = model.researchUsage(state, id);
-        subtotal.textContent = '残り' + number.format(usage.remaining) + '回 / 上限' + usage.limit + '回' + (usage.excess ? '（' + number.format(usage.excess) + '回超過）' : '');
+        subtotal.textContent = '残り' + number.format(usage.remaining) + ' / ' + usage.limit + '回' + (usage.excess ? '（' + number.format(usage.excess) + '回超過）' : '');
         subtotal.classList.toggle('exceeded', usage.excess > 0);
       }
     }

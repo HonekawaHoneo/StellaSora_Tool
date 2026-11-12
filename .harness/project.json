@@ -8,7 +8,8 @@
         "node",
         "--test",
         "tests/counter.test.cjs"
-      ]
+      ],
+      "kind": "test"
     },
     {
       "timeout_seconds": 40,
@@ -24,7 +25,8 @@
         "tests",
         "-p",
         "test_*.py"
-      ]
+      ],
+      "kind": "security"
     },
     {
       "timeout_seconds": 40,
@@ -35,7 +37,8 @@
         "utf8",
         "scripts/build-site.py",
         "--check-pages"
-      ]
+      ],
+      "kind": "lint"
     },
     {
       "timeout_seconds": 90,
@@ -43,6 +46,15 @@
       "argv": [
         "node",
         "development/ui/summary-browser.mjs"
+      ],
+      "kind": "test"
+    },
+    {
+      "id": "secret-scan",
+      "kind": "security",
+      "argv": [
+        "bash",
+        "scripts/scan-secrets.sh"
       ]
     }
   ],
@@ -69,6 +81,7 @@
     ],
     "mode": "enforce",
     "schema_version": 3,
-    "registry": "development/ui/summary-registry.json"
+    "registry": "development/ui/summary-registry.json",
+    "copy_policy": "object-first"
   }
 }

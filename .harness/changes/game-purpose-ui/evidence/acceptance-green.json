@@ -1,0 +1,15 @@
+{
+  "stage": "after implementation, same fixture",
+  "receipt": "ae7aa0d8a70e41da9cd9c9ec06d58be2",
+  "actual": {
+    "summaryHeight": 158.59375,
+    "appHeight": 1048.328125,
+    "unitMinFont": 11,
+    "resetLabel": "回数をリセット"
+  },
+  "results": {
+    "summaryCompact": true,
+    "unitsReadable": true,
+    "resetAccurate": true
+  }
+}

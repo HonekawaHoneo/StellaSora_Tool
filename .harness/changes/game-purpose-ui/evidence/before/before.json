@@ -1,0 +1,28 @@
+[
+  {
+    "scenario": "mobile-320",
+    "path": ".harness/changes/game-purpose-ui/evidence/before/mobile-320.png",
+    "environment": {
+      "viewport": {
+        "width": 320,
+        "height": 720
+      },
+      "browser": "Chrome/156.0.8078.79",
+      "theme": "light",
+      "fixture": "目標500・素質の再抽選2回・音符5個の通常購入1回"
+    }
+  },
+  {
+    "scenario": "desktop-1280",
+    "path": ".harness/changes/game-purpose-ui/evidence/before/desktop-1280.png",
+    "environment": {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "browser": "Chrome/156.0.8078.79",
+      "theme": "light",
+      "fixture": "目標500・素質の再抽選2回・音符5個の通常購入1回"
+    }
+  }
+]

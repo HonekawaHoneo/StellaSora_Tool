@@ -1,8 +1,10 @@
 {
   "schema_version": 1,
   "checks": [
-    {"id": "tests", "argv": ["python", "-m", "unittest", "discover", "-s", "tests", "-v"], "timeout_seconds": 120},
-    {"id": "structure", "argv": ["python", ".harness/structure.py", "check"], "timeout_seconds": 120}
+    {"id": "tests", "kind": "test", "argv": ["python", "-m", "unittest", "discover", "-s", "tests", "-v"]},
+    {"id": "syntax", "kind": "lint", "argv": ["python", "-m", "compileall", "-q", "src", "tests"]},
+    {"id": "security", "kind": "security", "argv": ["python", ".harness/security.py", "check-index", "."]},
+    {"id": "structure", "argv": ["python", ".harness/structure.py", "check"]}
   ],
   "verification_inputs": [".jscpd.json", "tach.toml", "requirements-quality.txt"],
   "snapshot_ignore": [],

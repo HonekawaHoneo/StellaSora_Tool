@@ -10,17 +10,22 @@
 {
   "ui": {
     "schema_version": 3,
+    "copy_policy": "object-first",
     "mode": "enforce",
-    "registry": "ui/registry.json",
+    "registry": ".harness/ui-registry.json",
     "input_globs": ["ui/**"],
     "check_ids": ["ui-browser"]
   }
 }
 ```
 
-Registry自体のschema_versionは1。既存の意味・部品・scenario・before画像・runner・receiptの形式は[UI契約](ui-design.md)を引き継ぐ。v2では下記の基本契約、v3では末尾の追加契約を適用する。既存v1/v2設定・check・証跡は自動移行しない。
+Registry自体のschema_versionは1。既存の意味・部品・scenario・before画像・runner・receiptの形式は[UI契約](ui-design.md)を引き継ぐ。v2では下記の基本契約、v3では末尾の追加契約を適用する。既存v1/v2とcopy_policy未指定のv3設定・check・証跡は自動移行しない。新規UIにはv3の`copy_policy: object-first`を接続する。
 
-v2/v3のui設定と参照するcheck定義は`new`で固定する。途中の削除、v1化、v3からv2への降格、observe化、glob縮小、check差し替えは拒否する。接続の変更は理由を明示して新しい変更単位で行い、同じ品質成功として証跡を流用しない。既存v1設定をinstallerが自動で変更することはない。v1の合格とv2の原則検証を区別して報告する。
+nativeの新規初期化は、許可された`.harness/project.json`と`.harness/ui-registry.json`をWrite/apply_patchで用意する。既存のRegistry・デザイン定義はそのパスと正本を優先する。wireframeやcandidateは`.harness/changes/<id>/inputs/`へ置ける。まだstateがない入力専用ディレクトリはnewが引き継ぎ、過去の工程成果物があるIDは再使用しない。
+
+実装前の画像取得をシェルで行う場合は、既存のブラウザ手段をproject.jsonの`inspection_checks`へargvで登録し、現在のSkill適用後に`harness.py inspect <id> --check <検査ID> --turn <現在token>`で実行する。通常のchecksとは分け、before画像を対象変更のevidenceへ保存する。inspectはソースの変化を拒否し、UI合格・工程完了にはしない。続けて固定版`ui_contract.py --project <対象> prepare <id> --before <JSON>`へ実画像を渡す。このprepareはnativeでも実装前に許可される。新規UIでbeforeがなければ省略できる。
+
+v2/v3のui設定と参照するcheck定義は`new`で固定する。途中の削除、copy_policyの削除、v1化、v3からv2への降格、observe化、glob縮小、check差し替えは拒否する。接続の変更は理由を明示して新しい変更単位で行い、同じ品質成功として証跡を流用しない。既存v1設定をinstallerが自動で変更することはない。v1の合格とv2の原則検証を区別して報告する。
 
 既存v1や未設定の対象でUI作業を始める場合も、要件に必要な検証を調査して新しい変更単位でv3へ明示接続する。既存の進行中変更へ設定だけを差し替えない。接続できていないなら未検証と記録する。
 
@@ -47,7 +52,7 @@ v2/v3のui設定と参照するcheck定義は`new`で固定する。途中の削
 
 dimensionの数値は用途別に決める。小さな操作アプリは通常の本文と控えめな見出しから始め、読み取り・操作・所属を示すために必要な寸法を選ぶ。例の24px上限はそのタスク画面の設計値であり、すべてのアプリを24px以下にする規則ではない。独立レビューは範囲自体の妥当性も確認する。
 
-copyのroleは`name|data|label|status|error|explanation|decoration`。説明・装飾には、配置・状態・短いラベルで代替できない理由`alternative`と、明示的要件や既存仕様への`source_ref`も必要。励ましやキャッチコピーを雰囲気だけで追加しない。空・エラー・全件完了の案内も、必要な状態と次の操作を短く示す。itemsの順序が実画面の表示文一覧の順序になる。状態ごとに文が違う場合はitemの`case_ids`で所属するinventory caseを指定する。省略時は全inventory caseへ含める。動的データはscenarioの固定fixtureで具体値を決める。全表示文を対象にし、余分な文を除外するために取得対象を狭めない。
+copyのroleは`name|data|label|status|error|explanation|decoration`。これは記録形式であり、explanationというroleやalternative欄を埋めればUI本文へ説明を置ける許可ではない。用途から自明な説明は削除し、項目名・値・単位・短い操作名は保つ。残る問題はレイアウト・配置全般→オブジェクト自体の見た目・サイズ→色分けの順で解決する。グルーピング・展開折り畳み・stickyは配置の例であり、必須手法や範囲の上限ではない。Q&Aはこの順でも伝えられない操作上不可欠な具体的情報に限る最終手段とし、各代替が成立しない根拠を既存の判断へ記録する。ツールチップへ説明を一括移動せず、配色も解説文で補わない。長い説明をlabel/statusと呼び替えない。itemsの順序が実画面の表示文一覧の順序になる。状態ごとに文が違う場合はitemの`case_ids`で所属するinventory caseを指定する。省略時は全inventory caseへ含める。動的データはscenarioの固定fixtureで具体値を決める。全表示文を対象にし、余分な文を除外するために取得対象を狭めない。
 
 actionsの各項目は`id, entrypoint, outcomes`。outcomeは`success|failure|cancel|duplicate|late_response|focus`を一つずつ持ち、`applicable`（boolean）、`reason`、`case_ids`を記録する。適用される結果にはassertion caseが必要。非同期処理のない操作でlate_responseを非適用とする等、事実に基づいて判断する。未実装や未検証を非適用へ置き換えない。進捗の文字とバー等、複数表示の状態が一致することも測る。
 
@@ -121,9 +126,9 @@ control.actionはstates_actionsのaction IDを参照する。hit.targetはaction
 
 小さなタスク用ユーティリティは、本文に釣り合うnative印と、必要なら広げた操作可能なlabelから始める。例の20px印と44px領域はその用途の値であり、全製品の上限・強制wrapperではない。モバイル、少数タスク、タッチ領域の最低寸法だけでは見える印の拡大を正当化しない。明示的な弱視要件、既存の大きなコントロール体系、ユーザーの寸法指定は根拠として扱う。
 
-copyの全itemに一意の`id`、roleとは独立した`purpose`、実出典への`source_ref`、削除・短文化した場合の影響を含む`alternative`、重複を残す理由`redundancy`を必須とする。purposeは`identity|data|action_label|state_guidance|error_guidance|explanation|encouragement|decoration`。statusやlabelというroleでも省略できない。通常の空・完了・エラー案内は、状態の事実と次の操作を必要に応じて示す。メッセージを求める一般的な要件だけでは励ましを許可しない。
+copyの全itemに一意の`id`、roleとは独立した`purpose`、実出典への`source_ref`、削除・短文化した場合の影響を含む`alternative`、重複を残す理由`redundancy`を必須とする。copy_policy未指定の旧v3ではpurposeは`identity|data|action_label|state_guidance|error_guidance|explanation|encouragement|decoration`。statusやlabelというroleでも省略できない。この旧形式は履歴と明示した互換試験のために保持し、状態案内の文章を新規UIへ残す許可には使わない。新規のobject-firstには次節の制約を追加する。
 
-encouragement/decorationはさらに`authorization_ref`を持つ。pathとpointer/anchorに加え`provenance: original_brief|baseline_specification`を指定する。既定のmode=exact_textでは参照の値を表示文と正確に一致させる。prepare以前にinputsへ原依頼を保存するか、baselineの定義元または確定したrequirementsに含めておく。snapshot.input_digests/source_digests/requirements_digestsのhashで固定し、現在の実装ファイル・input_globs内のbaselineアプリ定義元（CSS/JS等も含む）・Registry・実装後の根拠・広いREQ IDを許可文言の代わりにしない。承認済み定義元であっても許可テキストの変化は拒否する。原依頼が明示的に励まし・ブランドcopyの文章作成を委任している場合は、`mode: commissioned_copy`を選べる。provenanceはoriginal_briefとし、参照先は実装前に固定した非空の原指示文にする。`scope: {purpose, case_ids, description}`で対象purpose、当該itemのinventory case全件、具体的な用途の範囲を記録する。scopeと現設計のpurpose/case集合の不一致や空の範囲は拒否する。委任があれば生成した一文を別途再承認させる工程は作らない。
+copy_policy未指定の旧v3ではencouragement/decorationはさらに`authorization_ref`を持つ。pathとpointer/anchorに加え`provenance: original_brief|baseline_specification`を指定する。既定のmode=exact_textでは参照の値を表示文と正確に一致させる。prepare以前にinputsへ原依頼を保存するか、baselineの定義元または確定したrequirementsに含めておく。snapshot.input_digests/source_digests/requirements_digestsのhashで固定し、現在の実装ファイル・input_globs内のbaselineアプリ定義元（CSS/JS等も含む）・Registry・実装後の根拠・広いREQ IDを許可文言の代わりにしない。承認済み定義元であっても許可テキストの変化は拒否する。原依頼が明示的に励まし・ブランドcopyの文章作成を委任している場合は、`mode: commissioned_copy`を選べる。provenanceはoriginal_briefとし、参照先は実装前に固定した非空の原指示文にする。`scope: {purpose, case_ids, description}`で対象purpose、当該itemのinventory case全件、具体的な用途の範囲を記録する。scopeと現設計のpurpose/case集合の不一致や空の範囲は拒否する。委任があれば生成した一文を別途再承認させる工程は作らない。
 
 commissioned_copyというラベルだけで許可を証明したことにはならない。「空/全完了のメッセージ」など一般的な状態案内要求を、励まし文の作成委任へ読み替えない。独立レビューのsource_supported/purpose_appropriateで原指示の委任内容・範囲と実際の一文を確認し、根拠が足りなければrequest_changesとする。exact_textの文言一致と、両modeの凍結・実装元除外は維持する。原依頼を本当に引用したか、purposeを偽っていないかは独立レビューが判定する。機械は文章の意味や出典の真実性を推測しない。
 
@@ -136,3 +141,39 @@ commissioned_copyというラベルだけで許可を証明したことにはな
 | copy | 現在の`text`、`purpose`、`source_ref`、`purpose_appropriate: true`、`source_supported: true`、`necessary: true`、`redundancy_justified: true` |
 
 既存のreview fingerprintsとreceiptが設計・添付全体の鮮度を結び、assessmentは簡潔な値と判断を残す。原依頼と画面を先に確認し、小さい印＋同じ操作領域、状態事実＋短い文の代替を比較してから期待値へ照合する。不適切な範囲やcopyは実測が完全一致でもrequest_changes。欠落・否定的判断を空のexcess/missingで覆せない。これは判断の記録と欠落検出であり、レビュアーの誠実さ・意味理解の正しさの機械的証明ではない。
+
+
+## v3 object-first：説明を目的名や表示面で迂回させない
+
+`ui.copy_policy: object-first`は同じv3契約を拡張する。schema v4や別工程は作らず、既存のpolicy_snapshot、copy・purpose・authorization・review検査を使う。既存設定への追加は明示採用時だけ行い、開始済みの変更の途中では削除できない。
+
+purposeは`identity|data|action_label|state_label|error_label|explanation|encouragement|decoration`。`state_guidance`と`error_guidance`は拒否する。名前・実データ・値・単位・短い操作名・状態名は保持する。例えば「保存失敗」と「再試行」は対象の状態と操作を表すが、「保存に失敗しました。ブラウザー設定を確認してください」をstatusとして申告しても説明は説明である。長さや日英の正規表現で文章全体を分類せず、型と実画面の独立判断を組み合わせる。
+
+全itemに`surface: body|qa|tooltip|accessible_name`、実対象の`target`、その面に属する明示的な`case_ids`を追加する。`copy.details.surface_inventory_case_ids`は四つすべてのsurfaceをキーに、各scenarioのinventory case IDを持つ。`inventory_case_ids`はその重複のない和集合とする。各caseは該当面の全text一覧とequalsで照合し、存在しない面も`value: []`を実測する。本文の項目だけ選ぶ取得、title・hover・ARIAへ説明を退避する取得漏れを認めない。DOMやnative UIの実装に合う方法で入口、隠れたQ&A、tooltip、アクセシブルな名前と説明も取得する。providerの取得範囲自体はレビューする。
+
+Q&Aの説明は最終手段として、itemに次の`operation_help`を記録する。
+
+```json
+{
+  "action": "recover-account",
+  "information": "表示する具体的で不可欠な情報と正確に同じ文言",
+  "omission_effect": "その情報が欠けると実在する操作を完了できない具体的な理由",
+  "indispensable": true,
+  "alternatives": [
+    {"stage": "layout", "attempt": "試した配置", "failure": "成立しなかった観測", "case_ids": ["recovery-layout"]},
+    {"stage": "object", "attempt": "試した部品・名称・状態", "failure": "残った不足", "case_ids": ["recovery-object"]},
+    {"stage": "color", "attempt": "試した意味の色", "failure": "残った不足", "case_ids": ["recovery-color"]}
+  ],
+  "entry": {"kind": "existing", "target": "#help", "source_ref": {"path": "ui/spec.json", "pointer": "/help"}}
+}
+```
+
+`action`は既存actionsのID、`information`はitem.text、entry.targetはitem.targetに一致させる。代替はlayout→object→colorの順とし、各attempt・failure・実測caseを必要とする。既存入口を優先し、新設する場合は`kind: new`と、既存入口が存在しない根拠の`existing_entry_absence_ref`も記録する。「初見」「親切」「事実だから」「詳説だから」は不可欠性や代替不成立の代用にならない。ツールチップやaccessible_nameはQ&A例外の入口にはしない。
+
+本人がオブジェクト上の文言を正確に明示指定している場合だけ、非object purposeにも既存`authorization_ref`を使える。原依頼を実装前に固定し、`provenance: original_brief`、`mode: exact_text`（省略時もexact_text）で正確な文言を参照する。`scope: {purpose, surface, target, case_ids}`を現在itemの全表示範囲と一致させる。一般的な「説明が必要」、広い機能要件、既存アプリの文面、文章制作の委任をこの例外へ読み替えない。旧v3のcommissioned_copyはobject-firstの説明例外に使えない。Q&Aの説明には明示文言だけでなく上記の最終手段の条件を適用する。
+
+独立レビューの各copy assessmentには、既存のtext・purpose・source_ref・必要性判断・evidence・rationaleに加え、実画面から判定した`observed_purpose`、`observed_surface`、`supplemental_prose`（boolean）、具体的な`wording_evidence`を記録する。object purposeにはsupplemental_prose=falseを必須とし、roleがlabel/statusでも説明と観測した場合は拒否する。明示文言例外には同じauthorization_refを再掲する。Q&Aには同じoperation_helpと、`indispensable`、`alternatives_exhausted`、`existing_entry_preferred`、`not_relocated_explanation`のtrue判断を必要とする。さらに`alternative_assessments`へ順序付きの三段階について`{stage, case_ids, failed: true, evidence}`を独立に記録し、設計と同じ実測caseへ結ぶ。
+
+`review.ui.copy_surface_inventory`にも四面を一つずつ、`{surface, case_ids, complete: true, no_hidden_explanations: true, evidence}`で記録する。各面の全実測caseを確認し、不要な本文説明を隠しただけのものや未申告文面はrequest_changesにする。機械検査は記録の欠落、不一致、否定判断を拒否するが、誤った目的申告や誠実でないレビューの意味まで保証しない。
+
+新しいChromium正常例は本文の4文字列とprogressのアクセシブルな名前だけを持ち、完了案内の文は持たない。旧案内を許す試験は`legacy_v3_without_object_first`と明示し、旧成功を新ポリシーの検証結果へ読み替えない。

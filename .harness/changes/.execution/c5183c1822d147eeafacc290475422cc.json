@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "token": "c5183c1822d147eeafacc290475422cc",
+  "context": "6af54e7b-1394-8191-8886-21eb945750a2",
+  "request_digest": "2f0d80e342fef21108d52a323dd0b73d7690de3936f80044e7966235a5ef5302",
+  "started_at": "2026-11-12T05:31:13.158376+00:00",
+  "binding": {
+    "id": null,
+    "phase": null,
+    "activities": [],
+    "required_skills": {
+      "response": ".agents/skills/evidence-first-response/SKILL.md",
+      "orchestrator": ".agents/skills/poteto-mode/SKILL.md",
+      "general": ".agents/skills/ponytail/SKILL.md",
+      "writing": ".agents/skills/unslop/SKILL.md",
+      "technical_writing": ".agents/skills/technical-writing/SKILL.md",
+      "requirements": ".agents/skills/grill-me/SKILL.md"
+    },
+    "context_paths": [],
+    "config_sha256": "62854846fd4896c397479251568080b60a105c8ee24f79d82070fb6ae45ed9d4"
+  },
+  "allowed_context_paths": [
+    ".harness/project.json"
+  ],
+  "pins": {
+    ".agents/skills/technical-writing/SKILL.md": "78b0db9c357d2c874a4cc6b551d6489085c2e5b16865ace5afefca3f453cc3bb",
+    ".agents/skills/unslop/SKILL.md": "8a2686d30e2cd8d884055cc0e6018d5c87cd320cb40232d8a80a59eb0786fa00",
+    ".agents/skills/grill-me/SKILL.md": "cfd049dd16df9579d17e480746c19ea158d80405249bce2202e67c8b4fcc8a87",
+    ".agents/skills/ponytail/SKILL.md": "83ba94bce0dcbf4e36570fc8eb7ba04b40183d8ee46e2cca478404f943d127da",
+    ".agents/skills/poteto-mode/SKILL.md": "3e9dd20e63b21d71572f8313fdfb43ffc1b835612a2463f23a3908db534acf29",
+    ".agents/skills/evidence-first-response/SKILL.md": "9eb9f425a2a53547c511d69d5f5ad71ea5de39ff90232a6980cc33cef422efaf"
+  },
+  "reads": {
+    ".agents/skills/evidence-first-response/SKILL.md": "9eb9f425a2a53547c511d69d5f5ad71ea5de39ff90232a6980cc33cef422efaf",
+    ".agents/skills/ponytail/SKILL.md": "83ba94bce0dcbf4e36570fc8eb7ba04b40183d8ee46e2cca478404f943d127da",
+    ".agents/skills/grill-me/SKILL.md": "cfd049dd16df9579d17e480746c19ea158d80405249bce2202e67c8b4fcc8a87",
+    ".agents/skills/poteto-mode/SKILL.md": "3e9dd20e63b21d71572f8313fdfb43ffc1b835612a2463f23a3908db534acf29",
+    ".agents/skills/unslop/SKILL.md": "8a2686d30e2cd8d884055cc0e6018d5c87cd320cb40232d8a80a59eb0786fa00",
+    ".agents/skills/technical-writing/SKILL.md": "78b0db9c357d2c874a4cc6b551d6489085c2e5b16865ace5afefca3f453cc3bb"
+  },
+  "application": {
+    "path": ".harness/changes/.inputs/cloud-install-application.json",
+    "sha256": "98b7b6aba13c8178aad89cfa0cf9d0e0b75760ec41276de8076f3cce612d9aec",
+    "evidence": {
+      ".harness/changes/.inputs/cloud-install-receipt.json": "18484f25434e140e35c9b449d96f8d37e4ccff6814b35f93cb7a46dd1be354b1",
+      ".harness/framework.lock.json": "8901c4dfb7251d7435ae4ccf502bc56751dfa89a257884e3592fb483042e89ca"
+    }
+  },
+  "finished": "2026-11-12T05:32:06.277660+00:00"
+}

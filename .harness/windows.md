@@ -1,5 +1,9 @@
 # Windowsで導入・検証する
 
+0.17.0の受入は、入力別のSkill読出し・適用、厳格工程、完了時の自動保存、UIのobject-first、品質分類も必須にする。旧版の6分類だけの記録は、新機能のWindows確認として受理しない。
+
+0.16.0のGit保護はGit for WindowsのHook shellと実Pythonパスを使う。日本語・空白・引用符、既存のshell/Python/Node/.exe Hook、worktreeごとのcore.hooksPath、commit/merge/cherry-pick/amとpushの拒否・正常保存を実Windowsで確認する。検証にはtest_security.py、test_secure_save.py、test_cloud_activation.pyを含め、Linux成功を実機確認としない。登録checksの既定時間上限はなく、python/python3は起動中のPythonへ解決する。検証は依頼または既存必須チェックの範囲で行い、Actions自動起動は増やさない。
+
 0.12.0はWindows向けの排他制御、PowerShellコマンド、UTF-8、ファイル属性、Codex起動、検証process停止を追加する。Windows実機の接続先がないため、この変更ではWindows実行済みとは報告しない。Linux上の回帰とPowerShell 7の試験はWindows実機検証の代わりにはしない。
 
 ## 前提
@@ -54,9 +58,21 @@ Set-Location C:\src\CodexEnvSet
 
 - coreではimport、別processとのlock競合/解放、日本語・空白・記号のパス、UTF-8 BOM、設定保持、mode、process tree停止、PowerShell stdin/終了コード、autocrlfとsession証跡を検査する。
 - -NativeHooksは公式CLIとローカルHTTP/SSE model fixtureを使い、未承認の未実行、承認済みfixtureのready=trueとtoken再利用拒否、破損後のnative PreToolUse拒否を検査する。実モデルのAPIには接続しない。承認は使い捨てfixtureだけに設定し、実利用者の承認を代行しない。fixture子Codexはsandbox=danger-full-accessで、そのローカルmodelが発行するテストコマンドだけを一時領域で実行する。
-- 実行結果とログは表示されたtemp Evidenceディレクトリへ保存する。-EvidenceRootで親ディレクトリを指定しても、毎回異なるGUIDの子ディレクトリを作り、開始時に確認状態をfalseで記録する。過去の成功やログは上書きせず、再実行失敗の結果へ流用しない。skipや失敗は確認済みにしない。-NativeHooksなしの結果はnative_fixture_verified=falseであり、実利用環境のuser_environment_activationも常に別途確認する。
+- 実行結果とログは表示されたtemp Evidenceディレクトリへ保存する。`-EvidenceRoot`にはcheckout外の親ディレクトリを指定する。毎回異なるGUIDの子ディレクトリを作り、開始時に確認状態をfalseで記録する。過去の成功やログは上書きせず、再実行失敗の結果へ流用しない。
+- `result.json`はrun ID、実際のOSとPythonとGitの版・実行パス、Git revision、ソース全ファイルのSHA-256 manifestとそのdigest、開始・終了時刻を持つ。各checkは同じrun IDとargv、開始・終了時刻、終了コード、skipの有無、ログのSHA-256を持つ。未実施はpending、実行中はrunning、失敗やskipはfailedとして残す。全必須checkを完了して指紋を再照合したときだけcompleteになる。
+- skipや失敗は確認済みにしない。`-NativeHooks`なしの結果は`requested_native_hooks=false`と`native_fixture_verified=false`であり、実利用環境の`user_environment_activation`も常に別途確認する。
 
 固定bundleにはテスト一式を配布しないため、このscriptは取得元checkoutで実行する。従来の全テストにはPOSIX/過去版のfixtureもある。focusedの成功をWindowsで全テストが成功したと報告しない。Windows実機が使えるようになった際は、上記ログ・OS/Python/Codex版と実利用環境の有効化結果を保存する。
+
+受入記録の利用前にも、対象checkoutから次を実行する。`EVIDENCE_DIRECTORY`は表示されたGUIDの子ディレクトリへ置き換える。`require_native=True`はnative fixtureまで必要な場合に使う。coreだけを確認する場合は`False`にする。
+
+```powershell
+py -3 -X utf8 -c "import sys;from pathlib import Path;sys.path.insert(0,'runtime');import common;common.validate_platform_receipt(Path.cwd(),Path(sys.argv[1]),require_native=True)" 'EVIDENCE_DIRECTORY'
+```
+
+ソースの追加・削除・内容変更、ログの不足・改変、別runのcheck混入、必須checkの不足、中断・失敗・skipは記録を失効させる。固定した有効日数は設けず、同じソースと実行ログの一致を必要条件とする。checkoutへ変更が入った後は実Windowsで再実行する。
+
+この検査はJSONの整合性と鮮度を調べる。JSON内のWindowsという文字列や自己申告を実機実行の認証には使わない。Linux上のreceipt回帰試験もWindowsの受入試験ではない。今回の作業環境には実Windows接続先がなく、PowerShellスクリプトとnative HookのWindows実行は未確認。Windowsホストでの上記実行結果と実利用環境の有効化が残る受入条件である。
 
 ## 任意の構造検査
 

@@ -37,6 +37,9 @@ class UIContract:
             return None
         h.require(isinstance(value, dict) and type(value.get('schema_version')) is int and value.get('schema_version') in (1, 2, 3), 'ui.schema_versionは1/2/3です')
         h.require(value.get('mode') in ('observe', 'enforce'), 'ui.modeはobserve/enforceです')
+        if 'copy_policy' in value:
+            h.require(value['schema_version'] == 3 and value['copy_policy'] == 'object-first',
+                      'ui.copy_policyはv3のobject-firstだけを指定できます')
         h.safe_path(root, value.get('registry'))
         for pattern in h.strings(value.get('input_globs'), 'ui.input_globs', 1):
             h.safe_path(root, pattern)
@@ -356,7 +359,7 @@ class UIContract:
             self.strict_registry(root, snapshot['registry'], policy, snapshot['approved_sources'])
             principles.validate_design(root, identifier, design, snapshot['registry'],
                                        self.workflow.request_ids(root, identifier), snapshot['approved_sources'],
-                                       schema_version=policy['schema_version'], snapshot=snapshot)
+                                       schema_version=policy['schema_version'], snapshot=snapshot, copy_policy=policy.get('copy_policy'))
 
     def validate_current(self, root, identifier):
         design = self.design_ui(root, identifier)
@@ -368,7 +371,7 @@ class UIContract:
         self.strict_registry(root, current, policy)
         if policy['schema_version'] in (2, 3):
             principles.validate_design(root, identifier, design, current, self.workflow.request_ids(root, identifier),
-                                       schema_version=policy['schema_version'], snapshot=snapshot)
+                                       schema_version=policy['schema_version'], snapshot=snapshot, copy_policy=policy.get('copy_policy'))
         h.require(current == snapshot['registry'], 'Registryが承認済みの予定と異なります')
         sources = self.registry_sources(current) | {policy['registry']}
         for path, before in snapshot['source_digests'].items():
@@ -515,4 +518,5 @@ class UIContract:
             h.nonempty(observation.get('assessment'), 'review.ui.assessment')
         h.require(seen == set(expected), '全scenarioにUI観測が必要です')
         if policy['schema_version'] in (2, 3):
-            principles.validate_review(review, design, reviewed['ui'], schema_version=policy['schema_version'])
+            principles.validate_review(review, design, reviewed['ui'], schema_version=policy['schema_version'],
+                                       copy_policy=policy.get('copy_policy'))

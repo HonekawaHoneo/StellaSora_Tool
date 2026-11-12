@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deterministic, dependency-free workflow gates. Python 3.10+, POSIX."""
+"""Deterministic workflow gates for Python 3.10+ and supported desktop hosts."""
 import argparse
 import errno
 import json
@@ -10,12 +10,42 @@ import subprocess
 import sys
 import uuid
 from contextlib import contextmanager
+from functools import partial
 
 if __name__ == "__main__":
     sys.modules["harness"] = sys.modules[__name__]
+    sys.dont_write_bytecode = True
 
-VERSION = "0.12.0"
+VERSION = "0.17.0"
 PHASES = ("discovery", "requirements", "design", "implementation", "review", "done")
+DEFAULT_BINDINGS = {"orchestrator": "poteto-mode", "requirements": "grill-me", "design": "ponytail",
+                    "review": "ponytail-review", "ui_design": "semantic-ui-design",
+                    "ui_implementation": "ui-implementation-harness", "response": "evidence-first-response",
+                    "general": "ponytail", "writing": "unslop", "technical_writing": "technical-writing",
+                    "implementation": "implementation-planning", "code_review": "quality-review",
+                    "impact": "blast-radius", "comments": "no-comments", "architecture": "architect",
+                    "performance": "benchmark-checklist", "measurement": "principle-explain-the-number",
+                    "typescript": "typescript-best-practices", "verification_create": "create-verification-skill",
+                    "verification_maintain": "maintain-verification-skill", "context": "recall",
+                    "context_guard": "principle-guard-the-context-window", "decision_trail": "show-me-your-work",
+                    "correction": "correct", "encode_lessons": "principle-encode-lessons-in-structure",
+                    "root_cause": "principle-fix-root-causes", "design_options": "arena",
+                    "adversarial": "interrogate", "parallel": "swarm", "planning": "figure-it-out",
+                    "how": "how", "why": "why", "teach": "teach", "sharpen": "sharpen",
+                    "recap": "ketchup", "personalize": "automate-me", "reflect": "reflect", "bot_ui": "make-bot-ui"}
+ALWAYS_ROLES = ("response", "orchestrator", "general", "writing", "technical_writing")
+ACTIVITY_ROLES = {
+    "code": ("implementation",), "review": ("review", "code_review", "impact", "comments"),
+    "ui": ("ui_design", "ui_implementation"), "ux": ("ui_design", "ui_implementation"),
+    "architecture": ("architecture",), "performance": ("performance", "measurement"),
+    "typescript": ("typescript",), "impact": ("impact",), "verification": ("verification_create",),
+    "verification-maintenance": ("verification_maintain",), "context": ("context", "context_guard"),
+    "long-running": ("decision_trail", "context_guard"),
+    "correction": ("correction", "encode_lessons", "root_cause"),
+    "docs": ("writing", "technical_writing"), "design-options": ("design_options",),
+    "adversarial": ("adversarial",), "parallel": ("parallel",), "planning": ("planning",),
+    "how": ("how",), "why": ("why",), "teach": ("teach",), "sharpen": ("sharpen",),
+    "recap": ("recap",), "personalize": ("personalize",), "reflect": ("reflect",), "bot-ui": ("bot_ui",)}
 ID = re.compile(r"[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}\Z")
 
 
@@ -24,6 +54,7 @@ from common import (GateError, require, nonempty, sequence, strings, sha, file_s
 import common
 import structure
 import quality_history
+import execution
 from ui_rules import UIContract, WorkflowHooks
 
 
@@ -46,6 +77,7 @@ def config(root):
     value = read_json(root / ".harness/project.json")
     require(value.get("schema_version") == 1, "project.json: schema_versionは1が必要です")
     common.validate_checks(value.get("checks"))
+    common.validate_checks(value.get('inspection_checks', []))
     strings(value.get("snapshot_ignore", []), "snapshot_ignore")
     strings(value.get("verification_inputs", []), "verification_inputs")
     structure.validate_settings(root, value)
@@ -115,7 +147,7 @@ def change_dir(root, identifier):
     return safe_path(root, f".harness/changes/{identifier}")
 
 
-def state(root, identifier):
+def state(root, identifier, *, _allow_ui_repin=False):
     value = read_json(change_dir(root, identifier) / "state.json")
     require(value.get("schema_version") == 1 and value.get("id") == identifier and
             value.get("phase") in PHASES and value.get("kind") in ("new", "change"), "工程状態が不正です")
@@ -125,7 +157,9 @@ def state(root, identifier):
     require("intent_contract" not in value or
             (type(value["intent_contract"]) is int and value["intent_contract"] == 1),
             "未対応のintent_contractです")
-    if value.get("ui_policy") is not None:
+    require('execution_contract' not in value or type(value['execution_contract']) is int and
+            value['execution_contract'] == 1, '未対応のexecution_contractです')
+    if value.get("ui_policy") is not None and not _allow_ui_repin:
         require(ui_gate().policy_snapshot(config(root)) == value["ui_policy"],
                 "変更開始時に固定したUI policy・check設定が変更されています")
     return value
@@ -155,6 +189,7 @@ def validate_intent(root, identifier, phase, item):
     elif phase == "requirements":
         original = artifact(root, identifier, "discovery")["request"]
         sources, binding = set(), set()
+        quoted_positions = set()
         for source in sequence(item.get("request_items"), "requirements.request_items", 1):
             require(isinstance(source, dict), "request_itemsの各要素はオブジェクトです")
             name = nonempty(source.get("id"), "request_item.id")
@@ -162,6 +197,12 @@ def validate_intent(root, identifier, phase, item):
             sources.add(name)
             quote = nonempty(source.get("text"), f"{name}.text")
             require(quote in original, f"{name}: 原指示にない引用です")
+            if state(root, identifier).get('execution_contract'):
+                span = source.get('span')
+                require(isinstance(span, dict) and type(span.get('start')) is int and
+                        type(span.get('end')) is int and 0 <= span['start'] < span['end'] <= len(original) and
+                        original[span['start']:span['end']] == quote, f'{name}: 原指示の引用範囲spanが不正です')
+                quoted_positions.update(range(span['start'], span['end']))
             require(source.get("kind") in ("purpose", "problem", "requirement", "constraint", "means", "example", "hypothesis"),
                     f"{name}: 原指示のkindが不正です")
             require(type(source.get("binding")) is bool, f"{name}.bindingは真偽値です")
@@ -169,6 +210,9 @@ def validate_intent(root, identifier, phase, item):
                     f"{name}: 確定要求・制約はbindingが必要です")
             if source["binding"]:
                 binding.add(name)
+        if state(root, identifier).get('execution_contract'):
+            require(all(index in quoted_positions for index, char in enumerate(original) if not char.isspace()),
+                    '原指示の引用範囲に漏れがあります。非確定の前提・例示も分類してください')
         require(binding, "確定した目的・要求・制約への対応が必要です")
         covered = set()
         for requirement in item["requirements"]:
@@ -380,16 +424,22 @@ def verification_env(root, identifier, ci_base=None):
     return env
 
 
-def check(root, identifier, portable=False):
-    integrity(root)
-    config(root)
-    current = state(root, identifier)
-    end = min(PHASES.index(current["phase"]) + 1, 5)
+def validate_recorded_phases(root, identifier, current, portable=False, include_current=True):
+    end = min(PHASES.index(current["phase"]) + int(include_current), 5)
     for phase in PHASES[:end]:
         if phase != current["phase"]:
             require(current["approvals"].get(phase) == artifact_hash(root, identifier, phase),
                     f"完了済みの{phase}が変更されています。reopenで戻してください")
         validate_phase(root, identifier, phase, current, portable=portable)
+
+
+def check(root, identifier, portable=False, *, _execution=True):
+    integrity(root)
+    config(root)
+    current = state(root, identifier)
+    validate_recorded_phases(root, identifier, current, portable=portable)
+    if _execution and current.get('execution_contract') and current['phase'] == 'done':
+        validate_execution_completion(root, identifier, current)
     result = {"id": identifier, "phase": current["phase"], "valid": True}
     cumulative = (current.get("structural_quality") or {}).get("cumulative")
     if cumulative and current["phase"] in ("implementation", "review", "done"):
@@ -425,13 +475,29 @@ def template(phase, author=""):
     }[phase]
 
 
-def new(root, identifier, kind, author, context, base=None):
+def new(root, identifier, kind, author, context, base=None, ui=False, *, execution_contract=True, request=None):
     integrity(root)
     settings = config(root)
+    require(type(execution_contract) is bool, 'execution_contractは真偽値です')
+    if request is not None:
+        nonempty(request, '元の依頼')
+    if ui:
+        policy = settings.get("ui") or {}
+        require(policy.get("schema_version") == 3 and policy.get("mode") == "enforce",
+                "新規UI作業はUI v3/enforceを接続してからnew --uiで開始してください")
+        if execution_contract:
+            require(policy.get('copy_policy') == 'object-first',
+                    '新規UI作業にはcopy_policy=object-firstが必要です')
+        ui_gate().validate_registry(root, read_json(safe_path(root, policy.get("registry"))), allow_empty=kind == "new")
     nonempty(author, "author")
     nonempty(context, "context")
     directory = change_dir(root, identifier)
-    require(not directory.exists(), f"変更IDは使用済みです: {identifier}")
+    execution._path(root, directory.relative_to(root).as_posix())
+    if directory.exists():
+        require(directory.is_dir() and all(path.name == 'inputs' and path.is_dir() for path in directory.iterdir()),
+                f'変更IDは使用済みです: {identifier}')
+        for path in directory.rglob('*'):
+            execution._path(root, path.relative_to(root).as_posix())
     base_sha = None
     probe = subprocess.run(["git", "rev-parse", "--verify", "HEAD"], cwd=root, capture_output=True, text=True, encoding="utf-8")
     if base is not None or (settings.get("structural_quality") and probe.returncode == 0):
@@ -440,15 +506,192 @@ def new(root, identifier, kind, author, context, base=None):
                                   cwd=root, capture_output=True, text=True, encoding="utf-8")
         require(resolved.returncode == 0, "Gitの基準コミットを取得できません")
         base_sha = resolved.stdout.strip()
-    directory.mkdir(parents=True)
-    write_json(directory / "state.json", {"schema_version": 1, "id": identifier, "kind": kind,
+    directory.mkdir(parents=True, exist_ok=True)
+    value = {"schema_version": 1, "id": identifier, "kind": kind,
                "author": author, "context": context, "phase": "discovery", "approvals": {}, "intent_contract": 1,
                "baseline_files": project_entries(root), "base_sha": base_sha,
                "structural_quality": settings.get("structural_quality"),
-               "ui_policy": ui_gate().policy_snapshot(settings)})
-    write_json(directory / "discovery.json", template("discovery"))
+               "ui_policy": ui_gate().policy_snapshot(settings), "ui_required": ui}
+    if execution_contract:
+        value['execution_contract'] = 1
+    write_json(directory / "state.json", value)
+    discovery = template('discovery')
+    if request is not None:
+        discovery['request'] = nonempty(request, '元の依頼')
+    write_json(directory / "discovery.json", discovery)
     record(root, identifier, "created", kind=kind, author=author, context=context)
     return {"id": identifier, "phase": "discovery", "artifact": str(directory / "discovery.json")}
+
+
+def guide(root, identifier=None, ui=False, activities=(), turn=None, *, _execution=True):
+    """Derive the next handoff from real gates without advancing or editing work."""
+    integrity(root)
+    settings = config(root)
+    require(isinstance(activities, (list, tuple)) and all(isinstance(item, str) for item in activities),
+            "activitiesは作業種別の配列です")
+    selected = set(activities)
+    require(selected <= ACTIVITY_ROLES.keys(), "未対応のactivityです")
+    changes = [state(root, p.parent.name, _allow_ui_repin=True)
+               for p in sorted((root / ".harness/changes").glob("*/state.json"))]
+    active = [item for item in changes if item["phase"] != "done"]
+    current = state(root, identifier, _allow_ui_repin=True) if identifier else (active[0] if len(active) == 1 else None)
+    phase = current["phase"] if current else None
+    selection = not identifier and len(active) > 1
+    result = {"supported": True, "workflow_status": "selection_required" if selection else "done" if phase == "done" else "active" if current else "not_started",
+              "id": current["id"] if current else None, "phase": phase,
+              "changes": [{"id": item["id"], "phase": item["phase"]} for item in changes],
+              "artifact": str(change_dir(root, current["id"]) / f"{phase}.json") if current and phase != "done" else None,
+              "can_edit_product": False, "work_complete": False, "required_skills": {}, "blockers": []}
+    paths = [root / '.harness/project.json']
+    if current:
+        directory = change_dir(root, current['id'])
+        paths.extend(path for path in [directory / 'state.json',
+                     *(directory / f'{name}.json' for name in PHASES[:-1])] if path.is_file())
+    result['continuity'] = {
+        'trigger': 'each_user_message_or_resume',
+        'instruction_path': str(root / '.harness/protocol.md'),
+        'context_paths': [str(path) for path in paths],
+        'discovery_digest': artifact_hash(root, current['id'], 'discovery')
+            if current and (change_dir(root, current['id']) / 'discovery.json').is_file() else None}
+    if selection:
+        result["blockers"].append("複数の進行中の変更があります。guide <変更ID>で対象を選んでください")
+    if phase in ("design", "implementation"):
+        selected.add("code")
+    if phase in ("review", "done"):
+        selected.add("review")
+    paths = []
+    if current:
+        design_path = change_dir(root, current['id'])/'design.json'
+        if design_path.is_file():
+            planned = artifact(root, current['id'], 'design').get('impact_paths', [])
+            if isinstance(planned, list):
+                paths.extend(path for path in planned if isinstance(path, str))
+        paths.extend(source_delta(root, current))
+    extensions = {Path(path).suffix.lower() for path in paths}
+    if extensions & {'.ts', '.tsx'}:
+        selected.add('typescript')
+    if extensions & {'.html', '.htm', '.css', '.scss', '.sass', '.less', '.jsx', '.tsx', '.vue', '.svelte'}:
+        selected.add('ui')
+    wants_ui = bool(ui or selected & {"ui", "ux"} or (current and current.get("ui_required")))
+    if current and (change_dir(root, current["id"]) / "design.json").is_file():
+        design_ui = artifact(root, current["id"], "design").get("ui")
+        wants_ui = wants_ui or bool(design_ui and design_ui.get("scope") != "none")
+    policy = settings.get("ui") or {}
+    needs_v3 = current is None or "ui_required" in current
+    supported_mode = policy.get("mode") == "enforce" if needs_v3 else policy.get("mode") in ("observe", "enforce")
+    connected = supported_mode and bool(policy.get("check_ids")) and (
+        not needs_v3 or policy.get("schema_version") == 3)
+    if current is None or current.get('execution_contract'):
+        connected = connected and policy.get('copy_policy') == 'object-first'
+    if connected and wants_ui:
+        try:
+            ui_gate().validate_registry(root, read_json(safe_path(root, policy.get("registry"))),
+                                        allow_empty=current is None or current["kind"] == "new")
+        except (GateError, OSError, KeyError, TypeError, ValueError) as exc:
+            connected = False
+            result["blockers"].append(str(exc))
+    result["ui_contract_connected"] = connected
+    result["ui_validation_mode"] = policy.get("mode")
+    result["ui_enforced"] = connected and policy.get("mode") == "enforce"
+    if wants_ui and not connected:
+        result["blockers"].append("UI契約が未接続です。実Registry・checkとUI v3/enforceを準備してください")
+    if wants_ui and current and current.get('execution_contract') and not current.get('ui_required'):
+        result['blockers'].append('UI対象を検出しました。reopen <id> discovery --uiで契約を固定してください')
+    role = "review" if phase is None and "review" in selected else "requirements" if phase in (None, "discovery", "requirements") else "design" if phase in ("design", "implementation") else "review"
+    roles = [*ALWAYS_ROLES, role, *[role for name in sorted(selected) for role in ACTIVITY_ROLES[name]],
+             *(["ui_design", "ui_implementation"] if wants_ui else [])]
+    result["activities"] = sorted(selected | ({"ui"} if wants_ui else set()))
+    configured = settings.get("skill_bindings", {})
+    require(isinstance(configured, dict), "skill_bindingsはオブジェクトが必要です")
+    bindings = {**DEFAULT_BINDINGS, **configured}
+    assignments = {role: bindings.get(role) for role in dict.fromkeys(roles)}
+    fixed = set(ALWAYS_ROLES)
+    fixed.update(role for name in selected for role in ACTIVITY_ROLES[name])
+    if wants_ui:
+        fixed.update(('ui_design', 'ui_implementation'))
+    for role in sorted(fixed):
+        if assignments.get(role) != DEFAULT_BINDINGS[role]:
+            prefix = 'always' if role in ALWAYS_ROLES else 'required'
+            assignments[f'{prefix}_{role}'] = DEFAULT_BINDINGS[role]
+    for role, name in assignments.items():
+        if not isinstance(name, str) or not name.strip():
+            result["blockers"].append(f"担当Skillの割当がありません: {role}")
+            continue
+        path = safe_path(root, f".agents/skills/{name}/SKILL.md")
+        if not path.is_relative_to(root / ".agents/skills") or not path.is_file():
+            result["blockers"].append(f"担当Skillを参照できません: {role}={name}")
+        else:
+            result["required_skills"][role] = str(path)
+    if current:
+        try:
+            state(root, current['id'])
+            validate_recorded_phases(root, current["id"], current, include_current=False)
+        except (GateError, OSError, KeyError, TypeError, ValueError) as exc:
+            result["blockers"].append(str(exc))
+        try:
+            check(root, current["id"], _execution=False)
+            result["work_complete"] = phase == "done" and not result["blockers"]
+        except (GateError, OSError, KeyError, TypeError, ValueError) as exc:
+            result["phase_gate_error"] = str(exc)
+            if phase == "done":
+                result["blockers"].append(str(exc))
+        result["can_edit_product"] = phase == "implementation" and not result["blockers"]
+        if result["can_edit_product"]:
+            result["impact_paths"] = artifact(root, current["id"], "design")["impact_paths"]
+    if selection:
+        result["candidates"] = {item["id"]: guide(root, item["id"], ui=ui, activities=activities,
+                                                  turn=turn, _execution=_execution) for item in active}
+    if _execution and current and current.get('execution_contract'):
+        result['historical_work_complete'] = result['work_complete']
+        if phase == 'done' and turn and turn == current.get('execution_completion', {}).get('token'):
+            try:
+                result['execution'] = validate_execution_completion(root, current['id'], current)
+            except (GateError, OSError, KeyError, TypeError, ValueError) as exc:
+                result['execution'] = {'ready': False, 'valid': False, 'blockers': [str(exc)]}
+            result['work_complete'] = result['work_complete'] and result['execution'].get('completion_usable', False)
+        else:
+            result['execution'] = execution.status(root, turn, result)
+            result['can_edit_product'] = result['can_edit_product'] and result['execution']['ready']
+            if result['can_edit_product'] and result['execution'].get('context') != current['context']:
+                result['can_edit_product'] = False
+                result['blockers'].append('実装担当の実行コンテキストが一致しません')
+            result['work_complete'] = False
+            result['blockers'].extend(result['execution']['blockers'])
+    return result
+
+
+def require_execution(root, identifier, turn, activities=()):
+    current = state(root, identifier)
+    if not current.get('execution_contract'):
+        return None
+    require(isinstance(turn, str) and re.fullmatch(r'[a-f0-9]{32}', turn), '現在の実行turnが必要です')
+    saved = read_json(safe_path(root, f'{execution.STORE}/{turn}.json'))
+    selected = saved.get('binding', {}).get('activities', activities)
+    guidance = guide(root, identifier, activities=selected, _execution=False)
+    status = execution.status(root, turn, guidance)
+    require(status['ready'], '実行契約が未成立です: ' + '; '.join(status['blockers']))
+    if current['phase'] == 'review':
+        require(status['context'] == artifact(root, identifier, 'review').get('context') and
+                status['context'] != current['context'], '独立レビューの実読出し・適用コンテキストが一致しません')
+    else:
+        require(status['context'] == current['context'], '実装担当の実行コンテキストが一致しません')
+    if current['phase'] in ('design', 'implementation', 'review'):
+        common.validate_quality_checks(config(root)['checks'])
+    return guidance
+
+
+def validate_execution_completion(root, identifier, current):
+    completed = current.get('execution_completion')
+    require(isinstance(completed, dict), '完了時のSkill適用記録がありません')
+    token = completed.get('token')
+    require(isinstance(token, str) and re.fullmatch(r'[a-f0-9]{32}', token), '完了時の実行tokenが不正です')
+    path = safe_path(root, f'{execution.STORE}/{token}.json')
+    require(path.is_file() and file_sha(path) == completed.get('sha256'), '完了時の実行記録が変更されています')
+    guidance = guide(root, identifier, activities=completed.get('activities', ()), _execution=False)
+    guidance['phase'] = 'review'
+    result = execution.status(root, token, guidance)
+    require(result.get('completion_usable'), '完了時の適用根拠が失効しています: ' + '; '.join(result['blockers']))
+    return result
 
 
 def validate_baseline(root, identifier):
@@ -472,7 +715,7 @@ def baseline(root, identifier):
     require("structure_baseline" not in discovery, "baselineは取得済みです")
     directory = change_dir(root, identifier) / "evidence"
     directory.mkdir(exist_ok=True)
-    entry = {"id": "baseline", "argv": [sys.executable, ".harness/structure.py", "baseline"], "timeout_seconds": 120}
+    entry = {"id": "baseline", "argv": [sys.executable, ".harness/structure.py", "baseline"]}
     result = execute_check(root, directory, uuid.uuid4().hex, entry, verification_env(root, identifier))
     require(result["returncode"] == 0 and not result["timed_out"], f"baselineの解析に失敗しました: {result['log']}")
     require(project_entries(root) == current["baseline_files"], "baselineの解析中に対象が変更されています")
@@ -483,9 +726,10 @@ def baseline(root, identifier):
     return {"id": identifier, "baseline": discovery["structure_baseline"]}
 
 
-def advance(root, identifier):
+def advance(root, identifier, turn=None):
     current = state(root, identifier)
     require(current["phase"] != "done", "既にdoneです。次の変更をnewで開始してください")
+    guidance = require_execution(root, identifier, turn)
     try:
         check(root, identifier)
     except GateError as exc:
@@ -493,6 +737,13 @@ def advance(root, identifier):
         raise
     old = current["phase"]
     target = PHASES[PHASES.index(old) + 1]
+    if guidance is not None:
+        finished = execution.finish(root, turn, guidance)
+        record(root, identifier, 'skill_application_verified', token=turn, phase=old,
+               request_digest=finished['request_digest'])
+        if target == 'done':
+            current['execution_completion'] = {'token': turn, 'activities': finished['activities'],
+                'sha256': file_sha(safe_path(root, f'{execution.STORE}/{turn}.json'))}
     current["approvals"][old] = artifact_hash(root, identifier, old)
     current["phase"] = target
     if target != "done":
@@ -504,11 +755,20 @@ def advance(root, identifier):
     return {"id": identifier, "previous": old, "phase": target}
 
 
-def reopen(root, identifier, phase, reason):
+def reopen(root, identifier, phase, reason, *, ui=False):
     integrity(root)
     nonempty(reason, "reason")
-    current = state(root, identifier)
+    current = state(root, identifier, _allow_ui_repin=ui and phase == 'discovery')
     require(phase != "done" and PHASES.index(phase) <= PHASES.index(current["phase"]), "現在以前の工程だけに戻れます")
+    if ui:
+        require(phase == 'discovery', 'UI対象の追加はdiscoveryからやり直します')
+        settings = config(root)
+        policy = settings.get('ui') or {}
+        require(policy.get('schema_version') == 3 and policy.get('mode') == 'enforce' and
+                policy.get('copy_policy') == 'object-first', 'UI v3/enforceとobject-firstを先に接続してください')
+        ui_gate().validate_registry(root, read_json(safe_path(root, policy.get('registry'))),
+                                    allow_empty=current['kind'] == 'new')
+        current.update(ui_required=True, ui_policy=ui_gate().policy_snapshot(settings))
     old = current["phase"]
     current["phase"] = phase
     current["approvals"] = {p: h for p, h in current["approvals"].items() if PHASES.index(p) < PHASES.index(phase)}
@@ -517,10 +777,37 @@ def reopen(root, identifier, phase, reason):
     return {"id": identifier, "phase": phase}
 
 
-def run_checks(root, identifier, ci_base=None):
+def inspect(root, identifier, name, turn=None):
+    integrity(root)
+    current = state(root, identifier)
+    require(current['phase'] in ('discovery', 'requirements', 'design'), 'inspectは実装前の観察だけに使います')
+    require_execution(root, identifier, turn)
+    checks = {entry['id']: entry for entry in config(root).get('inspection_checks', [])}
+    require(name in checks, '登録済みのinspection_checksを指定してください')
+    before = project_fingerprint(root)
+    directory = change_dir(root, identifier)/'evidence'/f'inspection-{uuid.uuid4().hex}'
+    directory.mkdir(parents=True)
+    result = execute_check(root, directory, uuid.uuid4().hex, checks[name], {
+        **os.environ, 'HARNESS_PROJECT': str(root), 'HARNESS_CHANGE_ID': identifier,
+        'CODEXENVSET_CHANGE_ID': identifier, 'CODEXENVSET_CHECK_ID': name,
+        'CODEXENVSET_EVIDENCE_DIR': str(directory), 'CODEXENVSET_UI_MODE': 'before'})
+    result.update(inspection_only=True, source_unchanged=before == project_fingerprint(root),
+                  evidence_dir=str(directory), phase=current['phase'])
+    write_json(directory/'inspection.json', result)
+    require(result['returncode'] == 0 and not result['timed_out'] and result['source_unchanged'],
+            '事前観察が失敗またはソースを変更しました。観察の成功にはできません')
+    record(root, identifier, 'inspection', check=name, log=result['log'], log_digest=result['log_digest'])
+    return result
+
+
+def run_checks(root, identifier, ci_base=None, turn=None):
     integrity(root)
     current = state(root, identifier)
     require(current["phase"] in ("implementation", "review", "done"), "runはimplementation以降で使います")
+    if current['phase'] != 'done':
+        require_execution(root, identifier, turn)
+    elif current.get('execution_contract'):
+        validate_execution_completion(root, identifier, current)
     # Verify the entire upstream contract, but do not require a prior test receipt.
     for phase in PHASES[:3]:
         require(current["approvals"].get(phase) == artifact_hash(root, identifier, phase), f"{phase}が変更されています。reopenが必要です")
@@ -600,15 +887,33 @@ def ship(root, identifier, github=None):
 
 def main(argv=None):
     common.configure_stdio()
-    parser = argparse.ArgumentParser(description="共通開発工程: 成果物・検証・レビューのゲート")
+    parser = argparse.ArgumentParser(description="共通開発工程: 成果物・検証・レビューのゲート", allow_abbrev=False)
     parser.add_argument("--project", type=Path, default=Path.cwd())
     parser.add_argument("--json", action="store_true", help="機械可読なJSON結果")
-    sub = parser.add_subparsers(dest="command", required=True)
+    sub = parser.add_subparsers(dest="command", required=True,
+                               parser_class=partial(argparse.ArgumentParser, allow_abbrev=False))
     backup = sub.add_parser("backup-check", help="ローカルHEADとリモートのpush先を読み取り専用で照合")
     backup.add_argument("--remote", default="origin")
     backup.add_argument("--branch", dest="remote_branch", help="保存先ブランチ。複雑なpush設定では明示する")
+    saving = sub.add_parser('save', help='指定ファイルを検査し、コミット・pushして実リモートへ照合')
+    saving.add_argument('--message', required=True)
+    saving.add_argument('--path', action='append', required=True, dest='paths')
+    saving.add_argument('--remote', default='origin')
+    saving.add_argument('--branch', dest='remote_branch')
     for name in ("status", "check", "advance", "run", "fingerprint", "baseline"):
-        sub.add_parser(name).add_argument("id")
+        command = sub.add_parser(name)
+        command.add_argument("id")
+        if name in ('advance', 'run'):
+            command.add_argument('--turn')
+        if name == 'advance':
+            command.add_argument('--local-only', action='store_true',
+                                 help='本人がローカル限定を明示した場合だけ使用')
+    saved_change = sub.add_parser('save-change', help='完了した変更の対象だけを検査し自動保存を再開')
+    saved_change.add_argument('id')
+    inspecting = sub.add_parser('inspect', help='登録済みの実装前観察を実行し、ソース不変を検査')
+    inspecting.add_argument('id')
+    inspecting.add_argument('--check', required=True)
+    inspecting.add_argument('--turn')
     ci_parser = sub.add_parser("ci")
     ci_parser.add_argument("id", nargs="?")
     ci_parser.add_argument("--base")
@@ -622,18 +927,51 @@ def main(argv=None):
     create.add_argument("--author", required=True)
     create.add_argument("--context", required=True)
     create.add_argument("--base")
+    create.add_argument("--ui", action="store_true", help="新規UI作業。UI v3/enforce未接続では開始しない")
+    create.add_argument('--request-file', type=Path, help='現在の元依頼を含むUTF-8の実ファイル')
+    guidance = sub.add_parser("guide", help="現在工程・担当Skill・製品編集と完了の可否を読取り専用で確認")
+    guidance.add_argument("id", nargs="?")
+    guidance.add_argument("--ui", action="store_true", help="UI担当と契約の接続も確認")
+    guidance.add_argument('--turn', help='現在の入力へのSkill適用記録')
+    guidance.add_argument("--activity", action="append", default=[], choices=sorted(ACTIVITY_ROLES),
+                          help="該当作業の必須Skillを追加。複数指定可")
+    starting = sub.add_parser('begin', help='新しい発言・再開の実行記録を作り、前の未完了記録を失効させる')
+    starting.add_argument('id', nargs='?')
+    starting.add_argument('--context', required=True)
+    starting.add_argument('--request-file', type=Path, required=True)
+    starting.add_argument('--activity', action='append', default=[], choices=sorted(ACTIVITY_ROLES))
+    starting.add_argument('--ui', action='store_true')
+    for name in ('skill-read', 'context-read', 'apply-skills', 'execution-status', 'finish'):
+        command = sub.add_parser(name)
+        command.add_argument('--turn', required=True)
+        if name == 'skill-read':
+            command.add_argument('--role', required=True)
+        elif name == 'context-read':
+            command.add_argument('--path', required=True)
+        elif name == 'apply-skills':
+            command.add_argument('--file', required=True)
     back = sub.add_parser("reopen")
     back.add_argument("id")
     back.add_argument("phase", choices=PHASES[:-1])
     back.add_argument("--reason", required=True)
+    back.add_argument('--ui', action='store_true', help='新しく検出したUI契約をdiscoveryで固定')
     args = parser.parse_args(argv)
     root = args.project.resolve()
     try:
+        if args.command == 'save':
+            import delivery
+            result = delivery.save(root, args.message, args.paths, remote=args.remote, remote_branch=args.remote_branch)
+            print(json.dumps({'ok': True, **result}, ensure_ascii=False, indent=2))
+            return 0
         if args.command == "backup-check":
             result = backup_check(root, remote=args.remote, remote_branch=args.remote_branch)
             print(json.dumps({"ok": True, **result}, ensure_ascii=False, indent=2))
             return 0
         require((root / ".harness").is_dir(), "導入されていません。先にinstall.pyを実行してください")
+        if args.command == "guide":
+            result = guide(root, args.id, ui=args.ui, activities=args.activity, turn=args.turn)
+            print(json.dumps({"ok": True, **result}, ensure_ascii=False, indent=2))
+            return 0
         if args.command == "ci" and args.id is None:
             args.id = select_change(root, args.base)
         if args.command == "ship-check":
@@ -643,16 +981,58 @@ def main(argv=None):
             print(json.dumps({"ok": True, **result}, ensure_ascii=False, indent=2))
             return 0
         with exclusive(root):
-            if args.command == "new":
-                result = new(root, args.id, args.kind, args.author, args.context, args.base)
+            if args.command in ('begin', 'new'):
+                require(args.request_file is not None and
+                        (str(args.request_file) == '-' or args.request_file.is_file()),
+                        '実行開始には元の依頼を含む--request-fileが必要です')
+                request = nonempty(sys.stdin.read() if str(args.request_file) == '-' else
+                                   args.request_file.read_text(encoding='utf-8-sig'), '元の依頼')
+                if args.command == 'new':
+                    result = new(root, args.id, args.kind, args.author, args.context, args.base,
+                                 ui=args.ui, request=request)
+                    selected = ()
+                else:
+                    result = {}
+                    selected = args.activity
+                handoff = guide(root, args.id, ui=args.ui, activities=selected, _execution=False)
+                result.update(handoff)
+                result['execution'] = execution.begin(root, handoff['id'], args.context, request, handoff)
+            elif args.command in ('skill-read', 'context-read', 'apply-skills', 'execution-status', 'finish'):
+                integrity(root)
+                if args.command == 'skill-read':
+                    result = execution.read_skill(root, args.turn, args.role)
+                elif args.command == 'context-read':
+                    result = execution.read_context(root, args.turn, args.path)
+                else:
+                    require(re.fullmatch(r'[a-f0-9]{32}', args.turn), '実行turnが不正です')
+                    saved = read_json(safe_path(root, f'{execution.STORE}/{args.turn}.json'))
+                    binding = saved['binding']
+                    handoff = guide(root, binding['id'], activities=binding['activities'], _execution=False)
+                    if args.command == 'apply-skills':
+                        result = execution.apply(root, args.turn, args.file, handoff)
+                    elif args.command == 'finish':
+                        result = execution.finish(root, args.turn, handoff)
+                    else:
+                        result = execution.status(root, args.turn, handoff)
             elif args.command == "baseline":
                 result = baseline(root, args.id)
             elif args.command == "advance":
-                result = advance(root, args.id)
+                result = advance(root, args.id, turn=args.turn)
+                if result['phase'] == 'done':
+                    if args.local_only:
+                        result['delivery'] = {'status': 'local_only', 'remote_saved': False}
+                    else:
+                        import delivery
+                        result['delivery'] = delivery.save_change(root, args.id)
+            elif args.command == 'save-change':
+                import delivery
+                result = delivery.save_change(root, args.id)
+            elif args.command == 'inspect':
+                result = inspect(root, args.id, args.check, turn=args.turn)
             elif args.command == "reopen":
-                result = reopen(root, args.id, args.phase, args.reason)
+                result = reopen(root, args.id, args.phase, args.reason, ui=args.ui)
             elif args.command == "run":
-                result = run_checks(root, args.id)
+                result = run_checks(root, args.id, turn=args.turn)
             elif args.command == "ship":
                 result = ship(root, args.id)
             elif args.command == "ci":

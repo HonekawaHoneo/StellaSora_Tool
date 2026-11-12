@@ -1,0 +1,2557 @@
+{
+  "schema_version": 3,
+  "scenarios": [
+    {
+      "id": "mobile-320",
+      "status": "passed",
+      "observations": "Chromium/Edgeの実画面・AXツリー・実入力で寸法、全面の文言、全カウンター、保存を観測。期待値判定はハーネスが実測値から行う",
+      "environment": {
+        "viewport": {
+          "width": 320,
+          "height": 720
+        },
+        "browser": "Chrome/156.0.8078.79",
+        "theme": "light",
+        "fixture": "目標500・素質の再抽選2回・音符5個の通常購入1回"
+      },
+      "files": [
+        {
+          "path": "mobile-320.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "mobile-320-reached.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "mobile-320-error.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "mobile-320-count-error.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "mobile-320-long.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "mobile-320-unset.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "mobile-320-storage.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "mobile-320-reset.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "mobile-320.json",
+          "kind": "metrics"
+        }
+      ],
+      "case_results": [
+        {
+          "id": "mobile-320-summaryBox",
+          "observation": "実ブラウザの画面または実入力後の表示から .summary の summaryBox を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/summaryBox"
+          }
+        },
+        {
+          "id": "mobile-320-summaryRows",
+          "observation": "実ブラウザの画面または実入力後の表示から .metrics の summaryRows を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/summaryRows"
+          }
+        },
+        {
+          "id": "mobile-320-labels",
+          "observation": "実ブラウザの画面または実入力後の表示から .metric-label の labels を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/labels"
+          }
+        },
+        {
+          "id": "mobile-320-labelSize",
+          "observation": "実ブラウザの画面または実入力後の表示から .metric-target .metric-label の labelSize を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/labelSize"
+          }
+        },
+        {
+          "id": "mobile-320-labelLine",
+          "observation": "実ブラウザの画面または実入力後の表示から .metric-target .metric-label の labelLine を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/labelLine"
+          }
+        },
+        {
+          "id": "mobile-320-rowHeight",
+          "observation": "実ブラウザの画面または実入力後の表示から .metric-target の rowHeight を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/rowHeight"
+          }
+        },
+        {
+          "id": "mobile-320-summaryInset",
+          "observation": "実ブラウザの画面または実入力後の表示から .spending の summaryInset を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/summaryInset"
+          }
+        },
+        {
+          "id": "mobile-320-targetWidth",
+          "observation": "実ブラウザの画面または実入力後の表示から #target の targetWidth を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/targetWidth"
+          }
+        },
+        {
+          "id": "mobile-320-targetHeight",
+          "observation": "実ブラウザの画面または実入力後の表示から #target の targetHeight を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/targetHeight"
+          }
+        },
+        {
+          "id": "mobile-320-valueColor",
+          "observation": "実ブラウザの画面または実入力後の表示から #remaining の valueColor を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/valueColor"
+          }
+        },
+        {
+          "id": "mobile-320-targetLabel",
+          "observation": "実ブラウザの画面または実入力後の表示から #target の targetLabel を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/targetLabel"
+          }
+        },
+        {
+          "id": "mobile-320-viewport",
+          "observation": "実ブラウザの画面または実入力後の表示から html の viewport を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/viewport"
+          }
+        },
+        {
+          "id": "mobile-320-noOverflow",
+          "observation": "実ブラウザの画面または実入力後の表示から html の noOverflow を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/noOverflow"
+          }
+        },
+        {
+          "id": "mobile-320-longValueFits",
+          "observation": "実ブラウザの画面または実入力後の表示から #remaining の longValueFits を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/longValueFits"
+          }
+        },
+        {
+          "id": "mobile-320-progressConsistent",
+          "observation": "実ブラウザの画面または実入力後の表示から .summary の progressConsistent を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/progressConsistent"
+          }
+        },
+        {
+          "id": "mobile-320-keyboard",
+          "observation": "実ブラウザの画面または実入力後の表示から #target の keyboard を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/keyboard"
+          }
+        },
+        {
+          "id": "mobile-320-hitActivates",
+          "observation": "実ブラウザの画面または実入力後の表示から #target の hitActivates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/hitActivates"
+          }
+        },
+        {
+          "id": "mobile-320-reached",
+          "observation": "実ブラウザの画面または実入力後の表示から .summary の reached を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/reached"
+          }
+        },
+        {
+          "id": "mobile-320-invalid",
+          "observation": "実ブラウザの画面または実入力後の表示から #target の invalid を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/invalid"
+          }
+        },
+        {
+          "id": "mobile-320-persisted",
+          "observation": "実ブラウザの画面または実入力後の表示から #target の persisted を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/persisted"
+          }
+        },
+        {
+          "id": "mobile-320-unsetState",
+          "observation": "実ブラウザの画面または実入力後の表示から .summary の unsetState を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/unsetState"
+          }
+        },
+        {
+          "id": "mobile-320-indicatorContrast",
+          "observation": "実ブラウザの画面または実入力後の表示から #target の indicatorContrast を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/indicatorContrast"
+          }
+        },
+        {
+          "id": "mobile-320-spendingBox",
+          "observation": "実ブラウザの画面または実入力後の表示から .spending の spendingBox を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/spendingBox"
+          }
+        },
+        {
+          "id": "mobile-320-membership",
+          "observation": "実ブラウザの画面または実入力後の表示から .spending の membership を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/membership"
+          }
+        },
+        {
+          "id": "mobile-320-appColor",
+          "observation": "実ブラウザの画面または実入力後の表示から .app-shell の appColor を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/appColor"
+          }
+        },
+        {
+          "id": "mobile-320-storageFailure",
+          "observation": "実ブラウザの画面または実入力後の表示から #storage-status の storageFailure を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/storageFailure"
+          }
+        },
+        {
+          "id": "mobile-320-counterConnections",
+          "observation": "実ブラウザの画面または実入力後の表示から .counter-controls の counterConnections を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/counterConnections"
+          }
+        },
+        {
+          "id": "mobile-320-researchLimit",
+          "observation": "実ブラウザの画面または実入力後の表示から .record-group の researchLimit を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/researchLimit"
+          }
+        },
+        {
+          "id": "mobile-320-summaryHeight",
+          "observation": "実ブラウザの画面または実入力後の表示から .summary の summaryHeight を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/summaryHeight"
+          }
+        },
+        {
+          "id": "mobile-320-appHeight",
+          "observation": "実ブラウザの画面または実入力後の表示から .app-shell の appHeight を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/appHeight"
+          }
+        },
+        {
+          "id": "mobile-320-unitMinFont",
+          "observation": "実ブラウザの画面または実入力後の表示から .note-price span の unitMinFont を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/unitMinFont"
+          }
+        },
+        {
+          "id": "mobile-320-discountMinFont",
+          "observation": "実ブラウザの画面または実入力後の表示から .discount-badge の discountMinFont を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/discountMinFont"
+          }
+        },
+        {
+          "id": "mobile-320-researchMinFont",
+          "observation": "実ブラウザの画面または実入力後の表示から .research-remaining の researchMinFont を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/researchMinFont"
+          }
+        },
+        {
+          "id": "mobile-320-resetLabel",
+          "observation": "実ブラウザの画面または実入力後の表示から #reset の resetLabel を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/resetLabel"
+          }
+        },
+        {
+          "id": "mobile-320-researchConditionText",
+          "observation": "実ブラウザの画面または実入力後の表示から #research-condition の researchConditionText を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/researchConditionText"
+          }
+        },
+        {
+          "id": "mobile-320-noSpendingSubtotals",
+          "observation": "実ブラウザの画面または実入力後の表示から .spending の noSpendingSubtotals を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/noSpendingSubtotals"
+          }
+        },
+        {
+          "id": "mobile-320-noResetToast",
+          "observation": "実ブラウザの画面または実入力後の表示から #toast の noResetToast を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/noResetToast"
+          }
+        },
+        {
+          "id": "mobile-320-resetActivates",
+          "observation": "実ブラウザの画面または実入力後の表示から #reset の resetActivates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/resetActivates"
+          }
+        },
+        {
+          "id": "mobile-320-resetPersisted",
+          "observation": "実ブラウザの画面または実入力後の表示から #reset の resetPersisted を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/resetPersisted"
+          }
+        },
+        {
+          "id": "mobile-320-reroll-increment-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"reroll\"] .increment の reroll-increment-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/reroll-increment-width"
+          }
+        },
+        {
+          "id": "mobile-320-reroll-increment-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"reroll\"] .increment の reroll-increment-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/reroll-increment-height"
+          }
+        },
+        {
+          "id": "mobile-320-reroll-increment-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"reroll\"] .increment の reroll-increment-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/reroll-increment-activates"
+          }
+        },
+        {
+          "id": "mobile-320-reroll-decrement-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"reroll\"] .decrement の reroll-decrement-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/reroll-decrement-width"
+          }
+        },
+        {
+          "id": "mobile-320-reroll-decrement-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"reroll\"] .decrement の reroll-decrement-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/reroll-decrement-height"
+          }
+        },
+        {
+          "id": "mobile-320-reroll-decrement-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"reroll\"] .decrement の reroll-decrement-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/reroll-decrement-activates"
+          }
+        },
+        {
+          "id": "mobile-320-reroll-input-width",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-reroll の reroll-input-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/reroll-input-width"
+          }
+        },
+        {
+          "id": "mobile-320-reroll-input-height",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-reroll の reroll-input-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/reroll-input-height"
+          }
+        },
+        {
+          "id": "mobile-320-reroll-input-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-reroll の reroll-input-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/reroll-input-activates"
+          }
+        },
+        {
+          "id": "mobile-320-note90-increment-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note90\"] .increment の note90-increment-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note90-increment-width"
+          }
+        },
+        {
+          "id": "mobile-320-note90-increment-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note90\"] .increment の note90-increment-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note90-increment-height"
+          }
+        },
+        {
+          "id": "mobile-320-note90-increment-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note90\"] .increment の note90-increment-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note90-increment-activates"
+          }
+        },
+        {
+          "id": "mobile-320-note90-decrement-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note90\"] .decrement の note90-decrement-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note90-decrement-width"
+          }
+        },
+        {
+          "id": "mobile-320-note90-decrement-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note90\"] .decrement の note90-decrement-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note90-decrement-height"
+          }
+        },
+        {
+          "id": "mobile-320-note90-decrement-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note90\"] .decrement の note90-decrement-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note90-decrement-activates"
+          }
+        },
+        {
+          "id": "mobile-320-note90-input-width",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note90 の note90-input-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note90-input-width"
+          }
+        },
+        {
+          "id": "mobile-320-note90-input-height",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note90 の note90-input-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note90-input-height"
+          }
+        },
+        {
+          "id": "mobile-320-note90-input-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note90 の note90-input-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note90-input-activates"
+          }
+        },
+        {
+          "id": "mobile-320-note72-increment-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note72\"] .increment の note72-increment-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note72-increment-width"
+          }
+        },
+        {
+          "id": "mobile-320-note72-increment-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note72\"] .increment の note72-increment-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note72-increment-height"
+          }
+        },
+        {
+          "id": "mobile-320-note72-increment-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note72\"] .increment の note72-increment-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note72-increment-activates"
+          }
+        },
+        {
+          "id": "mobile-320-note72-decrement-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note72\"] .decrement の note72-decrement-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note72-decrement-width"
+          }
+        },
+        {
+          "id": "mobile-320-note72-decrement-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note72\"] .decrement の note72-decrement-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note72-decrement-height"
+          }
+        },
+        {
+          "id": "mobile-320-note72-decrement-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note72\"] .decrement の note72-decrement-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note72-decrement-activates"
+          }
+        },
+        {
+          "id": "mobile-320-note72-input-width",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note72 の note72-input-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note72-input-width"
+          }
+        },
+        {
+          "id": "mobile-320-note72-input-height",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note72 の note72-input-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note72-input-height"
+          }
+        },
+        {
+          "id": "mobile-320-note72-input-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note72 の note72-input-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note72-input-activates"
+          }
+        },
+        {
+          "id": "mobile-320-note45-increment-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note45\"] .increment の note45-increment-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note45-increment-width"
+          }
+        },
+        {
+          "id": "mobile-320-note45-increment-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note45\"] .increment の note45-increment-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note45-increment-height"
+          }
+        },
+        {
+          "id": "mobile-320-note45-increment-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note45\"] .increment の note45-increment-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note45-increment-activates"
+          }
+        },
+        {
+          "id": "mobile-320-note45-decrement-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note45\"] .decrement の note45-decrement-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note45-decrement-width"
+          }
+        },
+        {
+          "id": "mobile-320-note45-decrement-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note45\"] .decrement の note45-decrement-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note45-decrement-height"
+          }
+        },
+        {
+          "id": "mobile-320-note45-decrement-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note45\"] .decrement の note45-decrement-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note45-decrement-activates"
+          }
+        },
+        {
+          "id": "mobile-320-note45-input-width",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note45 の note45-input-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note45-input-width"
+          }
+        },
+        {
+          "id": "mobile-320-note45-input-height",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note45 の note45-input-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note45-input-height"
+          }
+        },
+        {
+          "id": "mobile-320-note45-input-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note45 の note45-input-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note45-input-activates"
+          }
+        },
+        {
+          "id": "mobile-320-note400-increment-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note400\"] .increment の note400-increment-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note400-increment-width"
+          }
+        },
+        {
+          "id": "mobile-320-note400-increment-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note400\"] .increment の note400-increment-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note400-increment-height"
+          }
+        },
+        {
+          "id": "mobile-320-note400-increment-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note400\"] .increment の note400-increment-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note400-increment-activates"
+          }
+        },
+        {
+          "id": "mobile-320-note400-decrement-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note400\"] .decrement の note400-decrement-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note400-decrement-width"
+          }
+        },
+        {
+          "id": "mobile-320-note400-decrement-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note400\"] .decrement の note400-decrement-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note400-decrement-height"
+          }
+        },
+        {
+          "id": "mobile-320-note400-decrement-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note400\"] .decrement の note400-decrement-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note400-decrement-activates"
+          }
+        },
+        {
+          "id": "mobile-320-note400-input-width",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note400 の note400-input-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note400-input-width"
+          }
+        },
+        {
+          "id": "mobile-320-note400-input-height",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note400 の note400-input-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note400-input-height"
+          }
+        },
+        {
+          "id": "mobile-320-note400-input-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note400 の note400-input-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note400-input-activates"
+          }
+        },
+        {
+          "id": "mobile-320-note320-increment-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note320\"] .increment の note320-increment-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note320-increment-width"
+          }
+        },
+        {
+          "id": "mobile-320-note320-increment-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note320\"] .increment の note320-increment-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note320-increment-height"
+          }
+        },
+        {
+          "id": "mobile-320-note320-increment-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note320\"] .increment の note320-increment-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note320-increment-activates"
+          }
+        },
+        {
+          "id": "mobile-320-note320-decrement-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note320\"] .decrement の note320-decrement-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note320-decrement-width"
+          }
+        },
+        {
+          "id": "mobile-320-note320-decrement-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note320\"] .decrement の note320-decrement-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note320-decrement-height"
+          }
+        },
+        {
+          "id": "mobile-320-note320-decrement-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note320\"] .decrement の note320-decrement-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note320-decrement-activates"
+          }
+        },
+        {
+          "id": "mobile-320-note320-input-width",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note320 の note320-input-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note320-input-width"
+          }
+        },
+        {
+          "id": "mobile-320-note320-input-height",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note320 の note320-input-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note320-input-height"
+          }
+        },
+        {
+          "id": "mobile-320-note320-input-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note320 の note320-input-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note320-input-activates"
+          }
+        },
+        {
+          "id": "mobile-320-note200-increment-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note200\"] .increment の note200-increment-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note200-increment-width"
+          }
+        },
+        {
+          "id": "mobile-320-note200-increment-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note200\"] .increment の note200-increment-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note200-increment-height"
+          }
+        },
+        {
+          "id": "mobile-320-note200-increment-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note200\"] .increment の note200-increment-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note200-increment-activates"
+          }
+        },
+        {
+          "id": "mobile-320-note200-decrement-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note200\"] .decrement の note200-decrement-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note200-decrement-width"
+          }
+        },
+        {
+          "id": "mobile-320-note200-decrement-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note200\"] .decrement の note200-decrement-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note200-decrement-height"
+          }
+        },
+        {
+          "id": "mobile-320-note200-decrement-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note200\"] .decrement の note200-decrement-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note200-decrement-activates"
+          }
+        },
+        {
+          "id": "mobile-320-note200-input-width",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note200 の note200-input-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note200-input-width"
+          }
+        },
+        {
+          "id": "mobile-320-note200-input-height",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note200 の note200-input-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note200-input-height"
+          }
+        },
+        {
+          "id": "mobile-320-note200-input-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note200 の note200-input-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/note200-input-activates"
+          }
+        },
+        {
+          "id": "mobile-320-trait3-increment-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"trait3\"] .increment の trait3-increment-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/trait3-increment-width"
+          }
+        },
+        {
+          "id": "mobile-320-trait3-increment-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"trait3\"] .increment の trait3-increment-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/trait3-increment-height"
+          }
+        },
+        {
+          "id": "mobile-320-trait3-increment-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"trait3\"] .increment の trait3-increment-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/trait3-increment-activates"
+          }
+        },
+        {
+          "id": "mobile-320-trait3-decrement-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"trait3\"] .decrement の trait3-decrement-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/trait3-decrement-width"
+          }
+        },
+        {
+          "id": "mobile-320-trait3-decrement-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"trait3\"] .decrement の trait3-decrement-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/trait3-decrement-height"
+          }
+        },
+        {
+          "id": "mobile-320-trait3-decrement-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"trait3\"] .decrement の trait3-decrement-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/trait3-decrement-activates"
+          }
+        },
+        {
+          "id": "mobile-320-trait3-input-width",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-trait3 の trait3-input-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/trait3-input-width"
+          }
+        },
+        {
+          "id": "mobile-320-trait3-input-height",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-trait3 の trait3-input-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/trait3-input-height"
+          }
+        },
+        {
+          "id": "mobile-320-trait3-input-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-trait3 の trait3-input-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/trait3-input-activates"
+          }
+        },
+        {
+          "id": "mobile-320-enhancement2-increment-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"enhancement2\"] .increment の enhancement2-increment-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/enhancement2-increment-width"
+          }
+        },
+        {
+          "id": "mobile-320-enhancement2-increment-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"enhancement2\"] .increment の enhancement2-increment-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/enhancement2-increment-height"
+          }
+        },
+        {
+          "id": "mobile-320-enhancement2-increment-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"enhancement2\"] .increment の enhancement2-increment-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/enhancement2-increment-activates"
+          }
+        },
+        {
+          "id": "mobile-320-enhancement2-decrement-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"enhancement2\"] .decrement の enhancement2-decrement-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/enhancement2-decrement-width"
+          }
+        },
+        {
+          "id": "mobile-320-enhancement2-decrement-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"enhancement2\"] .decrement の enhancement2-decrement-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/enhancement2-decrement-height"
+          }
+        },
+        {
+          "id": "mobile-320-enhancement2-decrement-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"enhancement2\"] .decrement の enhancement2-decrement-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/enhancement2-decrement-activates"
+          }
+        },
+        {
+          "id": "mobile-320-enhancement2-input-width",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-enhancement2 の enhancement2-input-width を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/enhancement2-input-width"
+          }
+        },
+        {
+          "id": "mobile-320-enhancement2-input-height",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-enhancement2 の enhancement2-input-height を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/enhancement2-input-height"
+          }
+        },
+        {
+          "id": "mobile-320-enhancement2-input-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-enhancement2 の enhancement2-input-activates を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/enhancement2-input-activates"
+          }
+        },
+        {
+          "id": "mobile-320-resetWidth",
+          "observation": "実ブラウザの画面または実入力後の表示から #reset の resetWidth を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/resetWidth"
+          }
+        },
+        {
+          "id": "mobile-320-resetHeight",
+          "observation": "実ブラウザの画面または実入力後の表示から #reset の resetHeight を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/resetHeight"
+          }
+        },
+        {
+          "id": "mobile-320-invalidCount",
+          "observation": "実ブラウザの画面または実入力後の表示から .count-input の invalidCount を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/invalidCount"
+          }
+        },
+        {
+          "id": "mobile-320-copyBody",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyBody を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyBody"
+          }
+        },
+        {
+          "id": "mobile-320-copyQa",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyQa を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyQa"
+          }
+        },
+        {
+          "id": "mobile-320-copyTooltip",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyTooltip を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyTooltip"
+          }
+        },
+        {
+          "id": "mobile-320-copyAccessible",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyAccessible を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyAccessible"
+          }
+        },
+        {
+          "id": "mobile-320-copyBodyReached",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyBodyReached を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyBodyReached"
+          }
+        },
+        {
+          "id": "mobile-320-copyQaReached",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyQaReached を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyQaReached"
+          }
+        },
+        {
+          "id": "mobile-320-copyTooltipReached",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyTooltipReached を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyTooltipReached"
+          }
+        },
+        {
+          "id": "mobile-320-copyAccessibleReached",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyAccessibleReached を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyAccessibleReached"
+          }
+        },
+        {
+          "id": "mobile-320-copyBodyError",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyBodyError を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyBodyError"
+          }
+        },
+        {
+          "id": "mobile-320-copyQaError",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyQaError を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyQaError"
+          }
+        },
+        {
+          "id": "mobile-320-copyTooltipError",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyTooltipError を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyTooltipError"
+          }
+        },
+        {
+          "id": "mobile-320-copyAccessibleError",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyAccessibleError を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyAccessibleError"
+          }
+        },
+        {
+          "id": "mobile-320-copyBodyLong",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyBodyLong を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyBodyLong"
+          }
+        },
+        {
+          "id": "mobile-320-copyQaLong",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyQaLong を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyQaLong"
+          }
+        },
+        {
+          "id": "mobile-320-copyTooltipLong",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyTooltipLong を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyTooltipLong"
+          }
+        },
+        {
+          "id": "mobile-320-copyAccessibleLong",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyAccessibleLong を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyAccessibleLong"
+          }
+        },
+        {
+          "id": "mobile-320-copyBodyUnset",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyBodyUnset を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyBodyUnset"
+          }
+        },
+        {
+          "id": "mobile-320-copyQaUnset",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyQaUnset を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyQaUnset"
+          }
+        },
+        {
+          "id": "mobile-320-copyTooltipUnset",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyTooltipUnset を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyTooltipUnset"
+          }
+        },
+        {
+          "id": "mobile-320-copyAccessibleUnset",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyAccessibleUnset を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyAccessibleUnset"
+          }
+        },
+        {
+          "id": "mobile-320-copyBodyStorage",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyBodyStorage を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyBodyStorage"
+          }
+        },
+        {
+          "id": "mobile-320-copyQaStorage",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyQaStorage を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyQaStorage"
+          }
+        },
+        {
+          "id": "mobile-320-copyTooltipStorage",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyTooltipStorage を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyTooltipStorage"
+          }
+        },
+        {
+          "id": "mobile-320-copyAccessibleStorage",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyAccessibleStorage を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyAccessibleStorage"
+          }
+        },
+        {
+          "id": "mobile-320-copyBodyReset",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyBodyReset を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyBodyReset"
+          }
+        },
+        {
+          "id": "mobile-320-copyQaReset",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyQaReset を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyQaReset"
+          }
+        },
+        {
+          "id": "mobile-320-copyTooltipReset",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyTooltipReset を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyTooltipReset"
+          }
+        },
+        {
+          "id": "mobile-320-copyAccessibleReset",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyAccessibleReset を観測",
+          "value_ref": {
+            "path": "mobile-320.json",
+            "pointer": "/copyAccessibleReset"
+          }
+        }
+      ]
+    },
+    {
+      "id": "desktop-1280",
+      "status": "passed",
+      "observations": "Chromium/Edgeの実画面・AXツリー・実入力で寸法、全面の文言、全カウンター、保存を観測。期待値判定はハーネスが実測値から行う",
+      "environment": {
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "browser": "Chrome/156.0.8078.79",
+        "theme": "light",
+        "fixture": "目標500・素質の再抽選2回・音符5個の通常購入1回"
+      },
+      "files": [
+        {
+          "path": "desktop-1280.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "desktop-1280-reached.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "desktop-1280-error.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "desktop-1280-count-error.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "desktop-1280-long.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "desktop-1280-unset.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "desktop-1280-storage.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "desktop-1280-reset.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "desktop-1280-zoom.png",
+          "kind": "screenshot"
+        },
+        {
+          "path": "desktop-1280.json",
+          "kind": "metrics"
+        }
+      ],
+      "case_results": [
+        {
+          "id": "desktop-1280-summaryBox",
+          "observation": "実ブラウザの画面または実入力後の表示から .summary の summaryBox を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/summaryBox"
+          }
+        },
+        {
+          "id": "desktop-1280-summaryRows",
+          "observation": "実ブラウザの画面または実入力後の表示から .metrics の summaryRows を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/summaryRows"
+          }
+        },
+        {
+          "id": "desktop-1280-labels",
+          "observation": "実ブラウザの画面または実入力後の表示から .metric-label の labels を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/labels"
+          }
+        },
+        {
+          "id": "desktop-1280-labelSize",
+          "observation": "実ブラウザの画面または実入力後の表示から .metric-target .metric-label の labelSize を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/labelSize"
+          }
+        },
+        {
+          "id": "desktop-1280-labelLine",
+          "observation": "実ブラウザの画面または実入力後の表示から .metric-target .metric-label の labelLine を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/labelLine"
+          }
+        },
+        {
+          "id": "desktop-1280-rowHeight",
+          "observation": "実ブラウザの画面または実入力後の表示から .metric-target の rowHeight を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/rowHeight"
+          }
+        },
+        {
+          "id": "desktop-1280-summaryInset",
+          "observation": "実ブラウザの画面または実入力後の表示から .spending の summaryInset を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/summaryInset"
+          }
+        },
+        {
+          "id": "desktop-1280-targetWidth",
+          "observation": "実ブラウザの画面または実入力後の表示から #target の targetWidth を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/targetWidth"
+          }
+        },
+        {
+          "id": "desktop-1280-targetHeight",
+          "observation": "実ブラウザの画面または実入力後の表示から #target の targetHeight を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/targetHeight"
+          }
+        },
+        {
+          "id": "desktop-1280-valueColor",
+          "observation": "実ブラウザの画面または実入力後の表示から #remaining の valueColor を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/valueColor"
+          }
+        },
+        {
+          "id": "desktop-1280-targetLabel",
+          "observation": "実ブラウザの画面または実入力後の表示から #target の targetLabel を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/targetLabel"
+          }
+        },
+        {
+          "id": "desktop-1280-viewport",
+          "observation": "実ブラウザの画面または実入力後の表示から html の viewport を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/viewport"
+          }
+        },
+        {
+          "id": "desktop-1280-noOverflow",
+          "observation": "実ブラウザの画面または実入力後の表示から html の noOverflow を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/noOverflow"
+          }
+        },
+        {
+          "id": "desktop-1280-longValueFits",
+          "observation": "実ブラウザの画面または実入力後の表示から #remaining の longValueFits を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/longValueFits"
+          }
+        },
+        {
+          "id": "desktop-1280-progressConsistent",
+          "observation": "実ブラウザの画面または実入力後の表示から .summary の progressConsistent を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/progressConsistent"
+          }
+        },
+        {
+          "id": "desktop-1280-keyboard",
+          "observation": "実ブラウザの画面または実入力後の表示から #target の keyboard を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/keyboard"
+          }
+        },
+        {
+          "id": "desktop-1280-hitActivates",
+          "observation": "実ブラウザの画面または実入力後の表示から #target の hitActivates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/hitActivates"
+          }
+        },
+        {
+          "id": "desktop-1280-reached",
+          "observation": "実ブラウザの画面または実入力後の表示から .summary の reached を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/reached"
+          }
+        },
+        {
+          "id": "desktop-1280-invalid",
+          "observation": "実ブラウザの画面または実入力後の表示から #target の invalid を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/invalid"
+          }
+        },
+        {
+          "id": "desktop-1280-persisted",
+          "observation": "実ブラウザの画面または実入力後の表示から #target の persisted を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/persisted"
+          }
+        },
+        {
+          "id": "desktop-1280-unsetState",
+          "observation": "実ブラウザの画面または実入力後の表示から .summary の unsetState を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/unsetState"
+          }
+        },
+        {
+          "id": "desktop-1280-indicatorContrast",
+          "observation": "実ブラウザの画面または実入力後の表示から #target の indicatorContrast を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/indicatorContrast"
+          }
+        },
+        {
+          "id": "desktop-1280-spendingBox",
+          "observation": "実ブラウザの画面または実入力後の表示から .spending の spendingBox を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/spendingBox"
+          }
+        },
+        {
+          "id": "desktop-1280-membership",
+          "observation": "実ブラウザの画面または実入力後の表示から .spending の membership を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/membership"
+          }
+        },
+        {
+          "id": "desktop-1280-appColor",
+          "observation": "実ブラウザの画面または実入力後の表示から .app-shell の appColor を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/appColor"
+          }
+        },
+        {
+          "id": "desktop-1280-storageFailure",
+          "observation": "実ブラウザの画面または実入力後の表示から #storage-status の storageFailure を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/storageFailure"
+          }
+        },
+        {
+          "id": "desktop-1280-counterConnections",
+          "observation": "実ブラウザの画面または実入力後の表示から .counter-controls の counterConnections を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/counterConnections"
+          }
+        },
+        {
+          "id": "desktop-1280-boundaryWidths",
+          "observation": "実ブラウザの画面または実入力後の表示から .app-shell の boundaryWidths を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/boundaryWidths"
+          }
+        },
+        {
+          "id": "desktop-1280-researchLimit",
+          "observation": "実ブラウザの画面または実入力後の表示から .record-group の researchLimit を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/researchLimit"
+          }
+        },
+        {
+          "id": "desktop-1280-summaryHeight",
+          "observation": "実ブラウザの画面または実入力後の表示から .summary の summaryHeight を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/summaryHeight"
+          }
+        },
+        {
+          "id": "desktop-1280-appHeight",
+          "observation": "実ブラウザの画面または実入力後の表示から .app-shell の appHeight を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/appHeight"
+          }
+        },
+        {
+          "id": "desktop-1280-unitMinFont",
+          "observation": "実ブラウザの画面または実入力後の表示から .note-price span の unitMinFont を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/unitMinFont"
+          }
+        },
+        {
+          "id": "desktop-1280-discountMinFont",
+          "observation": "実ブラウザの画面または実入力後の表示から .discount-badge の discountMinFont を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/discountMinFont"
+          }
+        },
+        {
+          "id": "desktop-1280-researchMinFont",
+          "observation": "実ブラウザの画面または実入力後の表示から .research-remaining の researchMinFont を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/researchMinFont"
+          }
+        },
+        {
+          "id": "desktop-1280-resetLabel",
+          "observation": "実ブラウザの画面または実入力後の表示から #reset の resetLabel を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/resetLabel"
+          }
+        },
+        {
+          "id": "desktop-1280-researchConditionText",
+          "observation": "実ブラウザの画面または実入力後の表示から #research-condition の researchConditionText を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/researchConditionText"
+          }
+        },
+        {
+          "id": "desktop-1280-noSpendingSubtotals",
+          "observation": "実ブラウザの画面または実入力後の表示から .spending の noSpendingSubtotals を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/noSpendingSubtotals"
+          }
+        },
+        {
+          "id": "desktop-1280-noResetToast",
+          "observation": "実ブラウザの画面または実入力後の表示から #toast の noResetToast を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/noResetToast"
+          }
+        },
+        {
+          "id": "desktop-1280-resetActivates",
+          "observation": "実ブラウザの画面または実入力後の表示から #reset の resetActivates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/resetActivates"
+          }
+        },
+        {
+          "id": "desktop-1280-resetPersisted",
+          "observation": "実ブラウザの画面または実入力後の表示から #reset の resetPersisted を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/resetPersisted"
+          }
+        },
+        {
+          "id": "desktop-1280-reroll-increment-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"reroll\"] .increment の reroll-increment-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/reroll-increment-width"
+          }
+        },
+        {
+          "id": "desktop-1280-reroll-increment-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"reroll\"] .increment の reroll-increment-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/reroll-increment-height"
+          }
+        },
+        {
+          "id": "desktop-1280-reroll-increment-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"reroll\"] .increment の reroll-increment-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/reroll-increment-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-reroll-decrement-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"reroll\"] .decrement の reroll-decrement-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/reroll-decrement-width"
+          }
+        },
+        {
+          "id": "desktop-1280-reroll-decrement-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"reroll\"] .decrement の reroll-decrement-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/reroll-decrement-height"
+          }
+        },
+        {
+          "id": "desktop-1280-reroll-decrement-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"reroll\"] .decrement の reroll-decrement-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/reroll-decrement-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-reroll-input-width",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-reroll の reroll-input-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/reroll-input-width"
+          }
+        },
+        {
+          "id": "desktop-1280-reroll-input-height",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-reroll の reroll-input-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/reroll-input-height"
+          }
+        },
+        {
+          "id": "desktop-1280-reroll-input-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-reroll の reroll-input-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/reroll-input-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-note90-increment-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note90\"] .increment の note90-increment-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note90-increment-width"
+          }
+        },
+        {
+          "id": "desktop-1280-note90-increment-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note90\"] .increment の note90-increment-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note90-increment-height"
+          }
+        },
+        {
+          "id": "desktop-1280-note90-increment-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note90\"] .increment の note90-increment-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note90-increment-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-note90-decrement-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note90\"] .decrement の note90-decrement-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note90-decrement-width"
+          }
+        },
+        {
+          "id": "desktop-1280-note90-decrement-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note90\"] .decrement の note90-decrement-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note90-decrement-height"
+          }
+        },
+        {
+          "id": "desktop-1280-note90-decrement-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note90\"] .decrement の note90-decrement-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note90-decrement-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-note90-input-width",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note90 の note90-input-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note90-input-width"
+          }
+        },
+        {
+          "id": "desktop-1280-note90-input-height",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note90 の note90-input-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note90-input-height"
+          }
+        },
+        {
+          "id": "desktop-1280-note90-input-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note90 の note90-input-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note90-input-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-note72-increment-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note72\"] .increment の note72-increment-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note72-increment-width"
+          }
+        },
+        {
+          "id": "desktop-1280-note72-increment-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note72\"] .increment の note72-increment-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note72-increment-height"
+          }
+        },
+        {
+          "id": "desktop-1280-note72-increment-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note72\"] .increment の note72-increment-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note72-increment-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-note72-decrement-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note72\"] .decrement の note72-decrement-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note72-decrement-width"
+          }
+        },
+        {
+          "id": "desktop-1280-note72-decrement-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note72\"] .decrement の note72-decrement-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note72-decrement-height"
+          }
+        },
+        {
+          "id": "desktop-1280-note72-decrement-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note72\"] .decrement の note72-decrement-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note72-decrement-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-note72-input-width",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note72 の note72-input-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note72-input-width"
+          }
+        },
+        {
+          "id": "desktop-1280-note72-input-height",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note72 の note72-input-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note72-input-height"
+          }
+        },
+        {
+          "id": "desktop-1280-note72-input-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note72 の note72-input-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note72-input-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-note45-increment-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note45\"] .increment の note45-increment-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note45-increment-width"
+          }
+        },
+        {
+          "id": "desktop-1280-note45-increment-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note45\"] .increment の note45-increment-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note45-increment-height"
+          }
+        },
+        {
+          "id": "desktop-1280-note45-increment-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note45\"] .increment の note45-increment-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note45-increment-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-note45-decrement-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note45\"] .decrement の note45-decrement-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note45-decrement-width"
+          }
+        },
+        {
+          "id": "desktop-1280-note45-decrement-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note45\"] .decrement の note45-decrement-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note45-decrement-height"
+          }
+        },
+        {
+          "id": "desktop-1280-note45-decrement-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note45\"] .decrement の note45-decrement-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note45-decrement-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-note45-input-width",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note45 の note45-input-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note45-input-width"
+          }
+        },
+        {
+          "id": "desktop-1280-note45-input-height",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note45 の note45-input-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note45-input-height"
+          }
+        },
+        {
+          "id": "desktop-1280-note45-input-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note45 の note45-input-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note45-input-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-note400-increment-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note400\"] .increment の note400-increment-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note400-increment-width"
+          }
+        },
+        {
+          "id": "desktop-1280-note400-increment-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note400\"] .increment の note400-increment-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note400-increment-height"
+          }
+        },
+        {
+          "id": "desktop-1280-note400-increment-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note400\"] .increment の note400-increment-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note400-increment-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-note400-decrement-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note400\"] .decrement の note400-decrement-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note400-decrement-width"
+          }
+        },
+        {
+          "id": "desktop-1280-note400-decrement-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note400\"] .decrement の note400-decrement-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note400-decrement-height"
+          }
+        },
+        {
+          "id": "desktop-1280-note400-decrement-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note400\"] .decrement の note400-decrement-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note400-decrement-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-note400-input-width",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note400 の note400-input-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note400-input-width"
+          }
+        },
+        {
+          "id": "desktop-1280-note400-input-height",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note400 の note400-input-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note400-input-height"
+          }
+        },
+        {
+          "id": "desktop-1280-note400-input-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note400 の note400-input-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note400-input-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-note320-increment-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note320\"] .increment の note320-increment-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note320-increment-width"
+          }
+        },
+        {
+          "id": "desktop-1280-note320-increment-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note320\"] .increment の note320-increment-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note320-increment-height"
+          }
+        },
+        {
+          "id": "desktop-1280-note320-increment-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note320\"] .increment の note320-increment-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note320-increment-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-note320-decrement-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note320\"] .decrement の note320-decrement-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note320-decrement-width"
+          }
+        },
+        {
+          "id": "desktop-1280-note320-decrement-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note320\"] .decrement の note320-decrement-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note320-decrement-height"
+          }
+        },
+        {
+          "id": "desktop-1280-note320-decrement-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note320\"] .decrement の note320-decrement-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note320-decrement-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-note320-input-width",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note320 の note320-input-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note320-input-width"
+          }
+        },
+        {
+          "id": "desktop-1280-note320-input-height",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note320 の note320-input-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note320-input-height"
+          }
+        },
+        {
+          "id": "desktop-1280-note320-input-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note320 の note320-input-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note320-input-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-note200-increment-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note200\"] .increment の note200-increment-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note200-increment-width"
+          }
+        },
+        {
+          "id": "desktop-1280-note200-increment-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note200\"] .increment の note200-increment-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note200-increment-height"
+          }
+        },
+        {
+          "id": "desktop-1280-note200-increment-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note200\"] .increment の note200-increment-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note200-increment-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-note200-decrement-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note200\"] .decrement の note200-decrement-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note200-decrement-width"
+          }
+        },
+        {
+          "id": "desktop-1280-note200-decrement-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note200\"] .decrement の note200-decrement-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note200-decrement-height"
+          }
+        },
+        {
+          "id": "desktop-1280-note200-decrement-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"note200\"] .decrement の note200-decrement-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note200-decrement-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-note200-input-width",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note200 の note200-input-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note200-input-width"
+          }
+        },
+        {
+          "id": "desktop-1280-note200-input-height",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note200 の note200-input-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note200-input-height"
+          }
+        },
+        {
+          "id": "desktop-1280-note200-input-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-note200 の note200-input-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/note200-input-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-trait3-increment-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"trait3\"] .increment の trait3-increment-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/trait3-increment-width"
+          }
+        },
+        {
+          "id": "desktop-1280-trait3-increment-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"trait3\"] .increment の trait3-increment-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/trait3-increment-height"
+          }
+        },
+        {
+          "id": "desktop-1280-trait3-increment-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"trait3\"] .increment の trait3-increment-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/trait3-increment-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-trait3-decrement-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"trait3\"] .decrement の trait3-decrement-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/trait3-decrement-width"
+          }
+        },
+        {
+          "id": "desktop-1280-trait3-decrement-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"trait3\"] .decrement の trait3-decrement-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/trait3-decrement-height"
+          }
+        },
+        {
+          "id": "desktop-1280-trait3-decrement-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"trait3\"] .decrement の trait3-decrement-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/trait3-decrement-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-trait3-input-width",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-trait3 の trait3-input-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/trait3-input-width"
+          }
+        },
+        {
+          "id": "desktop-1280-trait3-input-height",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-trait3 の trait3-input-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/trait3-input-height"
+          }
+        },
+        {
+          "id": "desktop-1280-trait3-input-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-trait3 の trait3-input-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/trait3-input-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-enhancement2-increment-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"enhancement2\"] .increment の enhancement2-increment-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/enhancement2-increment-width"
+          }
+        },
+        {
+          "id": "desktop-1280-enhancement2-increment-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"enhancement2\"] .increment の enhancement2-increment-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/enhancement2-increment-height"
+          }
+        },
+        {
+          "id": "desktop-1280-enhancement2-increment-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"enhancement2\"] .increment の enhancement2-increment-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/enhancement2-increment-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-enhancement2-decrement-width",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"enhancement2\"] .decrement の enhancement2-decrement-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/enhancement2-decrement-width"
+          }
+        },
+        {
+          "id": "desktop-1280-enhancement2-decrement-height",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"enhancement2\"] .decrement の enhancement2-decrement-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/enhancement2-decrement-height"
+          }
+        },
+        {
+          "id": "desktop-1280-enhancement2-decrement-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から [data-id=\"enhancement2\"] .decrement の enhancement2-decrement-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/enhancement2-decrement-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-enhancement2-input-width",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-enhancement2 の enhancement2-input-width を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/enhancement2-input-width"
+          }
+        },
+        {
+          "id": "desktop-1280-enhancement2-input-height",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-enhancement2 の enhancement2-input-height を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/enhancement2-input-height"
+          }
+        },
+        {
+          "id": "desktop-1280-enhancement2-input-activates",
+          "observation": "実ブラウザの画面または実入力後の表示から #count-enhancement2 の enhancement2-input-activates を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/enhancement2-input-activates"
+          }
+        },
+        {
+          "id": "desktop-1280-resetWidth",
+          "observation": "実ブラウザの画面または実入力後の表示から #reset の resetWidth を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/resetWidth"
+          }
+        },
+        {
+          "id": "desktop-1280-resetHeight",
+          "observation": "実ブラウザの画面または実入力後の表示から #reset の resetHeight を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/resetHeight"
+          }
+        },
+        {
+          "id": "desktop-1280-invalidCount",
+          "observation": "実ブラウザの画面または実入力後の表示から .count-input の invalidCount を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/invalidCount"
+          }
+        },
+        {
+          "id": "desktop-1280-copyBody",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyBody を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyBody"
+          }
+        },
+        {
+          "id": "desktop-1280-copyQa",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyQa を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyQa"
+          }
+        },
+        {
+          "id": "desktop-1280-copyTooltip",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyTooltip を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyTooltip"
+          }
+        },
+        {
+          "id": "desktop-1280-copyAccessible",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyAccessible を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyAccessible"
+          }
+        },
+        {
+          "id": "desktop-1280-copyBodyReached",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyBodyReached を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyBodyReached"
+          }
+        },
+        {
+          "id": "desktop-1280-copyQaReached",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyQaReached を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyQaReached"
+          }
+        },
+        {
+          "id": "desktop-1280-copyTooltipReached",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyTooltipReached を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyTooltipReached"
+          }
+        },
+        {
+          "id": "desktop-1280-copyAccessibleReached",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyAccessibleReached を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyAccessibleReached"
+          }
+        },
+        {
+          "id": "desktop-1280-copyBodyError",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyBodyError を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyBodyError"
+          }
+        },
+        {
+          "id": "desktop-1280-copyQaError",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyQaError を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyQaError"
+          }
+        },
+        {
+          "id": "desktop-1280-copyTooltipError",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyTooltipError を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyTooltipError"
+          }
+        },
+        {
+          "id": "desktop-1280-copyAccessibleError",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyAccessibleError を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyAccessibleError"
+          }
+        },
+        {
+          "id": "desktop-1280-copyBodyLong",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyBodyLong を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyBodyLong"
+          }
+        },
+        {
+          "id": "desktop-1280-copyQaLong",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyQaLong を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyQaLong"
+          }
+        },
+        {
+          "id": "desktop-1280-copyTooltipLong",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyTooltipLong を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyTooltipLong"
+          }
+        },
+        {
+          "id": "desktop-1280-copyAccessibleLong",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyAccessibleLong を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyAccessibleLong"
+          }
+        },
+        {
+          "id": "desktop-1280-copyBodyUnset",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyBodyUnset を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyBodyUnset"
+          }
+        },
+        {
+          "id": "desktop-1280-copyQaUnset",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyQaUnset を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyQaUnset"
+          }
+        },
+        {
+          "id": "desktop-1280-copyTooltipUnset",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyTooltipUnset を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyTooltipUnset"
+          }
+        },
+        {
+          "id": "desktop-1280-copyAccessibleUnset",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyAccessibleUnset を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyAccessibleUnset"
+          }
+        },
+        {
+          "id": "desktop-1280-copyBodyStorage",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyBodyStorage を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyBodyStorage"
+          }
+        },
+        {
+          "id": "desktop-1280-copyQaStorage",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyQaStorage を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyQaStorage"
+          }
+        },
+        {
+          "id": "desktop-1280-copyTooltipStorage",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyTooltipStorage を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyTooltipStorage"
+          }
+        },
+        {
+          "id": "desktop-1280-copyAccessibleStorage",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyAccessibleStorage を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyAccessibleStorage"
+          }
+        },
+        {
+          "id": "desktop-1280-copyBodyReset",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyBodyReset を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyBodyReset"
+          }
+        },
+        {
+          "id": "desktop-1280-copyQaReset",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyQaReset を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyQaReset"
+          }
+        },
+        {
+          "id": "desktop-1280-copyTooltipReset",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyTooltipReset を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyTooltipReset"
+          }
+        },
+        {
+          "id": "desktop-1280-copyAccessibleReset",
+          "observation": "実ブラウザの画面または実入力後の表示から body の copyAccessibleReset を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/copyAccessibleReset"
+          }
+        },
+        {
+          "id": "desktop-1280-zoomFits",
+          "observation": "実ブラウザの画面または実入力後の表示から html の zoomFits を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/zoomFits"
+          }
+        },
+        {
+          "id": "desktop-1280-zoomOperable",
+          "observation": "実ブラウザの画面または実入力後の表示から html の zoomOperable を観測",
+          "value_ref": {
+            "path": "desktop-1280.json",
+            "pointer": "/zoomOperable"
+          }
+        }
+      ]
+    }
+  ]
+}

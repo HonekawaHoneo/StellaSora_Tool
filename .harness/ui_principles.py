@@ -9,6 +9,8 @@ PRINCIPLES = frozenset(('meaning', 'structure', 'reuse', 'visual_hierarchy', 'to
 OUTCOMES = frozenset(('success', 'failure', 'cancel', 'duplicate', 'late_response', 'focus'))
 DIMENSIONS = frozenset(('font_size', 'line_height', 'row_height', 'target_size', 'spacing'))
 ASPECTS = frozenset(('label', 'keyboard', 'focus', 'width', 'zoom', 'reading_order', 'operable_targets'))
+COPY_SURFACES = frozenset(('body', 'qa', 'tooltip', 'accessible_name'))
+OBJECT_PURPOSES = frozenset(('identity', 'data', 'action_label', 'state_label', 'error_label'))
 
 
 def objects(value, label, minimum=1):
@@ -139,7 +141,7 @@ def validate_registry(root, registry, policy, path_matches, deferred=()):
         reference(root, ref, 'registry.sources', deferred)
 
 
-def validate_design(root, identifier, design, registry, request_ids, deferred=(), *, schema_version=2, snapshot=None):
+def validate_design(root, identifier, design, registry, request_ids, deferred=(), *, schema_version=2, snapshot=None, copy_policy=None):
     cases = {}
     scenarios = {s['id'] for s in design['scenarios']}
     tokens = {t['id']: reference(root, t['source_ref'], 'token '+t['id'], deferred) for t in registry['tokens']}
@@ -190,7 +192,7 @@ def validate_design(root, identifier, design, registry, request_ids, deferred=()
     h.require(set(principles) == PRINCIPLES, '10個すべてのUI principlesが必要です')
     h.require(selected_tokens <= set(tokens), 'tokenが不明です')
     if schema_version == 3:
-        validate_quality(root, design, cases, snapshot)
+        validate_quality(root, design, cases, snapshot, copy_policy=copy_policy)
     return cases
 
 
@@ -366,7 +368,7 @@ def control_cases(control):
     return ids
 
 
-def validate_quality(root, design, cases, snapshot):
+def validate_quality(root, design, cases, snapshot, *, copy_policy=None):
     """V3 extends existing evidence, separating visual adequacy from target activation."""
     records = quality_records(design)
     details = {p['id']: p['details'] for p in design['principles']}
@@ -422,15 +424,81 @@ def validate_quality(root, design, cases, snapshot):
                       case.get('action') == action and equal(case['expectation'], {'operator': 'equals', 'value': True}),
                       'control activationは対象領域から実際のaction成功をtrueで検証してください')
     h.require(covered_entrypoints == entrypoints, '全action entrypointにcontrolが必要です')
+    purposes = (OBJECT_PURPOSES | {'explanation', 'encouragement', 'decoration'} if copy_policy == 'object-first'
+                else {'identity', 'data', 'action_label', 'state_guidance', 'error_guidance', 'explanation', 'encouragement', 'decoration'})
     for item in records['copy']:
         purpose = item.get('purpose')
-        h.require(isinstance(purpose, str) and purpose in ('identity', 'data', 'action_label', 'state_guidance',
-                  'error_guidance', 'explanation', 'encouragement', 'decoration'), 'copy.purposeが不正です')
+        h.require(isinstance(purpose, str) and purpose in purposes, 'copy.purposeが不正です: '+str(copy_policy))
         reference(root, item.get('source_ref'), 'copy.source_ref')
         for key in ('alternative', 'redundancy'):
             h.nonempty(item.get(key), 'copy.'+key)
-        if purpose in ('encouragement', 'decoration'):
+        if copy_policy != 'object-first' and purpose in ('encouragement', 'decoration'):
             validate_authorization(root, item, snapshot, details['copy']['inventory_case_ids'])
+    if copy_policy == 'object-first':
+        validate_object_copy(root, details['copy'], cases, actions, snapshot)
+
+
+def validate_object_copy(root, details, cases, actions, snapshot):
+    surfaces = details.get('surface_inventory_case_ids')
+    h.require(isinstance(surfaces, dict) and set(surfaces) == COPY_SURFACES,
+              'object-first: 全surfaceのcopy inventoryが必要です')
+    inventories = set()
+    for surface, values in surfaces.items():
+        ids = unique(values, 'copy.surface_inventory_case_ids.'+surface, 1)
+        h.require(not ids & inventories, 'copy inventoryのsurfaceは重複できません')
+        inventories |= ids
+        for case_id in ids:
+            h.require(case_id in cases and cases[case_id]['kind'] == 'assertion' and
+                      cases[case_id].get('expectation', {}).get('operator') == 'equals' and
+                      isinstance(cases[case_id]['expectation'].get('value'), list),
+                      'copy surface inventoryは文字列一覧のassertion caseが必要です')
+        h.require({cases[i]['scenario'] for i in ids} == {c['scenario'] for c in cases.values()},
+                  '全scenarioに全copy surfaceのinventoryが必要です')
+    h.require(inventories == set(details['inventory_case_ids']), 'copy surface inventoryとinventory_case_idsが異なります')
+    for item in details['items']:
+        surface = item.get('surface')
+        h.require(isinstance(surface, str) and surface in COPY_SURFACES, 'copy.surfaceが不正です')
+        h.nonempty(item.get('target'), 'copy.target')
+        ids = unique(item.get('case_ids'), 'copy.case_ids', 1)
+        h.require(ids <= set(surfaces[surface]), 'copy.case_idsは同じsurfaceのinventoryが必要です')
+        if item['purpose'] in OBJECT_PURPOSES:
+            continue
+        if item['purpose'] == 'explanation' and surface == 'qa':
+            validate_operation_help(root, item, cases, actions)
+            continue
+        validate_authorization(root, item, snapshot, details['inventory_case_ids'])
+        ref = item['authorization_ref']
+        h.require(ref['provenance'] == 'original_brief' and ref.get('mode', 'exact_text') == 'exact_text',
+                  'object-first: 本人が明示指定した正確な文言だけを例外にできます')
+        scope = ref.get('scope')
+        h.require(isinstance(scope, dict) and scope.get('purpose') == item['purpose'] and
+                  scope.get('surface') == surface and scope.get('target') == item['target'] and
+                  unique(scope.get('case_ids'), 'copy authorization.scope.case_ids', 1) == ids,
+                  'object-first: copy authorizationの目的・surface・target・case範囲が必要です')
+
+
+def validate_operation_help(root, item, cases, actions):
+    help_item = item.get('operation_help')
+    h.require(isinstance(help_item, dict), 'object-first: Q&Aには不可欠なoperation_helpが必要です')
+    h.require(isinstance(help_item.get('action'), str) and help_item['action'] in actions,
+              'operation_help.actionは実在する操作が必要です')
+    h.require(help_item.get('information') == item['text'], 'operation_help.informationは正確な表示情報が必要です')
+    h.nonempty(help_item.get('omission_effect'), 'operation_help.omission_effect')
+    h.require(help_item.get('indispensable') is True, 'Q&Aの便宜的な説明は不可欠な情報ではありません')
+    alternatives = objects(help_item.get('alternatives'), 'operation_help.alternatives')
+    h.require([a.get('stage') for a in alternatives] == ['layout', 'object', 'color'],
+              'Q&Aはlayout→object→colorの代替不成立を順に確認してください')
+    for alternative in alternatives:
+        for key in ('attempt', 'failure'):
+            h.nonempty(alternative.get(key), 'operation_help.alternative.'+key)
+        ids = unique(alternative.get('case_ids'), 'operation_help.alternative.case_ids', 1)
+        h.require(ids <= set(cases), 'operation_helpの代替には実測caseの証拠が必要です')
+    entry = help_item.get('entry')
+    h.require(isinstance(entry, dict) and entry.get('kind') in ('existing', 'new'), 'operation_help.entryが必要です')
+    h.require(entry.get('target') == item['target'], 'Q&A entry.targetとcopy.targetが異なります')
+    reference(root, entry.get('source_ref'), 'operation_help.entry.source_ref')
+    if entry['kind'] == 'new':
+        reference(root, entry.get('existing_entry_absence_ref'), 'operation_help.entry.existing_entry_absence_ref')
 
 
 def validate_authorization(root, item, snapshot, inventory=()):
@@ -469,7 +537,7 @@ def validate_authorization(root, item, snapshot, inventory=()):
                   'copy commission.scopeと表示目的・状態が異なります')
 
 
-def validate_quality_review(review, design, measured):
+def validate_quality_review(review, design, measured, *, copy_policy=None):
     assessments = review.get('expectation_assessments')
     h.require(isinstance(assessments, dict), 'review.ui.expectation_assessmentsが必要です')
     records = quality_records(design)
@@ -493,15 +561,53 @@ def validate_quality_review(review, design, measured):
                           'review copyのtext/purposeが現設計と異なります')
                 h.require(equal(assessment.get('source_ref'), record['source_ref']), 'review copyの根拠が現設計と異なります')
                 judgments = ('purpose_appropriate', 'source_supported', 'necessary', 'redundancy_justified')
+                if copy_policy == 'object-first':
+                    h.require(assessment.get('observed_purpose') == record['purpose'] and
+                              assessment.get('observed_surface') == record['surface'],
+                              'review copyの独立したpurpose/surface判断が必要です')
+                    h.nonempty(assessment.get('wording_evidence'), 'review.copy.wording_evidence')
+                    h.require(type(assessment.get('supplemental_prose')) is bool, 'review.copy.supplemental_proseはboolです')
+                    if record['purpose'] in OBJECT_PURPOSES:
+                        h.require(assessment['supplemental_prose'] is False, 'label/statusのrole申告でも本文の補足説明は許可されません')
+                    elif record['purpose'] == 'explanation' and record['surface'] == 'qa':
+                        h.require(equal(assessment.get('operation_help'), record['operation_help']),
+                                  'review Q&Aのoperation_helpが現設計と異なります')
+                        alternatives = objects(assessment.get('alternative_assessments'), 'review.copy.alternative_assessments')
+                        planned = record['operation_help']['alternatives']
+                        h.require([a.get('stage') for a in alternatives] == ['layout', 'object', 'color'],
+                                  'review Q&Aには順序付きの代替別判断が必要です')
+                        for observed, intended in zip(alternatives, planned):
+                            ids = unique(observed.get('case_ids'), 'review.copy.alternative.case_ids', 1)
+                            h.require(ids == set(intended['case_ids']) and ids <= measured and observed.get('failed') is True,
+                                      'review Q&Aの代替不成立には同じ実測caseと独立判断が必要です')
+                            h.nonempty(observed.get('evidence'), 'review.copy.alternative.evidence')
+                        judgments += ('indispensable', 'alternatives_exhausted', 'existing_entry_preferred', 'not_relocated_explanation')
+                    else:
+                        h.require(equal(assessment.get('authorization_ref'), record['authorization_ref']),
+                                  'review copyの明示文言許可が現設計と異なります')
             else:
                 h.require(equal(assessment.get('expectations'), {i: cases[i]['expectation'] for i in ids}),
                           'review assessmentの期待値が現設計と異なります')
                 judgments = ('bounds_appropriate',) if group == 'measurements' else ('visual_appropriate', 'hit_appropriate', 'activation_associated')
             h.require(all(assessment.get(key) is True for key in judgments), 'review assessmentの妥当性判断が合格していません')
         h.require(seen == set(expected), '全'+group+'に期待値自体のreview assessmentが必要です')
+    if copy_policy == 'object-first':
+        surfaces = next(p['details']['surface_inventory_case_ids'] for p in design['principles'] if p['id'] == 'copy')
+        seen = set()
+        for inventory in objects(review.get('copy_surface_inventory'), 'review.ui.copy_surface_inventory'):
+            surface = inventory.get('surface')
+            h.require(isinstance(surface, str) and surface in COPY_SURFACES and surface not in seen,
+                      'review copy surfaceが不明・重複しています')
+            seen.add(surface)
+            h.require(unique(inventory.get('case_ids'), 'review.copy_surface.case_ids', 1) == set(surfaces[surface]) and
+                      set(surfaces[surface]) <= measured, 'review copy surfaceの実測inventoryが不足しています')
+            h.nonempty(inventory.get('evidence'), 'review.copy_surface.evidence')
+            h.require(inventory.get('complete') is True and inventory.get('no_hidden_explanations') is True,
+                      'review copy surfaceの未申告・隠れた説明を確認してください')
+        h.require(seen == COPY_SURFACES, 'reviewには全copy surfaceのinventory確認が必要です')
 
 
-def validate_review(review, design, evidence, *, schema_version=2):
+def validate_review(review, design, evidence, *, schema_version=2, copy_policy=None):
     expected = {p['id']:p for p in design['principles']}
     measured = {c['id'] for s in evidence['scenarios'] for c in s['case_results']}
     seen = set()
@@ -518,4 +624,4 @@ def validate_review(review, design, evidence, *, schema_version=2):
     h.require(seen == PRINCIPLES, 'reviewに10個すべてのprinciplesが必要です')
 
     if schema_version == 3:
-        validate_quality_review(review, design, measured)
+        validate_quality_review(review, design, measured, copy_policy=copy_policy)
