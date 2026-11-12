@@ -12,10 +12,10 @@ def __getattr__(name):
 
 def main(argv=None):
     h.common.configure_stdio()
-    parser = argparse.ArgumentParser(description='UI契約: 既存デザイン定義とbefore証跡を保存')
+    parser = argparse.ArgumentParser(description='UI契約: 既存デザイン定義とbefore証跡を保存', allow_abbrev=False)
     parser.add_argument('--project', type=Path, default=Path.cwd())
     sub = parser.add_subparsers(dest='command', required=True)
-    capture = sub.add_parser('prepare')
+    capture = sub.add_parser('prepare', allow_abbrev=False)
     capture.add_argument('id')
     capture.add_argument('--candidate')
     capture.add_argument('--approval-ref')

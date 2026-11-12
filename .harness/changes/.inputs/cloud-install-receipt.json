@@ -1,0 +1,166 @@
+{
+  "ok": true,
+  "ready": true,
+  "activation_mode": "cloud-explicit",
+  "host_activation": "not_applicable",
+  "native_hook_enforcement": false,
+  "installation_scope": "project",
+  "execution_contract_supported": true,
+  "workflow_edit_permitted": false,
+  "installation_verified": true,
+  "project_connection": {
+    "verified": true,
+    "version": "0.17.0",
+    "project": "/workspace/StellaSora_Tool",
+    "instruction_paths": [
+      "/workspace/StellaSora_Tool/AGENTS.md",
+      "/workspace/StellaSora_Tool/.harness/framework.lock.json",
+      "/workspace/StellaSora_Tool/.harness/project.json",
+      "/workspace/StellaSora_Tool/.harness/rules.md",
+      "/workspace/StellaSora_Tool/.harness/protocol.md",
+      "/workspace/StellaSora_Tool/.harness/skill-compatibility.md",
+      "/workspace/StellaSora_Tool/.harness/secure-save.md"
+    ],
+    "changes": [
+      {
+        "id": "mobile-summary",
+        "phase": "done"
+      },
+      {
+        "id": "trim-ui-copy",
+        "phase": "done"
+      }
+    ],
+    "workflow": {
+      "supported": true,
+      "workflow_status": "not_started",
+      "id": null,
+      "phase": null,
+      "changes": [
+        {
+          "id": "mobile-summary",
+          "phase": "done"
+        },
+        {
+          "id": "trim-ui-copy",
+          "phase": "done"
+        }
+      ],
+      "artifact": null,
+      "can_edit_product": false,
+      "work_complete": false,
+      "required_skills": {
+        "response": "/workspace/StellaSora_Tool/.agents/skills/evidence-first-response/SKILL.md",
+        "orchestrator": "/workspace/StellaSora_Tool/.agents/skills/poteto-mode/SKILL.md",
+        "general": "/workspace/StellaSora_Tool/.agents/skills/ponytail/SKILL.md",
+        "writing": "/workspace/StellaSora_Tool/.agents/skills/unslop/SKILL.md",
+        "technical_writing": "/workspace/StellaSora_Tool/.agents/skills/technical-writing/SKILL.md",
+        "requirements": "/workspace/StellaSora_Tool/.agents/skills/grill-me/SKILL.md"
+      },
+      "blockers": [],
+      "continuity": {
+        "trigger": "each_user_message_or_resume",
+        "instruction_path": "/workspace/StellaSora_Tool/.harness/protocol.md",
+        "context_paths": [
+          "/workspace/StellaSora_Tool/.harness/project.json"
+        ],
+        "discovery_digest": null
+      },
+      "ui_contract_connected": false,
+      "ui_validation_mode": "enforce",
+      "ui_enforced": false,
+      "activities": []
+    },
+    "git_security_guard": {
+      "supported": true,
+      "verified": true,
+      "hooks_path": "/workspace/StellaSora_Tool/.git/harness-security",
+      "limitations": [
+        "defined_secret_rules_only",
+        "explicit_hook_bypass_possible",
+        "native_windows_requires_host_validation"
+      ]
+    }
+  },
+  "git_security_guard": {
+    "supported": true,
+    "verified": true,
+    "hooks_path": "/workspace/StellaSora_Tool/.git/harness-security",
+    "limitations": [
+      "defined_secret_rules_only",
+      "explicit_hook_bypass_possible",
+      "native_windows_requires_host_validation"
+    ]
+  },
+  "instruction_paths": [
+    "/workspace/StellaSora_Tool/AGENTS.md",
+    "/workspace/StellaSora_Tool/.harness/framework.lock.json",
+    "/workspace/StellaSora_Tool/.harness/project.json",
+    "/workspace/StellaSora_Tool/.harness/rules.md",
+    "/workspace/StellaSora_Tool/.harness/protocol.md",
+    "/workspace/StellaSora_Tool/.harness/skill-compatibility.md",
+    "/workspace/StellaSora_Tool/.harness/secure-save.md",
+    "/workspace/StellaSora_Tool/.agents/skills/evidence-first-response/SKILL.md",
+    "/workspace/StellaSora_Tool/.agents/skills/poteto-mode/SKILL.md",
+    "/workspace/StellaSora_Tool/.agents/skills/ponytail/SKILL.md",
+    "/workspace/StellaSora_Tool/.agents/skills/unslop/SKILL.md",
+    "/workspace/StellaSora_Tool/.agents/skills/technical-writing/SKILL.md",
+    "/workspace/StellaSora_Tool/.agents/skills/grill-me/SKILL.md"
+  ],
+  "skill_paths": {
+    "orchestrator": "/workspace/StellaSora_Tool/.agents/skills/poteto-mode/SKILL.md",
+    "requirements": "/workspace/StellaSora_Tool/.agents/skills/grill-me/SKILL.md",
+    "design": "/workspace/StellaSora_Tool/.agents/skills/ponytail/SKILL.md",
+    "review": "/workspace/StellaSora_Tool/.agents/skills/ponytail-review/SKILL.md",
+    "ui_design": "/workspace/StellaSora_Tool/.agents/skills/semantic-ui-design/SKILL.md",
+    "ui_implementation": "/workspace/StellaSora_Tool/.agents/skills/ui-implementation-harness/SKILL.md",
+    "response": "/workspace/StellaSora_Tool/.agents/skills/evidence-first-response/SKILL.md",
+    "general": "/workspace/StellaSora_Tool/.agents/skills/ponytail/SKILL.md",
+    "writing": "/workspace/StellaSora_Tool/.agents/skills/unslop/SKILL.md",
+    "technical_writing": "/workspace/StellaSora_Tool/.agents/skills/technical-writing/SKILL.md",
+    "implementation": "/workspace/StellaSora_Tool/.agents/skills/implementation-planning/SKILL.md",
+    "code_review": "/workspace/StellaSora_Tool/.agents/skills/quality-review/SKILL.md",
+    "impact": "/workspace/StellaSora_Tool/.agents/skills/blast-radius/SKILL.md",
+    "comments": "/workspace/StellaSora_Tool/.agents/skills/no-comments/SKILL.md",
+    "architecture": "/workspace/StellaSora_Tool/.agents/skills/architect/SKILL.md",
+    "performance": "/workspace/StellaSora_Tool/.agents/skills/benchmark-checklist/SKILL.md",
+    "measurement": "/workspace/StellaSora_Tool/.agents/skills/principle-explain-the-number/SKILL.md",
+    "typescript": "/workspace/StellaSora_Tool/.agents/skills/typescript-best-practices/SKILL.md",
+    "verification_create": "/workspace/StellaSora_Tool/.agents/skills/create-verification-skill/SKILL.md",
+    "verification_maintain": "/workspace/StellaSora_Tool/.agents/skills/maintain-verification-skill/SKILL.md",
+    "context": "/workspace/StellaSora_Tool/.agents/skills/recall/SKILL.md",
+    "context_guard": "/workspace/StellaSora_Tool/.agents/skills/principle-guard-the-context-window/SKILL.md",
+    "decision_trail": "/workspace/StellaSora_Tool/.agents/skills/show-me-your-work/SKILL.md",
+    "correction": "/workspace/StellaSora_Tool/.agents/skills/correct/SKILL.md",
+    "encode_lessons": "/workspace/StellaSora_Tool/.agents/skills/principle-encode-lessons-in-structure/SKILL.md",
+    "root_cause": "/workspace/StellaSora_Tool/.agents/skills/principle-fix-root-causes/SKILL.md",
+    "design_options": "/workspace/StellaSora_Tool/.agents/skills/arena/SKILL.md",
+    "adversarial": "/workspace/StellaSora_Tool/.agents/skills/interrogate/SKILL.md",
+    "parallel": "/workspace/StellaSora_Tool/.agents/skills/swarm/SKILL.md",
+    "planning": "/workspace/StellaSora_Tool/.agents/skills/figure-it-out/SKILL.md",
+    "how": "/workspace/StellaSora_Tool/.agents/skills/how/SKILL.md",
+    "why": "/workspace/StellaSora_Tool/.agents/skills/why/SKILL.md",
+    "teach": "/workspace/StellaSora_Tool/.agents/skills/teach/SKILL.md",
+    "sharpen": "/workspace/StellaSora_Tool/.agents/skills/sharpen/SKILL.md",
+    "recap": "/workspace/StellaSora_Tool/.agents/skills/ketchup/SKILL.md",
+    "personalize": "/workspace/StellaSora_Tool/.agents/skills/automate-me/SKILL.md",
+    "reflect": "/workspace/StellaSora_Tool/.agents/skills/reflect/SKILL.md",
+    "bot_ui": "/workspace/StellaSora_Tool/.agents/skills/make-bot-ui/SKILL.md"
+  },
+  "probe": {
+    "bootstrap": true,
+    "runtime": true,
+    "empty_gate_rejected": true,
+    "phase_transition": "discovery",
+    "execution_gate_rejected": true
+  },
+  "source": {
+    "repository": "https://github.com/HonekawaHoneo/CodexEnvSet",
+    "commit": "f8bb8502f124fe540e07dadb2a3c0c666a76a215",
+    "version": "0.17.0"
+  },
+  "preservation": {
+    "checked_files": 153,
+    "changed_files": []
+  }
+}

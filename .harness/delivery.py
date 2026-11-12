@@ -1,12 +1,15 @@
 """One delivery step using real quality gates and a GitHub adapter; no daemon."""
 import datetime as dt
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
+import sys
 import tempfile
 
 import harness as h
+import security
 
 PR_FIELDS = ('number,url,state,isDraft,isCrossRepository,headRefName,headRefOid,baseRefName,'
              'mergeable,mergeStateStatus,reviewDecision,statusCheckRollup,mergeCommit')
@@ -89,7 +92,7 @@ class RecordedGitHub:
 def git(root, *args):
     result = subprocess.run(['git', *args], cwd=root, capture_output=True, text=True, encoding="utf-8", timeout=15)
     h.require(result.returncode == 0, f"Git状態を確認できません: {' '.join(args[:2])}")
-    return result.stdout.strip()
+    return result.stdout if '-z' in args else result.stdout.rstrip('\r\n')
 
 
 def pending_paths(root):
@@ -130,30 +133,250 @@ def push_branch(root, remote, branch):
     return branch
 
 
-def backup_check(root, remote='origin', remote_branch=None):
-    """Verify a clean local HEAD exists at the configured push destination."""
+def save_destination(root, remote, remote_branch):
+    """Resolve one named branch and one configured push destination."""
     h.require(isinstance(remote, str) and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]*', remote),
               '設定済みのリモート名を指定してください')
     h.require(Path(git(root, 'rev-parse', '--show-toplevel')).resolve() == root.resolve(),
               '保存確認の対象はGitリポジトリのルートを指定してください')
     branch = git(root, 'symbolic-ref', '--quiet', '--short', 'HEAD')
-    head = git(root, 'rev-parse', 'HEAD')
-    h.require(not [p for p in pending_paths(root) if p != '.harness/runtime.lock'],
-              'コード・設定・工程成果物をコミットしてから保存確認してください')
     destinations = git(root, 'remote', 'get-url', '--push', '--all', remote).splitlines()
     h.require(len(destinations) == 1, 'push先を一つに確定して保存確認してください')
     target = remote_branch if remote_branch is not None else push_branch(root, remote, branch)
     h.nonempty(target, '保存先ブランチ')
+    git(root, 'check-ref-format', f'refs/heads/{target}')
+    return branch, destinations[0], target
+
+
+def unsaved_paths(root):
+    """Keep durable artifacts strict while omitting valid transient read cursors."""
+    remaining = []
+    for relative in pending_paths(root):
+        if relative == '.harness/runtime.lock':
+            continue
+        try:
+            if re.fullmatch(r'\.harness/changes/\.execution/[a-f0-9]{32}\.json', relative):
+                record = h.execution._load(root, Path(relative).stem)
+                if record['finished'] is None:
+                    continue
+            elif re.fullmatch(r'\.harness/changes/\.execution/contexts/[a-f0-9]{64}\.json', relative):
+                cursor, _ = h.execution._json(root, relative)
+                record = h.execution._load(root, cursor.get('token'))
+                if cursor.get('context') == record['context'] and h.sha(record['context'].encode('utf-8')) == Path(relative).stem:
+                    continue
+        except (h.GateError, OSError, KeyError, TypeError, ValueError):
+            pass
+        remaining.append(relative)
+    return remaining
+
+
+def backup_check(root, remote='origin', remote_branch=None, *, allow_pending=False):
+    """Verify a clean local HEAD exists at the configured push destination."""
+    root = Path(root).resolve()
+    branch, destination, target = save_destination(root, remote, remote_branch)
+    head = git(root, 'rev-parse', 'HEAD')
+    remaining = unsaved_paths(root)
+    h.require(allow_pending or not remaining,
+              'コード・設定・工程成果物をコミットしてから保存確認してください')
     reference = f'refs/heads/{target}'
-    git(root, 'check-ref-format', reference)
-    observed = git(root, 'ls-remote', '--exit-code', '--refs', '--', destinations[0], reference).splitlines()
+    observed = git(root, 'ls-remote', '--exit-code', '--refs', '--', destination, reference).splitlines()
     entries = [line.split() for line in observed]
     h.require(entries == [[head, reference]], 'リモートの保存先と現在のHEADが一致していません。push結果を確認してください')
     h.require(git(root, 'rev-parse', 'HEAD') == head and
-              not [p for p in pending_paths(root) if p != '.harness/runtime.lock'],
+              git(root, 'symbolic-ref', '--quiet', '--short', 'HEAD') == branch and
+              unsaved_paths(root) == remaining,
               '保存確認中に作業内容が変わりました。コミット・push・確認をやり直してください')
-    return {'status': 'remote_saved', 'remote': remote, 'branch': branch, 'remote_branch': target,
+    result = {'status': 'remote_saved', 'remote': remote, 'branch': branch, 'remote_branch': target,
             'head_sha': head, 'remote_sha': head, 'observed_at': h.now()}
+    if allow_pending:
+        result.update(status='selected_paths_saved' if remaining else 'remote_saved',
+                      all_work_saved=not remaining, remaining_paths=remaining)
+    return result
+
+
+def save_git(root, *args, env=None, check=True):
+    """Run Git without exposing arbitrary hook output or credential-bearing URLs."""
+    try:
+        result = subprocess.run(['git', *args], cwd=root, capture_output=True,
+                                env=dict(os.environ if env is None else env, GIT_OPTIONAL_LOCKS='0'))
+    except (OSError, ValueError) as exc:
+        raise h.GateError('保存のGit操作を実行できません') from exc
+    h.require(not check or result.returncode == 0,
+              f'保存のGit操作に失敗しました: {args[0]}。既存HookとGit状態を確認してください')
+    return result
+
+
+def selected_files(root, paths):
+    """Accept literal individual files, including tracked deletions."""
+    h.require(isinstance(paths, (list, tuple)) and bool(paths), '保存するファイルを明示してください')
+    selected, stage_paths = [], []
+    deleted = save_git(root, 'diff-tree', '--root', '--no-commit-id', '--no-renames',
+                       '--diff-filter=D', '-r', '--name-only', '-z', 'HEAD', check=False).stdout.split(b'\0')
+    for name in paths:
+        h.require(isinstance(name, (str, Path)) and bool(str(name)) and '\0' not in str(name),
+                  '保存対象にはファイルパスを指定してください')
+        candidate = Path(os.path.abspath(root / name))
+        try:
+            relative = candidate.relative_to(root)
+            candidate.resolve().relative_to(root)
+        except (ValueError, OSError, RuntimeError) as exc:
+            raise h.GateError('保存対象はリポジトリ内のファイルに限定してください') from exc
+        h.require(relative.parts and not any(part.lower() == '.git' for part in relative.parts)
+                  and not candidate.is_dir(), 'ディレクトリやGitメタデータは保存対象にできません')
+        name = relative.as_posix()
+        tracked_paths = save_git(root, '--literal-pathspecs', 'ls-files', '-z', '--', name).stdout
+        tracked = os.fsencode(name) in tracked_paths.split(b'\0')
+        stage = candidate.is_file() or candidate.is_symlink() or tracked
+        h.require(stage or os.fsencode(name) in deleted,
+                  '保存対象のファイルがありません')
+        if name not in selected:
+            selected.append(name)
+            if stage:
+                stage_paths.append(name)
+    return selected, stage_paths
+
+
+def require_selected_index(root, selected, *, env=None):
+    changed = save_git(root, 'diff', '--cached', '--no-renames', '--name-only', '-z', env=env).stdout
+    paths = [os.fsdecode(path) for path in changed.split(b'\0') if path]
+    h.require(set(paths) <= set(selected), '無関係なstage済み変更があります。対象を分けて保存してください')
+
+
+def promote_index(index, original, snapshot):
+    """Publish Git's checked index snapshot while honoring Git's exclusive lock."""
+    lock = index.with_name(index.name + '.lock')
+    acquired = False
+    try:
+        with lock.open('xb') as stream:
+            acquired = True
+            current = index.read_bytes() if index.exists() else None
+            h.require(current == original, '検査中にGit indexが変更されました。保存をやり直してください')
+            stream.write(snapshot)
+        os.replace(lock, index)
+    except OSError as exc:
+        raise h.GateError('Git indexを保存できません。実行中のGit操作とindex.lockを確認してください') from exc
+    finally:
+        if acquired and lock.exists():
+            lock.unlink()
+
+
+def save(root, message, paths, remote='origin', remote_branch=None):
+    """Check selected content, commit with verified hooks, push, and inspect the remote."""
+    root = Path(root).resolve()
+    h.nonempty(message, 'コミットメッセージ')
+    h.require('\0' not in message, 'コミットメッセージにNULは使えません')
+    branch, destination, target = save_destination(root, remote, remote_branch)
+    selected, stage_paths = selected_files(root, paths)
+    require_selected_index(root, selected)
+    index = Path(os.fsdecode(save_git(root, 'rev-parse', '--path-format=absolute',
+                                      '--git-path', 'index').stdout).rstrip('\r\n'))
+    original = index.read_bytes() if index.exists() else None
+    head = save_git(root, 'rev-parse', '--verify', 'HEAD', check=False).stdout.rstrip(b'\r\n')
+    with tempfile.TemporaryDirectory(prefix='harness-save-') as directory:
+        temporary_index = Path(directory) / 'index'
+        environment = dict(os.environ, GIT_INDEX_FILE=str(temporary_index))
+        if original is not None:
+            temporary_index.write_bytes(original)
+        elif head:
+            save_git(root, 'read-tree', head.decode('ascii'), env=environment)
+        else:
+            save_git(root, 'read-tree', '--empty', env=environment)
+        require_selected_index(root, selected, env=environment)
+        if stage_paths:
+            save_git(root, '--literal-pathspecs', 'add', '--', *stage_paths, env=environment)
+        scan = subprocess.run([sys.executable, str(Path(security.__file__).resolve()),
+                               'check-index', str(root)], env=environment, capture_output=True,
+                              text=True, encoding='utf-8')
+        h.require(scan.returncode == 0, scan.stderr.rstrip('\r\n') or 'security: index inspection failed')
+        tree = json.loads(scan.stdout)['tree']
+        snapshot = temporary_index.read_bytes()
+    try:
+        guard = security.install_hooks(root)
+        h.require(guard.get('verified') and security.verify_hooks(root).get('verified'),
+                  'GitセキュリティHookを検証できません。固定版・実効Hookを確認してください')
+    except security.SecurityError as exc:
+        raise h.GateError(str(exc)) from exc
+    h.require(save_git(root, 'rev-parse', '--verify', 'HEAD', check=False).stdout.rstrip(b'\r\n') == head
+              and git(root, 'symbolic-ref', '--quiet', '--short', 'HEAD') == branch,
+              '検査中にHEADが変更されました。保存をやり直してください')
+    promote_index(index, original, snapshot)
+    changed = save_git(root, 'diff', '--cached', '--quiet', check=False)
+    h.require(changed.returncode in (0, 1), '保存対象の差分を確認できません')
+    committed = changed.returncode == 1
+    if committed:
+        environment = dict(os.environ, HARNESS_SAVE_EXPECTED_TREE=tree)
+        save_git(root, 'commit', '-m', message, env=environment)
+    h.require(git(root, 'rev-parse', 'HEAD^{tree}') == tree,
+              'コミット内容が検査済みの内容と異なります。pushを停止しました')
+    h.require(security.verify_hooks(root).get('verified'), 'push前のGitセキュリティHook検証に失敗しました')
+    h.require(save_destination(root, remote, target) == (branch, destination, target),
+              '保存中にGitの保存先が変わりました。pushを停止しました')
+    save_git(root, 'push', '--', remote, f'HEAD:refs/heads/{target}')
+    result = backup_check(root, remote=remote, remote_branch=target, allow_pending=True)
+    h.require(not set(result['remaining_paths']).intersection(selected),
+              '保存中に選択ファイルが変更されました。変更分を再度保存してください')
+    return {**result, 'selected_paths': selected, 'selected_paths_saved': True,
+            'committed': committed, 'security_checked': True, 'hooks_verified': True}
+
+
+def save_change(root, identifier, message=None):
+    """Save a valid completed change and only its explicit audit dependencies."""
+    root = Path(root).resolve()
+    h.check(root, identifier)
+    current = h.state(root, identifier)
+    h.require(current['phase'] == 'done', '保存には品質ゲートのdoneが必要です')
+    paths = set(h.source_delta(root, current))
+    framework = h.read_json(root / '.harness/framework.lock.json')
+    paths.update(framework['files'])
+    paths.update((framework['agents_path'], '.harness/framework.lock.json', '.harness/project.json'))
+    if (h.config(root).get('ui') or {}).get('registry') == '.harness/ui-registry.json':
+        h.execution._path(root, '.harness/ui-registry.json')
+        paths.add('.harness/ui-registry.json')
+    directory = h.change_dir(root, identifier)
+    prefix = directory.relative_to(root).as_posix() + '/'
+    for path in directory.rglob('*'):
+        relative = path.relative_to(root).as_posix()
+        h.execution._path(root, relative)
+        if path.is_file():
+            paths.add(relative)
+    tokens = set()
+    try:
+        events = (directory / 'events.jsonl').read_text(encoding='utf-8').splitlines()
+        for line in events:
+            event = json.loads(line)
+            h.require(isinstance(event, dict) and isinstance(event.get('event'), str), '変更イベントが不正です')
+            if event['event'] == 'skill_application_verified':
+                tokens.add(h.execution._token(event.get('token')))
+    except (OSError, UnicodeError, ValueError) as exc:
+        raise h.GateError('変更イベントを読み取れません') from exc
+    if 'execution_completion' in current:
+        completed = current['execution_completion']
+        h.require(isinstance(completed, dict), '完了時の実行記録が不正です')
+        tokens.add(h.execution._token(completed.get('token')))
+    for token in sorted(tokens):
+        record = h.execution._load(root, token)
+        h.require(record['binding']['id'] == identifier and record['finished'] is not None and
+                  record['application'] is not None, '完了した対象変更の実行記録が必要です')
+        paths.add(f'{h.execution.STORE}/{token}.json')
+        application = record['application']
+        for relative in [application['path'], *application['evidence']]:
+            canonical = h.execution._path(root, relative).relative_to(root).as_posix()
+            h.require(relative == canonical, '適用根拠には正規化した相対パスが必要です')
+            h.require(not relative.casefold().startswith('.harness/changes/') or
+                      relative.casefold().startswith(prefix.casefold()),
+                      '別の変更記録を保存対象の適用根拠にできません')
+            h.require(relative.casefold() != '.harness/runtime.lock' and
+                      not any(part.lower() == '.git' for part in Path(relative).parts),
+                      'Gitメタデータや実行ロックを適用根拠にできません')
+        paths.add(application['path'])
+        paths.update(relative for relative in application['evidence']
+                     if relative.startswith(prefix) or relative not in current['baseline_files'])
+    for relative in paths:
+        h.safe_path(root, relative)
+        h.require(relative.casefold() != '.harness/runtime.lock' and
+                  not any(part.lower() == '.git' for part in Path(relative).parts),
+                  'Gitメタデータや実行ロックは保存対象にできません')
+    return save(root, message if message is not None else f'Save verified change {identifier}', sorted(paths))
 
 
 def local_state(root, identifier, require_merge):
@@ -244,7 +467,7 @@ def ship_check(root, identifier, github=None):
     return ready(data, repo, pr)
 
 
-def save(root, identifier, data):
+def save_receipt(root, identifier, data):
     h.write_json(h.change_dir(root, identifier) / 'delivery.json',
                  {'schema_version': 1, 'updated_at': h.now(), **data})
     return data
@@ -255,20 +478,20 @@ def ship(root, identifier, github=None):
     github = github or GitHubCLI()
     data, repo, pr, _ = context(root, identifier, github, False)
     if pr is None:
-        save(root, identifier, {**data, 'status': 'creating'})
+        save_receipt(root, identifier, {**data, 'status': 'creating'})
         github.create_pr(root, data['repository'], data['branch'], data['base_branch'], identifier)
         data, repo, pr, _ = context(root, identifier, github, False)
     if pr.get('state') == 'MERGED':
-        return save(root, identifier, ready(data, repo, pr))
+        return save_receipt(root, identifier, ready(data, repo, pr))
     if h.config(root)['autonomy']['completion'] == 'pr':
-        return save(root, identifier, {**data, 'status': 'pr', 'ready': False})
+        return save_receipt(root, identifier, {**data, 'status': 'pr', 'ready': False})
     try:
         result = ready(data, repo, pr)
     except Waiting as exc:
-        return save(root, identifier, {**data, 'status': 'waiting', 'ready': False, 'reason': str(exc)})
-    save(root, identifier, {**result, 'status': 'merging', 'ready': False})
+        return save_receipt(root, identifier, {**data, 'status': 'waiting', 'ready': False, 'reason': str(exc)})
+    save_receipt(root, identifier, {**result, 'status': 'merging', 'ready': False})
     response = github.merge(root, data['repository'], data['pr_number'], data['expected_head_sha'], result['merge_method'])
     h.require(isinstance(response, dict) and response.get('merged') is True, 'GitHubがマージを完了していません。実PRを再照合してください')
     data, repo, pr, _ = context(root, identifier, github, True)
     h.require(pr is not None and pr.get('state') == 'MERGED', 'マージ後のPR状態を確認できません。再開時に再照合してください')
-    return save(root, identifier, ready(data, repo, pr))
+    return save_receipt(root, identifier, ready(data, repo, pr))

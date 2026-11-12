@@ -5,6 +5,8 @@ description: 共通開発基盤で、確定した要件を実装方針・影響�
 
 # 設計と実装
 
+0.17以降の新規作業は`.harness/execution.md`へ接続する。現在入力のSkill本文・原指示の読出しと実ファイルへの適用根拠を検査し、工程CLIには現在の`--turn`を渡す。旧固定版はその版の契約を保持する。
+
 AGENTS、protocol、対象変更のdiscovery.json、requirements.json、state.jsonを読む。
 既存の構成とコーディング規約を調べ、依頼を満たす最小の方針をdesign.jsonへ記載する。
 protocol.mdの「原指示と目的の契約」でrequestとsourcesを読み、実在する仕様・API・ライブラリ・既存関数を確認する。責務・データ・状態・依存・変更対象と動作確認を既存approach・decisions・traceabilityへ具体化する。問題の理解に必要な抽象化を、コードの抽象層追加と混同しない。
@@ -14,7 +16,7 @@ protocol.mdの「原指示と目的の契約」でrequestとsourcesを読み、�
 影響範囲、判断理由、実際に使える回復手順を示す。
 
 全要件IDをtraceabilityで変更予定パスと検証IDに対応づける。
-検証コマンドはproject.jsonのchecksにargv配列とタイムアウトで登録する。
+検証コマンドはproject.jsonのchecksにargv配列で登録し、既定の時間上限は設けない。
 既存のテスト・lintを使い、受入条件を直接確認できない場合は適切な検証を追加する。
 意味のない成功コマンドや、実装をそのままなぞる検証で受入条件を代用しない。
 

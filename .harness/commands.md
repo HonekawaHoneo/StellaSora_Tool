@@ -1,5 +1,18 @@
 # CLIとプロジェクト設定
 
+0.17.0の開始・発言ごとの再開・実読出し・適用JSONは[実行契約の手引き](execution.md)を正本とする。新規CLI作業は実行契約が既定で、旧固定版と既存工程記録は自動変更しない。Cloudは各発言・再開でbeginを明示実行する。
+
+## 必須担当と検査後の保存
+
+```sh
+python3 .harness/harness.py guide --activity code
+python3 .harness/harness.py guide --activity review --activity ux
+python3 .harness/harness.py guide --activity performance --activity typescript --activity impact
+python3 .harness/harness.py --json save --message "変更内容" --path src/app.py --path tests/test_app.py
+```
+
+guideは常用5担当と現在工程・activityの必須Skillを返す。独自割当があっても既定常用担当を省かず、同じファイルは重複して読まない。saveは対象だけを一時indexで検査し、通常commit・push・実リモート照合を行う。未関係のstageは拒否し、残る未保存ファイルは結果へ示す。[検査・既存Hook・保証範囲](secure-save.md)を参照。
+
 ## リモートへの保存確認
 
 ```sh
@@ -47,23 +60,30 @@ UI providerに渡される環境変数は `CODEXENVSET_CHANGE_ID`、`CODEXENVSET
 プロジェクトルートから実行します。`--project <path>`、`--json`はサブコマンドより前に指定します。
 
 ```sh
-python3 .harness/harness.py new search --kind change --author developer-1 --context session-1
+python3 .harness/harness.py new search --kind change --author developer-1 --context session-1 --request-file .harness/changes/.inputs/request-developer-1.txt
+python3 .harness/harness.py begin search --context session-1 --request-file .harness/changes/.inputs/request-developer-1.txt --activity code
+# TOKENは今回返されたexecution.token。実読出しとapply-skills後に移行する。
 python3 .harness/harness.py status search
 python3 .harness/harness.py --json check search
-python3 .harness/harness.py advance search
-python3 .harness/harness.py run search
 python3 .harness/harness.py fingerprint search
 python3 .harness/harness.py reopen search design --reason '影響範囲の見直し'
-python3 .harness/harness.py ci search
 ```
+
+工程移行は`python3 .harness/harness.py advance search --turn CURRENT_PHASE_TOKEN`、implementation/reviewの検証は`python3 .harness/harness.py run search --turn CURRENT_IMPLEMENTATION_TOKEN`を使う。各tokenはその工程の実読出し・適用記録が成立した実値とし、advance後は次工程で入り直す。done後のCIは`python3 .harness/harness.py ci search`。詳細な実行順はexecution.mdへ戻る。
 
 | コマンド | 内容 |
 | --- | --- |
-| new | 新しい変更単位を開始し、開始時のファイル指紋を記録 |
+| new | --request-fileの原依頼をdiscovery.requestへ保存し、新しい変更とexecution.tokenを返す。UIは--ui |
+| begin | 実際の現在入力を--request-file（または-の標準入力）で受け、--contextと対象工程・Skillに結ぶtokenを返す。activityは複数指定可 |
+| inspect | 登録済みinspection_checksを実装前に実行。現在の--turnを使い、ソース不変・終了コード・ログを記録する。UI合格や工程移行にはしない |
+| skill-read / context-read | --turnのSkill実本文、またはguideにある原資料の相対--pathを読み、実読出しを記録 |
+| apply-skills | --turnと--fileの適用JSONを検査。全roleの判断と実ファイルのanchor/pointer・指紋を要求 |
+| execution-status / finish | --turnの成立状態を確認、または成立した記録を閉じる。閉じたtokenは次の編集に使えない |
 | status | 工程・作業者・完了記録を表示。成果物の合格判定は行わない |
 | check | 現在の工程まで全条件を検証。未完成なら終了コード1 |
-| advance | 全条件に成功すると次の工程へ移行し、空の成果物テンプレートを作る |
-| run | implementation以降で登録済み検証を順に実行し、証跡を保存 |
+| advance | --turnの実行契約と工程条件を検査してtokenを閉じ、次の工程へ移行。review→doneでは対象検査・commit・push・実リモート照合も実行 |
+| save-change | doneへの移行後、失敗した対象変更の保存を再開。--local-onlyはadvanceで本人の明示指定時だけ使用 |
+| run | implementation/reviewでは現在の--turnを検査し、登録済み検証を実行。doneは完了時の適用根拠を再検査 |
 | fingerprint | 実装・上流成果物の現在の指紋を表示。レビュー結果への転記に使う |
 | reopen | 現在以前の工程へ戻り、そこから後の完了記録を取り消す。成果物と履歴を残す |
 | ci | 指定変更IDのdoneと全条件を検証し、登録検証をその場で再実行 |
@@ -76,8 +96,9 @@ python3 .harness/harness.py ci search
 {
   "schema_version": 1,
   "checks": [
-    {"id": "tests", "argv": ["npm", "test", "--", "--run"], "timeout_seconds": 300},
-    {"id": "lint", "argv": ["npm", "run", "lint"], "timeout_seconds": 120}
+    {"id": "tests", "kind": "test", "argv": ["npm", "test", "--", "--run"]},
+    {"id": "lint", "kind": "lint", "argv": ["npm", "run", "lint"]},
+    {"id": "security", "kind": "security", "argv": ["npm", "run", "security"]}
   ],
   "snapshot_ignore": ["coverage/*", "dist/*"],
   "skill_bindings": {
@@ -89,7 +110,7 @@ python3 .harness/harness.py ci search
 }
 ```
 
-コマンドは例です。プロジェクトに存在するスクリプトとテストランナーのオプションを確認してから登録します。
+コマンドは例です。0.17.0の新規実行契約はtest・lint・securityのkindを要求します。対象言語・既存構成で実際に利用でき、対象を検査するスクリプトとオプションを確認して登録します。単に成功を返すコマンドで分類を埋めません。
 この版の標準割当は、原本・依存・ライセンスとともに導入される実スキルです。
 argvはシェル文字列ではなく引数の配列です。パイプ・環境変数の展開・複数コマンドの連結を自動解釈しません。
 必要なら、プロジェクトが所有する検証用スクリプトをargvから実行します。
@@ -160,7 +181,7 @@ python3 scripts/install.py --project /path/to/app --update-from 0.3.0 --profile 
 
 ### 品質確認から配送まで
 
-コードをコミットし、独立レビュアーが実際に取得したマージ先のSHAをreview.jsonのbase_shaに記録する。品質工程をdoneまで進め、必要な証跡をコミットして通常のpushを行う。証跡だけのコミットでコード指紋が変わらなければレビューを再利用できる。
+コードをコミットし、独立レビュアーが実際に取得したマージ先のSHAをreview.jsonのbase_shaに記録する。品質工程をdoneまで進める。0.17.0のCLIはreview→doneで対象だけを検査し、必要な証跡をcommit/pushして実リモートを照合する。失敗はsave-changeで再開する。証跡だけのコミットでコード指紋が変わらなければレビューを再利用できる。
 
 ```sh
 python3 .harness/harness.py --json ship-check feature

@@ -3,6 +3,7 @@
   "checks": [
     {
       "id": "tests",
+      "kind": "test",
       "argv": [
         "python",
         "-m",
@@ -11,17 +12,17 @@
         "-s",
         "tests",
         "-v"
-      ],
-      "timeout_seconds": 120
+      ]
     },
+    {"id": "syntax", "kind": "lint", "argv": ["python", "-m", "compileall", "-q", "src", "tests"]},
+    {"id": "security", "kind": "security", "argv": ["python", ".harness/security.py", "check-index", "."]},
     {
       "id": "structure",
       "argv": [
         "python",
         ".harness/structure.py",
         "check"
-      ],
-      "timeout_seconds": 120
+      ]
     }
   ],
   "verification_inputs": [

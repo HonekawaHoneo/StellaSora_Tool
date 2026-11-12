@@ -11,6 +11,31 @@ SKILL.mdはCodex向けの名前・説明とこの接続規約を加えた版で�
 
 ## 工程の接続
 
+### 常用担当と条件別の必須担当
+
+0.17.0の新規作業は[実行契約の手引き](execution.md)へ接続する。実際の入力でbeginし、required_skillsの本文をskill-read、原指示・確定条件をcontext-readで読み、全roleの適用先をapply-skillsの実ファイル参照へ結ぶ。同じ実ファイルは一度の読出しで足りる。担当一覧や自己申告を実施済みの根拠にしない。nativeは実Hook入力から接続し、Cloudは各発言・再開で明示実行する。
+
+各ユーザー発言・再開でevidence-first-response、poteto-mode、ponytail、unslop、technical-writingを必ず使う。自然な日本語、意味・条件・根拠の保持、最小十分な実行に適用する。短い質問でも担当は省かず、不要な工程説明や文書は増やさない。guideは既定の常用Skillと該当作業の必須Skillを固定参照として返し、利用者の独自割当は追加担当として保つ。独自のreview/UI担当で必須担当を置換しない。同じ実ファイルの重複読込みは不要。
+
+| 該当する作業 | guide --activity | 必須の追加担当 |
+| --- | --- | --- |
+| コードの設計・実装 | code | implementation-planning。ponytailは常用 |
+| コードのレビュー | review | ponytail-review、quality-review、blast-radius、no-comments |
+| UI・UXの作成・変更・評価 | ui / ux | semantic-ui-design、ui-implementation-harness。読取専用レビューでも省かない |
+| 構造・型・境界の検討 | architecture | architect。該当する24原則のleafもpoteto-modeから選ぶ |
+| 性能の計測・主張 | performance | benchmark-checklist、principle-explain-the-number |
+| TypeScript | typescript | typescript-best-practices |
+| 変更の波及確認 | impact | blast-radius |
+| 操作検証手順の作成・保守 | verification / verification-maintenance | create-verification-skill / maintain-verification-skill |
+| 文脈復帰・長期作業 | context / long-running | recallとprinciple-guard-the-context-window / show-me-your-workとprinciple-guard-the-context-window |
+| 再発する誤りの是正 | correction | correct、根本原因・構造化の原則 |
+| 複数案・反証・並列作業 | design-options / adversarial / parallel | arena / interrogate / swarm |
+| 調査・説明・振り返り等 | how / why / teach / sharpen / recap / planning / reflect / personalize / bot-ui | 各作業に対応する同梱Skill |
+
+activityは複数指定できる。実際の変更予定パス・変更パスにUI/UX・TypeScript等が含まれる場合も該当担当を追加し、非該当との自己申告で外さない。設計・実装の現在工程はcode、review/doneはreview、UI変更の記録はUI担当を自動で追加する。進行中変更なしの読取専用レビューは`guide --activity review`を使い、変更単位を作る必要はない。条件が合う担当は任意扱いにせず、非該当の全Skillを毎回読み込むこともしない。既存のホスト権限・利用可能ツール・上流原本の固定を保ち、使用したという自己申告を意味理解の証明にしない。
+
+読取専用のUI/UX評価は既存画面と両Skillで調査でき、調査のためだけにv3の変更単位を作らない。guideのUI未接続blockerは製品編集や検証済みの判定を許可しない意味であり、観察自体を禁止しない。新規UI変更と原則検証済みの完了には既定のv3/enforceと証跡が必要。
+
 | 工程・役割 | 実スキル | 成果物と境界 |
 | --- | --- | --- |
 | 全体進行 | poteto-mode | state.jsonで現在地を確認し、共通工程の中で必要なプレイブック・補助スキルを選ぶ |
@@ -37,6 +62,7 @@ requirements-discovery、implementation-planning、quality-reviewは成果物契
 | AskQuestion、AskUserQuestion | ホストの質問ツールを使う。調査で分かる事実を質問せず、利用者の判断が必要な事項をまとめる |
 | Grok / Claudeの既定モデル名 | そのまま指定しない。既定はinherit-parentでモデル指定を省略する。別モデルは実際に利用可能で、ユーザーやホストが許可した場合だけ使う |
 | `.cursor/rules/pstack-models.mdc`、Cursorのモデル一覧 | Codexのモデル設定と実際のツール能力を使う。Cursorのホーム設定を新設・書き換えしない |
+| writing-skillsの参照接続改訂 | コマンド・参照・フィールドの配線だけを変える場合は、改訂前に失敗する参照・構文・適用先の実検査を作り、改訂後に再実行する。意味判断や行動を変える場合は実際の独立した行動評価を行う。機械的な文字列検査をAIの意味理解や遵守の証明と呼ばない。未実施の圧力試験・委譲は実施済みと記録しない |
 | create-skill | 利用可能なスキル作成手順を使う。なければスキルの形式・参照・ライセンスを直接検証し、同名ツールを使ったとは記録しない |
 | cursor-team-kitのdeslop | 当該スキルが利用可能なら使う。なければ同梱unslop・no-commentsと実際のdiff/lintで対応し、Codexでの代替と記録する |
 | control-cli / control-ui | 利用可能なCLI・ブラウザ操作で実物を検証する。使えない操作面を検証済みと扱わない |

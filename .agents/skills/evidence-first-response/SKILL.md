@@ -3,9 +3,10 @@ name: evidence-first-response
 description: >-
   Use when responding to any user message, including questions, research,
   decisions, writing, editing, and technical work; especially when intent,
-  factual support, user assertions, or completion status need care.
+  factual support, user assertions, completion status, continuing conversation,
+  corrections, or recovery after context compaction need care.
 metadata:
-  version: "1.2.0"
+  version: "1.5.0"
   language: "ja"
 ---
 
@@ -14,6 +15,26 @@ metadata:
 ユーザーの目的を満たす具体的な回答を、独立した判断と確認できる根拠に基づいて作る。自然な日本語を基本とし、ユーザーが指定した言語・形式を優先する。上位指示と個別の依頼を守る。
 
 すべての応答に適用し、確認の深さを課題に合わせる。挨拶、単純な計算、完成文だけを求める依頼には、その依頼に必要な処理だけを行う。このスキル自体は、ホストによる毎回の読み込みを保証しない。
+
+0.17.0の新規作業は対象の`.harness/execution.md`の実行契約へ接続する。実際の現在入力でnew --request-fileまたはbeginを行い、skill-read/context-readで実本文・原資料を読み、全必須roleの適用先をapply-skillsの実ファイル根拠へ結ぶ。nativeは実Hook入力から開始し、Cloudは各発言・圧縮後の再開でbeginを明示実行する。成果物・設定・担当・工程・根拠が変わったら現在の実入力から入り直し、古いtokenを付け替えない。advanceはその工程のtokenを閉じる。閉じた記録は新しい編集許可に使わない。詳細なコマンドとJSONは対象の`.harness/execution.md`を使い、通常回答へ工程を展開しない。
+
+各発言でpoteto-mode、ponytail、unslop、technical-writingも必ず読み、該当手順を適用する。日本語では意味・具体性・根拠を保ち、自然な文と一貫した語を使う。短い返答にも適用するが、全工程の実況や不要な文書を増やさない。guideのrequired_skillsを使い、同じ実ファイルは一度の読込みでよい。独自担当の割当があっても、この常用担当を省かない。
+
+コード実装は`guide --activity code`、コードレビューは`guide --activity review`、UI/UXは`guide --activity ui`または`--activity ux`を使う。コードを変更しないUI/UXレビューも両UI担当を使い、必要ならreviewを併用する。性能・TypeScript・影響範囲・検証手順・文脈復帰なども該当activityを指定し、返された担当を必ず読む。作業種別は複数指定でき、自然文を自動判定して呼び出したことにはしない。詳細はskill-compatibilityの必須担当を参照する。
+
+成果物の保存は原則として自動で行う。新契約ではreview→doneのadvanceが対象検査・commit・push・実リモート照合へ接続し、失敗はsave-changeで再開する。関連するファイルだけを`harness.py save --message ... --path ...`へ渡し、セキュリティ検査→commit→push→実リモート照合を行う。無関係のstageや機密ファイルを混ぜず、問題を検出したら保存を止める。privateファイルの削除、`--no-verify`、Hook無効化、force pushで通さない。未保存のファイルが残る場合は全作業保存済みと報告しない。
+
+## 継続会話では各ターンで入り直す
+
+初回の読込みを、その後の全ターンで判断済みという扱いにしない。ユーザーの新しい発言、訂正、作業中の質問、圧縮・中断後の再開ごとに、次の順で内部確認して回答・作業へ戻る。確認の実況や定型の分析文は表示しない。
+
+1. **目的と具体条件を回収する。** 会話の原指示、確定条件、その後の本人の明示変更を確認する。新契約へ接続済みなら実際の入力によるbeginのtokenで対象IDのguideを確認し、skill-read/context-readで実読出しを記録して、responseと現在工程のrequired_skills、continuity.context_pathsから必要な原指示・要件・設計を読む。完了済み作業への続きは既知の対象IDを明示して資料を回収し、古いdoneを今回の完了証拠にはしない。対象不明ならchangesと原指示を調べ、勝手に最新IDを選ばない。圧縮要約や直前の自分の回答を別の正本にしない。全履歴の再読ではなく、関係する保存先と差分へ戻る。旧固定版にbegin・guide・continuityがなければ、その版のstatus/checkと既存成果物、利用可能な実Skillへ直接戻り、自動更新しない。未対応を新契約の実施済みと扱わない。
+2. **最新発言との関係を決める。** 続き、訂正・追加条件、進捗や説明の質問、例示、別の依頼、中止・置換を区別する。追加条件は元の目的・未変更の制約へ積み重ねる。進捗質問へ短く答えた後は、許可済みの作業を続ける。新しい発言だけで元の目的を消さず、明示された置換・中止には従う。
+3. **抽象化して具体条件へ戻す。** 達成したい結果を捉え、対象、値、否定、例外、優先順序、指定手段を元の発言と照合する。UI文面・会話の回答・コードなど、条件の適用対象も保持し、UIの説明禁止を会話で必要な回答まで拡張しない。例示を必須手法や検討範囲の上限へ変えず、推測した目的で確定指示を上書きしない。
+4. **問い自体を確認する。** ユーザーの問いの前提は確認済みか、答えると目的の達成に役立つか、手段の仮説を実装指示と誤認していないかを調べる。実質的な前提誤りだけを簡潔に示し、目的に合う具体的な回答・実行へつなげる。こちらから質問する前は、既に答えがあるか、利用可能な資料から調べられるか、回答が次の判断・動作を変えるかを確認する。取得できる条件を再質問せず、必要な不足だけ聞く。
+5. **具体的な次の行動へ戻す。** 現在の受入条件、変更範囲、次の操作・検証と担当Skillへ結ぶ。通常の質問や進捗確認だけで変更単位・承認・長文分析を増やさない。実際に要求が変わった場合は、元の指示を消さず既存discovery.request等へ追加・訂正を記録し、影響する最も上流の工程からreopenする。discovery.requestを変えた場合はdiscoveryから戻す。requirementsやdesignだけをreopenして承認済みdiscoveryの変更を通そうとしない。変更前のreadyやdoneを新しい依頼の完了証拠にしない。
+
+要約と保存済み条件が食い違えば、原文と本人の最新の明示変更を照合して直す。古い保存内容を新しい本人の訂正より優先しない。元情報を取得できず重要な判断が変わる場合だけ、その不足を具体的に確認する。
 
 ## 1. 何を満たす回答かを捉える
 
