@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-11-12T15:34:46.742337+00:00",
+  "project_digest": "2e78d496aa0e3667d6089776782f3f5383c4020e0c2dca8c560b9b2589a6f733",
+  "artifacts_digest": "ecbe5c98674a9b8b2b452fc6eafd2e78d2bac9e903a2e56f4281f502788d1954",
+  "checks": [
+    {
+      "timeout_seconds": 40,
+      "id": "counter",
+      "argv": [
+        "node",
+        "--test",
+        "tests/counter.test.cjs"
+      ],
+      "kind": "test"
+    },
+    {
+      "timeout_seconds": 40,
+      "id": "pages",
+      "argv": [
+        "python",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py"
+      ],
+      "kind": "security"
+    },
+    {
+      "timeout_seconds": 40,
+      "id": "pages-sync",
+      "argv": [
+        "python",
+        "-X",
+        "utf8",
+        "scripts/build-site.py",
+        "--check-pages"
+      ],
+      "kind": "lint"
+    },
+    {
+      "timeout_seconds": 90,
+      "id": "summary-browser",
+      "argv": [
+        "node",
+        "development/ui/summary-browser.mjs"
+      ],
+      "kind": "test"
+    },
+    {
+      "id": "secret-scan",
+      "kind": "security",
+      "argv": [
+        "bash",
+        "scripts/scan-secrets.sh"
+      ]
+    }
+  ],
+  "checks_digest": "4e4b3380eeb08f6b9e809e2c1cdbd5bf35188560927090197f3bc50e435f9290",
+  "source_changes": [
+    "development/ui/summary-browser.mjs",
+    "dist/app.js",
+    "dist/index.html",
+    "dist/styles.css",
+    "docs/app.js",
+    "docs/index.html",
+    "docs/styles.css"
+  ],
+  "base_sha": null,
+  "ci_base_sha": null,
+  "provenance": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "head_sha": "2b2d15fd37e51af2f5b59edcd50c258b49905ea8"
+  },
+  "results": [
+    {
+      "id": "counter",
+      "argv": [
+        "node",
+        "--test",
+        "tests/counter.test.cjs"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "started_at": "2026-11-12T15:34:46.800834+00:00",
+      "finished_at": "2026-11-12T15:34:46.965260+00:00",
+      "log": ".harness/changes/ui-b-no-percent/evidence/c0c9923adb0c47ca8a6b4d4ba318b09c-counter.log",
+      "log_digest": "6be0f2ec38ac2cd430d2c7b4abafc3cf2082f47ce736cafdfadfdb291d673ac8"
+    },
+    {
+      "id": "pages",
+      "argv": [
+        "python",
+        "-X",
+        "utf8",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_*.py"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "started_at": "2026-11-12T15:34:46.965949+00:00",
+      "finished_at": "2026-11-12T15:34:47.130386+00:00",
+      "log": ".harness/changes/ui-b-no-percent/evidence/c0c9923adb0c47ca8a6b4d4ba318b09c-pages.log",
+      "log_digest": "f19207a50aa593a6964229ca2186be9c36904ef048369013e957b0da0a202923"
+    },
+    {
+      "id": "pages-sync",
+      "argv": [
+        "python",
+        "-X",
+        "utf8",
+        "scripts/build-site.py",
+        "--check-pages"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "started_at": "2026-11-12T15:34:47.130965+00:00",
+      "finished_at": "2026-11-12T15:34:47.195020+00:00",
+      "log": ".harness/changes/ui-b-no-percent/evidence/c0c9923adb0c47ca8a6b4d4ba318b09c-pages-sync.log",
+      "log_digest": "d4ae6f0663c34ffb5690cf552a2df3586dd8514f0e866194ac2b86b08b98b2bd"
+    },
+    {
+      "id": "summary-browser",
+      "argv": [
+        "node",
+        "development/ui/summary-browser.mjs"
+      ],
+      "returncode": 0,
+      "timed_out": false,
+      "started_at": "2026-11-12T15:34:47.195576+00:00",
+      "finished_at": "2026-11-12T15:35:00.984447+00:00",
+      "log": ".harness/changes/ui-b-no-percent/evidence/c0c9923adb0c47ca8a6b4d4ba318b09c-summary-browser.log",
+      "log_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "secret-scan",
+      "argv": [
+        "bash",
+        "scripts/scan-secrets.sh"
+      ],
+      "returncode": 1,
+      "timed_out": false,
+      "started_at": "2026-11-12T15:35:00.987899+00:00",
+      "finished_at": "2026-11-12T15:35:04.586905+00:00",
+      "log": ".harness/changes/ui-b-no-percent/evidence/c0c9923adb0c47ca8a6b4d4ba318b09c-secret-scan.log",
+      "log_digest": "6251f71475d8650aa6828c3d91ab97d41de9a4433d77220d3616cf110f9d31ae"
+    }
+  ],
+  "success": false,
+  "finished_at": "2026-11-12T15:35:04.651783+00:00",
+  "source_unchanged": true
+}

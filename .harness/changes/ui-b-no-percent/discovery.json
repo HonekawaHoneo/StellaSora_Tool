@@ -1,0 +1,21 @@
+{
+  "request": "スマホ、pcともにbを採用\n頻繁に見る項目はstickyで常に表示\n\n利用者からのフィードバックで、常に表示されていてほしいものはないらしい\n代わりに%表示を消して\n",
+  "goal": "採用済みのB案をスマホとPCの本体へ反映し、スクロール固定を行わず達成率の数値表示を削除する。研究の残数と取得・使用済み回数を区別し、周回操作と保存互換性を保つ。",
+  "current_behavior": "本体は現行レイアウトのままで、研究は音符購入の後ろ。スマホでは集計がstickyで、34%などの達成率を表示する。B案はモックで採用済みだが本体未反映。",
+  "constraints": [
+    "スマホ・PCともにdevelopment/ui/mockups/rule-uiのB案を採用する。研究と支出の所属を分け、研究の残数と取得・使用回数を明示する。",
+    "最新の利用者フィードバックによりsticky要求は撤回された。全画面幅で集計・研究を固定表示しない。",
+    "削除する%は達成率の数値。価格区分の20%引き、価格・割引順・単位、進捗バーと到達・超過状態は維持する。",
+    "9カウンターID、研究上限10/5、価格、計算、保存キー、安全整数入力、上限超過値の保持、目標を保つリセットを維持する。",
+    "説明・Q&A・ツールチップ・本番依存を増やさない。distを正本としてdocsを同期する。",
+    "変更は作業ブランチへ保存し、現在のcompletion=reviewに従い公開・マージを行わない。"
+  ],
+  "evidence": [
+    "development/ui/mockups/rule-ui/concept.json",
+    "development/ui/mockups/rule-ui/previews/b-mobile.png",
+    "development/ui/mockups/rule-ui/previews/b-desktop.png",
+    "README.md",
+    ".harness/changes/game-purpose-ui/inputs/source-review.md"
+  ],
+  "open_questions": []
+}

@@ -1,0 +1,25 @@
+{"time": "2026-11-12T15:10:36.098031+00:00", "event": "created", "kind": "change", "author": "codex", "context": "codex-ui-b-20261113"}
+{"time": "2026-11-12T15:12:18.672586+00:00", "event": "inspection", "check": "ui-before", "log": ".harness/changes/ui-b-no-percent/evidence/inspection-fcbcbea4dcb24dcda9a8e0d5d1907144/1fa7195474c94bb2bae7a5cdc1d28acc-ui-before.log", "log_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}
+{"time": "2026-11-12T15:17:04.829829+00:00", "event": "skill_application_verified", "token": "a71c56bd10ad4cce81ad95534982080b", "phase": "discovery", "request_digest": "9f467ae128e4513fc297499cf92dcc98c18e94bfb02b3d493c8b4aa1048d609b"}
+{"time": "2026-11-12T15:17:04.832663+00:00", "event": "advanced", "previous": "discovery", "phase": "requirements", "artifact_digest": "081ff925442f6a736864c2889e808de79179808fe7e5f8e327179dbc52c4d92f"}
+{"time": "2026-11-12T15:17:08.153175+00:00", "event": "gate_failed", "phase": "requirements", "reason": "SRC-2: 確定要求・制約はbindingが必要です"}
+{"time": "2026-11-12T15:18:10.313947+00:00", "event": "skill_application_verified", "token": "86fe0677921e4cce884b36155d9fe0bc", "phase": "requirements", "request_digest": "9f467ae128e4513fc297499cf92dcc98c18e94bfb02b3d493c8b4aa1048d609b"}
+{"time": "2026-11-12T15:18:10.317266+00:00", "event": "advanced", "previous": "requirements", "phase": "design", "artifact_digest": "b04f38cce3050368b22377e49e30c8124401405a84a172109f48dd1bfb7c79f8"}
+{"time": "2026-11-12T15:23:25.723702+00:00", "event": "gate_failed", "phase": "design", "reason": "成果物自身を実装影響範囲に指定できません"}
+{"time": "2026-11-12T15:24:26.340061+00:00", "event": "skill_application_verified", "token": "d8091e1ab0d7475aac84cdda8e9bb2a8", "phase": "design", "request_digest": "9f467ae128e4513fc297499cf92dcc98c18e94bfb02b3d493c8b4aa1048d609b"}
+{"time": "2026-11-12T15:24:26.343872+00:00", "event": "advanced", "previous": "design", "phase": "implementation", "artifact_digest": "6dc8326d539aea07af97b0fd7d12b426b2cb5a274cdb1c0735566751ecd6410d"}
+{"time": "2026-11-12T15:31:04.870210+00:00", "event": "reopened", "previous": "implementation", "phase": "design", "reason": "B案で採用済みのPC音符操作幅28pxと、長い回数・タッチ端末の入力領域を設計へ明記する。製品の変更前に寸法を固定する。"}
+{"time": "2026-11-12T15:31:10.879302+00:00", "event": "skill_application_verified", "token": "ca38048aab894401994a099633e85715", "phase": "design", "request_digest": "9f467ae128e4513fc297499cf92dcc98c18e94bfb02b3d493c8b4aa1048d609b"}
+{"time": "2026-11-12T15:31:10.882629+00:00", "event": "advanced", "previous": "design", "phase": "implementation", "artifact_digest": "3ab4aa824865cf2ae7285d0311c7efbbe5054a809c5c3c94fbdb4409595303d3"}
+{"time": "2026-11-12T15:35:04.653120+00:00", "event": "verification", "success": false, "receipt": "evidence/c0c9923adb0c47ca8a6b4d4ba318b09c.json"}
+{"time": "2026-11-12T15:39:21.203839+00:00", "event": "reopened", "previous": "implementation", "phase": "design", "reason": "安全な保存に必要な、検証済み公開ハッシュ2件の厳密な誤検出除外と対照試験を変更範囲へ追加する。"}
+{"time": "2026-11-12T15:39:28.463900+00:00", "event": "skill_application_verified", "token": "603d1a331c25465c826f790b15f7214e", "phase": "design", "request_digest": "9f467ae128e4513fc297499cf92dcc98c18e94bfb02b3d493c8b4aa1048d609b"}
+{"time": "2026-11-12T15:39:28.472586+00:00", "event": "advanced", "previous": "design", "phase": "implementation", "artifact_digest": "eb8b087beef79c940229e49da216a5d8f0cd89e0a12befe9cd63c19194685155"}
+{"time": "2026-11-12T15:42:02.466110+00:00", "event": "verification", "success": true, "receipt": "evidence/5ad3a5a87f844375a18c5ba1ec39dab3.json"}
+{"time": "2026-11-12T15:43:22.703229+00:00", "event": "skill_application_verified", "token": "72cc4c9b12aa4d3099a592ee9ce1f882", "phase": "implementation", "request_digest": "9f467ae128e4513fc297499cf92dcc98c18e94bfb02b3d493c8b4aa1048d609b"}
+{"time": "2026-11-12T15:43:22.706989+00:00", "event": "advanced", "previous": "implementation", "phase": "review", "artifact_digest": "595aa9bc06dd0f348f05967e2a4cd2d72f21a44e00abfc8bfc1d87488ffce550"}
+{"time": "2026-11-12T16:01:23.178838+00:00", "event": "skill_application_verified", "token": "514ebe070ea64dee854658edc58c26e2", "phase": "review", "request_digest": "7f8cdbc44bd6e786e97d29ddb67eb65dcc89957194f8bb6c2426662989c8e126"}
+{"time": "2026-11-12T16:01:23.183383+00:00", "event": "advanced", "previous": "review", "phase": "done", "artifact_digest": "b1046ea4c0c4059c0b43ad2807d5a5771c59d42b9f2621d60c9f36cd275dec44"}
+{"time": "2026-11-12T16:03:53.330117+00:00", "event": "reopened", "previous": "done", "phase": "review", "reason": "完了時にstate.jsonの工程が変わり、独立レビューのSkill適用根拠に含まれていた可変state参照が失効した。製品・要件・設計・検証結果は変更せず、同じ独立レビュアーが不変のレビュー/検証証跡へ根拠を接続し直す。"}
+{"time": "2026-11-12T16:06:04.921560+00:00", "event": "skill_application_verified", "token": "5ecf9fe054ce403b9a55f90849e25024", "phase": "review", "request_digest": "aef039b86dd2f7699679c1b1d41544492d39daa8e02b4ec5f1a27f43caf7eb14"}
+{"time": "2026-11-12T16:06:04.925213+00:00", "event": "advanced", "previous": "review", "phase": "done", "artifact_digest": "b1046ea4c0c4059c0b43ad2807d5a5771c59d42b9f2621d60c9f36cd275dec44"}

@@ -1,0 +1,20 @@
+{
+  "summary": "採用済みB案を両幅の本体へ反映。残数と取得/使用済み回数を分離し、通常フローへ戻して達成率テキストを削除。保存・計算は既存のまま。",
+  "author": "codex",
+  "changed_paths": [
+    "dist/index.html",
+    "dist/styles.css",
+    "dist/app.js",
+    "docs/index.html",
+    "docs/styles.css",
+    "docs/app.js",
+    "development/ui/summary-browser.mjs",
+    ".gitleaks.toml",
+    "scripts/check-secret-rules.py"
+  ],
+  "deleted_paths": [],
+  "limitations": [
+    "進捗バーのアクセシブルな値は維持するが、可視の達成率数値は表示しない。",
+    "公開・マージは現在の依頼範囲外。"
+  ]
+}

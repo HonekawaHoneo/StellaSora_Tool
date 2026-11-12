@@ -21,7 +21,6 @@
   const progressArea = progress.parentElement;
   const progressFill = document.getElementById('progress-fill');
   const progressLabel = document.getElementById('progress-label');
-  const progressPercent = document.getElementById('progress-percent');
   const storageStatus = document.getElementById('storage-status');
   const cards = new Map();
   const groups = {
@@ -63,17 +62,20 @@
       <div class="card-heading">
         ${heading}
       </div>
+      ${record ? '<div class="used-count-operation"><span class="used-count-label">' + (id === 'trait3' ? '取得' : '使用') + '</span>' : ''}
       <div class="counter-controls">
         <button class="count-button decrement" type="button" aria-label="${countLabel}を1減らす"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12"/></svg></button>
         <input id="count-${id}" class="count-input" type="number" min="0" max="9007199254740991" step="1" inputmode="numeric" autocomplete="off" aria-label="${countLabel}"${record ? ' aria-describedby="research-condition"' : ''} value="0">
         <button class="count-button increment" type="button" aria-label="${countLabel}を1増やす"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h12M10 4v12"/></svg></button>
       </div>
-      ${record ? '<p class="card-subtotal research-remaining"></p>' : ''}`;
+      ${record ? '</div><p class="research-remaining">残り <strong class="remaining-number"></strong> 回<span class="research-capacity">/ ' + counter.limit + '</span><span class="research-excess"></span></p>' : ''}`;
     const input = card.querySelector('input');
     const decrease = card.querySelector('.decrement');
     const increase = card.querySelector('.increment');
-    const subtotal = card.querySelector('.card-subtotal');
-    cards.set(id, { input, decrease, increase, subtotal });
+    const usageOutput = card.querySelector('.research-remaining');
+    const remainingNumber = card.querySelector('.remaining-number');
+    const excess = card.querySelector('.research-excess');
+    cards.set(id, { input, decrease, increase, usageOutput, remainingNumber, excess });
 
     decrease.addEventListener('click', () => commit(model.adjustCount(state, id, -1)));
     increase.addEventListener('click', () => commit(model.adjustCount(state, id, 1)));
@@ -169,22 +171,21 @@
     progressFill.style.width = percent + '%';
     progress.setAttribute('aria-valuenow', Math.round(percent));
     progress.setAttribute('aria-valuetext', hasTarget ? Math.floor(percent) + '%' : '目標未設定');
-    progressPercent.textContent = hasTarget ? Math.floor(percent) + '%' : '';
     progressLabel.textContent = !hasTarget || rest > 0 ? '' : rest < 0 ? '目標超過' : '目標達成';
     progressArea.classList.toggle('complete', hasTarget && rest <= 0);
 
     for (const { id, cost } of model.COUNTERS) {
-      const { input, decrease, subtotal } = cards.get(id);
+      const { input, decrease, usageOutput, remainingNumber, excess } = cards.get(id);
       const count = state.counts[id];
       if (document.activeElement !== input) input.value = count;
       input.classList.toggle('long', String(count).length > 4);
-      input.parentElement.classList.toggle('wide-number', String(count).length > 5);
       fitNumber(input, input.value || '0');
       decrease.disabled = count === 0;
       if (cost === 0) {
         const usage = model.researchUsage(state, id);
-        subtotal.textContent = '残り' + number.format(usage.remaining) + ' / ' + usage.limit + '回' + (usage.excess ? '（' + number.format(usage.excess) + '回超過）' : '');
-        subtotal.classList.toggle('exceeded', usage.excess > 0);
+        remainingNumber.textContent = number.format(usage.remaining);
+        excess.textContent = usage.excess ? '超過 ' + number.format(usage.excess) + '回' : '';
+        usageOutput.classList.toggle('exceeded', usage.excess > 0);
       }
     }
     fitNumber(target, target.value || '0');

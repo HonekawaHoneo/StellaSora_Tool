@@ -130,7 +130,10 @@ function observe() {
   const label = '.metric-target .metric-label';
   const target = find('#target');
   const labels = [...document.querySelectorAll('.metric-label')].map(element => element.textContent.trim());
-  const rows = [...document.querySelectorAll('.metric')].map(element => element.getBoundingClientRect().top);
+  const rows = [...document.querySelectorAll('.metric')].map(element => {
+    const rectangle = element.getBoundingClientRect();
+    return Math.round(rectangle.top + rectangle.height / 2);
+  });
   const copyItems = { body: [], qa: [], tooltip: [], accessible_name: [] };
   const nodes = document.createTreeWalker(document.body, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT);
   const visibility = { opacityProperty: true, visibilityProperty: true };
@@ -174,11 +177,15 @@ function observe() {
   const progressRatio = trackWidth ? box('#progress-fill').width / trackWidth : 0;
   const spending = find('.spending');
   const spendingBox = box('.spending');
-  const membership = ['.summary', '.reroll-group', '.notes-group'].every(selector => {
+  const workspace = find('.compact-workspace');
+  const researchBox = box('.record-group');
+  const membership = ['.reroll-group', '.notes-group'].every(selector => {
     const area = box(selector);
     return spending.contains(find(selector)) && area.left >= spendingBox.left && area.right <= spendingBox.right &&
       area.top >= spendingBox.top && area.bottom <= spendingBox.bottom;
-  }) && spending.nextElementSibling === find('.record-group') && box('.record-group').top >= spendingBox.bottom;
+  }) && workspace?.contains(spending) && workspace.contains(find('.record-group')) &&
+    !spending.contains(find('.summary')) && !spending.contains(find('.record-group')) &&
+    (innerWidth >= 960 ? researchBox.right <= spendingBox.left : researchBox.bottom <= spendingBox.top);
   const indicatorContrast = Math.min(
     contrast(border, surface),
     contrast(style('.edit-icon').stroke, surface),
@@ -187,7 +194,16 @@ function observe() {
   return {
     texts, copyItems, copyBody: texts, copyQa: copyItems.qa.map(item => item.text),
     copyTooltip: copyItems.tooltip.map(item => item.text), copyAccessible: [],
-    labels, indicatorContrast, progressRatio, spendingBox, membership,
+    labels, indicatorContrast, progressRatio, spendingBox, membership: Boolean(membership),
+    noPercentDisplay: (!find('#progress-percent') || !find('#progress-percent').checkVisibility()) &&
+      [...document.querySelectorAll('.discount-20')].length === 2 &&
+      [...document.querySelectorAll('.discount-20')].every(element => element.textContent === '20%引き'),
+    researchSummary: {
+      remaining: [...document.querySelectorAll('.remaining-number')].map(element => element.textContent),
+      used: ['trait3', 'enhancement2'].map(id => find('#count-' + id).value),
+      roles: [...document.querySelectorAll('.used-count-label')].map(element => element.textContent),
+    },
+    remainingNumberSize: minFont('.remaining-number'),
     summaryHeight: box('.summary').height, appHeight: box('.app-shell').height,
     unitMinFont: minFont('.note-price span,.reroll-price span'),
     discountMinFont: minFont('.discount-badge'),
@@ -203,7 +219,7 @@ function observe() {
     summaryRows: new Set(rows).size,
     summaryBox: box('.summary'),
     progressConsistent: find('#total').textContent === '170' && find('#remaining').textContent === '330' &&
-      find('#progress-percent').textContent === '34%' && find('#progress').getAttribute('aria-valuenow') === '34' &&
+      find('#progress').getAttribute('aria-valuenow') === '34' &&
       find('#progress-fill').style.width === '34%' && Math.abs(progressRatio - 0.34) < 0.001,
     labelSize: parseFloat(style(label).fontSize),
     labelLine: parseFloat(style(label).lineHeight),
@@ -219,7 +235,7 @@ function observe() {
     targetLabel: target.labels[0]?.textContent.trim(),
     total: find('#total').textContent,
     remaining: find('#remaining').textContent,
-    percent: find('#progress-percent').textContent,
+    percent: find('#progress-percent')?.checkVisibility() ? find('#progress-percent').textContent : '',
     progress: find('#progress').getAttribute('aria-valuenow'),
     progressBar: find('#progress-fill').style.width,
   };
@@ -319,13 +335,13 @@ async function testTarget(send, snapshot) {
   const hitActivates = await evaluateOnPage("document.activeElement.id === 'target'");
   await send('Input.insertText', { text: '170' });
   await waitForProgress(send, 1);
-  const reached = await evaluateOnPage("document.querySelector('#remaining').textContent === '0' && document.querySelector('#progress-percent').textContent === '100%' && document.querySelector('#progress').getAttribute('aria-valuenow') === '100' && document.querySelector('#progress-fill').style.width === '100%'");
+  const reached = await evaluateOnPage("document.querySelector('#remaining').textContent === '0' && document.querySelector('#progress').getAttribute('aria-valuenow') === '100' && document.querySelector('#progress-fill').style.width === '100%'");
   const reachedState = await observeAll(send);
   await snapshot('reached');
   const previousLoad = await evaluateOnPage('performance.timeOrigin');
   await send('Page.reload');
   await waitFor(() => evaluateOnPage("performance.timeOrigin > " + previousLoad + " && document.readyState === 'complete'").catch(() => false), 'The page did not reload');
-  const persisted = await evaluateOnPage("document.querySelector('#target').value === '170' && document.querySelector('#remaining').textContent === '0' && document.querySelector('#progress-percent').textContent === '100%'");
+  const persisted = await evaluateOnPage("document.querySelector('#target').value === '170' && document.querySelector('#remaining').textContent === '0' && document.querySelector('#progress').getAttribute('aria-valuenow') === '100'");
   await evaluateOnPage("document.querySelector('#target').focus()");
   await send('Input.insertText', { text: '-1' });
   const invalid = await evaluateOnPage("document.querySelector('#target').getAttribute('aria-invalid') === 'true'");
@@ -374,7 +390,7 @@ async function testTarget(send, snapshot) {
   await waitForProgress(send, 1);
   const blocked = await observeAll(send);
   const storageFailure = !unset.storageVisible && blocked.storageVisible && blocked.remaining === '-70' &&
-    blocked.percent === '100%' && blocked.texts.includes('目標超過');
+    blocked.percent === '' && blocked.texts.includes('目標超過');
   await snapshot('storage');
   await evaluateOnPage('Storage.prototype.setItem = window.__providerSetItem; delete window.__providerSetItem');
   return {
@@ -453,7 +469,7 @@ async function testResearchLimit(send) {
   await fillCounter(send, '#count-trait3', '11');
   const result = await evaluate(send, '(() => { const card = document.querySelector("[data-id=trait3]"); ' +
     'const state = card.querySelector(".research-remaining"); return card.querySelector("input").value === "11" ' +
-    '&& ["残り0回 / 上限10回（1回超過）", "残り0 / 10回（1回超過）"].includes(state.textContent) && state.scrollWidth <= state.clientWidth ' +
+    '&& card.querySelector(".remaining-number")?.textContent === "0" && card.querySelector(".research-excess")?.textContent === "超過 1回" && state.scrollWidth <= state.clientWidth ' +
     '&& document.querySelector("#total").textContent === "170"; })()');
   await fillCounter(send, '#count-trait3', '0');
   return result;
@@ -535,6 +551,22 @@ async function testZoom(send, snapshot) {
     zoomMethod: '200% reflow equivalent via CSS viewport640 and DSF2; native browser UI zoom not exercised' };
 }
 
+async function testNormalScrollFlow(send, scenario) {
+  const selectors = ['.summary', '.record-group'];
+  const normalPosition = () => evaluate(send, '(' + JSON.stringify(selectors) + ').every(selector => !["sticky","fixed"].includes(getComputedStyle(document.querySelector(selector)).position))');
+  const initialPosition = await normalPosition();
+  await send('Emulation.setDeviceMetricsOverride', { width: scenario.width, height: 300, deviceScaleFactor: 1, mobile: scenario.mobile });
+  await evaluate(send, 'window.scrollTo(0,0); new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))');
+  const before = await evaluate(send, '({top:document.querySelector(".summary").getBoundingClientRect().top,scroll:scrollY})');
+  await evaluate(send, 'window.scrollTo(0,200); new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))');
+  const after = await evaluate(send, '({top:document.querySelector(".summary").getBoundingClientRect().top,scroll:scrollY})');
+  const shortPosition = await normalPosition();
+  await send('Emulation.setDeviceMetricsOverride', { width: scenario.width, height: scenario.height, deviceScaleFactor: 1, mobile: scenario.mobile });
+  await evaluate(send, 'window.scrollTo(0,0); new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))');
+  return initialPosition && shortPosition && after.scroll > before.scroll &&
+    Math.abs((after.top - before.top) + (after.scroll - before.scroll)) < 1;
+}
+
 async function capture(send, scenario, browserVersion, cases) {
   const { id, width, height, mobile } = scenario;
   await send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile });
@@ -575,6 +607,7 @@ async function capture(send, scenario, browserVersion, cases) {
   }
   await snapshot();
   if (!baseline) {
+    values.normalScrollFlow = await testNormalScrollFlow(send, scenario);
     Object.assign(values, await testTarget(send, snapshot));
     Object.assign(values, await testCounters(send));
     values.researchLimit = await testResearchLimit(send);

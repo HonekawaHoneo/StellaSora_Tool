@@ -1,0 +1,506 @@
+[
+  {
+    "innerWidth": 600,
+    "clientWidth": 600,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [
+      {
+        "selector": ".count-button",
+        "width": "32px",
+        "height": "32px",
+        "media": []
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(max-width: 599px)",
+            "matches": false
+          }
+        ]
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(pointer: coarse) and (min-width: 600px)",
+            "matches": true
+          }
+        ]
+      }
+    ],
+    "stage": "initial",
+    "is_mobile": false
+  },
+  {
+    "innerWidth": 600,
+    "clientWidth": 600,
+    "coarse": false,
+    "coarse600": false,
+    "computed": {
+      "width": "32px",
+      "height": "32px"
+    },
+    "matches": [
+      {
+        "selector": ".count-button",
+        "width": "32px",
+        "height": "32px",
+        "media": []
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(max-width: 599px)",
+            "matches": false
+          }
+        ]
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(pointer: coarse) and (min-width: 600px)",
+            "matches": false
+          }
+        ]
+      }
+    ],
+    "stage": "after-fullpage-screenshot",
+    "is_mobile": false
+  },
+  {
+    "innerWidth": 600,
+    "clientWidth": 600,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [
+      {
+        "selector": ".count-button",
+        "width": "32px",
+        "height": "32px",
+        "media": []
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(max-width: 599px)",
+            "matches": false
+          }
+        ]
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(pointer: coarse) and (min-width: 600px)",
+            "matches": true
+          }
+        ]
+      }
+    ],
+    "stage": "reload",
+    "is_mobile": false
+  },
+  {
+    "innerWidth": 600,
+    "clientWidth": 600,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [
+      {
+        "selector": ".count-button",
+        "width": "32px",
+        "height": "32px",
+        "media": []
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(max-width: 599px)",
+            "matches": false
+          }
+        ]
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(pointer: coarse) and (min-width: 600px)",
+            "matches": true
+          }
+        ]
+      }
+    ],
+    "stage": "tap",
+    "is_mobile": false
+  },
+  {
+    "innerWidth": 601,
+    "clientWidth": 601,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [
+      {
+        "selector": ".count-button",
+        "width": "32px",
+        "height": "32px",
+        "media": []
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(max-width: 599px)",
+            "matches": false
+          }
+        ]
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(pointer: coarse) and (min-width: 600px)",
+            "matches": true
+          }
+        ]
+      }
+    ],
+    "stage": "resize601",
+    "is_mobile": false
+  },
+  {
+    "innerWidth": 600,
+    "clientWidth": 600,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [
+      {
+        "selector": ".count-button",
+        "width": "32px",
+        "height": "32px",
+        "media": []
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(max-width: 599px)",
+            "matches": false
+          }
+        ]
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(pointer: coarse) and (min-width: 600px)",
+            "matches": true
+          }
+        ]
+      }
+    ],
+    "stage": "resize600",
+    "is_mobile": false
+  },
+  {
+    "innerWidth": 600,
+    "clientWidth": 600,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [
+      {
+        "selector": ".count-button",
+        "width": "32px",
+        "height": "32px",
+        "media": []
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(max-width: 599px)",
+            "matches": false
+          }
+        ]
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(pointer: coarse) and (min-width: 600px)",
+            "matches": true
+          }
+        ]
+      }
+    ],
+    "stage": "initial",
+    "is_mobile": true
+  },
+  {
+    "innerWidth": 600,
+    "clientWidth": 600,
+    "coarse": false,
+    "coarse600": false,
+    "computed": {
+      "width": "32px",
+      "height": "32px"
+    },
+    "matches": [
+      {
+        "selector": ".count-button",
+        "width": "32px",
+        "height": "32px",
+        "media": []
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(max-width: 599px)",
+            "matches": false
+          }
+        ]
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(pointer: coarse) and (min-width: 600px)",
+            "matches": false
+          }
+        ]
+      }
+    ],
+    "stage": "after-fullpage-screenshot",
+    "is_mobile": true
+  },
+  {
+    "innerWidth": 600,
+    "clientWidth": 600,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [
+      {
+        "selector": ".count-button",
+        "width": "32px",
+        "height": "32px",
+        "media": []
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(max-width: 599px)",
+            "matches": false
+          }
+        ]
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(pointer: coarse) and (min-width: 600px)",
+            "matches": true
+          }
+        ]
+      }
+    ],
+    "stage": "reload",
+    "is_mobile": true
+  },
+  {
+    "innerWidth": 600,
+    "clientWidth": 600,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [
+      {
+        "selector": ".count-button",
+        "width": "32px",
+        "height": "32px",
+        "media": []
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(max-width: 599px)",
+            "matches": false
+          }
+        ]
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(pointer: coarse) and (min-width: 600px)",
+            "matches": true
+          }
+        ]
+      }
+    ],
+    "stage": "tap",
+    "is_mobile": true
+  },
+  {
+    "innerWidth": 601,
+    "clientWidth": 601,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [
+      {
+        "selector": ".count-button",
+        "width": "32px",
+        "height": "32px",
+        "media": []
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(max-width: 599px)",
+            "matches": false
+          }
+        ]
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(pointer: coarse) and (min-width: 600px)",
+            "matches": true
+          }
+        ]
+      }
+    ],
+    "stage": "resize601",
+    "is_mobile": true
+  },
+  {
+    "innerWidth": 600,
+    "clientWidth": 600,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [
+      {
+        "selector": ".count-button",
+        "width": "32px",
+        "height": "32px",
+        "media": []
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(max-width: 599px)",
+            "matches": false
+          }
+        ]
+      },
+      {
+        "selector": ".count-button",
+        "width": "40px",
+        "height": "40px",
+        "media": [
+          {
+            "q": "(pointer: coarse) and (min-width: 600px)",
+            "matches": true
+          }
+        ]
+      }
+    ],
+    "stage": "resize600",
+    "is_mobile": true
+  }
+]
