@@ -1,0 +1,40 @@
+{
+  "kind": "throwaway-ui-comparison",
+  "date": "2026-11-12",
+  "requests": [
+    "ゲームルールの特性を考慮して、UIを改善したいので案を考えて",
+    "画面モックも比較する"
+  ],
+  "scope": "現行と2案の比較用モック。dist・docs・実際の保存済み周回データは変更しない。プロダクション実装・公開・マージは含まない。",
+  "sources": [
+    "README.md",
+    ".harness/changes/game-purpose-ui/inputs/source-review.md",
+    "dist/index.html",
+    "dist/styles.css",
+    "dist/app.js",
+    "dist/counter.js"
+  ],
+  "preserved_rules": [
+    "研究・4／難易度8以上の上限はLv3素質の取得10回、＋2強化の使用5回。出現回数ではない。",
+    "研究回数をコイン合計に含めない。残数は0を下限とし、上限超過の入力値は保持する。",
+    "再抽選40コイン。音符5個セットは90／72／45、15個セットは400／320／200。",
+    "合計は再抽選と音符購入だけ。所持コイン残高・全支出・音符所持数を表す数値は追加しない。",
+    "通常→20%引き→半額。PCでは5個・15個の各3列を維持し、狭幅では行にする。",
+    "増減・直接入力・回数リセットを既存モデルに接続する。保存はモックのメモリー内に限定する。"
+  ],
+  "alternatives": {
+    "current": "現行の支出先行レイアウト。研究はページ末尾。",
+    "a": "研究を集計の直後へ移し、残り回数と残り枠を強調する。取得・使用回数はラベル付きの別操作にする。",
+    "b": "差額を先頭に配置し、研究は短い行にする。PCは研究と支出を左右に分け、スマホは研究を購入より前に置く。"
+  },
+  "recommendation": "b",
+  "recommendation_reason": "実画面で残数と使用済み回数を区別でき、390px幅では研究が約243pxから見える。通常状態のページ高は現行1048px、A案1142px、B案1065px。A案の高さ増加を比較してB案を推奨した。数値はこの環境・仮データ・フォント条件での実測。",
+  "open_decision": "目標コインが消費額の達成目標か予算上限かは未確認。差額と達成・超過の意味は現行を継承し、新しい警告・成功の判断を追加していない。",
+  "verification": {
+    "entry": "index.html",
+    "server": "python3 -m http.server 4317 --bind 127.0.0.1 --directory development/ui/mockups/rule-ui",
+    "browser": "既存のPython Playwrightと/usr/bin/chromiumを使用。本番依存の追加なし。",
+    "evidence": "previews/checks.json",
+    "limits": "判断用の試作。全面的なアクセシビリティ検証・独立した本番UIレビューは未実施。実装採用時は本番工程で再設計・検証する。"
+  }
+}

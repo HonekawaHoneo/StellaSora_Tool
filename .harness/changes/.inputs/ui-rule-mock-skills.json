@@ -1,0 +1,83 @@
+{
+  "token": "2fbf93f29166432896d36cbe34b6fbf1",
+  "request_digest": "acdeabea5e7d3c080410605fb747f2219604162d3c1d85b4208da6ae2e289f78",
+  "intent": {
+    "goal": "スマホとPCで現行および2案を操作しながら比較できる画面モックを提示する",
+    "relation": "continue",
+    "question_check": "モック作成は本人が承諾済み。目標の実用途に依存する新しい判断は追加しない。"
+  },
+  "skills": {
+    "response": {
+      "applied": "元の案出し依頼とモック比較の回答を保持し、本番変更・保存済みデータの変更を避けた。",
+      "evidence": [
+        {
+          "path": "development/ui/mockups/rule-ui/concept.json",
+          "pointer": "/requests"
+        }
+      ]
+    },
+    "orchestrator": {
+      "applied": "本人が承諾した判断用の試作として作り、本番実装工程の完了とは扱わない。",
+      "evidence": [
+        {
+          "path": "development/ui/mockups/rule-ui/concept.json",
+          "pointer": "/scope"
+        }
+      ]
+    },
+    "general": {
+      "applied": "既存モデル・スタイル・操作をsnapshotから利用し、新しい本番依存を追加しない。",
+      "evidence": [
+        {
+          "path": "development/ui/mockups/rule-ui/concept.json",
+          "pointer": "/preserved_rules"
+        }
+      ]
+    },
+    "writing": {
+      "applied": "画面内は名称・回数・上限・操作名を中心にし、比較理由は外側の比較画面へ置いた。",
+      "evidence": [
+        {
+          "path": "development/ui/mockups/rule-ui/concept.json",
+          "pointer": "/alternatives"
+        }
+      ]
+    },
+    "technical_writing": {
+      "applied": "A/Bの違いと未確認の目標用途を具体的に記録し、実測に基づいて推奨をBへ更新した。",
+      "evidence": [
+        {
+          "path": "development/ui/mockups/rule-ui/concept.json",
+          "pointer": "/recommendation_reason"
+        }
+      ]
+    },
+    "requirements": {
+      "applied": "ユーザーのモック比較の承諾を適用範囲とし、目標の意味は未確定のまま維持する。",
+      "evidence": [
+        {
+          "path": "development/ui/mockups/rule-ui/concept.json",
+          "pointer": "/open_decision"
+        }
+      ]
+    },
+    "ui_design": {
+      "applied": "研究と支出を分け、残数を主表示にし、取得・使用済み回数はラベル付きの別操作として比較する。",
+      "evidence": [
+        {
+          "path": "development/ui/mockups/rule-ui/concept.json",
+          "pointer": "/alternatives"
+        }
+      ]
+    },
+    "ui_implementation": {
+      "applied": "既存イベントをモデルへ接続したままメモリー保存に差し替え、3案への同期と限界状態を確認する。",
+      "evidence": [
+        {
+          "path": "development/ui/mockups/rule-ui/concept.json",
+          "pointer": "/verification"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; frame-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>星ノ塔カウンター UI比較</title>
+  <link rel="stylesheet" href="comparison.css">
+  <script defer src="comparison.js"></script>
+</head>
+<body>
+  <main class="comparison">
+    <header class="comparison-header">
+      <div><p class="eyebrow">ステラソラ / 星ノ塔カウンター</p><h1>研究の残数と、周回中の操作を比較</h1></div>
+      <span class="prototype-tag">画面モック</span>
+    </header>
+    <section class="toolbar" aria-label="比較条件">
+      <div class="device-options" role="group" aria-label="画面幅">
+        <button type="button" data-device="mobile" aria-pressed="true">スマホ <span>390px</span></button>
+        <button type="button" data-device="desktop" aria-pressed="false">PC <span>1280px</span></button>
+      </div>
+      <label class="scenario-label">状態<select id="scenario"><option value="normal">通常</option><option value="limits">研究上限</option><option value="reached">目標到達</option><option value="over">目標超過・研究超過</option><option value="unset">目標未設定</option></select></label>
+      <button type="button" id="restore">同じ数値に戻す</button>
+    </section>
+    <p class="comparison-note">各画面の＋・−を操作できます。数値は全案に反映します。枠内をスクロールして下部も比較できます。</p>
+    <div class="comparison-grid">
+      <section class="option" data-variant="current">
+        <header class="option-header"><div><span class="option-id">現行</span><h2>支出を先に確認</h2></div><a class="open-preview" target="_blank" rel="noopener">拡大</a></header>
+        <p class="option-description">研究効果は音符購入の下。使用済みの回数を大きく表示。</p>
+        <div class="frame-stage"><iframe title="現行UI" src="preview.html?variant=current&amp;scenario=normal" width="390" height="720"></iframe></div>
+        <p class="tradeoff">支出をまとめて見られる。スマホでは研究効果が最初の画面に入らない。</p>
+      </section>
+      <section class="option" data-variant="a">
+        <header class="option-header"><div><span class="option-id">A案</span><h2>研究の残数を大きく</h2></div><a class="open-preview" target="_blank" rel="noopener">拡大</a></header>
+        <p class="option-description">研究を集計の直後へ。残り回数と取得・使用回数を分けて表示。</p>
+        <div class="frame-stage"><iframe title="A案 研究の残数を大きく" src="preview.html?variant=a&amp;scenario=normal" width="390" height="720"></iframe></div>
+        <p class="tradeoff">残り枠と上限を確認しやすい。研究欄に高さを使う分、購入欄は下に移る。</p>
+      </section>
+      <section class="option recommended" data-variant="b">
+        <header class="option-header"><div><span class="option-id">B案 <span class="recommendation">推奨</span></span><h2>残数と操作をコンパクトに</h2></div><a class="open-preview" target="_blank" rel="noopener">拡大</a></header>
+        <p class="option-description">差額を先頭に配置。研究は短い2行にして、購入操作の表示範囲を確保。</p>
+        <div class="frame-stage"><iframe title="B案 残数と操作をコンパクトに" src="preview.html?variant=b&amp;scenario=normal" width="390" height="720"></iframe></div>
+        <p class="tradeoff">狭い窓で見渡しやすい。研究の上限はA案ほど強く目立たない。</p>
+      </section>
+    </div>
+    <footer>比較用の仮データ。実際の周回記録は変更しません。研究上限は研究・4／難易度8以上の条件を継承しています。</footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,108 @@
+.variant-a .mock-overview { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(320px, 1fr); gap: 14px; margin-bottom: 14px; align-items: stretch; }
+.variant-a .summary, .variant-b .summary { position: static; padding: 18px; border: 1px solid var(--line); background: var(--surface); border-radius: 12px; }
+.variant-a .summary { display: flex; flex-direction: column; justify-content: center; }
+.variant-a .record-group, .variant-b .record-group { margin: 0; }
+.variant-a .record-grid { grid-template-columns: minmax(0, 1fr); }
+.variant-a .record { grid-template-columns: minmax(0, 1fr) 154px; padding: 10px 0; }
+.variant-a .record + .record { padding-left: 0; padding-top: 12px; border-left: 0; border-top: 1px solid #d8e0e9; }
+.variant-a .record .card-heading, .variant-b .record .card-heading { grid-column: 1; grid-row: 1; margin-bottom: 4px; }
+.variant-a .research-remaining, .variant-b .research-remaining { grid-column: 1; grid-row: 2; color: #465771; line-height: 1.4; font-size: 12px; white-space: nowrap; }
+.remaining-number { color: #34465e; font-size: 32px; font-weight: 650; letter-spacing: -.04em; }
+.research-capacity { font-size: 11px; color: #56677f; margin-left: 5px; }
+.research-excess { display: block; color: #885511; font-size: 11px; }
+.research-excess:empty { display: none; }
+.used-count-operation { display: grid; gap: 4px; grid-column: 2; grid-row: 1 / 4; align-self: center; }
+.used-count-label { font-size: 11px; color: #56677f; text-align: center; }
+.variant-a .used-count-operation .counter-controls, .variant-b .used-count-operation .counter-controls { grid-column: auto; grid-row: auto; }
+.count-input-spacer { display: none; }
+.variant-a .record .count-input { font-size: 19px; }
+.research-slots { display: flex; gap: 4px; grid-column: 1; grid-row: 3; width: 90px; margin-top: 7px; }
+.research-slots span { flex: 1; height: 4px; border: 1px solid #c9d2df; border-radius: 1px; background: #e1e7ef; }
+.research-slots .available { background: #62758e; border-color: #62758e; }
+.record.at-limit .remaining-number { color: #56677f; }
+.record.exceeded .remaining-number { color: #885511; }
+.variant-a .spending-overview, .variant-b .spending-overview { display: block; }
+.variant-a .reroll-group, .variant-b .reroll-group { margin-top: 0; }
+.variant-a .reroll { grid-template-columns: minmax(0, 1fr) 180px; }
+.variant-a .reroll-group .section-header { margin-bottom: 4px; }
+.variant-a .notes-group { margin-top: 14px; }
+.variant-b .summary { margin-bottom: 14px; padding: 14px 18px; }
+.variant-b .metrics { grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)); align-items: center; }
+.variant-b .metric-remaining { order: -1; border-left: 0; padding-left: 0; padding-right: 22px; }
+.variant-b .metric-total { border-left: 1px solid var(--line); padding-left: 22px; }
+.variant-b .metric-target { padding-right: 0; }
+.variant-b .metric-total .metric-value, .variant-b .metric-target .metric-value { font-size: 25px; }
+.variant-b .metric-remaining .metric-value { font-size: 35px; }
+.variant-b .metric-remaining .metric-value.unset { font-size: 14px; }
+.variant-b .progress-area { margin-top: 8px; }
+.variant-b .compact-workspace { display: grid; grid-template-columns: minmax(240px, .85fr) minmax(0, 2.15fr); gap: 14px; align-items: start; }
+.variant-b .record-grid { grid-template-columns: minmax(0, 1fr); }
+.variant-b .record { grid-template-columns: minmax(0, 1fr) 132px; column-gap: 8px; padding: 9px 0; }
+.variant-b .record + .record { padding-left: 0; border-left: 0; border-top: 1px solid #d8e0e9; }
+.variant-b .remaining-number { font-size: 25px; }
+.variant-b .record .count-input { font-size: 18px; }
+.variant-b .used-count-operation { gap: 1px; }
+.variant-b .used-count-label { font-size: 11px; }
+.variant-b .spending { padding: 12px; }
+.variant-b .note-families { gap: 10px; }
+.variant-b .note-family { padding: 8px; }
+.variant-b .note-grid { gap: 5px; }
+.variant-b .note-card { padding: 8px 5px; }
+.variant-b .note-price { font-size: 18px; }
+.variant-b .note-card .card-heading { flex-direction: column; align-items: flex-start; gap: 3px; }
+.variant-b .note-card .counter-controls { grid-template-columns: 28px minmax(0, 1fr) 28px; gap: 1px; }
+.variant-b .note-card .count-button { width: 28px; height: 32px; }
+.variant-b .note-card .count-input { font-size: 22px; }
+.variant-b .reroll { grid-template-columns: minmax(0, 1fr) 180px; }
+@media (max-width: 959px) {
+  .variant-a .mock-overview { grid-template-columns: minmax(0, 1fr); }
+  .variant-a .record-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .variant-a .record { grid-template-columns: minmax(0, 1fr) 136px; }
+  .variant-a .record + .record { border-top: 0; border-left: 1px solid #d8e0e9; padding: 10px 0 10px 12px; }
+  .variant-b .compact-workspace { grid-template-columns: minmax(0, 1fr); }
+  .variant-b .record-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .variant-b .record + .record { border-top: 0; border-left: 1px solid #d8e0e9; padding-left: 12px; }
+  .variant-b .record { grid-template-columns: minmax(0, 1fr) 132px; }
+  .variant-b .note-card .counter-controls { grid-template-columns: 40px minmax(0, 1fr) 40px; }
+  .variant-b .note-card .count-button { width: 40px; height: 40px; }
+  .variant-b .note-card .card-heading { flex-direction: row; align-items: center; }
+}
+@media (max-width: 599px) {
+  .variant-a .summary { padding: 10px 12px; }
+  .variant-a .mock-overview { gap: 12px; margin-bottom: 12px; }
+  .variant-a .record-grid { grid-template-columns: minmax(0, 1fr); }
+  .variant-a .record { grid-template-columns: minmax(0, 1fr) 156px; padding: 6px 0 10px; }
+  .variant-a .record + .record { border-left: 0; border-top: 1px solid #d8e0e9; padding: 10px 0 5px; }
+  .variant-a .remaining-number { font-size: 29px; }
+  .variant-a .reroll, .variant-b .reroll { grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); }
+  .variant-b .summary { padding: 11px 12px; margin-bottom: 12px; }
+  .variant-b .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 14px; }
+  .variant-b .metric { display: block; padding: 0; border: 0; }
+  .variant-b .metric-remaining { grid-column: 1/-1; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); padding: 0 0 7px; }
+  .variant-b .metric-remaining .metric-value { width: auto; font-size: 32px; }
+  .variant-b .metric-total .metric-value { text-align: left; font-size: 22px; padding-top: 4px; height: 40px; }
+  .variant-b .metric-target .metric-value { height: 40px; font-size: 22px; }
+  .variant-b .metric-label { font-size: 11px; }
+  .variant-b .progress-area { margin-top: 5px; }
+  .variant-b .compact-workspace { gap: 12px; }
+  .variant-b .record-group { padding: 10px 12px; }
+  .variant-b .record-group .section-header { margin-bottom: 4px; }
+  .variant-b .record-grid { grid-template-columns: minmax(0, 1fr); }
+  .variant-b .record { grid-template-columns: minmax(0, 1fr) 156px; padding: 5px 0 7px; }
+  .variant-b .record + .record { border-left: 0; border-top: 1px solid #d8e0e9; padding: 7px 0 3px; }
+  .variant-b .record .card-heading { margin-bottom: 0; }
+  .variant-b .remaining-number { font-size: 23px; }
+  .variant-b .research-condition { margin-top: 5px; }
+  .variant-b .used-count-operation { gap: 0; }
+  .variant-b .record .count-input { font-size: 19px; }
+  .variant-b .note-card { padding: 3px 9px; }
+  .variant-b .note-card .card-heading { flex-direction: column; align-items: flex-start; }
+  .variant-b .notes-group { margin-top: 12px; }
+  .variant-b .note-family { padding: 8px; }
+}
+@media (max-width: 359px) {
+  .variant-a .record, .variant-b .record { grid-template-columns: minmax(0, 1fr) 132px; column-gap: 5px; }
+  .variant-a .record-group, .variant-b .record-group { padding-left: 10px; padding-right: 10px; }
+  .variant-a .remaining-number { font-size: 25px; }
+  .variant-a .research-capacity, .variant-b .research-capacity { margin-left: 3px; }
+}
