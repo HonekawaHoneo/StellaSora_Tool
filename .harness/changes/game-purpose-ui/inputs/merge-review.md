@@ -1,0 +1,19 @@
+# 独立マージ前レビュー
+
+actual reviewer contextは/root/merge_review。実装者/rootと/root/ui_reviewとは別の新規コンテキストで実施した。製品コードは編集していない。
+
+PR#4のCI誤検知修理を評価した。旧設定はd8db514のGit blobと同一、公式Gitleaks8.30.1 archiveの固定SHA256と実binaryの同一性を確認した。実履歴22件は、21箇所/7種のUUIDv4で各executionレコードへ対応し、1件は実summary-tokens.jsonのSHA256である。未分類値は0。値をログへ出していない。
+
+実Gitleaks対照試験は公開metadata10例の許可と保持検出11例。旧configをcandidateとして使うと終了1で誤検知を再現する。既定provider ruleのgithub-pat、同path別key、別path、非v4、eventの追加field/別event、別snapshot hashは検出を保つ。scannerの版/SHA照合行、全履歴と作業ツリー検査、redactionと失敗伝播を維持する。exact nonce fieldにUUIDv4 credentialを誤配置した場合を構文だけで区別できない限界は保持する。
+
+現fingerprintは成功receipt 9ccddd376ee3431588ce3a525bb7b695のproject/artifacts両方に一致した。全5check returncode0を確認した。mainは自分のls-remoteで273e4a38abc85db90c0c3065746f98f211d3f07aを取得した。
+
+現receiptの17画像を期待値より先に観察した。全305caseの実測、添付hash、10measurement/29control/154copyと全4面inventoryを照合した。d8db514からdist/docs/provider/workflowは差分無し。UI設計の変更はscope_connections.relatedへの検査path2件追加のみで、cases/期待値/全copy/他principleは不変。前独立reviewの操作証跡を不変証明と併用した。今回の新しい独立ブラウザー操作は行っていない。
+
+長数画像のbarは既存CSSの0.2秒transition中の像を含む。安定状態の通常進捗と到達/未設定は実測と画像で一致し、今回の修理による変化は無い。Windows実機、native browser UI zoom、WCAG全面適合は検証範囲に含めない。
+
+補助コメントレビューは冒頭2行の重複削除を提案した。例外設定の判断意図を残す理由を確認し、minor受容としてreviewへ記録した。コード変更は行わない。
+
+最初のSkill適用で既存CI説明資料を直接evidence参照した結果、execution内の公開ファイルhashがgeneric-api-keyで1件検出された。自分の適用ファイルの参照先を同じ内容の既存design決定へ訂正し、公式apply-skillsで再検査/再適用した。raw executionやstateの手修正・削除とscanner拡張は行わず、その後の作業ツリー検査は0だった。最終の新規beginでも同じ根拠を使用する。
+
+通常git diff --checkは既存CRLF形式のproject.json追加行を空白として報告する。既存行と同じCRLFを保ち、core.whitespace=cr-at-eolの差分検査は成功した。

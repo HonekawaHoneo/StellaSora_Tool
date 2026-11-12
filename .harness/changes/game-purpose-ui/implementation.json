@@ -1,5 +1,5 @@
 {
-  "summary": "探索目的と公式ルールの調査を先行し、既存モデル・保存・価格順を保持して集計と価格行を圧縮、文字と編集欄・リセット対象を明確にした。",
+  "summary": "探索目的と公式ルールの調査を先行し、既存モデル・保存・価格順を保持して集計と価格行を圧縮、文字と編集欄・リセット対象を明確にした。 マージ前CIで公開工程nonceとSHA256の誤検知を再現し、既定ルールを維持する限定例外と実Gitleaks対照試験を追加した。",
   "author": "codex",
   "changed_paths": [
     "dist/index.html",
@@ -8,7 +8,10 @@
     "docs/index.html",
     "docs/styles.css",
     "docs/app.js",
-    "development/ui/summary-browser.mjs"
+    "development/ui/summary-browser.mjs",
+    ".gitleaks.toml",
+    "scripts/scan-secrets.sh",
+    "scripts/check-secret-rules.py"
   ],
   "deleted_paths": [],
   "limitations": [

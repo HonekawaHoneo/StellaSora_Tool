@@ -48,6 +48,14 @@
         "development/ui/summary-browser.mjs"
       ],
       "kind": "test"
+    },
+    {
+      "id": "secret-scan",
+      "kind": "security",
+      "argv": [
+        "bash",
+        "scripts/scan-secrets.sh"
+      ]
     }
   ],
   "snapshot_ignore": [],

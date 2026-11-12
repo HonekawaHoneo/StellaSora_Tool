@@ -16,3 +16,12 @@
 {"time": "2026-11-12T06:07:28.466460+00:00", "event": "advanced", "previous": "implementation", "phase": "review", "artifact_digest": "d4f674d56271f1c516e8a2e869cf4c12d298b0f34404b3f306e0990fcbd34706"}
 {"time": "2026-11-12T06:12:02.134205+00:00", "event": "skill_application_verified", "token": "021e09a73ad4440397c9e9e11e3f5e3e", "phase": "review", "request_digest": "f35a9832e8c0dec498cb25fb6f30e16ce2693bb18b3e0c0bb7174ee419ea5095"}
 {"time": "2026-11-12T06:12:02.137094+00:00", "event": "advanced", "previous": "review", "phase": "done", "artifact_digest": "86a84b91347abf73b4ca8e1f92f3834db5e1e60f5058dc67ae705abae730a517"}
+{"time": "2026-11-12T06:25:58.424523+00:00", "event": "reopened", "previous": "done", "phase": "design", "reason": "マージ前CIのSecret scanが公開UUIDv4工程nonce21件と検証済みSHA256を誤検知。既定検出を保った限定修正と対照試験を追加する"}
+{"time": "2026-11-12T06:26:00.931058+00:00", "event": "gate_failed", "phase": "design", "reason": "scope_connections: 実在する対象が必要です"}
+{"time": "2026-11-12T06:26:31.223127+00:00", "event": "skill_application_verified", "token": "df6b9fac88454f2494e249003e580a62", "phase": "design", "request_digest": "e75c3f0bc774e8430eb6650c7a478ba9481574f9e9ad762e36809ece5ee6367f"}
+{"time": "2026-11-12T06:26:31.225750+00:00", "event": "advanced", "previous": "design", "phase": "implementation", "artifact_digest": "6242dc5c795a26649665f105905ebc9158992e9bb4bc4bdca9339d465688f624"}
+{"time": "2026-11-12T06:31:54.336628+00:00", "event": "verification", "success": true, "receipt": "evidence/9ccddd376ee3431588ce3a525bb7b695.json"}
+{"time": "2026-11-12T06:34:26.309400+00:00", "event": "skill_application_verified", "token": "879e6c79cc2c4af8a4ca42243e3b8b22", "phase": "implementation", "request_digest": "e75c3f0bc774e8430eb6650c7a478ba9481574f9e9ad762e36809ece5ee6367f"}
+{"time": "2026-11-12T06:34:26.311661+00:00", "event": "advanced", "previous": "implementation", "phase": "review", "artifact_digest": "44dc3f282bd5bc9bec8d2eaa533edf6852a65625ef72a0c87ed7ebf478c5e2df"}
+{"time": "2026-11-12T06:44:56.377860+00:00", "event": "skill_application_verified", "token": "2bff88ac1b644b92809a70b53ef77b55", "phase": "review", "request_digest": "e75c3f0bc774e8430eb6650c7a478ba9481574f9e9ad762e36809ece5ee6367f"}
+{"time": "2026-11-12T06:44:56.380447+00:00", "event": "advanced", "previous": "review", "phase": "done", "artifact_digest": "06fbe99b98c566198411cccf838eefe9f924927dace06234a1cd506b1c404fef"}

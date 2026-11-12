@@ -5,7 +5,8 @@
     "既存の配色とRegistryを使い、集計を狭幅の縦3行のまま160px以内にまとめる。十分な高さの狭幅で支出操作中の集計を参照できるstickyを使い、低い画面では通常配置とする。",
     "購入の単価と回数、全体合計があるので明細小計を除去する。単位・割引・研究残数を11px以上にし、入力欄とボタンの操作領域を維持する。",
     "リセットは目標を保持するため回数をリセットとする。成功の説明を増やさず、無効入力と保存失敗は短い制約/状態として示す。",
-    "検証は実CDP/HTTPを用い、同じモデル・保存形式と全9入口、境界幅・各状態・4面の文言を照合する。"
+    "検証は実CDP/HTTPを用い、同じモデル・保存形式と全9入口、境界幅・各状態・4面の文言を照合する。",
+    "マージ前のCIで公開工程nonceと既存SHAの誤検知を確認した。generic-api-keyだけを対象とする厳密なfield/path/UUIDv4形式のAND条件と固定SHA例外を採用し、同じpathの別key・非v4・別path・イベント行への追加秘密・異なるSHA・他の既定ruleは対照試験で検出を維持する。"
   ],
   "impact_paths": [
     "dist/index.html",
@@ -14,7 +15,10 @@
     "docs/index.html",
     "docs/styles.css",
     "docs/app.js",
-    "development/ui/summary-browser.mjs"
+    "development/ui/summary-browser.mjs",
+    ".gitleaks.toml",
+    "scripts/scan-secrets.sh",
+    "scripts/check-secret-rules.py"
   ],
   "rollback": "この変更コミットをrevertし、dist/docsを同時に元へ戻す。モデルと保存キーを変更しないので保存データの移行は不要。",
   "traceability": [
@@ -81,13 +85,17 @@
         "docs/index.html",
         "docs/styles.css",
         "docs/app.js",
-        "development/ui/summary-browser.mjs"
+        "development/ui/summary-browser.mjs",
+        ".gitleaks.toml",
+        "scripts/scan-secrets.sh",
+        "scripts/check-secret-rules.py"
       ],
       "checks": [
         "counter",
         "pages",
         "pages-sync",
-        "summary-browser"
+        "summary-browser",
+        "secret-scan"
       ]
     }
   ],
@@ -13624,7 +13632,9 @@
             "docs/styles.css",
             "docs/app.js",
             "dist/counter.js",
-            "development/ui/summary-browser.mjs"
+            "development/ui/summary-browser.mjs",
+            ".gitleaks.toml",
+            "scripts/scan-secrets.sh"
           ],
           "state_owner": "dist/app.jsのstateとStarTowerCounter",
           "boundaries": "既存モデルとブラウザー内の保存を使う",
