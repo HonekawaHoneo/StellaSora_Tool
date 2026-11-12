@@ -1,0 +1,19 @@
+{
+  "summary": "探索目的と公式ルールの調査を先行し、既存モデル・保存・価格順を保持して集計と価格行を圧縮、文字と編集欄・リセット対象を明確にした。",
+  "author": "codex",
+  "changed_paths": [
+    "dist/index.html",
+    "dist/styles.css",
+    "dist/app.js",
+    "docs/index.html",
+    "docs/styles.css",
+    "docs/app.js",
+    "development/ui/summary-browser.mjs"
+  ],
+  "deleted_paths": [],
+  "limitations": [
+    "研究上限と価格は公式公開資料で直接確認できず、Yostar提供記事と既存検証を補助根拠に既存値を保持した。",
+    "200%はCSS viewportとDSFによるリフロー相当。ネイティブブラウザUIの拡大操作は別途未実施。",
+    "Windows Edgeの実機再検証はこのLinux Cloudでは未実施。"
+  ]
+}

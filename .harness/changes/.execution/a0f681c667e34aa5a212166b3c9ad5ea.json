@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "token": "a0f681c667e34aa5a212166b3c9ad5ea",
+  "context": "6af54e7b-1394-8191-8886-21eb945750a2",
+  "request_digest": "f35a9832e8c0dec498cb25fb6f30e16ce2693bb18b3e0c0bb7174ee419ea5095",
+  "started_at": "2026-11-12T05:44:23.928156+00:00",
+  "binding": {
+    "id": "game-purpose-ui",
+    "phase": "requirements",
+    "activities": [
+      "ui"
+    ],
+    "required_skills": {
+      "response": ".agents/skills/evidence-first-response/SKILL.md",
+      "orchestrator": ".agents/skills/poteto-mode/SKILL.md",
+      "general": ".agents/skills/ponytail/SKILL.md",
+      "writing": ".agents/skills/unslop/SKILL.md",
+      "technical_writing": ".agents/skills/technical-writing/SKILL.md",
+      "requirements": ".agents/skills/grill-me/SKILL.md",
+      "ui_design": ".agents/skills/semantic-ui-design/SKILL.md",
+      "ui_implementation": ".agents/skills/ui-implementation-harness/SKILL.md"
+    },
+    "context_paths": [
+      ".harness/changes/game-purpose-ui/discovery.json",
+      ".harness/changes/game-purpose-ui/requirements.json"
+    ],
+    "config_sha256": "6ffa89a8a9205b3d325701bdf140217b94569e6ac5b0b32221535849d0d51b28"
+  },
+  "allowed_context_paths": [
+    ".harness/changes/game-purpose-ui/discovery.json",
+    ".harness/changes/game-purpose-ui/requirements.json",
+    ".harness/changes/game-purpose-ui/state.json",
+    ".harness/project.json"
+  ],
+  "pins": {
+    ".agents/skills/unslop/SKILL.md": "8a2686d30e2cd8d884055cc0e6018d5c87cd320cb40232d8a80a59eb0786fa00",
+    ".harness/changes/game-purpose-ui/requirements.json": "d2e38eaf48d00d30bd4108157e55dd3027963addc1540920ae7bb084052fc9f4",
+    ".agents/skills/evidence-first-response/SKILL.md": "9eb9f425a2a53547c511d69d5f5ad71ea5de39ff90232a6980cc33cef422efaf",
+    ".agents/skills/ponytail/SKILL.md": "83ba94bce0dcbf4e36570fc8eb7ba04b40183d8ee46e2cca478404f943d127da",
+    ".agents/skills/technical-writing/SKILL.md": "78b0db9c357d2c874a4cc6b551d6489085c2e5b16865ace5afefca3f453cc3bb",
+    ".agents/skills/poteto-mode/SKILL.md": "3e9dd20e63b21d71572f8313fdfb43ffc1b835612a2463f23a3908db534acf29",
+    ".agents/skills/grill-me/SKILL.md": "cfd049dd16df9579d17e480746c19ea158d80405249bce2202e67c8b4fcc8a87",
+    ".agents/skills/semantic-ui-design/SKILL.md": "5188365396aa1644179d60b7227d115800c095747e70f398c076520b64b713c6",
+    ".harness/changes/game-purpose-ui/discovery.json": "9fed43903fc9e49220b6d261bcb396eb364c57191c699b5c84b8a0c62cfc7568",
+    ".agents/skills/ui-implementation-harness/SKILL.md": "882b2be8bd5322e96f230cabfe2939f02ad42541e7a0b803061f4e39e9010ff6"
+  },
+  "reads": {
+    ".agents/skills/evidence-first-response/SKILL.md": "9eb9f425a2a53547c511d69d5f5ad71ea5de39ff90232a6980cc33cef422efaf",
+    ".agents/skills/poteto-mode/SKILL.md": "3e9dd20e63b21d71572f8313fdfb43ffc1b835612a2463f23a3908db534acf29",
+    ".agents/skills/ponytail/SKILL.md": "83ba94bce0dcbf4e36570fc8eb7ba04b40183d8ee46e2cca478404f943d127da",
+    ".agents/skills/unslop/SKILL.md": "8a2686d30e2cd8d884055cc0e6018d5c87cd320cb40232d8a80a59eb0786fa00",
+    ".agents/skills/technical-writing/SKILL.md": "78b0db9c357d2c874a4cc6b551d6489085c2e5b16865ace5afefca3f453cc3bb",
+    ".agents/skills/grill-me/SKILL.md": "cfd049dd16df9579d17e480746c19ea158d80405249bce2202e67c8b4fcc8a87",
+    ".agents/skills/semantic-ui-design/SKILL.md": "5188365396aa1644179d60b7227d115800c095747e70f398c076520b64b713c6",
+    ".agents/skills/ui-implementation-harness/SKILL.md": "882b2be8bd5322e96f230cabfe2939f02ad42541e7a0b803061f4e39e9010ff6",
+    ".harness/changes/game-purpose-ui/discovery.json": "9fed43903fc9e49220b6d261bcb396eb364c57191c699b5c84b8a0c62cfc7568",
+    ".harness/changes/game-purpose-ui/requirements.json": "d2e38eaf48d00d30bd4108157e55dd3027963addc1540920ae7bb084052fc9f4"
+  },
+  "application": {
+    "path": ".harness/changes/game-purpose-ui/skill-requirements.json",
+    "sha256": "6303e976d775f5c6d8f670312a228ed076634493a5bf6c7c2e4fe8baba2651f3",
+    "evidence": {
+      ".harness/changes/game-purpose-ui/discovery.json": "9fed43903fc9e49220b6d261bcb396eb364c57191c699b5c84b8a0c62cfc7568",
+      ".harness/changes/game-purpose-ui/inputs/source-review.md": "d08ddd659a2c79833dbdb395805ba83dda681eae603b2995139ce8ef130a3fdd"
+    }
+  },
+  "finished": "2026-11-12T05:44:25.621953+00:00"
+}

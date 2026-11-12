@@ -1,0 +1,178 @@
+{
+  "height": 1249,
+  "width": 390,
+  "viewport": 390,
+  "sections": [
+    {
+      "name": "素質の再抽選",
+      "top": 290.78125,
+      "bottom": 400.78125
+    },
+    {
+      "name": "音符購入",
+      "top": 414.78125,
+      "bottom": 1026.78125
+    },
+    {
+      "name": "研究効果",
+      "top": 1053.78125,
+      "bottom": 1234.78125
+    }
+  ],
+  "labels": [
+    {
+      "text": "40コイン / 回",
+      "size": "23px"
+    },
+    {
+      "text": "5個セット",
+      "size": "10px"
+    },
+    {
+      "text": "コイン",
+      "size": "8px"
+    },
+    {
+      "text": "通常",
+      "size": "9px"
+    },
+    {
+      "text": "コイン",
+      "size": "8px"
+    },
+    {
+      "text": "20%引き",
+      "size": "9px"
+    },
+    {
+      "text": "コイン",
+      "size": "8px"
+    },
+    {
+      "text": "半額",
+      "size": "9px"
+    },
+    {
+      "text": "15個セット",
+      "size": "10px"
+    },
+    {
+      "text": "コイン",
+      "size": "8px"
+    },
+    {
+      "text": "通常",
+      "size": "9px"
+    },
+    {
+      "text": "コイン",
+      "size": "8px"
+    },
+    {
+      "text": "20%引き",
+      "size": "9px"
+    },
+    {
+      "text": "コイン",
+      "size": "8px"
+    },
+    {
+      "text": "半額",
+      "size": "9px"
+    },
+    {
+      "text": "Lv3素質",
+      "size": "11px"
+    },
+    {
+      "text": "残り10回 / 上限10回",
+      "size": "10px"
+    },
+    {
+      "text": "＋2強化",
+      "size": "11px"
+    },
+    {
+      "text": "残り5回 / 上限5回",
+      "size": "10px"
+    },
+    {
+      "text": "難易度8以上・対応研究解放時",
+      "size": "10px"
+    }
+  ],
+  "controls": [
+    {
+      "width": 40,
+      "height": 40
+    },
+    {
+      "width": 40,
+      "height": 40
+    },
+    {
+      "width": 40,
+      "height": 40
+    },
+    {
+      "width": 40,
+      "height": 40
+    },
+    {
+      "width": 40,
+      "height": 40
+    },
+    {
+      "width": 40,
+      "height": 40
+    },
+    {
+      "width": 40,
+      "height": 40
+    },
+    {
+      "width": 40,
+      "height": 40
+    },
+    {
+      "width": 40,
+      "height": 40
+    },
+    {
+      "width": 40,
+      "height": 40
+    },
+    {
+      "width": 40,
+      "height": 40
+    },
+    {
+      "width": 40,
+      "height": 40
+    },
+    {
+      "width": 40,
+      "height": 40
+    },
+    {
+      "width": 40,
+      "height": 40
+    },
+    {
+      "width": 40,
+      "height": 40
+    },
+    {
+      "width": 40,
+      "height": 40
+    },
+    {
+      "width": 40,
+      "height": 40
+    },
+    {
+      "width": 40,
+      "height": 40
+    }
+  ]
+}
