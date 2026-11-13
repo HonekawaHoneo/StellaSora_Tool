@@ -1,0 +1,92 @@
+{
+  "token": "603d1a331c25465c826f790b15f7214e",
+  "request_digest": "9f467ae128e4513fc297499cf92dcc98c18e94bfb02b3d493c8b4aa1048d609b",
+  "intent": {
+    "goal": "採用済みB案を両幅へ実装し、固定表示なし・達成率表示なしにする。",
+    "relation": "continue",
+    "question_check": "本人のフィードバックで固定対象の質問は解消済み。未変更のゲーム仕様と保存互換性を維持する。"
+  },
+  "skills": {
+    "response": {
+      "applied": "最新の撤回を優先し、採用済みB案と達成率削除を目的・具体条件へ対応づける。",
+      "evidence": [
+        {
+          "path": ".harness/changes/ui-b-no-percent/discovery.json",
+          "pointer": "/constraints"
+        }
+      ]
+    },
+    "orchestrator": {
+      "applied": "現在工程の実成果物と承認済みのB案を正本にし、同じ要件の再質問・二重工程を追加しない。",
+      "evidence": [
+        {
+          "path": ".harness/changes/ui-b-no-percent/discovery.json",
+          "pointer": "/constraints"
+        }
+      ]
+    },
+    "general": {
+      "applied": "既存モデル・保存・イベント・配色を再利用し、レイアウトと表示に必要な変更に絞る。",
+      "evidence": [
+        {
+          "path": ".harness/changes/ui-b-no-percent/discovery.json",
+          "pointer": "/constraints"
+        }
+      ]
+    },
+    "writing": {
+      "applied": "項目名・単位・操作名・実状態を保ち、説明・Q&A・ツールチップを追加しない。",
+      "evidence": [
+        {
+          "path": ".harness/changes/ui-b-no-percent/discovery.json",
+          "pointer": "/constraints"
+        }
+      ]
+    },
+    "technical_writing": {
+      "applied": "取得回数、使用回数、残り回数、消費コインを区別して一貫した名前で設計と検証を記す。",
+      "evidence": [
+        {
+          "path": ".harness/changes/ui-b-no-percent/discovery.json",
+          "pointer": "/constraints"
+        }
+      ]
+    },
+    "design": {
+      "applied": "既存のresearchUsageとHTML/CSSのB案を本体へ接続し、モック専用の保存置換・同期を持ち込まない。",
+      "evidence": [
+        {
+          "path": ".harness/changes/ui-b-no-percent/discovery.json",
+          "pointer": "/constraints"
+        }
+      ]
+    },
+    "implementation": {
+      "applied": "同じ9入口・保存キー・計算を保ち、幅と状態を実ブラウザで確認する。",
+      "evidence": [
+        {
+          "path": ".harness/changes/ui-b-no-percent/discovery.json",
+          "pointer": "/constraints"
+        }
+      ]
+    },
+    "ui_design": {
+      "applied": "差額を先頭、研究と支出を独立させ、残数を主表示・取得/使用済み回数をラベル付き操作として表す。",
+      "evidence": [
+        {
+          "path": ".harness/changes/ui-b-no-percent/discovery.json",
+          "pointer": "/constraints"
+        }
+      ]
+    },
+    "ui_implementation": {
+      "applied": "レイアウト変更後も入力・残数・保存の単一状態を使い、全幅で情報欄を固定せず通常フローにする。",
+      "evidence": [
+        {
+          "path": ".harness/changes/ui-b-no-percent/discovery.json",
+          "pointer": "/constraints"
+        }
+      ]
+    }
+  }
+}

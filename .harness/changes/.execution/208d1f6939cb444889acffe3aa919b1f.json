@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "token": "208d1f6939cb444889acffe3aa919b1f",
+  "context": "/root/review_ui_b",
+  "request_digest": "a1bc687ff5d031390ec86da08b2cdd174b14b5e0a34bf9490b0503cd35d104d0",
+  "started_at": "2026-11-12T15:58:16.534094+00:00",
+  "binding": {
+    "id": "ui-b-no-percent",
+    "phase": "review",
+    "activities": [
+      "review",
+      "ui"
+    ],
+    "required_skills": {
+      "response": ".agents/skills/evidence-first-response/SKILL.md",
+      "orchestrator": ".agents/skills/poteto-mode/SKILL.md",
+      "general": ".agents/skills/ponytail/SKILL.md",
+      "writing": ".agents/skills/unslop/SKILL.md",
+      "technical_writing": ".agents/skills/technical-writing/SKILL.md",
+      "review": ".agents/skills/ponytail-review/SKILL.md",
+      "code_review": ".agents/skills/quality-review/SKILL.md",
+      "impact": ".agents/skills/blast-radius/SKILL.md",
+      "comments": ".agents/skills/no-comments/SKILL.md",
+      "ui_design": ".agents/skills/semantic-ui-design/SKILL.md",
+      "ui_implementation": ".agents/skills/ui-implementation-harness/SKILL.md"
+    },
+    "context_paths": [
+      ".harness/changes/ui-b-no-percent/design.json",
+      ".harness/changes/ui-b-no-percent/discovery.json",
+      ".harness/changes/ui-b-no-percent/requirements.json"
+    ],
+    "config_sha256": "f17ae098e00b410cf242f6b1efe1bcb641f89851f2aef26325a1de6b91df6e55"
+  },
+  "allowed_context_paths": [
+    ".harness/changes/ui-b-no-percent/design.json",
+    ".harness/changes/ui-b-no-percent/discovery.json",
+    ".harness/changes/ui-b-no-percent/implementation.json",
+    ".harness/changes/ui-b-no-percent/requirements.json",
+    ".harness/changes/ui-b-no-percent/review.json",
+    ".harness/changes/ui-b-no-percent/state.json",
+    ".harness/project.json"
+  ],
+  "pins": {
+    ".agents/skills/semantic-ui-design/SKILL.md": "5188365396aa1644179d60b7227d115800c095747e70f398c076520b64b713c6",
+    ".agents/skills/unslop/SKILL.md": "8a2686d30e2cd8d884055cc0e6018d5c87cd320cb40232d8a80a59eb0786fa00",
+    ".agents/skills/evidence-first-response/SKILL.md": "9eb9f425a2a53547c511d69d5f5ad71ea5de39ff90232a6980cc33cef422efaf",
+    ".harness/changes/ui-b-no-percent/discovery.json": "081ff925442f6a736864c2889e808de79179808fe7e5f8e327179dbc52c4d92f",
+    ".harness/changes/ui-b-no-percent/requirements.json": "b04f38cce3050368b22377e49e30c8124401405a84a172109f48dd1bfb7c79f8",
+    ".agents/skills/no-comments/SKILL.md": "f4f631e8d16ef58813bbef0e27334efde79c3c42ae9ede0e345b549cbb715dca",
+    ".harness/changes/ui-b-no-percent/design.json": "eb8b087beef79c940229e49da216a5d8f0cd89e0a12befe9cd63c19194685155",
+    ".agents/skills/quality-review/SKILL.md": "a80d88a06549ab66a3f5ec4dab9259cdaf4caaa02b60c9d97c27a28cce192614",
+    ".agents/skills/ponytail-review/SKILL.md": "96f74cba58265fa11ee53c76a6e0743e2b260b81f7d62bc2e5237bc75e59a529",
+    ".agents/skills/blast-radius/SKILL.md": "88c89609f3262ac3ce6205882d9f0c1380e66cd4d6567fe0c9183109195808a5",
+    ".agents/skills/technical-writing/SKILL.md": "78b0db9c357d2c874a4cc6b551d6489085c2e5b16865ace5afefca3f453cc3bb",
+    ".agents/skills/ponytail/SKILL.md": "83ba94bce0dcbf4e36570fc8eb7ba04b40183d8ee46e2cca478404f943d127da",
+    ".agents/skills/poteto-mode/SKILL.md": "3e9dd20e63b21d71572f8313fdfb43ffc1b835612a2463f23a3908db534acf29",
+    ".agents/skills/ui-implementation-harness/SKILL.md": "882b2be8bd5322e96f230cabfe2939f02ad42541e7a0b803061f4e39e9010ff6"
+  },
+  "reads": {},
+  "application": null,
+  "finished": null
+}

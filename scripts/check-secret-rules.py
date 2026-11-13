@@ -27,6 +27,10 @@ def fixture_cases():
     install = '.harness/changes/.inputs/cloud-install-application.json'
     event = '.harness/changes/game-purpose-ui/events.jsonl'
     snapshot = '.harness/changes/game-purpose-ui/inputs/ui-4274fbc5be2f48bab5540dfaff4cc611.json'
+    b_snapshots = [
+        '.harness/changes/ui-b-no-percent/inputs/ui-d15dfc3ec9e14540bad954b493bdd2ad.json',
+        '.harness/changes/ui-b-no-percent/inputs/ui-186c878f8f314b79a9ec0941590b5570.json',
+    ]
     event_record = {'time': '2026-11-12T05:43:34.807738+00:00',
                     'event': 'skill_application_verified', 'token': nonce,
                     'phase': 'design', 'request_digest': 'b' * 64}
@@ -55,6 +59,14 @@ def fixture_cases():
         ('other_event', event, json.dumps({**event_record, 'event': 'credentials_loaded'}), 'generic-api-key'),
         ('event_other_field', event, json.dumps({**event_record, 'api_key': nonce}), 'generic-api-key'),
     ]
+    for index, path in enumerate(b_snapshots):
+        cases.append(('b_snapshot_digest_' + str(index), path,
+                      '  "development/ui/summary-tokens.json": "' + digest + '",', None))
+        cases.append(('b_snapshot_wrong_digest_' + str(index), path,
+                      '  "development/ui/summary-tokens.json": "' + 'fedcba9876543210' * 4 + '",',
+                      'generic-api-key'))
+    cases.append(('b_snapshot_other_path', '.harness/changes/ui-b-no-percent/inputs/unapproved-snapshot.json',
+                  '  "development/ui/summary-tokens.json": "' + digest + '",', 'generic-api-key'))
     return cases
 
 

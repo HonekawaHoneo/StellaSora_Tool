@@ -83,5 +83,16 @@
     "schema_version": 3,
     "registry": "development/ui/summary-registry.json",
     "copy_policy": "object-first"
-  }
+  },
+  "inspection_checks": [
+    {
+      "id": "ui-before",
+      "argv": [
+        "node",
+        "development/ui/summary-browser.mjs",
+        "--before"
+      ],
+      "kind": "test"
+    }
+  ]
 }

@@ -1,0 +1,3 @@
+製品・要件・設計・成功receiptは変更していません。親のcheckはvalid:trueでしたが、review→done後の自動saveで「完了時の適用根拠が失効」となりました。原因を追跡すると、あなたのapplication.evidenceにstate.jsonがあり、phaseがdoneに変わるためそのSHAが失効しています。親は正規CLIでreview工程へreopen済みです。
+
+同じ実コンテキストでreview.jsonのfingerprintを確認し、必要なら正規fingerprintで更新した後にbegin→skill-read/context-read→apply-skillsをやり直してください。apply-skillsの根拠には可変のstate.jsonを含めず、現在のreview.json（/intent_reviewなど）と不変のevidence/reviewer-browser/results.json、discovery/requirements/design等を使ってください。context-readの必須stateはCLIが返すものなら読んでよいですが、application.evidenceへは含めないでください。製品コードや期待値、成功receiptを変更しないでください。新しいready tokenを返してください。advance/commit/pushは親が行います。再度の実機検査は不要です。元の実レビュー判断と追加検査はそのまま保持してください。

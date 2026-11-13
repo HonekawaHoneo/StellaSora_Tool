@@ -1,0 +1,508 @@
+{
+  "results": [
+    {
+      "check": "shared clicks",
+      "research_remaining": 2,
+      "total": 210,
+      "difference": 290
+    },
+    {
+      "check": "limits",
+      "total": "170",
+      "difference": "330"
+    },
+    {
+      "check": "reached",
+      "total": "500",
+      "difference": "0"
+    },
+    {
+      "check": "over",
+      "total": "580",
+      "difference": "-80"
+    },
+    {
+      "check": "unset",
+      "total": "170",
+      "difference": "目標未設定"
+    },
+    {
+      "check": "layout",
+      "variant": "current",
+      "size": "small",
+      "pageWidth": 320,
+      "viewport": 320,
+      "height": 1048,
+      "researchTop": 851.734375,
+      "purchaseTop": 359.171875,
+      "noteCards": [
+        {
+          "width": 242,
+          "scrollWidth": 242
+        },
+        {
+          "width": 242,
+          "scrollWidth": 242
+        },
+        {
+          "width": 242,
+          "scrollWidth": 242
+        },
+        {
+          "width": 242,
+          "scrollWidth": 242
+        },
+        {
+          "width": 242,
+          "scrollWidth": 242
+        },
+        {
+          "width": 242,
+          "scrollWidth": 242
+        }
+      ],
+      "researchCards": [
+        {
+          "width": 262,
+          "scrollWidth": 262
+        },
+        {
+          "width": 262,
+          "scrollWidth": 262
+        }
+      ],
+      "remaining": [],
+      "used": [
+        "7",
+        "3"
+      ]
+    },
+    {
+      "check": "layout",
+      "variant": "current",
+      "size": "mobile",
+      "pageWidth": 390,
+      "viewport": 390,
+      "height": 1048,
+      "researchTop": 851.15625,
+      "purchaseTop": 358.59375,
+      "noteCards": [
+        {
+          "width": 312,
+          "scrollWidth": 312
+        },
+        {
+          "width": 312,
+          "scrollWidth": 312
+        },
+        {
+          "width": 312,
+          "scrollWidth": 312
+        },
+        {
+          "width": 312,
+          "scrollWidth": 312
+        },
+        {
+          "width": 312,
+          "scrollWidth": 312
+        },
+        {
+          "width": 312,
+          "scrollWidth": 312
+        }
+      ],
+      "researchCards": [
+        {
+          "width": 332,
+          "scrollWidth": 332
+        },
+        {
+          "width": 332,
+          "scrollWidth": 332
+        }
+      ],
+      "remaining": [],
+      "used": [
+        "7",
+        "3"
+      ]
+    },
+    {
+      "check": "layout",
+      "variant": "current",
+      "size": "desktop",
+      "pageWidth": 1280,
+      "viewport": 1280,
+      "height": 800,
+      "researchTop": 409.796875,
+      "purchaseTop": 210.796875,
+      "noteCards": [
+        {
+          "width": 161,
+          "scrollWidth": 161
+        },
+        {
+          "width": 161,
+          "scrollWidth": 161
+        },
+        {
+          "width": 161,
+          "scrollWidth": 161
+        },
+        {
+          "width": 161,
+          "scrollWidth": 161
+        },
+        {
+          "width": 161,
+          "scrollWidth": 161
+        },
+        {
+          "width": 161,
+          "scrollWidth": 161
+        }
+      ],
+      "researchCards": [
+        {
+          "width": 537,
+          "scrollWidth": 537
+        },
+        {
+          "width": 536,
+          "scrollWidth": 536
+        }
+      ],
+      "remaining": [],
+      "used": [
+        "7",
+        "3"
+      ]
+    },
+    {
+      "check": "layout",
+      "variant": "a",
+      "size": "small",
+      "pageWidth": 320,
+      "viewport": 320,
+      "height": 1131,
+      "researchTop": 257.171875,
+      "purchaseTop": 638.765625,
+      "noteCards": [
+        {
+          "width": 242,
+          "scrollWidth": 242
+        },
+        {
+          "width": 242,
+          "scrollWidth": 242
+        },
+        {
+          "width": 242,
+          "scrollWidth": 242
+        },
+        {
+          "width": 242,
+          "scrollWidth": 242
+        },
+        {
+          "width": 242,
+          "scrollWidth": 242
+        },
+        {
+          "width": 242,
+          "scrollWidth": 242
+        }
+      ],
+      "researchCards": [
+        {
+          "width": 270,
+          "scrollWidth": 270
+        },
+        {
+          "width": 270,
+          "scrollWidth": 270
+        }
+      ],
+      "remaining": [
+        "3",
+        "2"
+      ],
+      "used": [
+        "7",
+        "3"
+      ]
+    },
+    {
+      "check": "layout",
+      "variant": "a",
+      "size": "mobile",
+      "pageWidth": 390,
+      "viewport": 390,
+      "height": 1142,
+      "researchTop": 256.59375,
+      "purchaseTop": 649.375,
+      "noteCards": [
+        {
+          "width": 312,
+          "scrollWidth": 312
+        },
+        {
+          "width": 312,
+          "scrollWidth": 312
+        },
+        {
+          "width": 312,
+          "scrollWidth": 312
+        },
+        {
+          "width": 312,
+          "scrollWidth": 312
+        },
+        {
+          "width": 312,
+          "scrollWidth": 312
+        },
+        {
+          "width": 312,
+          "scrollWidth": 312
+        }
+      ],
+      "researchCards": [
+        {
+          "width": 332,
+          "scrollWidth": 332
+        },
+        {
+          "width": 332,
+          "scrollWidth": 332
+        }
+      ],
+      "remaining": [
+        "3",
+        "2"
+      ],
+      "used": [
+        "7",
+        "3"
+      ]
+    },
+    {
+      "check": "layout",
+      "variant": "a",
+      "size": "desktop",
+      "pageWidth": 1280,
+      "viewport": 1280,
+      "height": 800,
+      "researchTop": 78,
+      "purchaseTop": 485.1875,
+      "noteCards": [
+        {
+          "width": 161,
+          "scrollWidth": 161
+        },
+        {
+          "width": 161,
+          "scrollWidth": 161
+        },
+        {
+          "width": 161,
+          "scrollWidth": 161
+        },
+        {
+          "width": 161,
+          "scrollWidth": 161
+        },
+        {
+          "width": 161,
+          "scrollWidth": 161
+        },
+        {
+          "width": 161,
+          "scrollWidth": 161
+        }
+      ],
+      "researchCards": [
+        {
+          "width": 381,
+          "scrollWidth": 381
+        },
+        {
+          "width": 381,
+          "scrollWidth": 381
+        }
+      ],
+      "remaining": [
+        "3",
+        "2"
+      ],
+      "used": [
+        "7",
+        "3"
+      ]
+    },
+    {
+      "check": "layout",
+      "variant": "b",
+      "size": "small",
+      "pageWidth": 320,
+      "viewport": 320,
+      "height": 1065,
+      "researchTop": 242.96875,
+      "purchaseTop": 582.5625,
+      "noteCards": [
+        {
+          "width": 246,
+          "scrollWidth": 246
+        },
+        {
+          "width": 246,
+          "scrollWidth": 246
+        },
+        {
+          "width": 246,
+          "scrollWidth": 246
+        },
+        {
+          "width": 246,
+          "scrollWidth": 246
+        },
+        {
+          "width": 246,
+          "scrollWidth": 246
+        },
+        {
+          "width": 246,
+          "scrollWidth": 246
+        }
+      ],
+      "researchCards": [
+        {
+          "width": 270,
+          "scrollWidth": 270
+        },
+        {
+          "width": 270,
+          "scrollWidth": 270
+        }
+      ],
+      "remaining": [
+        "3",
+        "2"
+      ],
+      "used": [
+        "7",
+        "3"
+      ]
+    },
+    {
+      "check": "layout",
+      "variant": "b",
+      "size": "mobile",
+      "pageWidth": 390,
+      "viewport": 390,
+      "height": 1065,
+      "researchTop": 242.390625,
+      "purchaseTop": 581.984375,
+      "noteCards": [
+        {
+          "width": 316,
+          "scrollWidth": 316
+        },
+        {
+          "width": 316,
+          "scrollWidth": 316
+        },
+        {
+          "width": 316,
+          "scrollWidth": 316
+        },
+        {
+          "width": 316,
+          "scrollWidth": 316
+        },
+        {
+          "width": 316,
+          "scrollWidth": 316
+        },
+        {
+          "width": 316,
+          "scrollWidth": 316
+        }
+      ],
+      "researchCards": [
+        {
+          "width": 336,
+          "scrollWidth": 336
+        },
+        {
+          "width": 336,
+          "scrollWidth": 336
+        }
+      ],
+      "remaining": [
+        "3",
+        "2"
+      ],
+      "used": [
+        "7",
+        "3"
+      ]
+    },
+    {
+      "check": "layout",
+      "variant": "b",
+      "size": "desktop",
+      "pageWidth": 1280,
+      "viewport": 1280,
+      "height": 800,
+      "researchTop": 217,
+      "purchaseTop": 338,
+      "noteCards": [
+        {
+          "width": 113,
+          "scrollWidth": 113
+        },
+        {
+          "width": 113,
+          "scrollWidth": 113
+        },
+        {
+          "width": 113,
+          "scrollWidth": 113
+        },
+        {
+          "width": 113,
+          "scrollWidth": 113
+        },
+        {
+          "width": 113,
+          "scrollWidth": 113
+        },
+        {
+          "width": 113,
+          "scrollWidth": 113
+        }
+      ],
+      "researchCards": [
+        {
+          "width": 279,
+          "scrollWidth": 279
+        },
+        {
+          "width": 279,
+          "scrollWidth": 279
+        }
+      ],
+      "remaining": [
+        "3",
+        "2"
+      ],
+      "used": [
+        "7",
+        "3"
+      ]
+    }
+  ],
+  "pageErrors": []
+}

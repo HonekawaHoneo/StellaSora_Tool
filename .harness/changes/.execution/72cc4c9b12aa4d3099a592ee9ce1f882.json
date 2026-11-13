@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "token": "72cc4c9b12aa4d3099a592ee9ce1f882",
+  "context": "codex-ui-b-20261113",
+  "request_digest": "9f467ae128e4513fc297499cf92dcc98c18e94bfb02b3d493c8b4aa1048d609b",
+  "started_at": "2026-11-12T15:41:35.122716+00:00",
+  "binding": {
+    "id": "ui-b-no-percent",
+    "phase": "implementation",
+    "activities": [
+      "code",
+      "ui"
+    ],
+    "required_skills": {
+      "response": ".agents/skills/evidence-first-response/SKILL.md",
+      "orchestrator": ".agents/skills/poteto-mode/SKILL.md",
+      "general": ".agents/skills/ponytail/SKILL.md",
+      "writing": ".agents/skills/unslop/SKILL.md",
+      "technical_writing": ".agents/skills/technical-writing/SKILL.md",
+      "design": ".agents/skills/ponytail/SKILL.md",
+      "implementation": ".agents/skills/implementation-planning/SKILL.md",
+      "ui_design": ".agents/skills/semantic-ui-design/SKILL.md",
+      "ui_implementation": ".agents/skills/ui-implementation-harness/SKILL.md"
+    },
+    "context_paths": [
+      ".harness/changes/ui-b-no-percent/design.json",
+      ".harness/changes/ui-b-no-percent/discovery.json",
+      ".harness/changes/ui-b-no-percent/requirements.json"
+    ],
+    "config_sha256": "f17ae098e00b410cf242f6b1efe1bcb641f89851f2aef26325a1de6b91df6e55"
+  },
+  "allowed_context_paths": [
+    ".harness/changes/ui-b-no-percent/design.json",
+    ".harness/changes/ui-b-no-percent/discovery.json",
+    ".harness/changes/ui-b-no-percent/implementation.json",
+    ".harness/changes/ui-b-no-percent/requirements.json",
+    ".harness/changes/ui-b-no-percent/state.json",
+    ".harness/project.json"
+  ],
+  "pins": {
+    ".harness/changes/ui-b-no-percent/discovery.json": "081ff925442f6a736864c2889e808de79179808fe7e5f8e327179dbc52c4d92f",
+    ".agents/skills/technical-writing/SKILL.md": "78b0db9c357d2c874a4cc6b551d6489085c2e5b16865ace5afefca3f453cc3bb",
+    ".agents/skills/semantic-ui-design/SKILL.md": "5188365396aa1644179d60b7227d115800c095747e70f398c076520b64b713c6",
+    ".agents/skills/unslop/SKILL.md": "8a2686d30e2cd8d884055cc0e6018d5c87cd320cb40232d8a80a59eb0786fa00",
+    ".harness/changes/ui-b-no-percent/design.json": "eb8b087beef79c940229e49da216a5d8f0cd89e0a12befe9cd63c19194685155",
+    ".agents/skills/ponytail/SKILL.md": "83ba94bce0dcbf4e36570fc8eb7ba04b40183d8ee46e2cca478404f943d127da",
+    ".agents/skills/implementation-planning/SKILL.md": "32a001822dcc1461a13fc1529f0194b91ae01be5888f73e57bd5bae1cb00c959",
+    ".agents/skills/ui-implementation-harness/SKILL.md": "882b2be8bd5322e96f230cabfe2939f02ad42541e7a0b803061f4e39e9010ff6",
+    ".harness/changes/ui-b-no-percent/requirements.json": "b04f38cce3050368b22377e49e30c8124401405a84a172109f48dd1bfb7c79f8",
+    ".agents/skills/evidence-first-response/SKILL.md": "9eb9f425a2a53547c511d69d5f5ad71ea5de39ff90232a6980cc33cef422efaf",
+    ".agents/skills/poteto-mode/SKILL.md": "3e9dd20e63b21d71572f8313fdfb43ffc1b835612a2463f23a3908db534acf29"
+  },
+  "reads": {
+    ".agents/skills/evidence-first-response/SKILL.md": "9eb9f425a2a53547c511d69d5f5ad71ea5de39ff90232a6980cc33cef422efaf",
+    ".agents/skills/poteto-mode/SKILL.md": "3e9dd20e63b21d71572f8313fdfb43ffc1b835612a2463f23a3908db534acf29",
+    ".agents/skills/ponytail/SKILL.md": "83ba94bce0dcbf4e36570fc8eb7ba04b40183d8ee46e2cca478404f943d127da",
+    ".agents/skills/unslop/SKILL.md": "8a2686d30e2cd8d884055cc0e6018d5c87cd320cb40232d8a80a59eb0786fa00",
+    ".agents/skills/technical-writing/SKILL.md": "78b0db9c357d2c874a4cc6b551d6489085c2e5b16865ace5afefca3f453cc3bb",
+    ".agents/skills/implementation-planning/SKILL.md": "32a001822dcc1461a13fc1529f0194b91ae01be5888f73e57bd5bae1cb00c959",
+    ".agents/skills/semantic-ui-design/SKILL.md": "5188365396aa1644179d60b7227d115800c095747e70f398c076520b64b713c6",
+    ".agents/skills/ui-implementation-harness/SKILL.md": "882b2be8bd5322e96f230cabfe2939f02ad42541e7a0b803061f4e39e9010ff6",
+    ".harness/changes/ui-b-no-percent/design.json": "eb8b087beef79c940229e49da216a5d8f0cd89e0a12befe9cd63c19194685155",
+    ".harness/changes/ui-b-no-percent/discovery.json": "081ff925442f6a736864c2889e808de79179808fe7e5f8e327179dbc52c4d92f",
+    ".harness/changes/ui-b-no-percent/requirements.json": "b04f38cce3050368b22377e49e30c8124401405a84a172109f48dd1bfb7c79f8"
+  },
+  "application": {
+    "path": ".harness/changes/ui-b-no-percent/skill-implementation-72cc4c9b12aa4d3099a592ee9ce1f882.json",
+    "sha256": "14d1c674f2a8704c34b34fa15590a0303d7ff2b7b39f253ddf07f7a5a6fc715f",
+    "evidence": {
+      ".harness/changes/ui-b-no-percent/discovery.json": "081ff925442f6a736864c2889e808de79179808fe7e5f8e327179dbc52c4d92f"
+    }
+  },
+  "finished": "2026-11-12T15:43:22.685498+00:00"
+}

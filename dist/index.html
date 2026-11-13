@@ -35,53 +35,55 @@
     </header>
 
     <main>
-      <section class="spending" aria-labelledby="total-label">
-        <div class="spending-overview">
-          <section class="summary" aria-label="集計と目標">
-            <div class="metrics">
-              <div class="metric metric-total">
-                <p class="metric-label" id="total-label">消費コイン合計</p>
-                <output id="total" class="metric-value" aria-label="素質再抽選と音符セット購入の消費コイン合計">0</output>
-              </div>
-              <div class="metric metric-target">
-                <label class="metric-label" for="target">目標コイン<svg class="edit-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="m10.5 2.5 3 3M2 14l3.5-1 8-8a1.4 1.4 0 0 0-3-3l-8 8L2 14Z"/></svg></label>
-                <div class="target-wrap"><input id="target" class="metric-value" type="number" min="0" max="9007199254740991" step="1" inputmode="numeric" value="0" autocomplete="off"></div>
-              </div>
-              <div class="metric metric-remaining">
-                <p class="metric-label">目標との差額</p>
-                <output id="remaining" class="metric-value unset" aria-label="目標コインから消費コイン合計を引いた差額">目標未設定</output>
-              </div>
-            </div>
-            <div class="progress-area" hidden>
-              <div class="progress-copy"><span id="progress-label"></span><span id="progress-percent"></span></div>
-              <div class="progress-track" role="progressbar" aria-label="目標の達成率" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress"><div id="progress-fill"></div></div>
-            </div>
-            <p class="storage-status" id="storage-status" role="status" hidden>保存失敗</p>
-          </section>
-          <section class="counter-group reroll-group" aria-labelledby="reroll-heading">
-            <div class="section-header"><h2 id="reroll-heading"><svg class="icon" aria-hidden="true"><use href="#icon-reroll"/></svg>素質の再抽選</h2></div>
-            <div class="counter-grid reroll-grid" id="reroll-counters"></div>
-          </section>
+      <section class="summary" aria-label="集計と目標">
+        <div class="metrics">
+          <div class="metric metric-remaining">
+            <p class="metric-label">目標との差額</p>
+            <output id="remaining" class="metric-value unset" aria-label="目標コインから消費コイン合計を引いた差額">目標未設定</output>
+          </div>
+          <div class="metric metric-total">
+            <p class="metric-label" id="total-label">消費コイン合計</p>
+            <output id="total" class="metric-value" aria-label="素質再抽選と音符セット購入の消費コイン合計">0</output>
+          </div>
+          <div class="metric metric-target">
+            <label class="metric-label" for="target">目標コイン<svg class="edit-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="m10.5 2.5 3 3M2 14l3.5-1 8-8a1.4 1.4 0 0 0-3-3l-8 8L2 14Z"/></svg></label>
+            <div class="target-wrap"><input id="target" class="metric-value" type="number" min="0" max="9007199254740991" step="1" inputmode="numeric" value="0" autocomplete="off"></div>
+          </div>
         </div>
-        <section class="counter-group notes-group" aria-labelledby="notes-heading">
-          <div class="section-header"><h2 id="notes-heading"><svg class="icon" aria-hidden="true"><use href="#icon-note"/></svg>音符購入</h2></div>
-          <div class="note-families">
-            <section class="note-family" aria-labelledby="family-90-heading">
-              <div class="family-header"><h3 id="family-90-heading"><strong>5個</strong>セット</h3></div>
-              <div class="counter-grid note-grid" id="note-counters-90"></div>
-            </section>
-            <section class="note-family" aria-labelledby="family-400-heading">
-              <div class="family-header"><h3 id="family-400-heading"><strong>15個</strong>セット</h3></div>
-              <div class="counter-grid note-grid" id="note-counters-400"></div>
+        <div class="progress-area" hidden>
+          <div class="progress-copy"><span id="progress-label"></span></div>
+          <div class="progress-track" role="progressbar" aria-label="目標の達成率" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress"><div id="progress-fill"></div></div>
+        </div>
+        <p class="storage-status" id="storage-status" role="status" hidden>保存失敗</p>
+      </section>
+      <div class="compact-workspace">
+        <section class="counter-group record-group" aria-labelledby="record-heading">
+          <div class="section-header"><h2 id="record-heading"><svg class="icon" aria-hidden="true"><use href="#icon-record"/></svg>研究効果</h2></div>
+          <div class="counter-grid record-grid" id="record-counters"></div>
+          <p class="research-condition" id="research-condition">研究・4 / 難易度8以上</p>
+        </section>
+        <section class="spending" aria-labelledby="total-label">
+          <div class="spending-overview">
+            <section class="counter-group reroll-group" aria-labelledby="reroll-heading">
+              <div class="section-header"><h2 id="reroll-heading"><svg class="icon" aria-hidden="true"><use href="#icon-reroll"/></svg>素質の再抽選</h2></div>
+              <div class="counter-grid reroll-grid" id="reroll-counters"></div>
             </section>
           </div>
+          <section class="counter-group notes-group" aria-labelledby="notes-heading">
+            <div class="section-header"><h2 id="notes-heading"><svg class="icon" aria-hidden="true"><use href="#icon-note"/></svg>音符購入</h2></div>
+            <div class="note-families">
+              <section class="note-family" aria-labelledby="family-90-heading">
+                <div class="family-header"><h3 id="family-90-heading"><strong>5個</strong>セット</h3></div>
+                <div class="counter-grid note-grid" id="note-counters-90"></div>
+              </section>
+              <section class="note-family" aria-labelledby="family-400-heading">
+                <div class="family-header"><h3 id="family-400-heading"><strong>15個</strong>セット</h3></div>
+                <div class="counter-grid note-grid" id="note-counters-400"></div>
+              </section>
+            </div>
+          </section>
         </section>
-      </section>
-      <section class="counter-group record-group" aria-labelledby="record-heading">
-        <div class="section-header"><h2 id="record-heading"><svg class="icon" aria-hidden="true"><use href="#icon-record"/></svg>研究効果</h2></div>
-        <div class="counter-grid record-grid" id="record-counters"></div>
-        <p class="research-condition" id="research-condition">研究・4 / 難易度8以上</p>
-      </section>
+      </div>
       <noscript><p class="noscript">このツールを使用するにはJavaScriptを有効にしてください。</p></noscript>
     </main>
   </div>

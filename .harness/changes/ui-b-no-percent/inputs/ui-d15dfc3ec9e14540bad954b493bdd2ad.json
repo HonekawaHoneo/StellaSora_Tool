@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "registry_path": "development/ui/summary-registry.json",
+  "registry": {
+    "schema_version": 1,
+    "components": [
+      {
+        "id": "coin-summary",
+        "source_ref": {
+          "path": "README.md",
+          "anchor": "目標コインの自由入力"
+        },
+        "implementation_ref": {
+          "path": "dist/index.html",
+          "anchor": "class=\"summary\""
+        },
+        "meaning": "計算済みの支出・目標入力・差額の対比",
+        "use_when": [
+          "カウンターの集計を確認し目標を編集する"
+        ],
+        "relations": [],
+        "token_ids": [
+          "coin-difference-foreground"
+        ],
+        "required_cues": [
+          "目標の編集欄",
+          "金額のラベル"
+        ],
+        "optional_cues": [
+          "達成率バー"
+        ],
+        "avoid": [
+          "色だけでの意味区別"
+        ],
+        "a11y": [
+          "目標ラベルと入力欄を関連付け、キーボード操作順を保つ"
+        ]
+      },
+      {
+        "id": "counter-app",
+        "source_ref": {
+          "path": "README.md",
+          "anchor": "9個の独立したカウンター"
+        },
+        "implementation_ref": {
+          "path": "dist/index.html",
+          "anchor": "class=\"app-shell\""
+        },
+        "meaning": "全体のカウンター、価格と区分、保存状態",
+        "use_when": [
+          "回数と支出を記録する"
+        ],
+        "relations": [
+          {
+            "kind": "contains",
+            "component": "coin-summary"
+          }
+        ],
+        "token_ids": [
+          "app-text-foreground"
+        ],
+        "required_cues": [
+          "支出グループの境界",
+          "個数と価格単位"
+        ],
+        "optional_cues": [
+          "保存できない状態"
+        ],
+        "avoid": [
+          "通常価格や支出0の反復"
+        ],
+        "a11y": [
+          "区分と操作のアクセシブルな名前を保つ"
+        ]
+      }
+    ],
+    "tokens": [
+      {
+        "id": "coin-difference-foreground",
+        "source_ref": {
+          "path": "development/ui/summary-tokens.json",
+          "pointer": "/coinDifferenceForeground"
+        },
+        "meaning": "未達の差額表示に使う既存のアクセント色"
+      },
+      {
+        "id": "app-text-foreground",
+        "source_ref": {
+          "path": "development/ui/summary-tokens.json",
+          "pointer": "/appTextForeground"
+        },
+        "meaning": "アプリの既存基本テキスト色"
+      }
+    ]
+  },
+  "baseline_registry": {
+    "schema_version": 1,
+    "components": [
+      {
+        "id": "coin-summary",
+        "source_ref": {
+          "path": "README.md",
+          "anchor": "目標コインの自由入力"
+        },
+        "implementation_ref": {
+          "path": "dist/index.html",
+          "anchor": "class=\"summary\""
+        },
+        "meaning": "計算済みの支出・目標入力・差額の対比",
+        "use_when": [
+          "カウンターの集計を確認し目標を編集する"
+        ],
+        "relations": [],
+        "token_ids": [
+          "coin-difference-foreground"
+        ],
+        "required_cues": [
+          "目標の編集欄",
+          "金額のラベル"
+        ],
+        "optional_cues": [
+          "達成率バー"
+        ],
+        "avoid": [
+          "色だけでの意味区別"
+        ],
+        "a11y": [
+          "目標ラベルと入力欄を関連付け、キーボード操作順を保つ"
+        ]
+      },
+      {
+        "id": "counter-app",
+        "source_ref": {
+          "path": "README.md",
+          "anchor": "9個の独立したカウンター"
+        },
+        "implementation_ref": {
+          "path": "dist/index.html",
+          "anchor": "class=\"app-shell\""
+        },
+        "meaning": "全体のカウンター、価格と区分、保存状態",
+        "use_when": [
+          "回数と支出を記録する"
+        ],
+        "relations": [
+          {
+            "kind": "contains",
+            "component": "coin-summary"
+          }
+        ],
+        "token_ids": [
+          "app-text-foreground"
+        ],
+        "required_cues": [
+          "支出グループの境界",
+          "個数と価格単位"
+        ],
+        "optional_cues": [
+          "保存できない状態"
+        ],
+        "avoid": [
+          "通常価格や支出0の反復"
+        ],
+        "a11y": [
+          "区分と操作のアクセシブルな名前を保つ"
+        ]
+      }
+    ],
+    "tokens": [
+      {
+        "id": "coin-difference-foreground",
+        "source_ref": {
+          "path": "development/ui/summary-tokens.json",
+          "pointer": "/coinDifferenceForeground"
+        },
+        "meaning": "未達の差額表示に使う既存のアクセント色"
+      },
+      {
+        "id": "app-text-foreground",
+        "source_ref": {
+          "path": "development/ui/summary-tokens.json",
+          "pointer": "/appTextForeground"
+        },
+        "meaning": "アプリの既存基本テキスト色"
+      }
+    ]
+  },
+  "source_digests": {
+    "README.md": "9a43ca6de5b664f2a531ffd5328f8673100dbdf479d6a1a9f40187819739f439",
+    "development/ui/summary-registry.json": "5298c3a958c0dfcdc7d0925525230e1def2c46e4729114681c19df3e787e09c7",
+    "development/ui/summary-tokens.json": "477cb74d5e54313ab31dacb3c64b8497676093c20f2c66037b889bbb3b17dbec"
+  },
+  "approved_sources": [],
+  "approval_ref": null,
+  "before": [
+    {
+      "scenario": "mobile-320",
+      "path": ".harness/changes/ui-b-no-percent/evidence/inspection-fcbcbea4dcb24dcda9a8e0d5d1907144/mobile-320.png",
+      "sha256": "054ae97ae39db9091db0c0fc8a026dcba42e82f3d8e7e4c1bdaab32154369cfb",
+      "environment": {
+        "viewport": {
+          "width": 320,
+          "height": 720
+        },
+        "browser": "Chrome/156.0.8078.79",
+        "theme": "light",
+        "fixture": "目標500・素質の再抽選2回・音符5個の通常購入1回"
+      }
+    },
+    {
+      "scenario": "desktop-1280",
+      "path": ".harness/changes/ui-b-no-percent/evidence/inspection-fcbcbea4dcb24dcda9a8e0d5d1907144/desktop-1280.png",
+      "sha256": "39e4a07ae17f1335916122b52b21721921253a7b1af61f8ebf2931220bf2dcb8",
+      "environment": {
+        "viewport": {
+          "width": 1280,
+          "height": 800
+        },
+        "browser": "Chrome/156.0.8078.79",
+        "theme": "light",
+        "fixture": "目標500・素質の再抽選2回・音符5個の通常購入1回"
+      }
+    }
+  ],
+  "bootstrap": false,
+  "input_digests": {
+    ".harness/changes/ui-b-no-percent/inputs/wireframe.md": "be7d778c9da92a61722902c68947f016fc470400c0126dff3d987426ba30cb5a"
+  },
+  "implementation_paths": [
+    "dist/app.js",
+    "dist/counter.js",
+    "dist/index.html",
+    "dist/styles.css"
+  ],
+  "requirements_digests": {
+    ".harness/changes/ui-b-no-percent/requirements.json": "ac14b883e5b72392e2b5f405adc962c758a179c2067733fdf6201bcc8f35b099"
+  }
+}

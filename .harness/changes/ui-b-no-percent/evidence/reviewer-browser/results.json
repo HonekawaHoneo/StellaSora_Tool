@@ -1,0 +1,994 @@
+[
+  {
+    "width": 320,
+    "coarse": true,
+    "media": {
+      "innerWidth": 320,
+      "clientWidth": 320,
+      "coarse600": false,
+      "sheets": [
+        {
+          "href": "http://127.0.0.1:35267/styles.css",
+          "coarse": [
+            {
+              "condition": "(pointer: coarse) and (min-width: 600px)",
+              "matches": false
+            }
+          ]
+        }
+      ]
+    },
+    "initial": {
+      "coarse": true,
+      "coarse600": false,
+      "body": "星ノ塔\nカウンター\n回数をリセット\n\n目標との差額\n\n330\n\n消費コイン合計\n\n170\n目標コイン\n研究効果\nLv3素質\n取得\n\n残り 10 回/ 10\n\n＋2強化\n使用\n\n残り 5 回/ 5\n\n研究・4 / 難易度8以上\n\n素質の再抽選\n40\nコイン / 回\n音符購入\n5個セット\n90\nコイン\n通常\n72\nコイン\n20%引き\n45\nコイン\n半額\n15個セット\n400\nコイン\n通常\n320\nコイン\n20%引き\n200\nコイン\n半額",
+      "summary": {
+        "x": 14,
+        "y": 68.578125,
+        "width": 292,
+        "height": 149.25
+      },
+      "research": {
+        "x": 14,
+        "y": 229.828125,
+        "width": 292,
+        "height": 201.59375
+      },
+      "spending": {
+        "x": 14,
+        "y": 443.421875,
+        "width": 292,
+        "height": 586.5625
+      },
+      "overflow": false,
+      "progress": 0.33999060150375937,
+      "positions": [
+        "static",
+        "static"
+      ],
+      "buttons": [
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        }
+      ]
+    },
+    "allEntrypoints": [
+      {
+        "id": "trait3",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 132,
+          "font": "16px",
+          "text": 44.4921875
+        }
+      },
+      {
+        "id": "enhancement2",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 132,
+          "font": "16px",
+          "text": 44.4921875
+        }
+      },
+      {
+        "id": "reroll",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 132,
+          "font": "16px",
+          "text": 44.4921875
+        }
+      },
+      {
+        "id": "note90",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 128,
+          "font": "16px",
+          "text": 44.4921875
+        }
+      },
+      {
+        "id": "note72",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 128,
+          "font": "16px",
+          "text": 44.4921875
+        }
+      },
+      {
+        "id": "note45",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 128,
+          "font": "16px",
+          "text": 44.4921875
+        }
+      },
+      {
+        "id": "note400",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 128,
+          "font": "16px",
+          "text": 44.4921875
+        }
+      },
+      {
+        "id": "note320",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 128,
+          "font": "16px",
+          "text": 44.4921875
+        }
+      },
+      {
+        "id": "note200",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 128,
+          "font": "16px",
+          "text": 44.4921875
+        }
+      }
+    ],
+    "researchMax": {
+      "text": "研究効果\nLv3素質\n取得\n\n残り 0 回/ 10\n超過 9,007,199,254,740,981回\n\n＋2強化\n使用\n\n残り 0 回/ 5\n超過 9,007,199,254,740,986回\n\n研究・4 / 難易度8以上",
+      "width": 292,
+      "scrollWidth": 290,
+      "clientWidth": 290,
+      "items": [
+        {
+          "width": 133,
+          "scrollWidth": 133,
+          "height": 63
+        },
+        {
+          "width": 133,
+          "scrollWidth": 133,
+          "height": 63
+        }
+      ]
+    },
+    "storageResetReload": true,
+    "scroll": {
+      "before": 68.578125,
+      "after": -131.421875,
+      "scroll": 200
+    }
+  },
+  {
+    "width": 600,
+    "coarse": true,
+    "media": {
+      "innerWidth": 600,
+      "clientWidth": 600,
+      "coarse600": true,
+      "sheets": [
+        {
+          "href": "http://127.0.0.1:35267/styles.css",
+          "coarse": [
+            {
+              "condition": "(pointer: coarse) and (min-width: 600px)",
+              "matches": true
+            }
+          ]
+        }
+      ]
+    },
+    "initial": {
+      "coarse": true,
+      "coarse600": true,
+      "body": "星ノ塔カウンター\n回数をリセット\n\n目標との差額\n\n330\n\n消費コイン合計\n\n170\n目標コイン\n研究効果\nLv3素質\n取得\n\n残り 10 回/ 10\n\n＋2強化\n使用\n\n残り 5 回/ 5\n\n研究・4 / 難易度8以上\n\n素質の再抽選\n40\nコイン / 回\n音符購入\n5個セット\n90\nコイン\n通常\n72\nコイン\n20%引き\n45\nコイン\n半額\n15個セット\n400\nコイン\n通常\n320\nコイン\n20%引き\n200\nコイン\n半額",
+      "summary": {
+        "x": 15,
+        "y": 80,
+        "width": 570,
+        "height": 109
+      },
+      "research": {
+        "x": 15,
+        "y": 203,
+        "width": 570,
+        "height": 152.59375
+      },
+      "spending": {
+        "x": 15,
+        "y": 369.59375,
+        "width": 570,
+        "height": 546
+      },
+      "overflow": false,
+      "progress": 0.33999060150375937,
+      "positions": [
+        "static",
+        "static"
+      ],
+      "buttons": [
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        }
+      ]
+    },
+    "allEntrypoints": [
+      {
+        "id": "trait3",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 132,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "enhancement2",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 132,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "reroll",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 180,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "note90",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 160,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "note72",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 160,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "note45",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 160,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "note400",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 160,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "note320",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 160,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "note200",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 160,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      }
+    ],
+    "researchMax": {
+      "text": "研究効果\nLv3素質\n取得\n\n残り 0 回/ 10\n超過 9,007,199,254,740,981回\n\n＋2強化\n使用\n\n残り 0 回/ 5\n超過 9,007,199,254,740,986回\n\n研究・4 / 難易度8以上",
+      "width": 570,
+      "scrollWidth": 568,
+      "clientWidth": 568,
+      "items": [
+        {
+          "width": 130,
+          "scrollWidth": 130,
+          "height": 66
+        },
+        {
+          "width": 117,
+          "scrollWidth": 117,
+          "height": 81
+        }
+      ]
+    },
+    "storageResetReload": true,
+    "scroll": {
+      "before": 62,
+      "after": -138,
+      "scroll": 200
+    }
+  },
+  {
+    "width": 960,
+    "coarse": true,
+    "media": {
+      "innerWidth": 960,
+      "clientWidth": 960,
+      "coarse600": true,
+      "sheets": [
+        {
+          "href": "http://127.0.0.1:35267/styles.css",
+          "coarse": [
+            {
+              "condition": "(pointer: coarse) and (min-width: 600px)",
+              "matches": true
+            }
+          ]
+        }
+      ]
+    },
+    "initial": {
+      "coarse": true,
+      "coarse600": true,
+      "body": "星ノ塔カウンター\n回数をリセット\n\n目標との差額\n\n330\n\n消費コイン合計\n\n170\n目標コイン\n研究効果\nLv3素質\n取得\n\n残り 10 回/ 10\n\n＋2強化\n使用\n\n残り 5 回/ 5\n\n研究・4 / 難易度8以上\n\n素質の再抽選\n40\nコイン / 回\n音符購入\n5個セット\n90\nコイン\n通常\n72\nコイン\n20%引き\n45\nコイン\n半額\n15個セット\n400\nコイン\n通常\n320\nコイン\n20%引き\n200\nコイン\n半額",
+      "summary": {
+        "x": 24,
+        "y": 80,
+        "width": 912,
+        "height": 109
+      },
+      "research": {
+        "x": 24,
+        "y": 203,
+        "width": 254.421875,
+        "height": 245.390625
+      },
+      "spending": {
+        "x": 292.421875,
+        "y": 203,
+        "width": 643.578125,
+        "height": 368
+      },
+      "overflow": false,
+      "progress": 0.339995709382151,
+      "positions": [
+        "static",
+        "static"
+      ],
+      "buttons": [
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        }
+      ]
+    },
+    "allEntrypoints": [
+      {
+        "id": "trait3",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 132,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "enhancement2",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 132,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "reroll",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 180,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "note90",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 80,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "note72",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 80,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "note45",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 80,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "note400",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 80,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "note320",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 80,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "note200",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 80,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      }
+    ],
+    "researchMax": {
+      "text": "研究効果\nLv3素質\n取得\n\n残り 0 回/ 10\n超過 9,007,199,254,740,981回\n\n＋2強化\n使用\n\n残り 0 回/ 5\n超過 9,007,199,254,740,986回\n\n研究・4 / 難易度8以上",
+      "width": 254.421875,
+      "scrollWidth": 252,
+      "clientWidth": 252,
+      "items": [
+        {
+          "width": 84,
+          "scrollWidth": 84,
+          "height": 81
+        },
+        {
+          "width": 84,
+          "scrollWidth": 84,
+          "height": 81
+        }
+      ]
+    },
+    "storageResetReload": true,
+    "scroll": {
+      "before": 62,
+      "after": -138,
+      "scroll": 200
+    }
+  },
+  {
+    "width": 1280,
+    "coarse": true,
+    "media": {
+      "innerWidth": 1280,
+      "clientWidth": 1280,
+      "coarse600": true,
+      "sheets": [
+        {
+          "href": "http://127.0.0.1:35267/styles.css",
+          "coarse": [
+            {
+              "condition": "(pointer: coarse) and (min-width: 600px)",
+              "matches": true
+            }
+          ]
+        }
+      ]
+    },
+    "initial": {
+      "coarse": true,
+      "coarse600": true,
+      "body": "星ノ塔カウンター\n回数をリセット\n\n目標との差額\n\n330\n\n消費コイン合計\n\n170\n目標コイン\n研究効果\nLv3素質\n取得\n\n残り 10 回/ 10\n\n＋2強化\n使用\n\n残り 5 回/ 5\n\n研究・4 / 難易度8以上\n\n素質の再抽選\n40\nコイン / 回\n音符購入\n5個セット\n90\nコイン\n通常\n72\nコイン\n20%引き\n45\nコイン\n半額\n15個セット\n400\nコイン\n通常\n320\nコイン\n20%引き\n200\nコイン\n半額",
+      "summary": {
+        "x": 88,
+        "y": 80,
+        "width": 1104,
+        "height": 109
+      },
+      "research": {
+        "x": 88,
+        "y": 203,
+        "width": 308.828125,
+        "height": 228.59375
+      },
+      "spending": {
+        "x": 410.828125,
+        "y": 203,
+        "width": 781.171875,
+        "height": 368
+      },
+      "overflow": false,
+      "progress": 0.33999765478424016,
+      "positions": [
+        "static",
+        "static"
+      ],
+      "buttons": [
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        },
+        {
+          "width": 40,
+          "height": 40
+        }
+      ]
+    },
+    "allEntrypoints": [
+      {
+        "id": "trait3",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 132,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "enhancement2",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 132,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "reroll",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 180,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "note90",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 103,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "note72",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 103,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "note45",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 103,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "note400",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 103,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "note320",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 103,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      },
+      {
+        "id": "note200",
+        "increment": true,
+        "decrement": true,
+        "directLong": {
+          "value": "12345",
+          "width": 103,
+          "font": "17px",
+          "text": 47.27294921875
+        }
+      }
+    ],
+    "researchMax": {
+      "text": "研究効果\nLv3素質\n取得\n\n残り 0 回/ 10\n超過 9,007,199,254,740,981回\n\n＋2強化\n使用\n\n残り 0 回/ 5\n超過 9,007,199,254,740,986回\n\n研究・4 / 難易度8以上",
+      "width": 308.828125,
+      "scrollWidth": 307,
+      "clientWidth": 307,
+      "items": [
+        {
+          "width": 139,
+          "scrollWidth": 139,
+          "height": 66
+        },
+        {
+          "width": 139,
+          "scrollWidth": 139,
+          "height": 66
+        }
+      ]
+    },
+    "storageResetReload": true,
+    "scroll": {
+      "before": 62,
+      "after": -138,
+      "scroll": 200
+    }
+  }
+]

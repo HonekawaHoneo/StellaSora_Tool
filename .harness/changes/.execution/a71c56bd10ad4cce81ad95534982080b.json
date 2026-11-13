@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "token": "a71c56bd10ad4cce81ad95534982080b",
+  "context": "codex-ui-b-20261113",
+  "request_digest": "9f467ae128e4513fc297499cf92dcc98c18e94bfb02b3d493c8b4aa1048d609b",
+  "started_at": "2026-11-12T15:17:01.952201+00:00",
+  "binding": {
+    "id": "ui-b-no-percent",
+    "phase": "discovery",
+    "activities": [
+      "code",
+      "ui"
+    ],
+    "required_skills": {
+      "response": ".agents/skills/evidence-first-response/SKILL.md",
+      "orchestrator": ".agents/skills/poteto-mode/SKILL.md",
+      "general": ".agents/skills/ponytail/SKILL.md",
+      "writing": ".agents/skills/unslop/SKILL.md",
+      "technical_writing": ".agents/skills/technical-writing/SKILL.md",
+      "requirements": ".agents/skills/grill-me/SKILL.md",
+      "implementation": ".agents/skills/implementation-planning/SKILL.md",
+      "ui_design": ".agents/skills/semantic-ui-design/SKILL.md",
+      "ui_implementation": ".agents/skills/ui-implementation-harness/SKILL.md"
+    },
+    "context_paths": [
+      ".harness/changes/ui-b-no-percent/discovery.json"
+    ],
+    "config_sha256": "f17ae098e00b410cf242f6b1efe1bcb641f89851f2aef26325a1de6b91df6e55"
+  },
+  "allowed_context_paths": [
+    ".harness/changes/ui-b-no-percent/discovery.json",
+    ".harness/changes/ui-b-no-percent/state.json",
+    ".harness/project.json"
+  ],
+  "pins": {
+    ".agents/skills/semantic-ui-design/SKILL.md": "5188365396aa1644179d60b7227d115800c095747e70f398c076520b64b713c6",
+    ".harness/changes/ui-b-no-percent/discovery.json": "081ff925442f6a736864c2889e808de79179808fe7e5f8e327179dbc52c4d92f",
+    ".agents/skills/grill-me/SKILL.md": "cfd049dd16df9579d17e480746c19ea158d80405249bce2202e67c8b4fcc8a87",
+    ".agents/skills/implementation-planning/SKILL.md": "32a001822dcc1461a13fc1529f0194b91ae01be5888f73e57bd5bae1cb00c959",
+    ".agents/skills/poteto-mode/SKILL.md": "3e9dd20e63b21d71572f8313fdfb43ffc1b835612a2463f23a3908db534acf29",
+    ".agents/skills/ui-implementation-harness/SKILL.md": "882b2be8bd5322e96f230cabfe2939f02ad42541e7a0b803061f4e39e9010ff6",
+    ".agents/skills/unslop/SKILL.md": "8a2686d30e2cd8d884055cc0e6018d5c87cd320cb40232d8a80a59eb0786fa00",
+    ".agents/skills/technical-writing/SKILL.md": "78b0db9c357d2c874a4cc6b551d6489085c2e5b16865ace5afefca3f453cc3bb",
+    ".agents/skills/evidence-first-response/SKILL.md": "9eb9f425a2a53547c511d69d5f5ad71ea5de39ff90232a6980cc33cef422efaf",
+    ".agents/skills/ponytail/SKILL.md": "83ba94bce0dcbf4e36570fc8eb7ba04b40183d8ee46e2cca478404f943d127da"
+  },
+  "reads": {
+    ".agents/skills/evidence-first-response/SKILL.md": "9eb9f425a2a53547c511d69d5f5ad71ea5de39ff90232a6980cc33cef422efaf",
+    ".agents/skills/poteto-mode/SKILL.md": "3e9dd20e63b21d71572f8313fdfb43ffc1b835612a2463f23a3908db534acf29",
+    ".agents/skills/ponytail/SKILL.md": "83ba94bce0dcbf4e36570fc8eb7ba04b40183d8ee46e2cca478404f943d127da",
+    ".agents/skills/unslop/SKILL.md": "8a2686d30e2cd8d884055cc0e6018d5c87cd320cb40232d8a80a59eb0786fa00",
+    ".agents/skills/technical-writing/SKILL.md": "78b0db9c357d2c874a4cc6b551d6489085c2e5b16865ace5afefca3f453cc3bb",
+    ".agents/skills/grill-me/SKILL.md": "cfd049dd16df9579d17e480746c19ea158d80405249bce2202e67c8b4fcc8a87",
+    ".agents/skills/implementation-planning/SKILL.md": "32a001822dcc1461a13fc1529f0194b91ae01be5888f73e57bd5bae1cb00c959",
+    ".agents/skills/semantic-ui-design/SKILL.md": "5188365396aa1644179d60b7227d115800c095747e70f398c076520b64b713c6",
+    ".agents/skills/ui-implementation-harness/SKILL.md": "882b2be8bd5322e96f230cabfe2939f02ad42541e7a0b803061f4e39e9010ff6",
+    ".harness/changes/ui-b-no-percent/discovery.json": "081ff925442f6a736864c2889e808de79179808fe7e5f8e327179dbc52c4d92f"
+  },
+  "application": {
+    "path": ".harness/changes/ui-b-no-percent/skill-discovery-a71c56bd10ad4cce81ad95534982080b.json",
+    "sha256": "4322eb296dec9e2be0638e3c770e4c078e25bf71007d8f504cbba83b7f62b5e8",
+    "evidence": {
+      ".harness/changes/ui-b-no-percent/discovery.json": "081ff925442f6a736864c2889e808de79179808fe7e5f8e327179dbc52c4d92f"
+    }
+  },
+  "finished": "2026-11-12T15:17:04.817759+00:00"
+}

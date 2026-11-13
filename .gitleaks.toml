@@ -62,3 +62,14 @@ condition = "AND"
 regexTarget = "line"
 paths = ['^\.harness/changes/game-purpose-ui/inputs/ui-4274fbc5be2f48bab5540dfaff4cc611\.json$']
 regexes = ['^\s*"development/ui/summary-tokens\.json"\s*:\s*"477cb74d5e54313ab31dacb3c64b8497676093c20f2c66037b889bbb3b17dbec"\s*,?\s*$']
+
+[[allowlists]]
+description = "Verified public color-token SHA-256 in the two ui-b-no-percent snapshots"
+targetRules = ["generic-api-key"]
+condition = "AND"
+regexTarget = "line"
+paths = [
+  '^\.harness/changes/ui-b-no-percent/inputs/ui-d15dfc3ec9e14540bad954b493bdd2ad\.json$',
+  '^\.harness/changes/ui-b-no-percent/inputs/ui-186c878f8f314b79a9ec0941590b5570\.json$',
+]
+regexes = ['^\s*"development/ui/summary-tokens\.json"\s*:\s*"477cb74d5e54313ab31dacb3c64b8497676093c20f2c66037b889bbb3b17dbec"\s*,?\s*$']

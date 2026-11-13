@@ -1,0 +1,132 @@
+[
+  {
+    "innerWidth": 600,
+    "clientWidth": 600,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [],
+    "stage": "initial",
+    "is_mobile": false
+  },
+  {
+    "innerWidth": 600,
+    "clientWidth": 600,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [],
+    "stage": "reload",
+    "is_mobile": false
+  },
+  {
+    "innerWidth": 600,
+    "clientWidth": 600,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [],
+    "stage": "tap",
+    "is_mobile": false
+  },
+  {
+    "innerWidth": 601,
+    "clientWidth": 601,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [],
+    "stage": "resize601",
+    "is_mobile": false
+  },
+  {
+    "innerWidth": 600,
+    "clientWidth": 600,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [],
+    "stage": "resize600",
+    "is_mobile": false
+  },
+  {
+    "innerWidth": 600,
+    "clientWidth": 600,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [],
+    "stage": "initial",
+    "is_mobile": true
+  },
+  {
+    "innerWidth": 600,
+    "clientWidth": 600,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [],
+    "stage": "reload",
+    "is_mobile": true
+  },
+  {
+    "innerWidth": 600,
+    "clientWidth": 600,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [],
+    "stage": "tap",
+    "is_mobile": true
+  },
+  {
+    "innerWidth": 601,
+    "clientWidth": 601,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [],
+    "stage": "resize601",
+    "is_mobile": true
+  },
+  {
+    "innerWidth": 600,
+    "clientWidth": 600,
+    "coarse": true,
+    "coarse600": true,
+    "computed": {
+      "width": "40px",
+      "height": "40px"
+    },
+    "matches": [],
+    "stage": "resize600",
+    "is_mobile": true
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "reviewer": "Codex independent reviewer /root/review_ui_b",
+  "order": "Original request and receipt screenshots plus accepted B mockups viewed before reading design.json",
+  "observations": [
+    "320px: summary first with prominent target difference 330, separate spent 170 and editable target 500. No numeric achievement percent. Progress bar remains. Research group follows summary, with remaining 10/5 and obtained/used 0. Orange reroll group precedes purple grouped 5/15 note purchases.",
+    "1280px: summary spans content width; research sits left of spending container. Two note set groups are side by side, each three same-level price options. Matches B group structure, reading order and orange/purple/slate meaning. Removing percentage closes that row without removing bar.",
+    "Reached screenshot shows 0 difference, green bar and short goal-reached state. Count-error screenshot is scrolled at top; error may lie below captured viewport and requires metrics/code review.",
+    "Long target screenshot retains all 16 digits in editable target and formatted 9,007,199,254,740,821 difference. The progress screenshot appears mid-animation and cannot establish final fraction. Need independent real browser measurement.",
+    "Visible price condition 20%引き is a price name and must stay. It is semantically distinct from achievement rate.",
+    "Fixed scrolling behavior cannot be proved from still images; measure normal flow. Small native-like plus/minus glyph within visible button sufficient; full button area should stay operable. No extra prose or hidden help is needed for this counting task."
+  ],
+  "provisional_questions": [
+    "Verify responsive coarse pointer width 600/960/1280, long input at every group, research over-limit output, true final progress fraction, and no sticky/fixed elements."
+  ]
+}

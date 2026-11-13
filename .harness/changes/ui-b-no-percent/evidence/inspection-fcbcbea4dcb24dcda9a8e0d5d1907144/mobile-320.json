@@ -1,0 +1,968 @@
+{
+  "texts": [
+    "星ノ塔",
+    "カウンター",
+    "回数をリセット",
+    "消費コイン合計",
+    "170",
+    "目標コイン",
+    "500",
+    "目標との差額",
+    "330",
+    "34%",
+    "素質の再抽選",
+    "40",
+    "コイン / 回",
+    "2",
+    "音符購入",
+    "5個",
+    "セット",
+    "90",
+    "コイン",
+    "通常",
+    "1",
+    "72",
+    "コイン",
+    "20%引き",
+    "0",
+    "45",
+    "コイン",
+    "半額",
+    "0",
+    "15個",
+    "セット",
+    "400",
+    "コイン",
+    "通常",
+    "0",
+    "320",
+    "コイン",
+    "20%引き",
+    "0",
+    "200",
+    "コイン",
+    "半額",
+    "0",
+    "研究効果",
+    "Lv3素質",
+    "0",
+    "残り10 / 10回",
+    "＋2強化",
+    "0",
+    "残り5 / 5回",
+    "研究・4 / 難易度8以上"
+  ],
+  "copyItems": {
+    "body": [
+      {
+        "text": "星ノ塔",
+        "target": "html > body > div:nth-of-type(1) > header > div > h1",
+        "kind": "text"
+      },
+      {
+        "text": "カウンター",
+        "target": "html > body > div:nth-of-type(1) > header > div > h1 > span",
+        "kind": "text"
+      },
+      {
+        "text": "回数をリセット",
+        "target": "#reset > span",
+        "kind": "text"
+      },
+      {
+        "text": "消費コイン合計",
+        "target": "#total-label",
+        "kind": "text"
+      },
+      {
+        "text": "170",
+        "target": "#total",
+        "kind": "text"
+      },
+      {
+        "text": "目標コイン",
+        "target": "html > body > div:nth-of-type(1) > main > section:nth-of-type(1) > div > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(2) > label",
+        "kind": "text"
+      },
+      {
+        "text": "500",
+        "target": "#target",
+        "kind": "value"
+      },
+      {
+        "text": "目標との差額",
+        "target": "html > body > div:nth-of-type(1) > main > section:nth-of-type(1) > div > section:nth-of-type(1) > div:nth-of-type(1) > div:nth-of-type(3) > p",
+        "kind": "text"
+      },
+      {
+        "text": "330",
+        "target": "#remaining",
+        "kind": "text"
+      },
+      {
+        "text": "34%",
+        "target": "#progress-percent",
+        "kind": "text"
+      },
+      {
+        "text": "素質の再抽選",
+        "target": "#reroll-heading",
+        "kind": "text"
+      },
+      {
+        "text": "40",
+        "target": "[data-id=\"reroll\"] > div:nth-of-type(1) > h3",
+        "kind": "text"
+      },
+      {
+        "text": "コイン / 回",
+        "target": "[data-id=\"reroll\"] > div:nth-of-type(1) > h3 > span",
+        "kind": "text"
+      },
+      {
+        "text": "2",
+        "target": "#count-reroll",
+        "kind": "value"
+      },
+      {
+        "text": "音符購入",
+        "target": "#notes-heading",
+        "kind": "text"
+      },
+      {
+        "text": "5個",
+        "target": "#family-90-heading > strong",
+        "kind": "text"
+      },
+      {
+        "text": "セット",
+        "target": "#family-90-heading",
+        "kind": "text"
+      },
+      {
+        "text": "90",
+        "target": "[data-id=\"note90\"] > div:nth-of-type(1) > h4",
+        "kind": "text"
+      },
+      {
+        "text": "コイン",
+        "target": "[data-id=\"note90\"] > div:nth-of-type(1) > h4 > span",
+        "kind": "text"
+      },
+      {
+        "text": "通常",
+        "target": "[data-id=\"note90\"] > div:nth-of-type(1) > span",
+        "kind": "text"
+      },
+      {
+        "text": "1",
+        "target": "#count-note90",
+        "kind": "value"
+      },
+      {
+        "text": "72",
+        "target": "[data-id=\"note72\"] > div:nth-of-type(1) > h4",
+        "kind": "text"
+      },
+      {
+        "text": "コイン",
+        "target": "[data-id=\"note72\"] > div:nth-of-type(1) > h4 > span",
+        "kind": "text"
+      },
+      {
+        "text": "20%引き",
+        "target": "[data-id=\"note72\"] > div:nth-of-type(1) > span",
+        "kind": "text"
+      },
+      {
+        "text": "0",
+        "target": "#count-note72",
+        "kind": "value"
+      },
+      {
+        "text": "45",
+        "target": "[data-id=\"note45\"] > div:nth-of-type(1) > h4",
+        "kind": "text"
+      },
+      {
+        "text": "コイン",
+        "target": "[data-id=\"note45\"] > div:nth-of-type(1) > h4 > span",
+        "kind": "text"
+      },
+      {
+        "text": "半額",
+        "target": "[data-id=\"note45\"] > div:nth-of-type(1) > span",
+        "kind": "text"
+      },
+      {
+        "text": "0",
+        "target": "#count-note45",
+        "kind": "value"
+      },
+      {
+        "text": "15個",
+        "target": "#family-400-heading > strong",
+        "kind": "text"
+      },
+      {
+        "text": "セット",
+        "target": "#family-400-heading",
+        "kind": "text"
+      },
+      {
+        "text": "400",
+        "target": "[data-id=\"note400\"] > div:nth-of-type(1) > h4",
+        "kind": "text"
+      },
+      {
+        "text": "コイン",
+        "target": "[data-id=\"note400\"] > div:nth-of-type(1) > h4 > span",
+        "kind": "text"
+      },
+      {
+        "text": "通常",
+        "target": "[data-id=\"note400\"] > div:nth-of-type(1) > span",
+        "kind": "text"
+      },
+      {
+        "text": "0",
+        "target": "#count-note400",
+        "kind": "value"
+      },
+      {
+        "text": "320",
+        "target": "[data-id=\"note320\"] > div:nth-of-type(1) > h4",
+        "kind": "text"
+      },
+      {
+        "text": "コイン",
+        "target": "[data-id=\"note320\"] > div:nth-of-type(1) > h4 > span",
+        "kind": "text"
+      },
+      {
+        "text": "20%引き",
+        "target": "[data-id=\"note320\"] > div:nth-of-type(1) > span",
+        "kind": "text"
+      },
+      {
+        "text": "0",
+        "target": "#count-note320",
+        "kind": "value"
+      },
+      {
+        "text": "200",
+        "target": "[data-id=\"note200\"] > div:nth-of-type(1) > h4",
+        "kind": "text"
+      },
+      {
+        "text": "コイン",
+        "target": "[data-id=\"note200\"] > div:nth-of-type(1) > h4 > span",
+        "kind": "text"
+      },
+      {
+        "text": "半額",
+        "target": "[data-id=\"note200\"] > div:nth-of-type(1) > span",
+        "kind": "text"
+      },
+      {
+        "text": "0",
+        "target": "#count-note200",
+        "kind": "value"
+      },
+      {
+        "text": "研究効果",
+        "target": "#record-heading",
+        "kind": "text"
+      },
+      {
+        "text": "Lv3素質",
+        "target": "[data-id=\"trait3\"] > div:nth-of-type(1) > h3",
+        "kind": "text"
+      },
+      {
+        "text": "0",
+        "target": "#count-trait3",
+        "kind": "value"
+      },
+      {
+        "text": "残り10 / 10回",
+        "target": "[data-id=\"trait3\"] > p",
+        "kind": "text"
+      },
+      {
+        "text": "＋2強化",
+        "target": "[data-id=\"enhancement2\"] > div:nth-of-type(1) > h3",
+        "kind": "text"
+      },
+      {
+        "text": "0",
+        "target": "#count-enhancement2",
+        "kind": "value"
+      },
+      {
+        "text": "残り5 / 5回",
+        "target": "[data-id=\"enhancement2\"] > p",
+        "kind": "text"
+      },
+      {
+        "text": "研究・4 / 難易度8以上",
+        "target": "#research-condition",
+        "kind": "text"
+      }
+    ],
+    "qa": [],
+    "tooltip": [],
+    "accessible_name": [
+      {
+        "text": "星ノ塔 カウンター",
+        "target": "html > body > div:nth-of-type(1) > header > div > h1",
+        "kind": "name",
+        "role": "heading"
+      },
+      {
+        "text": "回数をリセット",
+        "target": "[id=\"reset\"]",
+        "kind": "name",
+        "role": "button"
+      },
+      {
+        "text": "消費コイン合計",
+        "target": "html > body > div:nth-of-type(1) > main > section:nth-of-type(1)",
+        "kind": "name",
+        "role": "region"
+      },
+      {
+        "text": "研究効果",
+        "target": "html > body > div:nth-of-type(1) > main > section:nth-of-type(2)",
+        "kind": "name",
+        "role": "region"
+      },
+      {
+        "text": "集計と目標",
+        "target": "html > body > div:nth-of-type(1) > main > section:nth-of-type(1) > div > section:nth-of-type(1)",
+        "kind": "name",
+        "role": "region"
+      },
+      {
+        "text": "素質の再抽選",
+        "target": "html > body > div:nth-of-type(1) > main > section:nth-of-type(1) > div > section:nth-of-type(2)",
+        "kind": "name",
+        "role": "region"
+      },
+      {
+        "text": "音符購入",
+        "target": "html > body > div:nth-of-type(1) > main > section:nth-of-type(1) > section",
+        "kind": "name",
+        "role": "region"
+      },
+      {
+        "text": "研究効果",
+        "target": "[id=\"record-heading\"]",
+        "kind": "name",
+        "role": "heading"
+      },
+      {
+        "text": "素質再抽選と音符セット購入の消費コイン合計",
+        "target": "[id=\"total\"]",
+        "kind": "name",
+        "role": "status"
+      },
+      {
+        "text": "目標コイン",
+        "target": "[id=\"target\"]",
+        "kind": "name",
+        "role": "spinbutton"
+      },
+      {
+        "text": "500",
+        "target": "[id=\"target\"]",
+        "kind": "value",
+        "role": "spinbutton"
+      },
+      {
+        "text": "目標コインから消費コイン合計を引いた差額",
+        "target": "[id=\"remaining\"]",
+        "kind": "name",
+        "role": "status"
+      },
+      {
+        "text": "目標の達成率",
+        "target": "[id=\"progress\"]",
+        "kind": "name",
+        "role": "progressbar"
+      },
+      {
+        "text": "34%",
+        "target": "[id=\"progress\"]",
+        "kind": "value",
+        "role": "progressbar"
+      },
+      {
+        "text": "素質の再抽選",
+        "target": "[id=\"reroll-heading\"]",
+        "kind": "name",
+        "role": "heading"
+      },
+      {
+        "text": "音符購入",
+        "target": "[id=\"notes-heading\"]",
+        "kind": "name",
+        "role": "heading"
+      },
+      {
+        "text": "5個セット",
+        "target": "html > body > div:nth-of-type(1) > main > section:nth-of-type(1) > section > div:nth-of-type(2) > section:nth-of-type(1)",
+        "kind": "name",
+        "role": "region"
+      },
+      {
+        "text": "15個セット",
+        "target": "html > body > div:nth-of-type(1) > main > section:nth-of-type(1) > section > div:nth-of-type(2) > section:nth-of-type(2)",
+        "kind": "name",
+        "role": "region"
+      },
+      {
+        "text": "Lv3素質",
+        "target": "[data-id=\"trait3\"]",
+        "kind": "name",
+        "role": "article"
+      },
+      {
+        "text": "＋2強化",
+        "target": "[data-id=\"enhancement2\"]",
+        "kind": "name",
+        "role": "article"
+      },
+      {
+        "text": "素質の再抽選",
+        "target": "[data-id=\"reroll\"]",
+        "kind": "name",
+        "role": "article"
+      },
+      {
+        "text": "5個セット",
+        "target": "[id=\"family-90-heading\"]",
+        "kind": "name",
+        "role": "heading"
+      },
+      {
+        "text": "15個セット",
+        "target": "[id=\"family-400-heading\"]",
+        "kind": "name",
+        "role": "heading"
+      },
+      {
+        "text": "Lv3素質",
+        "target": "[data-id=\"trait3\"] > div:nth-of-type(1) > h3",
+        "kind": "name",
+        "role": "heading"
+      },
+      {
+        "text": "Lv3素質の取得回数を1減らす",
+        "target": "[data-id=\"trait3\"] > div:nth-of-type(2) > button:nth-of-type(1)",
+        "kind": "name",
+        "role": "button"
+      },
+      {
+        "text": "Lv3素質の取得回数",
+        "target": "[id=\"count-trait3\"]",
+        "kind": "name",
+        "role": "spinbutton"
+      },
+      {
+        "text": "研究・4 / 難易度8以上",
+        "target": "[id=\"count-trait3\"]",
+        "kind": "description",
+        "role": "spinbutton"
+      },
+      {
+        "text": "0",
+        "target": "[id=\"count-trait3\"]",
+        "kind": "value",
+        "role": "spinbutton"
+      },
+      {
+        "text": "Lv3素質の取得回数を1増やす",
+        "target": "[data-id=\"trait3\"] > div:nth-of-type(2) > button:nth-of-type(2)",
+        "kind": "name",
+        "role": "button"
+      },
+      {
+        "text": "＋2強化",
+        "target": "[data-id=\"enhancement2\"] > div:nth-of-type(1) > h3",
+        "kind": "name",
+        "role": "heading"
+      },
+      {
+        "text": "＋2強化の使用回数を1減らす",
+        "target": "[data-id=\"enhancement2\"] > div:nth-of-type(2) > button:nth-of-type(1)",
+        "kind": "name",
+        "role": "button"
+      },
+      {
+        "text": "＋2強化の使用回数",
+        "target": "[id=\"count-enhancement2\"]",
+        "kind": "name",
+        "role": "spinbutton"
+      },
+      {
+        "text": "研究・4 / 難易度8以上",
+        "target": "[id=\"count-enhancement2\"]",
+        "kind": "description",
+        "role": "spinbutton"
+      },
+      {
+        "text": "0",
+        "target": "[id=\"count-enhancement2\"]",
+        "kind": "value",
+        "role": "spinbutton"
+      },
+      {
+        "text": "＋2強化の使用回数を1増やす",
+        "target": "[data-id=\"enhancement2\"] > div:nth-of-type(2) > button:nth-of-type(2)",
+        "kind": "name",
+        "role": "button"
+      },
+      {
+        "text": "40 コイン / 回",
+        "target": "[data-id=\"reroll\"] > div:nth-of-type(1) > h3",
+        "kind": "name",
+        "role": "heading"
+      },
+      {
+        "text": "素質の再抽選回数を1減らす",
+        "target": "[data-id=\"reroll\"] > div:nth-of-type(2) > button:nth-of-type(1)",
+        "kind": "name",
+        "role": "button"
+      },
+      {
+        "text": "素質の再抽選回数",
+        "target": "[id=\"count-reroll\"]",
+        "kind": "name",
+        "role": "spinbutton"
+      },
+      {
+        "text": "2",
+        "target": "[id=\"count-reroll\"]",
+        "kind": "value",
+        "role": "spinbutton"
+      },
+      {
+        "text": "素質の再抽選回数を1増やす",
+        "target": "[data-id=\"reroll\"] > div:nth-of-type(2) > button:nth-of-type(2)",
+        "kind": "name",
+        "role": "button"
+      },
+      {
+        "text": "音符5個セット・通常90コイン",
+        "target": "[data-id=\"note90\"]",
+        "kind": "name",
+        "role": "article"
+      },
+      {
+        "text": "音符5個セット・20%引き72コイン",
+        "target": "[data-id=\"note72\"]",
+        "kind": "name",
+        "role": "article"
+      },
+      {
+        "text": "音符5個セット・半額45コイン",
+        "target": "[data-id=\"note45\"]",
+        "kind": "name",
+        "role": "article"
+      },
+      {
+        "text": "音符15個セット・通常400コイン",
+        "target": "[data-id=\"note400\"]",
+        "kind": "name",
+        "role": "article"
+      },
+      {
+        "text": "音符15個セット・20%引き320コイン",
+        "target": "[data-id=\"note320\"]",
+        "kind": "name",
+        "role": "article"
+      },
+      {
+        "text": "音符15個セット・半額200コイン",
+        "target": "[data-id=\"note200\"]",
+        "kind": "name",
+        "role": "article"
+      },
+      {
+        "text": "90 コイン",
+        "target": "[data-id=\"note90\"] > div:nth-of-type(1) > h4",
+        "kind": "name",
+        "role": "heading"
+      },
+      {
+        "text": "音符5個セット・通常90コインの購入回数を1減らす",
+        "target": "[data-id=\"note90\"] > div:nth-of-type(2) > button:nth-of-type(1)",
+        "kind": "name",
+        "role": "button"
+      },
+      {
+        "text": "音符5個セット・通常90コインの購入回数",
+        "target": "[id=\"count-note90\"]",
+        "kind": "name",
+        "role": "spinbutton"
+      },
+      {
+        "text": "1",
+        "target": "[id=\"count-note90\"]",
+        "kind": "value",
+        "role": "spinbutton"
+      },
+      {
+        "text": "音符5個セット・通常90コインの購入回数を1増やす",
+        "target": "[data-id=\"note90\"] > div:nth-of-type(2) > button:nth-of-type(2)",
+        "kind": "name",
+        "role": "button"
+      },
+      {
+        "text": "72 コイン",
+        "target": "[data-id=\"note72\"] > div:nth-of-type(1) > h4",
+        "kind": "name",
+        "role": "heading"
+      },
+      {
+        "text": "音符5個セット・20%引き72コインの購入回数を1減らす",
+        "target": "[data-id=\"note72\"] > div:nth-of-type(2) > button:nth-of-type(1)",
+        "kind": "name",
+        "role": "button"
+      },
+      {
+        "text": "音符5個セット・20%引き72コインの購入回数",
+        "target": "[id=\"count-note72\"]",
+        "kind": "name",
+        "role": "spinbutton"
+      },
+      {
+        "text": "0",
+        "target": "[id=\"count-note72\"]",
+        "kind": "value",
+        "role": "spinbutton"
+      },
+      {
+        "text": "音符5個セット・20%引き72コインの購入回数を1増やす",
+        "target": "[data-id=\"note72\"] > div:nth-of-type(2) > button:nth-of-type(2)",
+        "kind": "name",
+        "role": "button"
+      },
+      {
+        "text": "45 コイン",
+        "target": "[data-id=\"note45\"] > div:nth-of-type(1) > h4",
+        "kind": "name",
+        "role": "heading"
+      },
+      {
+        "text": "音符5個セット・半額45コインの購入回数を1減らす",
+        "target": "[data-id=\"note45\"] > div:nth-of-type(2) > button:nth-of-type(1)",
+        "kind": "name",
+        "role": "button"
+      },
+      {
+        "text": "音符5個セット・半額45コインの購入回数",
+        "target": "[id=\"count-note45\"]",
+        "kind": "name",
+        "role": "spinbutton"
+      },
+      {
+        "text": "0",
+        "target": "[id=\"count-note45\"]",
+        "kind": "value",
+        "role": "spinbutton"
+      },
+      {
+        "text": "音符5個セット・半額45コインの購入回数を1増やす",
+        "target": "[data-id=\"note45\"] > div:nth-of-type(2) > button:nth-of-type(2)",
+        "kind": "name",
+        "role": "button"
+      },
+      {
+        "text": "400 コイン",
+        "target": "[data-id=\"note400\"] > div:nth-of-type(1) > h4",
+        "kind": "name",
+        "role": "heading"
+      },
+      {
+        "text": "音符15個セット・通常400コインの購入回数を1減らす",
+        "target": "[data-id=\"note400\"] > div:nth-of-type(2) > button:nth-of-type(1)",
+        "kind": "name",
+        "role": "button"
+      },
+      {
+        "text": "音符15個セット・通常400コインの購入回数",
+        "target": "[id=\"count-note400\"]",
+        "kind": "name",
+        "role": "spinbutton"
+      },
+      {
+        "text": "0",
+        "target": "[id=\"count-note400\"]",
+        "kind": "value",
+        "role": "spinbutton"
+      },
+      {
+        "text": "音符15個セット・通常400コインの購入回数を1増やす",
+        "target": "[data-id=\"note400\"] > div:nth-of-type(2) > button:nth-of-type(2)",
+        "kind": "name",
+        "role": "button"
+      },
+      {
+        "text": "320 コイン",
+        "target": "[data-id=\"note320\"] > div:nth-of-type(1) > h4",
+        "kind": "name",
+        "role": "heading"
+      },
+      {
+        "text": "音符15個セット・20%引き320コインの購入回数を1減らす",
+        "target": "[data-id=\"note320\"] > div:nth-of-type(2) > button:nth-of-type(1)",
+        "kind": "name",
+        "role": "button"
+      },
+      {
+        "text": "音符15個セット・20%引き320コインの購入回数",
+        "target": "[id=\"count-note320\"]",
+        "kind": "name",
+        "role": "spinbutton"
+      },
+      {
+        "text": "0",
+        "target": "[id=\"count-note320\"]",
+        "kind": "value",
+        "role": "spinbutton"
+      },
+      {
+        "text": "音符15個セット・20%引き320コインの購入回数を1増やす",
+        "target": "[data-id=\"note320\"] > div:nth-of-type(2) > button:nth-of-type(2)",
+        "kind": "name",
+        "role": "button"
+      },
+      {
+        "text": "200 コイン",
+        "target": "[data-id=\"note200\"] > div:nth-of-type(1) > h4",
+        "kind": "name",
+        "role": "heading"
+      },
+      {
+        "text": "音符15個セット・半額200コインの購入回数を1減らす",
+        "target": "[data-id=\"note200\"] > div:nth-of-type(2) > button:nth-of-type(1)",
+        "kind": "name",
+        "role": "button"
+      },
+      {
+        "text": "音符15個セット・半額200コインの購入回数",
+        "target": "[id=\"count-note200\"]",
+        "kind": "name",
+        "role": "spinbutton"
+      },
+      {
+        "text": "0",
+        "target": "[id=\"count-note200\"]",
+        "kind": "value",
+        "role": "spinbutton"
+      },
+      {
+        "text": "音符15個セット・半額200コインの購入回数を1増やす",
+        "target": "[data-id=\"note200\"] > div:nth-of-type(2) > button:nth-of-type(2)",
+        "kind": "name",
+        "role": "button"
+      }
+    ]
+  },
+  "copyBody": [
+    "星ノ塔",
+    "カウンター",
+    "回数をリセット",
+    "消費コイン合計",
+    "170",
+    "目標コイン",
+    "500",
+    "目標との差額",
+    "330",
+    "34%",
+    "素質の再抽選",
+    "40",
+    "コイン / 回",
+    "2",
+    "音符購入",
+    "5個",
+    "セット",
+    "90",
+    "コイン",
+    "通常",
+    "1",
+    "72",
+    "コイン",
+    "20%引き",
+    "0",
+    "45",
+    "コイン",
+    "半額",
+    "0",
+    "15個",
+    "セット",
+    "400",
+    "コイン",
+    "通常",
+    "0",
+    "320",
+    "コイン",
+    "20%引き",
+    "0",
+    "200",
+    "コイン",
+    "半額",
+    "0",
+    "研究効果",
+    "Lv3素質",
+    "0",
+    "残り10 / 10回",
+    "＋2強化",
+    "0",
+    "残り5 / 5回",
+    "研究・4 / 難易度8以上"
+  ],
+  "copyQa": [],
+  "copyTooltip": [],
+  "copyAccessible": [
+    "星ノ塔 カウンター",
+    "回数をリセット",
+    "消費コイン合計",
+    "研究効果",
+    "集計と目標",
+    "素質の再抽選",
+    "音符購入",
+    "研究効果",
+    "素質再抽選と音符セット購入の消費コイン合計",
+    "目標コイン",
+    "500",
+    "目標コインから消費コイン合計を引いた差額",
+    "目標の達成率",
+    "34%",
+    "素質の再抽選",
+    "音符購入",
+    "5個セット",
+    "15個セット",
+    "Lv3素質",
+    "＋2強化",
+    "素質の再抽選",
+    "5個セット",
+    "15個セット",
+    "Lv3素質",
+    "Lv3素質の取得回数を1減らす",
+    "Lv3素質の取得回数",
+    "研究・4 / 難易度8以上",
+    "0",
+    "Lv3素質の取得回数を1増やす",
+    "＋2強化",
+    "＋2強化の使用回数を1減らす",
+    "＋2強化の使用回数",
+    "研究・4 / 難易度8以上",
+    "0",
+    "＋2強化の使用回数を1増やす",
+    "40 コイン / 回",
+    "素質の再抽選回数を1減らす",
+    "素質の再抽選回数",
+    "2",
+    "素質の再抽選回数を1増やす",
+    "音符5個セット・通常90コイン",
+    "音符5個セット・20%引き72コイン",
+    "音符5個セット・半額45コイン",
+    "音符15個セット・通常400コイン",
+    "音符15個セット・20%引き320コイン",
+    "音符15個セット・半額200コイン",
+    "90 コイン",
+    "音符5個セット・通常90コインの購入回数を1減らす",
+    "音符5個セット・通常90コインの購入回数",
+    "1",
+    "音符5個セット・通常90コインの購入回数を1増やす",
+    "72 コイン",
+    "音符5個セット・20%引き72コインの購入回数を1減らす",
+    "音符5個セット・20%引き72コインの購入回数",
+    "0",
+    "音符5個セット・20%引き72コインの購入回数を1増やす",
+    "45 コイン",
+    "音符5個セット・半額45コインの購入回数を1減らす",
+    "音符5個セット・半額45コインの購入回数",
+    "0",
+    "音符5個セット・半額45コインの購入回数を1増やす",
+    "400 コイン",
+    "音符15個セット・通常400コインの購入回数を1減らす",
+    "音符15個セット・通常400コインの購入回数",
+    "0",
+    "音符15個セット・通常400コインの購入回数を1増やす",
+    "320 コイン",
+    "音符15個セット・20%引き320コインの購入回数を1減らす",
+    "音符15個セット・20%引き320コインの購入回数",
+    "0",
+    "音符15個セット・20%引き320コインの購入回数を1増やす",
+    "200 コイン",
+    "音符15個セット・半額200コインの購入回数を1減らす",
+    "音符15個セット・半額200コインの購入回数",
+    "0",
+    "音符15個セット・半額200コインの購入回数を1増やす"
+  ],
+  "labels": [
+    "消費コイン合計",
+    "目標コイン",
+    "目標との差額"
+  ],
+  "indicatorContrast": 3.7372862935226467,
+  "progressRatio": 0.33999060150375937,
+  "spendingBox": {
+    "x": 14,
+    "y": 68.578125,
+    "width": 292,
+    "height": 769.15625,
+    "top": 68.578125,
+    "right": 306,
+    "bottom": 837.734375,
+    "left": 14
+  },
+  "membership": true,
+  "summaryHeight": 158.59375,
+  "appHeight": 1048.328125,
+  "unitMinFont": 11,
+  "discountMinFont": 11,
+  "researchMinFont": 11,
+  "researchConditionText": "研究・4 / 難易度8以上",
+  "resetLabel": "回数をリセット",
+  "resetWidth": 116,
+  "resetHeight": 40,
+  "noSpendingSubtotals": true,
+  "coarsePointer": true,
+  "appColor": "rgb(39, 42, 59)",
+  "storageVisible": false,
+  "progressVisible": true,
+  "summaryRows": 3,
+  "summaryBox": {
+    "x": 27,
+    "y": 81.578125,
+    "width": 266,
+    "height": 158.59375,
+    "top": 81.578125,
+    "right": 293,
+    "bottom": 240.171875,
+    "left": 27
+  },
+  "progressConsistent": true,
+  "labelSize": 12,
+  "labelLine": 18,
+  "valueColor": "rgb(113, 97, 201)",
+  "rowHeight": 53,
+  "targetWidth": 134.109375,
+  "targetHeight": 44,
+  "summaryInset": 12,
+  "noOverflow": true,
+  "scrollWidth": 320,
+  "clientWidth": 320,
+  "viewport": 320,
+  "targetLabel": "目標コイン",
+  "total": "170",
+  "remaining": "330",
+  "percent": "34%",
+  "progress": "34",
+  "progressBar": "34%"
+}

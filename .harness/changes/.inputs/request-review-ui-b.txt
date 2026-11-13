@@ -1,0 +1,17 @@
+独立したコード・UIレビューをお願いします。プロジェクト /workspace/StellaSora_Tool、変更ID ui-b-no-percent、現在review工程、ブランチ ai/ui-b-no-percent。AGENTS.mdが独立レビューを明示要求しているための委譲です。製品コードは編集しないでください。
+
+本人の原指示は .harness/changes/.inputs/request-ui-b.txt。最初に「スマホ、pcともにbを採用 / 頻繁に見る項目はstickyで常に表示」、その後「利用者からのフィードバックで、常に表示されていてほしいものはないらしい / 代わりに%表示を消して」と訂正されました。最終要求はB案を両幅に本体実装、固定表示なし、達成率数値なし。価格条件20%引きと進捗バー・状態・計算保存を維持。公開・マージ・PR作成は範囲外です。
+
+まず本人指示と実画面を見て独自に観察を記録し、それから設計と照合してください。画像は成功した不変receipt .harness/changes/ui-b-no-percent/evidence/5ad3a5a87f844375a18c5ba1ec39dab3.json の参照先。320/1280画像、各状態、metricsがあります。採用済みB案は development/ui/mockups/rule-ui/previews/b-mobile.png / b-desktop.png。実装差分は現在の未コミット差分 git diff HEAD。基準HEAD 2b2d15fd37e51af2f5b59edcd50c258b49905ea8。独自の操作検査が有用なら既存Playwright/Chromiumで実行してください。プロジェクト構成を変えず、検査物はこの変更のevidence配下に置いてください。
+
+AGENTSと .harness/protocol.md / execution.md / ui-principles.md / skill-compatibility.md、guide --activity review --activity ui を読み、対応実スキルを使用してください。必須は .agents/skills/ponytail-review/SKILL.md、quality-review/SKILL.md、semantic-ui-design/SKILL.md、ui-implementation-harness/SKILL.md と常用5担当。review.jsonに実レビュアー/あなたのコンテキスト、全要求、intent_review、現fingerprint、10原則とv3/object-firstの全measurement/control/copyの実評価を記録してください。記録だけで独立性・意味理解の証明としないでください。過去レビューの値を盲目的にコピーせず、今の実画面・実測・期待値自体を独自に評価してください。共通基盤や製品、要件、設計、テストの期待値は修正しないでください。
+
+309のassertionと4 visual case、全9入口、保存/再読込、上限超過、幅境界、拡大、通常スクロール、達成率なしを新しい成功receiptで検証済みです。scope追加として、Gitleaksが新UI snapshot内の配色JSONハッシュをgeneric-api-keyと誤検出したため、.gitleaks.tomlで実ファイルと照合済みの2つの完全一致パス＋キー/ハッシュ行をANDで除外しました。scripts/check-secret-rules.pyは許容ケース12、検出必須14（誤値・別パス・実PAT形式等）を確認しています。evidence/secret-diagnosis.json、実SHA、除外範囲も独立に検証してください。
+
+最終的に、指摘とreview.jsonのパスを報告し、review用の実行契約もあなたの実コンテキストでbegin→skill-read/context-read→apply-skillsし、readyなtokenを返してください。advanceやcommit/pushはまだ行わず、結果を親へ返してください。追加承認質問は不要です。要求に影響する具体的な不具合だけを指摘し、不具合があれば修正方法を述べてください。
+
+追加の確認観点です。今回、価格カードで長い回数を読み取れるよう既存のinput.longクラスをCSS :has()で2段配置へ接続し、coarse pointerかつ600px以上の音符操作も2段にしています。登録済み検査では幅境界の5桁入力・320pxのタッチ操作は確認済みですが、600/960/1280pxでのcoarse pointerと研究の最大安全整数の超過表示を独立に見ると有用です。製品と期待値は今後変更せずレビュー結果を待ちます。
+
+レビュー用Skill適用JSONの保存名は、既存の厳密なnonce除外が効く .harness/changes/ui-b-no-percent/skill-review-<実token>.json を使うと既存経路と整合します。独立レビュー後の実行tokenはそのまま返してください。最終advance/saveは親が実レビュー結果を確認してから行います。
+
+追加検査ありがとうございます。600pxの32pxについては、該当selector・innerWidth・matchMedia('(pointer:coarse)').matches・実width/heightと、宣言した受入条件への影響が分かる形で記録してください。実際に40px化の既存ルールが適用される条件で32pxになっているなら、操作成功だけで期待値との不一致を受容せず、具体的な指摘として返してください。ユーザーが寸法を指定したわけではありませんが、設計した範囲と観測は分けて扱います。
