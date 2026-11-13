@@ -1,0 +1,30 @@
+{
+  "repository": "HonekawaHoneo/StellaSora_Tool",
+  "branch": "ai/ui-b-no-percent",
+  "base_branch": "main",
+  "pr_number": 5,
+  "pr_url": "https://github.com/HonekawaHoneo/StellaSora_Tool/pull/5",
+  "expected_head_sha": "215281c8d2b459022cc5728b984b35ec2646b5aa",
+  "base_sha": "01e327315fc573662a1442209fd3a363c0c1235c",
+  "status": "merged",
+  "authorization": {
+    "request": "マージして公開",
+    "source": "current user message",
+    "reference": ".harness/changes/ui-b-no-percent/inputs/shipping-authorization.txt"
+  },
+  "default_policy_preserved": "completion=review; this merge and GitHub Pages publication are explicitly authorized by the current request",
+  "quality_review": ".harness/changes/ui-b-no-percent/review.json",
+  "updated_at": "2026-11-13T06:55:34.814Z",
+  "merge_sha": "d5e8966250df3672e55b02edd0910dd11665daef",
+  "merged_at": "2026-11-13T06:55:44Z",
+  "publication": {
+    "status": "succeeded",
+    "url": "https://honekawahoneo.github.io/StellaSora_Tool/",
+    "workflow_run_id": 43382096071,
+    "workflow_run_url": "https://github.com/HonekawaHoneo/StellaSora_Tool/actions/runs/43382096071",
+    "artifact_id": 14017230846,
+    "assets_match": true,
+    "verification_evidence": "evidence/published-assets.json",
+    "direct_url_check": "Blocked by execution proxy; official deployment and exact artifact bytes verified."
+  }
+}

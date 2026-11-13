@@ -1,0 +1,64 @@
+{
+  "observed_at": "2026-11-13T06:55:34.814Z",
+  "pr_url": "https://github.com/HonekawaHoneo/StellaSora_Tool/pull/5",
+  "head_sha": "215281c8d2b459022cc5728b984b35ec2646b5aa",
+  "base_sha": "01e327315fc573662a1442209fd3a363c0c1235c",
+  "mergeable": true,
+  "mergeable_state": "clean",
+  "checks": [
+    {
+      "name": "Secret scan",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/HonekawaHoneo/StellaSora_Tool/actions/runs/43381784795/job/131740988895"
+    },
+    {
+      "name": "Tests and public assets",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/HonekawaHoneo/StellaSora_Tool/actions/runs/43381784795/job/131740988570"
+    },
+    {
+      "name": "CodeQL (actions)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/HonekawaHoneo/StellaSora_Tool/actions/runs/43381784644/job/131740988363"
+    },
+    {
+      "name": "CodeQL (javascript-typescript)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/HonekawaHoneo/StellaSora_Tool/actions/runs/43381784644/job/131740988022"
+    },
+    {
+      "name": "CodeQL",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/HonekawaHoneo/StellaSora_Tool/runs/131740967955"
+    },
+    {
+      "name": "CodeQL (javascript-typescript)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/HonekawaHoneo/StellaSora_Tool/actions/runs/43255139067/job/131311344757"
+    },
+    {
+      "name": "CodeQL (actions)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/HonekawaHoneo/StellaSora_Tool/actions/runs/43255139067/job/131311343946"
+    },
+    {
+      "name": "Secret scan",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/HonekawaHoneo/StellaSora_Tool/actions/runs/43255139034/job/131311203725"
+    },
+    {
+      "name": "Tests and public assets",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/HonekawaHoneo/StellaSora_Tool/actions/runs/43255139034/job/131311202830"
+    }
+  ]
+}

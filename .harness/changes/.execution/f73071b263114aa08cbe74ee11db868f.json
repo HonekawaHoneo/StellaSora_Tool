@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "token": "f73071b263114aa08cbe74ee11db868f",
+  "context": "codex-ship-20261113",
+  "request_digest": "62e9e1f927cdfbdaa942ff228ea18a7dc53d7507bde6616aeb0154de98d9b23e",
+  "started_at": "2026-11-13T06:49:54.544844+00:00",
+  "binding": {
+    "id": null,
+    "phase": null,
+    "activities": [],
+    "required_skills": {
+      "response": ".agents/skills/evidence-first-response/SKILL.md",
+      "orchestrator": ".agents/skills/poteto-mode/SKILL.md",
+      "general": ".agents/skills/ponytail/SKILL.md",
+      "writing": ".agents/skills/unslop/SKILL.md",
+      "technical_writing": ".agents/skills/technical-writing/SKILL.md",
+      "requirements": ".agents/skills/grill-me/SKILL.md"
+    },
+    "context_paths": [],
+    "config_sha256": "f17ae098e00b410cf242f6b1efe1bcb641f89851f2aef26325a1de6b91df6e55"
+  },
+  "allowed_context_paths": [
+    ".harness/project.json"
+  ],
+  "pins": {
+    ".agents/skills/unslop/SKILL.md": "8a2686d30e2cd8d884055cc0e6018d5c87cd320cb40232d8a80a59eb0786fa00",
+    ".agents/skills/evidence-first-response/SKILL.md": "9eb9f425a2a53547c511d69d5f5ad71ea5de39ff90232a6980cc33cef422efaf",
+    ".agents/skills/poteto-mode/SKILL.md": "3e9dd20e63b21d71572f8313fdfb43ffc1b835612a2463f23a3908db534acf29",
+    ".agents/skills/technical-writing/SKILL.md": "78b0db9c357d2c874a4cc6b551d6489085c2e5b16865ace5afefca3f453cc3bb",
+    ".agents/skills/ponytail/SKILL.md": "83ba94bce0dcbf4e36570fc8eb7ba04b40183d8ee46e2cca478404f943d127da",
+    ".agents/skills/grill-me/SKILL.md": "cfd049dd16df9579d17e480746c19ea158d80405249bce2202e67c8b4fcc8a87"
+  },
+  "reads": {
+    ".agents/skills/evidence-first-response/SKILL.md": "9eb9f425a2a53547c511d69d5f5ad71ea5de39ff90232a6980cc33cef422efaf",
+    ".agents/skills/poteto-mode/SKILL.md": "3e9dd20e63b21d71572f8313fdfb43ffc1b835612a2463f23a3908db534acf29",
+    ".agents/skills/ponytail/SKILL.md": "83ba94bce0dcbf4e36570fc8eb7ba04b40183d8ee46e2cca478404f943d127da",
+    ".agents/skills/unslop/SKILL.md": "8a2686d30e2cd8d884055cc0e6018d5c87cd320cb40232d8a80a59eb0786fa00",
+    ".agents/skills/technical-writing/SKILL.md": "78b0db9c357d2c874a4cc6b551d6489085c2e5b16865ace5afefca3f453cc3bb",
+    ".agents/skills/grill-me/SKILL.md": "cfd049dd16df9579d17e480746c19ea158d80405249bce2202e67c8b4fcc8a87"
+  },
+  "application": {
+    "path": ".harness/changes/ui-b-no-percent/skill-review-f73071b263114aa08cbe74ee11db868f.json",
+    "sha256": "fbc7807e0107f896e6bab5980f64d18c442d80644b66a6b3bde3af96eddb54d9",
+    "evidence": {
+      ".harness/changes/ui-b-no-percent/inputs/shipping-authorization.txt": "62e9e1f927cdfbdaa942ff228ea18a7dc53d7507bde6616aeb0154de98d9b23e",
+      ".harness/changes/ui-b-no-percent/review.json": "b1046ea4c0c4059c0b43ad2807d5a5771c59d42b9f2621d60c9f36cd275dec44"
+    }
+  },
+  "finished": "2026-11-13T07:02:07.859804+00:00"
+}

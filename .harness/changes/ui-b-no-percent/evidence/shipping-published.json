@@ -1,0 +1,50 @@
+{
+  "pr_url": "https://github.com/HonekawaHoneo/StellaSora_Tool/pull/5",
+  "merged": true,
+  "merged_at": "2026-11-13T06:55:44Z",
+  "merge_sha": "d5e8966250df3672e55b02edd0910dd11665daef",
+  "workflow_runs": [
+    {
+      "id": 43382096911,
+      "name": "Validate site",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "d5e8966250df3672e55b02edd0910dd11665daef",
+      "url": "https://github.com/HonekawaHoneo/StellaSora_Tool/actions/runs/43382096911"
+    },
+    {
+      "id": 43382096071,
+      "name": "pages build and deployment",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "d5e8966250df3672e55b02edd0910dd11665daef",
+      "url": "https://github.com/HonekawaHoneo/StellaSora_Tool/actions/runs/43382096071"
+    },
+    {
+      "id": 43382096956,
+      "name": "CodeQL",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "d5e8966250df3672e55b02edd0910dd11665daef",
+      "url": "https://github.com/HonekawaHoneo/StellaSora_Tool/actions/runs/43382096956"
+    }
+  ],
+  "pages_jobs": [
+    {
+      "id": 131741984742,
+      "name": "build",
+      "conclusion": "success"
+    },
+    {
+      "id": 131742035803,
+      "name": "deploy",
+      "conclusion": "success"
+    },
+    {
+      "id": 131742035866,
+      "name": "report-build-status",
+      "conclusion": "success"
+    }
+  ],
+  "verified_at": "2026-11-13T07:02:06.342Z"
+}

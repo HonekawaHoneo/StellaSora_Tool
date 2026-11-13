@@ -1,0 +1,29 @@
+{
+  "source_commit": "d5e8966250df3672e55b02edd0910dd11665daef",
+  "pages_run_id": 43382096071,
+  "pages_artifact_id": 14017230846,
+  "all_published_files_match": true,
+  "files": {
+    "counter.js": {
+      "sha256": "f0361de4b6b0ba6e7db5e1d486a9b6eff9275b05bd81e5ebfcbfcbd987439cae",
+      "matches_merged_public_asset": true
+    },
+    "index.html": {
+      "sha256": "237f8fdba30a367c55c4be88ac8b5f6e359d47f833dd06871c092890bb29a256",
+      "matches_merged_public_asset": true
+    },
+    "app.js": {
+      "sha256": "19f81e86c8441c1fa476b52d937b7a7498477cc60cbfbb450148c8ef35581537",
+      "matches_merged_public_asset": true
+    },
+    ".nojekyll": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "matches_merged_public_asset": true
+    },
+    "styles.css": {
+      "sha256": "f27b0c31612d9e638b6d68db57ddc716fc968809df2bcf0a4a6740e6e14060e3",
+      "matches_merged_public_asset": true
+    }
+  },
+  "direct_url_check": "Execution proxy denied the github.io host (403); verified the deployed artifact and the successful official Pages deployment instead."
+}
